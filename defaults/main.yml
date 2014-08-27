@@ -1,0 +1,99 @@
+---
+# General
+is_master: 'true'
+node_id_file: /etc/graylog2/server/node-id
+password_secret: 2jueVqZpwLLjaWxV
+root_username: admin
+root_password_sha2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+plugin_dir: /usr/share/graylog2-server/plugin
+
+# Rest
+rest_listen_uri: http://127.0.0.1:12900/
+rest_transport_uri: http://127.0.0.1:12900/
+rest_enable_cors: 'true'
+rest_enable_gzip: 'true'
+
+# Search
+allow_leading_wildcard_searches: 'false'
+allow_highlighting: 'false'
+elasticsearch_config_file: /etc/graylog2-elasticsearch.yml
+elasticsearch_max_docs_per_index: 20000000
+elasticsearch_max_number_of_indices: 20
+elasticsearch_retention_strategy: delete
+elasticsearch_shards: 4
+elasticsearch_replicas: 0
+elasticsearch_index_prefix: graylog2
+elasticsearch_cluster_name: graylog2
+elasticsearch_cluster_discovery_timeout: 5000
+elasticsearch_node_name: graylog2-server
+elasticsearch_transport_tcp_port: 9350
+elasticsearch_discovery_zen_ping_multicast_enabled: false
+elasticsearch_discovery_zen_ping_unicast_hosts: 127.0.0.1:9300
+elasticsearch_network_host: ''
+elasticsearch_network_bind_host: ''
+elasticsearch_network_publish_host: ''
+elasticsearch_analyzer: standard
+elasticsearch_output_batch_size: 25
+elasticsearch_output_flush_interval: 1
+
+# Processing
+processbuffer_processors: 5
+outputbuffer_processors: 3
+processor_wait_strategy: blocking
+ring_size: 1024
+dead_letters_enabled: 'false'
+lb_recognition_period_seconds: 3
+stream_processing_timeout: 2000
+stream_processing_max_faults: 3
+
+# MongoDB
+mongodb_useauth: 'false'
+mongodb_user: ''
+mongodb_password: ''
+mongodb_host: 127.0.0.1
+mongodb_replica_set: localhost:27017
+mongodb_database: graylog2
+mongodb_port: 27017
+mongodb_max_connections: 100
+mongodb_threads_allowed_to_block_multiplier: 5
+
+# Drools
+rules_file: /etc/graylog2.drl
+
+# Mail
+transport_email_enabled: 'false'
+transport_email_hostname: ''
+transport_email_port: 587
+transport_email_use_auth: 'true'
+transport_email_use_tls: 'true'
+transport_email_use_ssl: 'true'
+transport_email_auth_username: ''
+transport_email_auth_password: ''
+transport_email_subject_prefix: '[graylog2]'
+transport_email_from_email: ''
+transport_email_web_interface_url: ''
+
+# Proxy
+http_proxy_uri: ''
+
+# Message Cache
+message_cache_off_heap: 'true'
+message_cache_spool_dir: spool
+message_cache_commit_interval: 1000
+
+# Web UI
+web_server_uri: http://127.0.0.1:12900
+web_secret: 2jueVqZpwLLjaWxV
+web_timezone: 'Europe/Berlin'
+web_field_list_limit: 100
+web_context: '/graylog2'
+web_listen_address: '0.0.0.0'
+web_port: 9000
+
+# JVM
+web_java_opts: ''
+web_args: ''
+web_wrapper: ''
+server_java_opts: ''
+server_args: ''
+server_wrapper: ''

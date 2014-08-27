@@ -1,0 +1,15 @@
+galaxy_info:
+  author: Marius Sturm
+  company: TORCH GmbH
+  description: "Install and configure Graylog2 log management."
+  min_ansible_version: 1.6
+  license: Apache 2
+  platforms:
+  - name: Ubuntu
+    versions:
+    - all
+  categories:
+  - monitoring
+  - system
+
+dependencies: []

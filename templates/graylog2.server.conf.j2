@@ -1,0 +1,99 @@
+# Cluster settings
+is_master = {{is_master}}
+node_id_file = {{node_id_file}}
+
+# Access secrets
+password_secret = {{password_secret}}
+root_username = {{root_username}}
+root_password_sha2 = {{root_password_sha2}}
+
+# Plugins
+plugin_dir = {{plugin_dir}}
+
+# REST interface
+rest_listen_uri = {{rest_listen_uri}}
+rest_transport_uri = {{rest_transport_uri}}
+rest_enable_cors = {{rest_enable_cors}}
+rest_enable_gzip = {{rest_enable_gzip}}
+
+# Search options
+allow_leading_wildcard_searches = {{allow_leading_wildcard_searches}}
+allow_highlighting = {{allow_highlighting}}
+
+# Elasticsearch
+elasticsearch_node_master = false
+elasticsearch_node_data = false
+elasticsearch_http_enabled = false
+elasticsearch_config_file = {{elasticsearch_config_file}}
+elasticsearch_max_docs_per_index = {{elasticsearch_max_docs_per_index}}
+elasticsearch_max_number_of_indices = {{elasticsearch_max_number_of_indices}}
+retention_strategy = {{elasticsearch_retention_strategy}}
+elasticsearch_shards = {{elasticsearch_shards}}
+elasticsearch_replicas = {{elasticsearch_replicas}}
+elasticsearch_index_prefix = {{elasticsearch_index_prefix}}
+elasticsearch_cluster_name = {{elasticsearch_cluster_name}}
+elasticsearch_cluster_discovery_timeout = {{elasticsearch_cluster_discovery_timeout}}
+elasticsearch_node_name = {{elasticsearch_node_name}}
+elasticsearch_transport_tcp_port = {{elasticsearch_transport_tcp_port}}
+elasticsearch_discovery_zen_ping_multicast_enabled = {{elasticsearch_discovery_zen_ping_multicast_enabled}}
+elasticsearch_discovery_zen_ping_unicast_hosts = {{elasticsearch_discovery_zen_ping_unicast_hosts}}
+elasticsearch_network_host = {{elasticsearch_network_host}}
+elasticsearch_network_bind_host = {{elasticsearch_network_bind_host}}
+elasticsearch_network_publish_host = {{elasticsearch_network_publish_host}}
+elasticsearch_analyzer = {{elasticsearch_analyzer}}
+output_batch_size = {{elasticsearch_output_batch_size}}
+output_flush_interval = {{elasticsearch_output_flush_interval}}
+
+# Processors
+processbuffer_processors = {{processbuffer_processors}}
+outputbuffer_processors = {{outputbuffer_processors}}
+processor_wait_strategy = {{processor_wait_strategy}}
+
+# Ring buffers
+ring_size = {{ring_size}}
+
+# EXPERIMENTAL: Dead Letters
+dead_letters_enabled = {{dead_letters_enabled}}
+
+# Load balancing
+lb_recognition_period_seconds = {{lb_recognition_period_seconds}}
+
+# Stream processing
+stream_processing_timeout = {{stream_processing_timeout}}
+stream_processing_max_faults = {{stream_processing_max_faults}}
+
+# MongoDB Configuration
+mongodb_useauth = {{mongodb_useauth}}
+mongodb_user = {{mongodb_user}}
+mongodb_password = {{mongodb_password}}
+mongodb_host = {{mongodb_host}}
+mongodb_replica_set = {{mongodb_replica_set}}
+mongodb_database = {{mongodb_database}}
+mongodb_port = {{mongodb_port}}
+mongodb_max_connections = {{mongodb_max_connections}}
+mongodb_threads_allowed_to_block_multiplier = {{mongodb_threads_allowed_to_block_multiplier}}
+
+# Drools Rule File (Use to rewrite incoming log messages)
+# See: http://support.torch.sh/help/kb/graylog2-server/custom-message-rewritingprocessing
+#rules_file = {{rules_file}}
+
+# Email transport
+transport_email_enabled = {{transport_email_enabled}}
+transport_email_hostname = {{transport_email_hostname}}
+transport_email_port = {{transport_email_port}}
+transport_email_use_auth = {{transport_email_use_auth}}
+transport_email_use_tls = {{transport_email_use_tls}}
+transport_email_use_ssl = {{transport_email_use_ssl}}
+transport_email_auth_username = {{transport_email_auth_username}}
+transport_email_auth_password = {{transport_email_auth_password}}
+transport_email_subject_prefix = {{transport_email_subject_prefix}}
+transport_email_from_email = {{transport_email_from_email}}
+transport_email_web_interface_url = {{transport_email_web_interface_url}}
+
+# HTTP proxy for outgoing HTTP calls
+#http_proxy_uri = {{http_proxy_uri}}
+
+# Message cache options
+message_cache_off_heap = {{message_cache_off_heap}}
+message_cache_spool_dir = {{message_cache_spool_dir}}
+message_cache_commit_interval = {{message_cache_commit_interval}}

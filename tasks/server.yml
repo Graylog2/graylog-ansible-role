@@ -1,0 +1,24 @@
+---
+- name: Install Java 1.7
+  apt: name=openjdk-7-jre-headless state=present
+
+- name: Download Graylog2 repository package
+  get_url: url=http://packages.graylog2.org/repo/packages/graylog2-0.20-repository-ubuntu14.04_latest.deb dest=/tmp/graylog2_repository.deb
+
+- name: Install Graylog2 repository
+  apt: deb=/tmp/graylog2_repository.deb state=installed
+
+- name: Install Graylog2 server
+  apt: name=graylog2-server state=present update_cache=yes
+
+- name: Configure Graylog2 server
+  template: src=graylog2.server.conf.j2 dest=/etc/graylog2.conf owner=graylog2 group=graylog2 mode=0644
+  notify: restart graylog2-server
+
+- name: Configure Graylog2 ES
+  template: src=graylog2.server.elasticsearch.yml.j2 dest=/etc/graylog2-elasticsearch.yml owner=graylog2 group=graylog2 mode=0644
+  notify: restart graylog2-server
+
+- name: Configure Graylog2 server defaults
+  template: src=graylog2.server.default.j2 dest=/etc/default/graylog2-server owner=graylog2 group=graylog2 mode=0644
+  notify: restart graylog2-server
