@@ -1,7 +1,7 @@
 ---
 
 - name: Install Graylog2 server
-  apt: name=graylog2-server state=present update_cache=yes
+  apt: name=graylog2-server state=present force=yes
 
 - name: Configure Graylog2 server
   template: src=graylog2.server.conf.j2 dest=/etc/graylog2.conf owner=graylog2 group=graylog2 mode=0644
