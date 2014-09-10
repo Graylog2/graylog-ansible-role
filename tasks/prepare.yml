@@ -10,5 +10,5 @@
   apt: deb=/tmp/graylog2_repository.deb state=installed dpkg_options='force-all'
   register: install_repo
 
-- apt: update_cache=yes
+- apt: update_cache=yes cache_valid_time=604800
   when: install_repo.changed == True

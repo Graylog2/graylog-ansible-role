@@ -1,7 +1,7 @@
 ---
 
 - name: Install Graylog2 web UI
-  apt: name=graylog2-web state=present
+  apt: name=graylog2-web state=present force=yes
 
 - name: Configure Graylog2 web
   template: src=graylog2.web.conf.j2 dest=/etc/graylog2/web/graylog2-web-interface.conf owner=graylog2 group=graylog2 mode=0644
