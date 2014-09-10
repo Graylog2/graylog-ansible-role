@@ -1,6 +1,6 @@
 ---
 # Requirements
-graylog2_packages_url: http://packages.graylog2.org/repo/packages/graylog2-0.20-repository-ubuntu14.04_latest.deb
+graylog2_packages_url: http://packages.graylog2.org/repo/packages/graylog2-0.21-repository-debian7_latest.deb
 
 # General
 is_master: 'true'
