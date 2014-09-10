@@ -1,0 +1,14 @@
+---
+
+- name: Install Java 1.7
+  apt: name=openjdk-7-jre-headless state=present
+
+- name: Download Graylog2 repository package
+  get_url: url={{ graylog2_packages_url }} dest=/tmp/graylog2_repository.deb
+
+- name: Install Graylog2 repository
+  apt: deb=/tmp/graylog2_repository.deb state=installed force=yes # force because it might fail because of unauthenticated source
+  register: install_repo
+
+- apt: update_cache=yes
+  when: install_repo.changed == True
