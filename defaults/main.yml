@@ -81,7 +81,7 @@ http_proxy_uri: ''
 
 # Message Cache
 message_cache_off_heap: 'true'
-message_cache_spool_dir: spool
+message_cache_spool_dir: /var/lib/graylog2-server/message-cache-spool
 message_cache_commit_interval: 1000
 
 # Web UI
