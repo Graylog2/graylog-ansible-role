@@ -41,7 +41,7 @@ Take a look into `defaults/main.yml` to get an overview of all configuration par
 - Apply MongoDB and Elasticsearch roles to the host. Make sure to configure the Elasticsearch cluster name to `graylog2` by settings the attribute `elasticsearch_cluster_name`
 - Create an `inventory.ini` file, minimal content is the IP address of your host, for further informations take a look [here](http://docs.ansible.com/intro_inventory.html)
 - run ansible with `ansible-playbook -s -u ubuntu -i inventory.ini main.yml`
-- Login to Graylog by open `http://<host IP>:9000` in your browser, default username and password is `admin`
+- Login to Graylog by opening `http://<host IP>:9000` in your browser, default username and password is `admin`
 
 License
 -------
