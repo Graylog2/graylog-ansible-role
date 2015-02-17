@@ -1,7 +1,7 @@
 Description
 -----------
 
-Ansible role which installs and configures Graylog2 log management.
+Ansible role which installs and configures Graylog log management.
 
 
 Dependencies
@@ -9,7 +9,8 @@ Dependencies
 
 - Ansible 1.6 or higher.
 - [Elasticsearch](https://github.com/Traackr/ansible-elasticsearch.git)
-- [MongoDB](https://github.com/mortik/ansible-mongodb-role)
+  - Set `elasticsearch_cluster_name: "graylog2"`
+- [MongoDB](https://github.com/lesmyrmidons/ansible-role-mongodb)
 
 
 Variables
@@ -39,7 +40,6 @@ Take a look into `defaults/main.yml` to get an overview of all configuration par
 License
 -------
 
-Author: Marius Sturm (<marius@torch.sh>) and [contributors](http://github.com/graylog2/torch-graylog2-playbook/graphs/contributors)
+Author: Marius Sturm (<marius@graylog.com>) and [contributors](https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors)
 
-License: Apache
-
+License: Apache 2.0

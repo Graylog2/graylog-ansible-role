@@ -192,13 +192,6 @@ processor_wait_strategy = {{processor_wait_strategy}}
 
 #output_module_timeout = 10000
 
-# Ring buffers
-## Size of internal ring buffers. Raise this if raising outputbuffer_processors does not help anymore.
-## For optimum performance your LogMessage objects in the ring buffer should fit in your CPU L3 cache.
-## Start server with --statistics flag to see buffer utilization.
-## Must be a power of 2. (512, 1024, 2048, ...)
-ring_size = {{ring_size}}
-
 # EXPERIMENTAL: Dead Letters
 ## Every failed indexing attempt is logged by default and made visible in the web-interface. You can enable
 ## the experimental dead letters feature to write every message that was not successfully indexed into the
@@ -276,16 +269,20 @@ transport_email_web_interface_url = {{transport_email_web_interface_url}}
 # HTTP proxy for outgoing HTTP calls
 #http_proxy_uri = {{http_proxy_uri}}
 
-# Message cache options
-## Switch to enable/disable the off-heap message cache. Stores cached messages in the spool directory if set to true.
-## Stores the messages in an in-memory data structure if set to false.
-message_cache_off_heap = {{message_cache_off_heap}}
-
-## Directory for the off-heap message cache data. (absolute or relative)
-message_cache_spool_dir = {{message_cache_spool_dir}}
-
-## The commit interval for the message cache in milliseconds. Only affects message cache implementations that need to commit data.
-message_cache_commit_interval = {{message_cache_commit_interval}}
+# Enable the disk based message journal.
+message_journal_enabled = true
+# The directory which will be used to store the message journal. The directory must me exclusively used by Graylog and
+# must not contain any other files than the ones created by Graylog itself.
+message_journal_dir = {{message_journal_dir}}
+# Journal hold messages before they could be written to Elasticsearch.
+# For a maximum of 12 hours or 5 GB whichever happens first.
+# During normal operation the journal will be smaller.
+message_journal_max_age = {{message_journal_max_age}}
+message_journal_max_size = {{message_journal_max_size}}
+#message_journal_flush_age = 1m
+#message_journal_flush_interval = 1000000
+#message_journal_segment_age = 1h
+#message_journal_segment_size = 100mb
 
 ## When more messages are coming in as we can process, incoming messages will be cached in memory until
 ## they are ready to be processed. Per default this data structure is unbounded, so in situations of
@@ -315,3 +312,22 @@ message_cache_commit_interval = {{message_cache_commit_interval}}
 
 ## Enable collection of Graylog2-related metrics into MongoDB
 #enable_metrics_collection = false
+
+# Enable publishing Telemetry data
+telemetry_enabled = {{telemetry_enabled}}
+# Base URL of the Telemetry service
+#telemetry_url = https://telemetry-in.graylog.com/submit/
+# Authentication token for the Telemetry service
+#telemetry_token =
+# How often the Telemetry data should be reported
+#telemetry_report_interval = 1m
+# Number of Telemetry data sets to store locally if the connection to the Telemetry service fails
+#telemetry_max_queue_size = 10
+# TTL for Telemetry data in local cache
+#telemetry_cache_timeout = 1m
+# Connect timeout for HTTP connections
+#telemetry_service_connect_timeout = 1s
+# Write timeout for HTTP connections
+#telemetry_service_write_timeout = 5s
+# Read timeout for HTTP connections
+#telemetry_service_read_timeout = 5s

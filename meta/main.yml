@@ -1,7 +1,7 @@
 galaxy_info:
   author: Marius Sturm
   company: TORCH GmbH
-  description: "Install and configure Graylog2 log management."
+  description: "Install and configure Graylog log management."
   min_ansible_version: 1.6
   license: Apache 2
   platforms:
