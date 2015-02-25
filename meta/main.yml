@@ -8,6 +8,9 @@ galaxy_info:
   - name: Ubuntu
     versions:
     - all
+  - name: Debian
+    versions:
+    - all
   categories:
   - monitoring
   - system
