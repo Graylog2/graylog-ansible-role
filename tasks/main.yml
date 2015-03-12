@@ -1,10 +1,6 @@
 ---
-
 - include: prepare.yml
-  when: ansible_os_family == "Debian"
 
 - include: server.yml
-  when: ansible_os_family == "Debian"
 
 - include: web.yml
-  when: ansible_os_family == "Debian"

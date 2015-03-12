@@ -11,7 +11,7 @@ Dependencies
 - [MongoDB](https://github.com/lesmyrmidons/ansible-role-mongodb)
 - [Elasticsearch](https://github.com/Traackr/ansible-elasticsearch.git)
   - Set `elasticsearch_cluster_name: "graylog2"`
-
+- Tested on Ubuntu 14.04 and Debian 7
 
 Variables
 --------

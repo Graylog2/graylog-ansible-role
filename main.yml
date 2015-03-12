@@ -6,6 +6,7 @@
 
   vars_files:
     - defaults/main.yml
+    - defaults/{{ ansible_distribution }}.yml
 
   tasks:
     - include: tasks/main.yml

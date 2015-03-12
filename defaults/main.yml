@@ -1,7 +1,5 @@
 ---
 # Requirements
-graylog_packages_url: https://packages.graylog2.org/repo/packages/graylog-1.0-repository-ubuntu14.04_latest.deb
-
 java_ppa: 'ppa:webupd8team/java'
 java_repo: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
 java_src_repo: 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
