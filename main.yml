@@ -5,8 +5,8 @@
   sudo: yes
 
   roles:
-    - { role: mongodb-role }
-    - { role: elasticsearch-role }
+    - { role: lesmyrmidons.mongodb }
+    - { role: f500.elasticsearch }
 
   vars_files:
     - defaults/main.yml

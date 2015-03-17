@@ -35,7 +35,7 @@ web_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters
 
 # Single host example
-- Download dependencies `ansible-galaxy install -r requirements.yml`
+- Install role and dependencies `ansible-galaxy install graylog2.graylog`
 - Edit `inventory.ini` file, put your server IP and username in
 - run ansible with `ansible-playbook -i inventory.ini main.yml`
 - Login to Graylog by opening `http://<host IP>:9000` in your browser, default username and password is `admin`
