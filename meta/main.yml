@@ -5,7 +5,7 @@ dependencies:
 
 galaxy_info:
   author: Marius Sturm
-  company: TORCH GmbH
+  company: Graylog, Inc.
   description: "Install and configure Graylog log management."
   min_ansible_version: 1.6
   license: Apache 2
