@@ -1,7 +1,6 @@
 ---
 
 - hosts: all
-  user: ubuntu
   sudo: yes
 
   roles:
