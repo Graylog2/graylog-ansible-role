@@ -1,3 +1,8 @@
+---
+dependencies:
+  - { role: lesmyrmidons.mongodb }
+  - { role: f500.elasticsearch }
+
 galaxy_info:
   author: Marius Sturm
   company: TORCH GmbH
@@ -14,5 +19,3 @@ galaxy_info:
   categories:
   - monitoring
   - system
-
-dependencies: []

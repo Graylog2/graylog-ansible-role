@@ -1,8 +1,8 @@
-cluster.name: {{elasticsearch_cluster_name}}
-node.name: "{{elasticsearch_node_name}}"
+cluster.name: {{graylog_elasticsearch_cluster_name}}
+node.name: {{graylog_elasticsearch_node_name}}
 node.master: false
 node.data: false
-transport.tcp.port: {{elasticsearch_transport_tcp_port}}
+transport.tcp.port: {{graylog_elasticsearch_transport_tcp_port}}
 http.enabled: false
-discovery.zen.ping.multicast.enabled: {{elasticsearch_discovery_zen_ping_multicast_enabled}}
-discovery.zen.ping.unicast.hosts: {{elasticsearch_discovery_zen_ping_unicast_hosts}}
+discovery.zen.ping.multicast.enabled: {{graylog_elasticsearch_discovery_zen_ping_multicast_enabled}}
+discovery.zen.ping.unicast.hosts: {{graylog_elasticsearch_discovery_zen_ping_unicast_hosts}}

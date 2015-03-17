@@ -4,6 +4,10 @@
   user: ubuntu
   sudo: yes
 
+  roles:
+    - { role: mongodb-role }
+    - { role: elasticsearch-role }
+
   vars_files:
     - defaults/main.yml
     - defaults/{{ ansible_distribution }}.yml

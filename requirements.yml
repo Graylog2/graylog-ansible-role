@@ -1,0 +1,7 @@
+---
+
+- src: https://github.com/lesmyrmidons/ansible-role-mongodb
+  name: mongodb-role
+
+- src: https://github.com/f500/ansible-elasticsearch.git
+  name: elasticsearch-role

@@ -74,7 +74,7 @@ elasticsearch_http_enabled = false
 
 ## Embedded Elasticsearch configuration file
 ## pay attention to the working directory of the server, maybe use an absolute path here
-elasticsearch_config_file = {{elasticsearch_config_file}}
+elasticsearch_config_file = {{graylog_elasticsearch_config_file}}
 
 ## Graylog2 will use multiple indices to store documents in. You can configured the strategy it uses to determine
 ## when to rotate the currently active write index.
@@ -87,7 +87,7 @@ rotation_strategy = count
 ## (Approximate) maximum number of documents in an Elasticsearch index before a new index
 ## is being created, also see no_retention and elasticsearch_max_number_of_indices.
 ## Configure this if you used 'rotation_strategy = count' above.
-elasticsearch_max_docs_per_index = {{elasticsearch_max_docs_per_index}}
+elasticsearch_max_docs_per_index = {{graylog_elasticsearch_max_docs_per_index}}
 
 ## (Approximate) maximum size in bytes per Elasticsearch index on disk before a new index is being created, also see
 ## no_retention and elasticsearch_max_number_of_indices. Default is 1GB.
@@ -110,46 +110,46 @@ elasticsearch_max_docs_per_index = {{elasticsearch_max_docs_per_index}}
 
 ## How many indices do you want to keep?
 ## elasticsearch_max_number_of_indices*elasticsearch_max_docs_per_index=total number of messages in your setup
-elasticsearch_max_number_of_indices = {{elasticsearch_max_number_of_indices}}
+elasticsearch_max_number_of_indices = {{graylog_elasticsearch_max_number_of_indices}}
 
 ## Decide what happens with the oldest indices when the maximum number of indices is reached.
 ## The following strategies are availble:
 ##  - delete ## Deletes the index completely (Default)
 ##  - close ## Closes the index and hides it from the system. Can be re-opened later.
-retention_strategy = {{elasticsearch_retention_strategy}}
+retention_strategy = {{graylog_elasticsearch_retention_strategy}}
 
 ## How many Elasticsearch shards and replicas should be used per index? Note that this only applies to newly created indices.
-elasticsearch_shards = {{elasticsearch_shards}}
-elasticsearch_replicas = {{elasticsearch_replicas}}
+elasticsearch_shards = {{graylog_elasticsearch_shards}}
+elasticsearch_replicas = {{graylog_elasticsearch_replicas}}
 
 ## Prefix for all Elasticsearch indices and index aliases managed by Graylog2.
-elasticsearch_index_prefix = {{elasticsearch_index_prefix}}
+elasticsearch_index_prefix = {{graylog_elasticsearch_index_prefix}}
 
 ## settings to be passed to elasticsearch's client (overriding those in the provided elasticsearch_config_file)
 ## all these
 ## this must be the same as for your Elasticsearch cluster
-elasticsearch_cluster_name = {{elasticsearch_cluster_name}}
+elasticsearch_cluster_name = {{graylog_elasticsearch_cluster_name}}
 
 ## Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
 ## The setting is specified in milliseconds, the default is 5000ms (5 seconds).
-elasticsearch_cluster_discovery_timeout = {{elasticsearch_cluster_discovery_timeout}}
+elasticsearch_cluster_discovery_timeout = {{graylog_elasticsearch_cluster_discovery_timeout}}
 
 ## you could also leave this out, but makes it easier to identify the graylog2 client instance
-elasticsearch_node_name = {{elasticsearch_node_name}}
+elasticsearch_node_name = {{graylog_elasticsearch_node_name}}
 
 ## use a different port if you run multiple Elasticsearch nodes on one machine
-elasticsearch_transport_tcp_port = {{elasticsearch_transport_tcp_port}}
-elasticsearch_discovery_zen_ping_multicast_enabled = {{elasticsearch_discovery_zen_ping_multicast_enabled}}
-elasticsearch_discovery_zen_ping_unicast_hosts = {{elasticsearch_discovery_zen_ping_unicast_hosts}}
+elasticsearch_transport_tcp_port = {{graylog_elasticsearch_transport_tcp_port}}
+elasticsearch_discovery_zen_ping_multicast_enabled = {{graylog_elasticsearch_discovery_zen_ping_multicast_enabled}}
+elasticsearch_discovery_zen_ping_unicast_hosts = {{graylog_elasticsearch_discovery_zen_ping_unicast_hosts}}
 
 ## the following settings allow to change the bind addresses for the Elasticsearch client in graylog2
 ## these settings are empty by default, letting Elasticsearch choose automatically,
 ## override them here or in the 'elasticsearch_config_file' if you need to bind to a special address
 ## refer to http://www.elasticsearch.org/guide/en/elasticsearch/reference/0.90/modules-network.html
 ## for special values here
-elasticsearch_network_host = {{elasticsearch_network_host}}
-elasticsearch_network_bind_host = {{elasticsearch_network_bind_host}}
-elasticsearch_network_publish_host = {{elasticsearch_network_publish_host}}
+elasticsearch_network_host = {{graylog_elasticsearch_network_host}}
+elasticsearch_network_bind_host = {{graylog_elasticsearch_network_bind_host}}
+elasticsearch_network_publish_host = {{graylog_elasticsearch_network_publish_host}}
 
 ## The total amount of time discovery will look for other Elasticsearch nodes in the cluster
 ## before giving up and declaring the current node master.
@@ -159,19 +159,19 @@ elasticsearch_network_publish_host = {{elasticsearch_network_publish_host}}
 ## All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
 ## Elasticsearch documentation: http://www.elasticsearch.org/guide/reference/index-modules/analysis/
 ## Note that this setting only takes effect on newly created indices.
-elasticsearch_analyzer = {{elasticsearch_analyzer}}
+elasticsearch_analyzer = {{graylog_elasticsearch_analyzer}}
 
 ## Batch size for the Elasticsearch output. This is the maximum (!) number of messages the Elasticsearch output
 ## module will get at once and write to Elasticsearch in a batch call. If the configured batch size has not been
 ## reached within output_flush_interval seconds, everything that is available will be flushed at once. Remember
 ## that every outputbuffer processor manages its own batch and performs its own batch write calls.
 ## ("outputbuffer_processors" variable)
-output_batch_size = {{elasticsearch_output_batch_size}}
+output_batch_size = {{graylog_elasticsearch_output_batch_size}}
 
 ## Flush interval (in seconds) for the Elasticsearch output. This is the maximum amount of time between two
 ## batches of messages written to Elasticsearch. It is only effective at all if your minimum number of messages
 ## for this time period is less than output_batch_size * outputbuffer_processors.
-output_flush_interval = {{elasticsearch_output_flush_interval}}
+output_flush_interval = {{graylog_elasticsearch_output_flush_interval}}
 
 # Processors
 ## The number of parallel running processors.
