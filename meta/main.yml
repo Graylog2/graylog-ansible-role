@@ -2,6 +2,7 @@
 dependencies:
   - { role: lesmyrmidons.mongodb }
   - { role: f500.elasticsearch }
+  - { role: jdauphant.nginx }
 
 galaxy_info:
   author: Marius Sturm
