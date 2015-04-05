@@ -35,9 +35,33 @@ web_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters
 
 # Single host example
+- Set up `roles_path = ./roles` in `ansible.cfg` (`[defaults]` block)
 - Install role and dependencies `ansible-galaxy install graylog2.graylog`
-- Edit `inventory.ini` file, put your server IP and username in
-- run ansible with `ansible-playbook -i inventory.ini main.yml`
+- Set up playbook (see example below):
+
+ ```yaml
+ # main.yml
+ ---
+ - hosts: web
+   sudo: yes
+   vars:
+    elasticsearch_cluster_name: 'graylog2'
+    elasticsearch_timezone: 'UTC'
+    elasticsearch_version: '1.4'
+    elasticsearch_discovery_zen_ping_multicast_enabled: 'false'
+    elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
+    elasticsearch_network_host: ''
+    elasticsearch_network_bind_host: ''
+    elasticsearch_network_publish_host: ''
+    elasticsearch_index_number_of_shards: '4'
+    elasticsearch_index_number_of_replicas: '0'
+    elasticsearch_gateway_recover_after_nodes: '1'
+    elasticsearch_gateway_expected_nodes: '1'
+
+   roles:
+     - { role: 'graylog2.graylog', tags: 'graylog' }
+ ```
+- Run the playbook with `ansible-playbook -i inventory_file main.yml`
 - Login to Graylog by opening `http://<host IP>:9000` in your browser, default username and password is `admin`
 
 License
