@@ -39,12 +39,12 @@ Take a look into `defaults/main.yml` to get an overview of all configuration par
 - Install role and dependencies `ansible-galaxy install graylog2.graylog`
 - Set up playbook (see example below):
 
- ```yaml
- # main.yml
- ---
- - hosts: web
-   sudo: yes
-   vars:
+```yaml
+# main.yml
+---
+- hosts: web
+  sudo: yes
+  vars:
     elasticsearch_cluster_name: 'graylog2'
     elasticsearch_timezone: 'UTC'
     elasticsearch_version: '1.4'
@@ -58,9 +58,9 @@ Take a look into `defaults/main.yml` to get an overview of all configuration par
     elasticsearch_gateway_recover_after_nodes: '1'
     elasticsearch_gateway_expected_nodes: '1'
 
-   roles:
-     - { role: 'graylog2.graylog', tags: 'graylog' }
- ```
+  roles:
+    - { role: 'graylog2.graylog', tags: 'graylog' }
+```
 - Run the playbook with `ansible-playbook -i inventory_file main.yml`
 - Login to Graylog by opening `http://<host IP>:9000` in your browser, default username and password is `admin`
 
