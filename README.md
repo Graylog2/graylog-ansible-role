@@ -58,11 +58,28 @@ Take a look into `defaults/main.yml` to get an overview of all configuration par
     elasticsearch_gateway_recover_after_nodes: '1'
     elasticsearch_gateway_expected_nodes: '1'
 
+    nginx_sites:
+      graylog:
+        - listen 80
+        - server_name graylog
+        - location / {
+          proxy_pass http://localhost:9000/;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_pass_request_headers on;
+          proxy_connect_timeout 150;
+          proxy_send_timeout 100;
+          proxy_read_timeout 100;
+          proxy_buffers 4 32k;
+          client_max_body_size 8m;
+          client_body_buffer_size 128k; }
+
   roles:
     - { role: 'graylog2.graylog', tags: 'graylog' }
 ```
 - Run the playbook with `ansible-playbook -i inventory_file main.yml`
-- Login to Graylog by opening `http://<host IP>:9000` in your browser, default username and password is `admin`
+- Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
 
 License
 -------
