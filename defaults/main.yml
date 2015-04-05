@@ -1,31 +1,31 @@
 ---
 # Requirements
-java_ppa: 'ppa:webupd8team/java'
-java_repo: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
-java_src_repo: 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
+graylog_java_ppa: 'ppa:webupd8team/java'
+graylog_java_repo: 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
+graylog_java_src_repo: 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
 
-java_repo_keyserver: 'keyserver.ubuntu.com'
-java_repo_key: 'EEA14886'
+graylog_java_repo_keyserver: 'keyserver.ubuntu.com'
+graylog_java_repo_key: 'EEA14886'
 
 # General
-is_master: 'true'
-node_id_file: /etc/graylog/server/node-id
-password_secret: 2jueVqZpwLLjaWxV
-root_username: admin
-root_password_sha2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
-plugin_dir: /usr/share/graylog-server/plugin
-root_email: ""
-root_timezone: UTC
+graylog_is_master: 'true'
+graylog_node_id_file: /etc/graylog/server/node-id
+graylog_password_secret: 2jueVqZpwLLjaWxV
+graylog_root_username: admin
+graylog_root_password_sha2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+graylog_plugin_dir: /usr/share/graylog-server/plugin
+graylog_root_email: ""
+graylog_root_timezone: UTC
 
 # Rest
-rest_listen_uri: http://127.0.0.1:12900/
-rest_transport_uri: http://127.0.0.1:12900/
-rest_enable_cors: 'true'
-rest_enable_gzip: 'true'
+graylog_rest_listen_uri: http://127.0.0.1:12900/
+graylog_rest_transport_uri: http://127.0.0.1:12900/
+graylog_rest_enable_cors: 'true'
+graylog_rest_enable_gzip: 'true'
 
 # Search
-allow_leading_wildcard_searches: 'false'
-allow_highlighting: 'false'
+graylog_allow_leading_wildcard_searches: 'false'
+graylog_allow_highlighting: 'false'
 graylog_elasticsearch_config_file: /etc/graylog/server/elasticsearch.yml
 graylog_elasticsearch_max_docs_per_index: 20000000
 graylog_elasticsearch_max_number_of_indices: 20
