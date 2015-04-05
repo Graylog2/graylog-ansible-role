@@ -46,18 +46,6 @@ graylog_elasticsearch_analyzer: standard
 graylog_elasticsearch_output_batch_size: 25
 graylog_elasticsearch_output_flush_interval: 1
 
-elasticsearch_cluster_name: graylog2
-elasticsearch_timezone: UTC
-elasticsearch_version: 1.4
-elasticsearch_discovery_zen_ping_multicast_enabled: false
-elasticsearch_discovery_zen_ping_unicast_hosts: 127.0.0.1:9300
-elasticsearch_network_host: ''
-elasticsearch_network_bind_host: ''
-elasticsearch_network_publish_host: ''
-elasticsearch_index_number_of_shards: 4
-elasticsearch_index_number_of_replicas: 0
-elasticsearch_gateway_recover_after_nodes: 1
-elasticsearch_gateway_expected_nodes: 1
 
 # Processing
 processbuffer_processors: 5
@@ -110,12 +98,12 @@ web_listen_address: '0.0.0.0'
 web_port: 9000
 
 # JVM
-web_java_opts: '-Djava.net.preferIPv4Stack=true'
-web_args: ''
-web_wrapper: ''
 server_java_opts: '-Djava.net.preferIPv4Stack=true -Xms1g -Xmx1g -XX:NewRatio=1 -XX:PermSize=128m -XX:MaxPermSize=256m -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
-server_args: ''
-server_wrapper: ''
+graylog_web_java_opts: '-Djava.net.preferIPv4Stack=true'
+graylog_web_args: ''
+graylog_web_wrapper: ''
+graylog_server_args: ''
+graylog_server_wrapper: ''
 
 # Telemetry
-telemetry_enabled: 'false'
+graylog_telemetry_enabled: 'false'
