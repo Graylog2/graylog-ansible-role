@@ -1,6 +1,4 @@
 ---
-- include_vars: "{{ ansible_distribution }}.yml"
-
 - name: Include distro-based vars
   include_vars: ../defaults/{{ ansible_distribution }}.yml
 
