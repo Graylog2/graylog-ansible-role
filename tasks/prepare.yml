@@ -1,21 +1,24 @@
 ---
 
+- name: Include distro-based vars
+  include_vars: ../defaults/{{ ansible_distribution }}.yml
+
 - name: Install python-software-properties
   apt: name=python-software-properties state=present
 
 - name: Update repositories
-  apt_repository: repo={{ java_ppa }} state=present update_cache=yes
+  apt_repository: repo={{ graylog_java_ppa }} state=present update_cache=yes
   when: ansible_distribution == "Ubuntu"
 
 - name: Update repositories
   apt_repository: repo="{{ item }}" state=present update_cache=yes
   with_items:
-    - "{{ java_repo }}"
-    - "{{ java_src_repo }}"
+    - "{{ graylog_java_repo }}"
+    - "{{ graylog_java_src_repo }}"
   when: ansible_distribution == "Debian"
 
 - name: Accept apt key for java repo
-  apt_key: keyserver={{ java_repo_keyserver }} id={{ java_repo_key }}
+  apt_key: keyserver={{ graylog_java_repo_keyserver }} id={{ graylog_java_repo_key }}
   when: ansible_distribution == "Debian"
 
 - name: Accept Oracle license prior JDK installation

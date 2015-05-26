@@ -35,10 +35,51 @@ web_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters
 
 # Single host example
+- Set up `roles_path = ./roles` in `ansible.cfg` (`[defaults]` block)
 - Install role and dependencies `ansible-galaxy install graylog2.graylog`
-- Edit `inventory.ini` file, put your server IP and username in
-- run ansible with `ansible-playbook -i inventory.ini main.yml`
-- Login to Graylog by opening `http://<host IP>:9000` in your browser, default username and password is `admin`
+- Set up playbook (see example below):
+
+```yaml
+# main.yml
+---
+- hosts: web
+  sudo: yes
+  vars:
+    elasticsearch_cluster_name: 'graylog2'
+    elasticsearch_timezone: 'UTC'
+    elasticsearch_version: '1.4'
+    elasticsearch_discovery_zen_ping_multicast_enabled: 'false'
+    elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
+    elasticsearch_network_host: ''
+    elasticsearch_network_bind_host: ''
+    elasticsearch_network_publish_host: ''
+    elasticsearch_index_number_of_shards: '4'
+    elasticsearch_index_number_of_replicas: '0'
+    elasticsearch_gateway_recover_after_nodes: '1'
+    elasticsearch_gateway_expected_nodes: '1'
+
+    nginx_sites:
+      graylog:
+        - listen 80
+        - server_name graylog
+        - location / {
+          proxy_pass http://localhost:9000/;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_pass_request_headers on;
+          proxy_connect_timeout 150;
+          proxy_send_timeout 100;
+          proxy_read_timeout 100;
+          proxy_buffers 4 32k;
+          client_max_body_size 8m;
+          client_body_buffer_size 128k; }
+
+  roles:
+    - { role: 'graylog2.graylog', tags: 'graylog' }
+```
+- Run the playbook with `ansible-playbook -i inventory_file main.yml`
+- Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
 
 License
 -------

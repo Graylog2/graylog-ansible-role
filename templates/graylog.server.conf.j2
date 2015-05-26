@@ -1,19 +1,19 @@
 # Cluster settings
 ## If you are running more than one instances of graylog2-server you have to select one of these
 ## instances as master. The master will perform some periodical tasks that non-masters won't perform.
-is_master = {{is_master}}
+is_master = {{ graylog_is_master }}
 
 ## The auto-generated node ID will be stored in this file and read after restarts. It is a good idea
 ## to use an absolute file path here if you are starting graylog2-server from init scripts or similar.
-node_id_file = {{node_id_file}}
+node_id_file = {{ graylog_node_id_file }}
 
 # Access secrets
 ## You MUST set a secret to secure/pepper the stored user passwords here. Use at least 64 characters.
 ## Generate one by using for example: pwgen -N 1 -s 96
-password_secret = {{password_secret}}
+password_secret = {{ graylog_password_secret }}
 
 ## the default root user is named 'admin'
-root_username = {{root_username}}
+root_username = {{ graylog_root_username }}
 
 ## You MUST specify a hash password for the root user (which you only need to initially set up the
 ## system and in case you lose connectivity to your authentication backend)
@@ -21,48 +21,48 @@ root_username = {{root_username}}
 ## modify it in this file.
 ## Create one by using for example: echo -n yourpassword | shasum -a 256
 ## and put the resulting hash value into the following line
-root_password_sha2 = {{root_password_sha2}}
+root_password_sha2 = {{ graylog_root_password_sha2 }}
 
 # The email address of the root user.
 # Default is empty
-root_email = {{root_email}}
+root_email = {{ graylog_root_email }}
 
 # The time zone setting of the root user.
 # Default is UTC
-root_timezone = {{root_timezone}}
+root_timezone = {{ graylog_root_timezone }}
 
 # Plugins
 ## Set plugin directory here (relative or absolute)
-plugin_dir = {{plugin_dir}}
+plugin_dir = {{ graylog_plugin_dir }}
 
 # REST interface
 ## REST API listen URI. Must be reachable by other graylog2-server nodes if you run a cluster.
-rest_listen_uri = {{rest_listen_uri}}
+rest_listen_uri = {{ graylog_rest_listen_uri }}
 
 
-## REST API transport address. Defaults to the value of rest_listen_uri. Exception: If rest_listen_uri
+## REST API transport address. Defaults to the value of graylog_rest_listen_uri. Exception: If graylog_rest_listen_uri
 ## is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
 ## This will be promoted in the cluster discovery APIs and other nodes may try to connect on this
-## address. (see rest_listen_uri)
-rest_transport_uri = {{rest_transport_uri}}
+## address. (see graylog_rest_listen_uri)
+rest_transport_uri = {{ graylog_rest_transport_uri }}
 
 ## Enable CORS headers for REST api. This is necessary for JS-clients accessing the server directly.
 ## If these are disabled, modern browsers will not be able to retrieve resources from the server.
 ## This is disabled by default. Uncomment the next line to enable it.
-rest_enable_cors = {{rest_enable_cors}}
+rest_enable_cors = {{ graylog_rest_enable_cors }}
 
 ## Enable GZIP support for REST api. This compresses API responses and therefore helps to reduce
 ## overall round trip times. This is disabled by default. Uncomment the next line to enable it.
-rest_enable_gzip = {{rest_enable_gzip}}
+rest_enable_gzip = {{ graylog_rest_enable_gzip }}
 
 # Search options
 ## Do you want to allow searches with leading wildcards? This can be extremely resource hungry and should only
 ## be enabled with care. See also: http://graylog2.org/resources/documentation/general/queries
-allow_leading_wildcard_searches = {{allow_leading_wildcard_searches}}
+allow_leading_wildcard_searches = {{ graylog_allow_leading_wildcard_searches }}
 
 ## Do you want to allow searches to be highlighted? Depending on the size of your messages this can be memory hungry and
 ## should only be enabled after making sure your Elasticsearch cluster has enough memory.
-allow_highlighting = {{allow_highlighting}}
+allow_highlighting = {{ graylog_allow_highlighting }}
 
 # Elasticsearch
 ## we don't want the graylog2 server to store any data, or be master node
@@ -74,7 +74,7 @@ elasticsearch_http_enabled = false
 
 ## Embedded Elasticsearch configuration file
 ## pay attention to the working directory of the server, maybe use an absolute path here
-elasticsearch_config_file = {{graylog_elasticsearch_config_file}}
+elasticsearch_config_file = {{ graylog_elasticsearch_config_file }}
 
 ## Graylog2 will use multiple indices to store documents in. You can configured the strategy it uses to determine
 ## when to rotate the currently active write index.
@@ -87,7 +87,7 @@ rotation_strategy = count
 ## (Approximate) maximum number of documents in an Elasticsearch index before a new index
 ## is being created, also see no_retention and elasticsearch_max_number_of_indices.
 ## Configure this if you used 'rotation_strategy = count' above.
-elasticsearch_max_docs_per_index = {{graylog_elasticsearch_max_docs_per_index}}
+elasticsearch_max_docs_per_index = {{ graylog_elasticsearch_max_docs_per_index }}
 
 ## (Approximate) maximum size in bytes per Elasticsearch index on disk before a new index is being created, also see
 ## no_retention and elasticsearch_max_number_of_indices. Default is 1GB.
@@ -110,46 +110,46 @@ elasticsearch_max_docs_per_index = {{graylog_elasticsearch_max_docs_per_index}}
 
 ## How many indices do you want to keep?
 ## elasticsearch_max_number_of_indices*elasticsearch_max_docs_per_index=total number of messages in your setup
-elasticsearch_max_number_of_indices = {{graylog_elasticsearch_max_number_of_indices}}
+elasticsearch_max_number_of_indices = {{ graylog_elasticsearch_max_number_of_indices }}
 
 ## Decide what happens with the oldest indices when the maximum number of indices is reached.
 ## The following strategies are availble:
 ##  - delete ## Deletes the index completely (Default)
 ##  - close ## Closes the index and hides it from the system. Can be re-opened later.
-retention_strategy = {{graylog_elasticsearch_retention_strategy}}
+retention_strategy = {{ graylog_elasticsearch_retention_strategy }}
 
 ## How many Elasticsearch shards and replicas should be used per index? Note that this only applies to newly created indices.
-elasticsearch_shards = {{graylog_elasticsearch_shards}}
-elasticsearch_replicas = {{graylog_elasticsearch_replicas}}
+elasticsearch_shards = {{ graylog_elasticsearch_shards }}
+elasticsearch_replicas = {{ graylog_elasticsearch_replicas }}
 
 ## Prefix for all Elasticsearch indices and index aliases managed by Graylog2.
-elasticsearch_index_prefix = {{graylog_elasticsearch_index_prefix}}
+elasticsearch_index_prefix = {{ graylog_elasticsearch_index_prefix }}
 
 ## settings to be passed to elasticsearch's client (overriding those in the provided elasticsearch_config_file)
 ## all these
 ## this must be the same as for your Elasticsearch cluster
-elasticsearch_cluster_name = {{graylog_elasticsearch_cluster_name}}
+elasticsearch_cluster_name = {{ graylog_elasticsearch_cluster_name }}
 
 ## Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
 ## The setting is specified in milliseconds, the default is 5000ms (5 seconds).
-elasticsearch_cluster_discovery_timeout = {{graylog_elasticsearch_cluster_discovery_timeout}}
+elasticsearch_cluster_discovery_timeout = {{ graylog_elasticsearch_cluster_discovery_timeout }}
 
 ## you could also leave this out, but makes it easier to identify the graylog2 client instance
-elasticsearch_node_name = {{graylog_elasticsearch_node_name}}
+elasticsearch_node_name = {{ graylog_elasticsearch_node_name }}
 
 ## use a different port if you run multiple Elasticsearch nodes on one machine
-elasticsearch_transport_tcp_port = {{graylog_elasticsearch_transport_tcp_port}}
-elasticsearch_discovery_zen_ping_multicast_enabled = {{graylog_elasticsearch_discovery_zen_ping_multicast_enabled}}
-elasticsearch_discovery_zen_ping_unicast_hosts = {{graylog_elasticsearch_discovery_zen_ping_unicast_hosts}}
+elasticsearch_transport_tcp_port = {{ graylog_elasticsearch_transport_tcp_port }}
+elasticsearch_discovery_zen_ping_multicast_enabled = {{ graylog_elasticsearch_discovery_zen_ping_multicast_enabled }}
+elasticsearch_discovery_zen_ping_unicast_hosts = {{ graylog_elasticsearch_discovery_zen_ping_unicast_hosts }}
 
 ## the following settings allow to change the bind addresses for the Elasticsearch client in graylog2
 ## these settings are empty by default, letting Elasticsearch choose automatically,
 ## override them here or in the 'elasticsearch_config_file' if you need to bind to a special address
 ## refer to http://www.elasticsearch.org/guide/en/elasticsearch/reference/0.90/modules-network.html
 ## for special values here
-elasticsearch_network_host = {{graylog_elasticsearch_network_host}}
-elasticsearch_network_bind_host = {{graylog_elasticsearch_network_bind_host}}
-elasticsearch_network_publish_host = {{graylog_elasticsearch_network_publish_host}}
+elasticsearch_network_host = {{ graylog_elasticsearch_network_host }}
+elasticsearch_network_bind_host = {{ graylog_elasticsearch_network_bind_host }}
+elasticsearch_network_publish_host = {{ graylog_elasticsearch_network_publish_host }}
 
 ## The total amount of time discovery will look for other Elasticsearch nodes in the cluster
 ## before giving up and declaring the current node master.
@@ -159,25 +159,25 @@ elasticsearch_network_publish_host = {{graylog_elasticsearch_network_publish_hos
 ## All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
 ## Elasticsearch documentation: http://www.elasticsearch.org/guide/reference/index-modules/analysis/
 ## Note that this setting only takes effect on newly created indices.
-elasticsearch_analyzer = {{graylog_elasticsearch_analyzer}}
+elasticsearch_analyzer = {{ graylog_elasticsearch_analyzer }}
 
 ## Batch size for the Elasticsearch output. This is the maximum (!) number of messages the Elasticsearch output
 ## module will get at once and write to Elasticsearch in a batch call. If the configured batch size has not been
 ## reached within output_flush_interval seconds, everything that is available will be flushed at once. Remember
 ## that every outputbuffer processor manages its own batch and performs its own batch write calls.
-## ("outputbuffer_processors" variable)
-output_batch_size = {{graylog_elasticsearch_output_batch_size}}
+## ("graylog_outputbuffer_processors" variable)
+output_batch_size = {{ graylog_elasticsearch_output_batch_size }}
 
 ## Flush interval (in seconds) for the Elasticsearch output. This is the maximum amount of time between two
 ## batches of messages written to Elasticsearch. It is only effective at all if your minimum number of messages
-## for this time period is less than output_batch_size * outputbuffer_processors.
-output_flush_interval = {{graylog_elasticsearch_output_flush_interval}}
+## for this time period is less than output_batch_size * graylog_outputbuffer_processors.
+output_flush_interval = {{ graylog_elasticsearch_output_flush_interval }}
 
 # Processors
 ## The number of parallel running processors.
 ## Raise this number if your buffers are filling up.
-processbuffer_processors = {{processbuffer_processors}}
-outputbuffer_processors = {{outputbuffer_processors}}
+processbuffer_processors = {{ graylog_processbuffer_processors }}
+outputbuffer_processors = {{ graylog_outputbuffer_processors }}
 
 ## UDP receive buffer size for all message inputs (e. g. SyslogUDPInput).
 #udp_recvbuffer_sizes = 1048576
@@ -192,7 +192,7 @@ outputbuffer_processors = {{outputbuffer_processors}}
 ##    High throughput, low latency, higher CPU usage.
 ## - busy_spinning
 ##    Avoids syscalls which could introduce latency jitter. Best when threads can be bound to specific CPU cores.
-processor_wait_strategy = {{processor_wait_strategy}}
+processor_wait_strategy = {{ graylog_processor_wait_strategy }}
 
 #outputbuffer_processor_keep_alive_time = 5000
 #outputbuffer_processor_threads_core_pool_size = 3
@@ -206,12 +206,12 @@ processor_wait_strategy = {{processor_wait_strategy}}
 ## MongoDB "dead_letters" collection to make sure that you never lose a message. The actual writing of dead
 ## letter should work fine already but it is not heavily tested yet and will get more features in future
 ## releases.
-dead_letters_enabled = {{dead_letters_enabled}}
+dead_letters_enabled = {{ graylog_dead_letters_enabled }}
 
 # Load balancing
 ## How many seconds to wait between marking node as DEAD for possible load balancers and starting the actual
 ## shutdown process. Set to 0 if you have no status checking load balancers in front.
-lb_recognition_period_seconds = {{lb_recognition_period_seconds}}
+lb_recognition_period_seconds = {{ graylog_lb_recognition_period_seconds }}
 
 # Stream processing
 ## Every message is matched against the configured streams and it can happen that a stream contains rules which
@@ -221,8 +221,8 @@ lb_recognition_period_seconds = {{lb_recognition_period_seconds}}
 ## The default values are noted below, the timeout is in milliseconds.
 ## If the stream matching for one stream took longer than the timeout value, and this happened more than "max_faults" times
 ## that stream is disabled and a notification is shown in the web interface.
-stream_processing_timeout = {{stream_processing_timeout}}
-stream_processing_max_faults = {{stream_processing_max_faults}}
+stream_processing_timeout = {{ graylog_stream_processing_timeout }}
+stream_processing_max_faults = {{ graylog_stream_processing_max_faults }}
 
 ## Since 0.21 the graylog2 server supports pluggable output modules. This means a single message can be written to multiple
 ## outputs. The next setting defines the timeout for a single output module, including the default output module where all
@@ -238,55 +238,55 @@ stream_processing_max_faults = {{stream_processing_max_faults}}
 #shutdown_timeout = 30000
 
 # MongoDB Configuration
-mongodb_useauth = {{mongodb_useauth}}
-mongodb_user = {{mongodb_user}}
-mongodb_password = {{mongodb_password}}
-mongodb_host = {{mongodb_host}}
-mongodb_replica_set = {{mongodb_replica_set}}
-mongodb_database = {{mongodb_database}}
-mongodb_port = {{mongodb_port}}
+mongodb_useauth = {{ graylog_mongodb_useauth }}
+mongodb_user = {{ graylog_mongodb_user }}
+mongodb_password = {{ graylog_mongodb_password }}
+mongodb_host = {{ graylog_mongodb_host }}
+mongodb_replica_set = {{ graylog_mongodb_replica_set }}
+mongodb_database = {{ graylog_mongodb_database }}
+mongodb_port = {{ graylog_mongodb_port }}
 
 ## Raise this according to the maximum connections your MongoDB server can handle if you encounter MongoDB connection problems.
-mongodb_max_connections = {{mongodb_max_connections}}
+mongodb_max_connections = {{ graylog_mongodb_max_connections }}
 
 ## Number of threads allowed to be blocked by MongoDB connections multiplier. Default: 5
-## If mongodb_max_connections is 100, and mongodb_threads_allowed_to_block_multiplier is 5, then 500 threads can block. More than that and an exception will be thrown.
+## If graylog_mongodb_max_connections is 100, and graylog_mongodb_threads_allowed_to_block_multiplier is 5, then 500 threads can block. More than that and an exception will be thrown.
 ## http://api.mongodb.org/java/current/com/mongodb/MongoOptions.html#threadsAllowedToBlockForConnectionMultiplier
-mongodb_threads_allowed_to_block_multiplier = {{mongodb_threads_allowed_to_block_multiplier}}
+mongodb_threads_allowed_to_block_multiplier = {{ graylog_mongodb_threads_allowed_to_block_multiplier }}
 
 # Drools Rule File (Use to rewrite incoming log messages)
 # See: http://support.torch.sh/help/kb/graylog2-server/custom-message-rewritingprocessing
-#rules_file = {{rules_file}}
+#graylog_rules_file = {{ graylog_rules_file }}
 
 # Email transport
-transport_email_enabled = {{transport_email_enabled}}
-transport_email_hostname = {{transport_email_hostname}}
-transport_email_port = {{transport_email_port}}
-transport_email_use_auth = {{transport_email_use_auth}}
-transport_email_use_tls = {{transport_email_use_tls}}
-transport_email_use_ssl = {{transport_email_use_ssl}}
-transport_email_auth_username = {{transport_email_auth_username}}
-transport_email_auth_password = {{transport_email_auth_password}}
-transport_email_subject_prefix = {{transport_email_subject_prefix}}
-transport_email_from_email = {{transport_email_from_email}}
+transport_email_enabled = {{ graylog_transport_email_enabled }}
+transport_email_hostname = {{ graylog_transport_email_hostname }}
+transport_email_port = {{ graylog_transport_email_port }}
+transport_email_use_auth = {{ graylog_transport_email_use_auth }}
+transport_email_use_tls = {{ graylog_transport_email_use_tls }}
+transport_email_use_ssl = {{ graylog_transport_email_use_ssl }}
+transport_email_auth_username = {{ graylog_transport_email_auth_username }}
+transport_email_auth_password = {{ graylog_transport_email_auth_password }}
+transport_email_subject_prefix = {{ graylog_transport_email_subject_prefix }}
+transport_email_from_email = {{ graylog_transport_email_from_email }}
 
 ## Specify and uncomment this if you want to include links to the stream in your stream alert mails.
 ## This should define the fully qualified base url to your web interface exactly the same way as it is accessed by your users.
-transport_email_web_interface_url = {{transport_email_web_interface_url}}
+transport_email_web_interface_url = {{ graylog_transport_email_web_interface_url }}
 
 # HTTP proxy for outgoing HTTP calls
-#http_proxy_uri = {{http_proxy_uri}}
+#graylog_http_proxy_uri = {{ graylog_http_proxy_uri }}
 
 # Enable the disk based message journal.
 message_journal_enabled = true
 # The directory which will be used to store the message journal. The directory must me exclusively used by Graylog and
 # must not contain any other files than the ones created by Graylog itself.
-message_journal_dir = {{message_journal_dir}}
+message_journal_dir = {{ graylog_message_journal_dir }}
 # Journal hold messages before they could be written to Elasticsearch.
 # For a maximum of 12 hours or 5 GB whichever happens first.
 # During normal operation the journal will be smaller.
-message_journal_max_age = {{message_journal_max_age}}
-message_journal_max_size = {{message_journal_max_size}}
+message_journal_max_age = {{ graylog_message_journal_max_age }}
+message_journal_max_size = {{ graylog_message_journal_max_size }}
 #message_journal_flush_age = 1m
 #message_journal_flush_interval = 1000000
 #message_journal_segment_age = 1h
@@ -322,20 +322,20 @@ message_journal_max_size = {{message_journal_max_size}}
 #enable_metrics_collection = false
 
 # Enable publishing Telemetry data
-telemetry_enabled = {{telemetry_enabled}}
+telemetry_enabled = {{ graylog_telemetry_enabled }}
 # Base URL of the Telemetry service
-#telemetry_url = https://telemetry-in.graylog.com/submit/
+#graylog_telemetry_url = https://telemetry-in.graylog.com/submit/
 # Authentication token for the Telemetry service
-#telemetry_token =
+#graylog_telemetry_token =
 # How often the Telemetry data should be reported
-#telemetry_report_interval = 1m
+#graylog_telemetry_report_interval = 1m
 # Number of Telemetry data sets to store locally if the connection to the Telemetry service fails
-#telemetry_max_queue_size = 10
+#graylog_telemetry_max_queue_size = 10
 # TTL for Telemetry data in local cache
-#telemetry_cache_timeout = 1m
+#graylog_telemetry_cache_timeout = 1m
 # Connect timeout for HTTP connections
-#telemetry_service_connect_timeout = 1s
+#graylog_telemetry_service_connect_timeout = 1s
 # Write timeout for HTTP connections
-#telemetry_service_write_timeout = 5s
+#graylog_telemetry_service_write_timeout = 5s
 # Read timeout for HTTP connections
-#telemetry_service_read_timeout = 5s
+#graylog_telemetry_service_read_timeout = 5s
