@@ -52,9 +52,11 @@ web_server_uri: http://127.0.0.1:12900
 web_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
 ```
 
-Take a look into `defaults/main.yml` to get an overview of all configuration parameters
+Take a look into `vars/main.yml` to get an overview of all configuration parameters
 
-# Single host example
+Single host example
+-------------------
+
 - Set up `roles_path = ./roles` in `ansible.cfg` (`[defaults]` block)
 - Install role and dependencies `ansible-galaxy install graylog2.graylog`
 - Set up playbook (see example below):
