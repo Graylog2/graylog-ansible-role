@@ -10,7 +10,27 @@ Dependencies
 - Ansible 1.6 or higher.
 - [MongoDB](https://github.com/lesmyrmidons/ansible-role-mongodb)
 - [Elasticsearch](https://github.com/f500/ansible-elasticsearch)
+- [Nginx](https://github.com/jdauphant/ansible-role-nginx)
 - Tested on Ubuntu 14.04 and Debian 7
+
+Quickstart
+----------
+
+- Copy your ssh key to the target host and make sure you can login passwordless
+- Create a `playbook.yml` containing the following
+
+```yaml
+---
+- hosts: all
+  remote_user: vagrant
+  sudo: yes
+
+  roles:
+      - graylog2.graylog
+```
+
+- Fetch this role with dependencies `ansible-galaxy install -p . graylog2.graylog`
+- Run the playbook with `ansible-playbook playbook.yml -i "127.0.0.1,"`
 
 Variables
 --------
