@@ -17,7 +17,7 @@ Quickstart
 ----------
 
 - Copy your ssh key to the target host and make sure you can login passwordless
-- Create a `playbook.yml` containing the following
+- Create a `playbook.yml` file, containing the following
 
 ```yaml
 ---
@@ -25,12 +25,17 @@ Quickstart
   remote_user: vagrant
   sudo: yes
 
+  vars:
+    elasticsearch_cluster_name: 'graylog2'
+    elasticsearch_gateway_expected_nodes: 1
+
   roles:
       - graylog2.graylog
 ```
 
 - Fetch this role with dependencies `ansible-galaxy install -p . graylog2.graylog`
 - Run the playbook with `ansible-playbook playbook.yml -i "127.0.0.1,"`
+- Login to Graylog by opening `http://localhost:9000` in your browser, default username and password is `admin`
 
 Variables
 --------
@@ -52,10 +57,10 @@ web_server_uri: http://127.0.0.1:12900
 web_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
 ```
 
-Take a look into `vars/main.yml` to get an overview of all configuration parameters
+Take a look into `defaults/main.yml` to get an overview of all configuration parameters
 
-Single host example
--------------------
+More detailed example
+---------------------
 
 - Set up `roles_path = ./roles` in `ansible.cfg` (`[defaults]` block)
 - Install role and dependencies `ansible-galaxy install graylog2.graylog`
@@ -69,8 +74,7 @@ Single host example
   vars:
     elasticsearch_cluster_name: 'graylog2'
     elasticsearch_timezone: 'UTC'
-    elasticsearch_version: '1.4'
-    elasticsearch_discovery_zen_ping_multicast_enabled: 'false'
+    elasticsearch_version: '1.5'
     elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
     elasticsearch_network_host: ''
     elasticsearch_network_bind_host: ''
