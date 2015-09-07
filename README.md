@@ -16,7 +16,7 @@ Dependencies
 Quickstart
 ----------
 
-- Copy your ssh key to the target host and make sure you can login passwordless
+- Copy your ssh key to the target host and make sure you can login passwordless (You need about 4GB ram to run Graylog at least)
 - Create a `playbook.yml` file, containing the following
 
 ```yaml
