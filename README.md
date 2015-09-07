@@ -26,6 +26,7 @@ Quickstart
   sudo: yes
 
   vars:
+    elasticsearch_version: '1.7'
     elasticsearch_cluster_name: 'graylog2'
     elasticsearch_gateway_expected_nodes: 1
 
@@ -74,7 +75,7 @@ More detailed example
   vars:
     elasticsearch_cluster_name: 'graylog2'
     elasticsearch_timezone: 'UTC'
-    elasticsearch_version: '1.5'
+    elasticsearch_version: '1.7'
     elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
     elasticsearch_network_host: ''
     elasticsearch_network_bind_host: ''
