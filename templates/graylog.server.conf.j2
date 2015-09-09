@@ -55,22 +55,34 @@ rest_enable_cors = {{ graylog_rest_enable_cors }}
 ## overall round trip times. This is disabled by default. Uncomment the next line to enable it.
 rest_enable_gzip = {{ graylog_rest_enable_gzip }}
 
-# Search options
-## Do you want to allow searches with leading wildcards? This can be extremely resource hungry and should only
-## be enabled with care. See also: http://graylog2.org/resources/documentation/general/queries
-allow_leading_wildcard_searches = {{ graylog_allow_leading_wildcard_searches }}
+# Enable HTTPS support for the REST API. This secures the communication with the REST API with
+# TLS to prevent request forgery and eavesdropping. This is disabled by default. Uncomment the
+# next line to enable it.
+rest_enable_tls = {{ graylog_rest_enable_gzip }}
 
-## Do you want to allow searches to be highlighted? Depending on the size of your messages this can be memory hungry and
-## should only be enabled after making sure your Elasticsearch cluster has enough memory.
-allow_highlighting = {{ graylog_allow_highlighting }}
+# The X.509 certificate file to use for securing the REST API.
+rest_tls_cert_file = {{ graylog_rest_tls_cert_file }}
 
-# Elasticsearch
-## we don't want the graylog2 server to store any data, or be master node
-elasticsearch_node_master = false
-elasticsearch_node_data = false
+# The private key to use for securing the REST API.
+rest_tls_key_file = {{ graylog_rest_tls_key_file }}
 
-## we don't need to run the embedded HTTP server here
-elasticsearch_http_enabled = false
+# The password to unlock the private key used for securing the REST API.
+rest_tls_key_password = {{ graylog_rest_tls_key_password }}
+
+# The maximum size of a single HTTP chunk in bytes.
+rest_max_chunk_size = {{ graylog_rest_max_chunk_size }}
+
+# The maximum size of the HTTP request headers in bytes.
+rest_max_header_size = {{ graylog_rest_max_header_size }}
+
+# The maximal length of the initial HTTP/1.1 line in bytes.
+rest_max_initial_line_length = {{ graylog_rest_max_initial_line_length }}
+
+# The size of the execution handler thread pool used exclusively for serving the REST API.
+rest_thread_pool_size = {{ graylog_rest_thread_pool_size }}
+
+# The size of the worker thread pool used exclusively for serving the REST API.
+rest_worker_threads_max_pool_size = {{ graylog_rest_worker_threads_max_pool_size }}
 
 ## Embedded Elasticsearch configuration file
 ## pay attention to the working directory of the server, maybe use an absolute path here
@@ -82,7 +94,7 @@ elasticsearch_config_file = {{ graylog_elasticsearch_config_file }}
 ##  - "count" of messages per index, use elasticsearch_max_docs_per_index below to configure
 ##  - "size" per index, use elasticsearch_max_size_per_index below to configure
 ## valid values are "count", "size" and "time", default is "count"
-rotation_strategy = count
+rotation_strategy = {{ graylog_rotation_strategy }}
 
 ## (Approximate) maximum number of documents in an Elasticsearch index before a new index
 ## is being created, also see no_retention and elasticsearch_max_number_of_indices.
@@ -92,7 +104,7 @@ elasticsearch_max_docs_per_index = {{ graylog_elasticsearch_max_docs_per_index }
 ## (Approximate) maximum size in bytes per Elasticsearch index on disk before a new index is being created, also see
 ## no_retention and elasticsearch_max_number_of_indices. Default is 1GB.
 ## Configure this if you used 'rotation_strategy = size' above.
-## elasticsearch_max_size_per_index = 1073741824
+elasticsearch_max_size_per_index = {{ graylog_elasticsearch_max_size_per_index }}
 
 ## (Approximate) maximum time before a new Elasticsearch index is being created, also see
 ## no_retention and elasticsearch_max_number_of_indices. Default is 1 day.
@@ -103,10 +115,14 @@ elasticsearch_max_docs_per_index = {{ graylog_elasticsearch_max_docs_per_index }
 ## 1d == 1 day
 ## 12h == 12 hours
 ## Permitted suffixes are: d for day, h for hour, m for minute, s for second.
-## elasticsearch_max_time_per_index = 1d
+elasticsearch_max_time_per_index = {{ graylog_elasticsearch_max_time_per_index }}
+
+# Disable checking the version of Elasticsearch for being compatible with this Graylog release.
+# WARNING: Using Graylog with unsupported and untested versions of Elasticsearch may lead to data loss!
+elasticsearch_disable_version_check = {{ graylog_elasticsearch_disable_version_check }}
 
 ## Disable message retention on this node, i. e. disable Elasticsearch index rotation.
-#no_retention = false
+no_retention = {{ graylog_no_retention }}
 
 ## How many indices do you want to keep?
 ## elasticsearch_max_number_of_indices*elasticsearch_max_docs_per_index=total number of messages in your setup
@@ -125,22 +141,40 @@ elasticsearch_replicas = {{ graylog_elasticsearch_replicas }}
 ## Prefix for all Elasticsearch indices and index aliases managed by Graylog2.
 elasticsearch_index_prefix = {{ graylog_elasticsearch_index_prefix }}
 
+# Search options
+## Do you want to allow searches with leading wildcards? This can be extremely resource hungry and should only
+## be enabled with care. See also: http://graylog2.org/resources/documentation/general/queries
+allow_leading_wildcard_searches = {{ graylog_allow_leading_wildcard_searches }}
+
+## Do you want to allow searches to be highlighted? Depending on the size of your messages this can be memory hungry and
+## should only be enabled after making sure your Elasticsearch cluster has enough memory.
+allow_highlighting = {{ graylog_allow_highlighting }}
+
 ## settings to be passed to elasticsearch's client (overriding those in the provided elasticsearch_config_file)
 ## all these
 ## this must be the same as for your Elasticsearch cluster
 elasticsearch_cluster_name = {{ graylog_elasticsearch_cluster_name }}
 
-## Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
-## The setting is specified in milliseconds, the default is 5000ms (5 seconds).
-elasticsearch_cluster_discovery_timeout = {{ graylog_elasticsearch_cluster_discovery_timeout }}
-
 ## you could also leave this out, but makes it easier to identify the graylog2 client instance
 elasticsearch_node_name = {{ graylog_elasticsearch_node_name }}
 
+# Elasticsearch
+## we don't want the graylog2 server to store any data, or be master node
+elasticsearch_node_master = false
+elasticsearch_node_data = false
+
 ## use a different port if you run multiple Elasticsearch nodes on one machine
 elasticsearch_transport_tcp_port = {{ graylog_elasticsearch_transport_tcp_port }}
+
+## we don't need to run the embedded HTTP server here
+elasticsearch_http_enabled = {{ graylog_elasticsearch_http_enabled }}
+
 elasticsearch_discovery_zen_ping_multicast_enabled = {{ graylog_elasticsearch_discovery_zen_ping_multicast_enabled }}
 elasticsearch_discovery_zen_ping_unicast_hosts = {{ graylog_elasticsearch_discovery_zen_ping_unicast_hosts }}
+
+## Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
+## The setting is specified in milliseconds, the default is 5000ms (5 seconds).
+elasticsearch_cluster_discovery_timeout = {{ graylog_elasticsearch_cluster_discovery_timeout }}
 
 ## the following settings allow to change the bind addresses for the Elasticsearch client in graylog2
 ## these settings are empty by default, letting Elasticsearch choose automatically,
@@ -153,13 +187,18 @@ elasticsearch_network_publish_host = {{ graylog_elasticsearch_network_publish_ho
 
 ## The total amount of time discovery will look for other Elasticsearch nodes in the cluster
 ## before giving up and declaring the current node master.
-#elasticsearch_discovery_initial_state_timeout = 3s
+elasticsearch_discovery_initial_state_timeout = {{ graylog_elasticsearch_discovery_initial_state_timeout }}
 
 ## Analyzer (tokenizer) to use for message and full_message field. The "standard" filter usually is a good idea.
 ## All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
 ## Elasticsearch documentation: http://www.elasticsearch.org/guide/reference/index-modules/analysis/
 ## Note that this setting only takes effect on newly created indices.
 elasticsearch_analyzer = {{ graylog_elasticsearch_analyzer }}
+
+# Global request timeout for Elasticsearch requests (e. g. during search, index creation, or index time-range
+# calculations) based on a best-effort to restrict the runtime of Elasticsearch operations.
+# Default: 1m
+elasticsearch_request_timeout = {{ graylog_elasticsearch_request_timeout }}
 
 ## Batch size for the Elasticsearch output. This is the maximum (!) number of messages the Elasticsearch output
 ## module will get at once and write to Elasticsearch in a batch call. If the configured batch size has not been
@@ -173,14 +212,24 @@ output_batch_size = {{ graylog_elasticsearch_output_batch_size }}
 ## for this time period is less than output_batch_size * graylog_outputbuffer_processors.
 output_flush_interval = {{ graylog_elasticsearch_output_flush_interval }}
 
+# As stream outputs are loaded only on demand, an output which is failing to initialize will be tried over and
+# over again. To prevent this, the following configuration options define after how many faults an output will
+# not be tried again for an also configurable amount of seconds.
+output_fault_count_threshold = {{ graylog_output_fault_count_threshold }}
+output_fault_penalty_seconds = {{ graylog_output_fault_penalty_seconds }}
+
 # Processors
 ## The number of parallel running processors.
 ## Raise this number if your buffers are filling up.
 processbuffer_processors = {{ graylog_processbuffer_processors }}
 outputbuffer_processors = {{ graylog_outputbuffer_processors }}
 
+outputbuffer_processor_keep_alive_time = {{ graylog_outputbuffer_processor_keep_alive_time }}
+outputbuffer_processor_threads_core_pool_size = {{ graylog_outputbuffer_processor_threads_core_pool_size }}
+outputbuffer_processor_threads_max_pool_size = {{ graylog_outputbuffer_processor_threads_max_pool_size }}
+
 ## UDP receive buffer size for all message inputs (e. g. SyslogUDPInput).
-#udp_recvbuffer_sizes = 1048576
+udp_recvbuffer_sizes = {{ graylog_udp_recvbuffer_sizes }}
 
 ## Wait strategy describing how buffer processors wait on a cursor sequence. (default: sleeping)
 ## Possible types:
@@ -194,11 +243,35 @@ outputbuffer_processors = {{ graylog_outputbuffer_processors }}
 ##    Avoids syscalls which could introduce latency jitter. Best when threads can be bound to specific CPU cores.
 processor_wait_strategy = {{ graylog_processor_wait_strategy }}
 
-#outputbuffer_processor_keep_alive_time = 5000
-#outputbuffer_processor_threads_core_pool_size = 3
-#outputbuffer_processor_threads_max_pool_size = 30
+# Size of internal ring buffers. Raise this if raising outputbuffer_processors does not help anymore.
+# For optimum performance your LogMessage objects in the ring buffer should fit in your CPU L3 cache.
+# Start server with --statistics flag to see buffer utilization.
+# Must be a power of 2. (512, 1024, 2048, ...)
+ring_size = {{ graylog_ring_size }
 
-#output_module_timeout = 10000
+inputbuffer_ring_size = {{ graylog_inputbuffer_ring_size }}
+inputbuffer_processors = {{ graylog_inputbuffer_processors }}
+inputbuffer_wait_strategy = {{ graylog_inputbuffer_wait_strategy }}
+
+# Enable the disk based message journal.
+message_journal_enabled = {{ graylog_message_journal_enabled }}
+
+# The directory which will be used to store the message journal. The directory must me exclusively used by Graylog and
+# must not contain any other files than the ones created by Graylog itself.
+message_journal_dir = {{ graylog_message_journal_dir }}
+
+# Journal hold messages before they could be written to Elasticsearch.
+# For a maximum of 12 hours or 5 GB whichever happens first.
+# During normal operation the journal will be smaller.
+message_journal_max_age = {{ graylog_message_journal_max_age }}
+message_journal_max_size = {{ graylog_message_journal_max_size }}
+message_journal_flush_age = {{ graylog_message_journal_flush_age }}
+message_journal_flush_interval = {{ graylog_message_journal_flush_interval }}
+message_journal_segment_age = {{ graylog_message_journal_segment_age }}
+message_journal_segment_size = {{ graylog_message_journal_segment_size }}
+
+# Number of threads used exclusively for dispatching internal events. Default is 2.
+async_eventbus_processors = {{ graylog_async_eventbus_processors }}
 
 # EXPERIMENTAL: Dead Letters
 ## Every failed indexing attempt is logged by default and made visible in the web-interface. You can enable
@@ -224,27 +297,26 @@ lb_recognition_period_seconds = {{ graylog_lb_recognition_period_seconds }}
 stream_processing_timeout = {{ graylog_stream_processing_timeout }}
 stream_processing_max_faults = {{ graylog_stream_processing_max_faults }}
 
+# Length of the interval in seconds in which the alert conditions for all streams should be checked
+# and alarms are being sent.
+alert_check_interval = {{ graylog_alert_check_interval }}
+
 ## Since 0.21 the graylog2 server supports pluggable output modules. This means a single message can be written to multiple
 ## outputs. The next setting defines the timeout for a single output module, including the default output module where all
 ## messages end up. This setting is specified in milliseconds.
 
 ## Time in milliseconds to wait for all message outputs to finish writing a single message.
-#output_module_timeout = 10000
+output_module_timeout = {{ graylog_output_module_timeout }}
 
 ## Time in milliseconds after which a detected stale master node is being rechecked on startup.
-#stale_master_timeout = 2000
+stale_master_timeout = {{ graylog_stale_master_timeout }}
 
 ## Time in milliseconds which Graylog2 is waiting for all threads to stop on shutdown.
-#shutdown_timeout = 30000
+shutdown_timeout = {{ graylog_shutdown_timeout }}
 
-# MongoDB Configuration
-mongodb_useauth = {{ graylog_mongodb_useauth }}
-mongodb_user = {{ graylog_mongodb_user }}
-mongodb_password = {{ graylog_mongodb_password }}
-mongodb_host = {{ graylog_mongodb_host }}
-mongodb_replica_set = {{ graylog_mongodb_replica_set }}
-mongodb_database = {{ graylog_mongodb_database }}
-mongodb_port = {{ graylog_mongodb_port }}
+# MongoDB connection string
+# See http://docs.mongodb.org/manual/reference/connection-string/ for details
+mongodb_uri = {{ graylog_mongodb_uri }}
 
 ## Raise this according to the maximum connections your MongoDB server can handle if you encounter MongoDB connection problems.
 mongodb_max_connections = {{ graylog_mongodb_max_connections }}
@@ -256,7 +328,7 @@ mongodb_threads_allowed_to_block_multiplier = {{ graylog_mongodb_threads_allowed
 
 # Drools Rule File (Use to rewrite incoming log messages)
 # See: http://support.torch.sh/help/kb/graylog2-server/custom-message-rewritingprocessing
-#graylog_rules_file = {{ graylog_rules_file }}
+rules_file = {{ graylog_rules_file }}
 
 # Email transport
 transport_email_enabled = {{ graylog_transport_email_enabled }}
@@ -274,68 +346,59 @@ transport_email_from_email = {{ graylog_transport_email_from_email }}
 ## This should define the fully qualified base url to your web interface exactly the same way as it is accessed by your users.
 transport_email_web_interface_url = {{ graylog_transport_email_web_interface_url }}
 
+# The default connect timeout for outgoing HTTP connections.
+# Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
+# Default: 5s
+http_connect_timeout = {{ graylog_http_connect_timeout }}
+
+# The default read timeout for outgoing HTTP connections.
+# Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
+# Default: 10s
+http_read_timeout = {{ graylog_http_read_timeout }}
+
+# The default write timeout for outgoing HTTP connections.
+# Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
+# Default: 10s
+http_write_timeout = {{ graylog_http_write_timeout }}
+
 # HTTP proxy for outgoing HTTP calls
-#graylog_http_proxy_uri = {{ graylog_http_proxy_uri }}
+http_proxy_uri = {{ graylog_http_proxy_uri }}
 
-# Enable the disk based message journal.
-message_journal_enabled = true
-# The directory which will be used to store the message journal. The directory must me exclusively used by Graylog and
-# must not contain any other files than the ones created by Graylog itself.
-message_journal_dir = {{ graylog_message_journal_dir }}
-# Journal hold messages before they could be written to Elasticsearch.
-# For a maximum of 12 hours or 5 GB whichever happens first.
-# During normal operation the journal will be smaller.
-message_journal_max_age = {{ graylog_message_journal_max_age }}
-message_journal_max_size = {{ graylog_message_journal_max_size }}
-#message_journal_flush_age = 1m
-#message_journal_flush_interval = 1000000
-#message_journal_segment_age = 1h
-#message_journal_segment_size = 100mb
+# Disable the optimization of Elasticsearch indices after index cycling. This may take some load from Elasticsearch
+# on heavily used systems with large indices, but it will decrease search performance. The default is to optimize
+# cycled indices.
+disable_index_optimization = {{ graylog_disable_index_optimization }}
 
-## When more messages are coming in as we can process, incoming messages will be cached in memory until
-## they are ready to be processed. Per default this data structure is unbounded, so in situations of
-## constant high load, it will grow endlessly until all allocatable memory has been consumed and the
-## process dies.
-## To prevent this, the next setting allows you to define an upper bound for this memory cache, if the
-## number of messages in the cache has reached this limit, incoming messages will be dropped until it
-## has shrunk again.
-#
-## The default is 0, which means no upper bound.
-#
-#input_cache_max_size = 0
+# Optimize the index down to <= index_optimization_max_num_segments. A higher number may take some load from Elasticsearch
+# on heavily used systems with large indices, but it will decrease search performance. The default is 1.
+index_optimization_max_num_segments = {{ graylog_index_optimization_max_num_segments }}
 
-## Connection timeout for a configured LDAP server (e. g. ActiveDirectory) in milliseconds.
-#ldap_connection_timeout = 2000
+# Disable the index range calculation on all open/available indices and only calculate the range for the latest
+# index.
+# This may speed up index cycling on systems with large indices but it might lead to wrong search results
+# in regard to the time range of the messages (i. e. messages within a certain range may not be found) if the indices
+# have been modified after Graylog rotated them.
+# Default: true
+disable_index_range_calculation = {{ graylog_disable_index_range_calculation }}
 
-## Version checks settings. All timeouts are in milliseconds.
-#versionchecks = true
-#versionchecks_uri = http://versioncheck.torch.sh/check
-#versionchecks_connection_request_timeout = 10000
-#versionchecks_connect_timeout = 10000
-#versionchecks_socket_timeout = 10000
+# The threshold of the garbage collection runs. If GC runs take longer than this threshold, a system notification
+# will be generated to warn the administrator about possible problems with the system. Default is 1 second.
+gc_warning_threshold = {{ graylog_gc_warning_threshold }}
 
-## https://github.com/bazhenov/groovy-shell-server
-#groovy_shell_enable = false
-#groovy_shell_port = 6789
+# Connection timeout for a configured LDAP server (e. g. ActiveDirectory) in milliseconds.
+ldap_connection_timeout = {{ graylog_ldap_connection_timeout }}
 
 ## Enable collection of Graylog2-related metrics into MongoDB
-#enable_metrics_collection = false
+enable_metrics_collection = {{ graylog_enable_metrics_collection }}
 
-# Enable publishing Telemetry data
-telemetry_enabled = {{ graylog_telemetry_enabled }}
-# Base URL of the Telemetry service
-#graylog_telemetry_url = https://telemetry-in.graylog.com/submit/
-# Authentication token for the Telemetry service
-#graylog_telemetry_token =
-# How often the Telemetry data should be reported
-#graylog_telemetry_report_interval = 1m
-# Number of Telemetry data sets to store locally if the connection to the Telemetry service fails
-#graylog_telemetry_max_queue_size = 10
-# TTL for Telemetry data in local cache
-#graylog_telemetry_cache_timeout = 1m
-# Connect timeout for HTTP connections
-#graylog_telemetry_service_connect_timeout = 1s
-# Write timeout for HTTP connections
-#graylog_telemetry_service_write_timeout = 5s
-# Read timeout for HTTP connections
-#graylog_telemetry_service_read_timeout = 5s
+# Disable the use of SIGAR for collecting system stats
+disable_sigar = {{ graylog_disable_sigar }}
+
+# Amount of time of inactivity after which collectors are flagged as inactive (Default: 1 minute)
+collector_inactive_threshold = {{ graylog_collector_inactive_threshold }}
+
+# Amount of time after which inactive collectors are purged (Default: 14 days)
+collector_expiration_threshold = {{ graylog_collector_expiration_threshold }}
+
+# The default cache time for dashboard widgets. (Default: 10 seconds, minimum: 1 second)
+dashboard_widget_default_cache_time = {{ graylog_dashboard_widget_default_cache_time }}
