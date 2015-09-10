@@ -117,7 +117,7 @@ graylog_mongodb_threads_allowed_to_block_multiplier: 5
 graylog_enable_metrics_collection: false
 
 # Drools
-graylog_rules_file: /etc/graylog.drl
+graylog_rules_file: ''
 
 # Mail
 graylog_transport_email_enabled: 'false'

@@ -39,7 +39,6 @@ plugin_dir = {{ graylog_plugin_dir }}
 ## REST API listen URI. Must be reachable by other graylog2-server nodes if you run a cluster.
 rest_listen_uri = {{ graylog_rest_listen_uri }}
 
-
 ## REST API transport address. Defaults to the value of graylog_rest_listen_uri. Exception: If graylog_rest_listen_uri
 ## is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
 ## This will be promoted in the cluster discovery APIs and other nodes may try to connect on this
@@ -58,7 +57,7 @@ rest_enable_gzip = {{ graylog_rest_enable_gzip }}
 # Enable HTTPS support for the REST API. This secures the communication with the REST API with
 # TLS to prevent request forgery and eavesdropping. This is disabled by default. Uncomment the
 # next line to enable it.
-rest_enable_tls = {{ graylog_rest_enable_gzip }}
+rest_enable_tls = {{ graylog_rest_enable_tls }}
 
 # The X.509 certificate file to use for securing the REST API.
 rest_tls_cert_file = {{ graylog_rest_tls_cert_file }}
@@ -247,7 +246,7 @@ processor_wait_strategy = {{ graylog_processor_wait_strategy }}
 # For optimum performance your LogMessage objects in the ring buffer should fit in your CPU L3 cache.
 # Start server with --statistics flag to see buffer utilization.
 # Must be a power of 2. (512, 1024, 2048, ...)
-ring_size = {{ graylog_ring_size }
+ring_size = {{ graylog_ring_size }}
 
 inputbuffer_ring_size = {{ graylog_inputbuffer_ring_size }}
 inputbuffer_processors = {{ graylog_inputbuffer_processors }}
@@ -362,7 +361,7 @@ http_read_timeout = {{ graylog_http_read_timeout }}
 http_write_timeout = {{ graylog_http_write_timeout }}
 
 # HTTP proxy for outgoing HTTP calls
-http_proxy_uri = {{ graylog_http_proxy_uri }}
+# http_proxy_uri = {{ graylog_http_proxy_uri }}
 
 # Disable the optimization of Elasticsearch indices after index cycling. This may take some load from Elasticsearch
 # on heavily used systems with large indices, but it will decrease search performance. The default is to optimize
