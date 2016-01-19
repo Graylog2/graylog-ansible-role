@@ -155,3 +155,10 @@ graylog_server_wrapper: ''
 # Collector
 graylog_collector_inactive_threshold: '1m'
 graylog_collector_expiration_threshold: '14d'
+
+# Install Switches
+graylog_install_elasticsearch: true
+graylog_install_mongodb: true
+graylog_install_ngixn: true
+graylog_install_server: true
+graylog_install_web: true
