@@ -2,5 +2,3 @@
 - include: prepare.yml
 
 - include: server.yml
-
-- include: web.yml

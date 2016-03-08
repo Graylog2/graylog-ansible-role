@@ -1,6 +1,6 @@
 ---
 dependencies:
-  - { role: lesmyrmidons.mongodb }
+  - { role: greendayonfire.mongodb }
   - { role: f500.elasticsearch }
   - { role: jdauphant.nginx }
 

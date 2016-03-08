@@ -8,7 +8,7 @@ Dependencies
 ------------
 
 - Ansible 1.6 or higher.
-- [MongoDB](https://github.com/lesmyrmidons/ansible-role-mongodb)
+- [MongoDB](https://github.com/UnderGreen/ansible-role-mongodb)
 - [Elasticsearch](https://github.com/f500/ansible-elasticsearch)
 - [Nginx](https://github.com/jdauphant/ansible-role-nginx)
 - Tested on Ubuntu 14.04 and Debian 7
@@ -23,11 +23,13 @@ Quickstart
 ---
 - hosts: all
   remote_user: vagrant
-  sudo: yes
+  become: true
+  become_method: sudo
+  become: root
 
   vars:
-    elasticsearch_version: '1.7'
-    elasticsearch_cluster_name: 'graylog2'
+    elasticsearch_version: '2.x'
+    elasticsearch_cluster_name: 'graylog'
     elasticsearch_gateway_expected_nodes: 1
 
   roles:
@@ -55,7 +57,6 @@ graylog_elasticsearch_replicas: 0
 
 # Basic web interface settings
 web_server_uri: http://127.0.0.1:12900
-web_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
 ```
 
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters
@@ -75,7 +76,7 @@ More detailed example
   vars:
     elasticsearch_cluster_name: 'graylog2'
     elasticsearch_timezone: 'UTC'
-    elasticsearch_version: '1.7'
+    elasticsearch_version: '2.x'
     elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
     elasticsearch_network_host: ''
     elasticsearch_network_bind_host: ''
