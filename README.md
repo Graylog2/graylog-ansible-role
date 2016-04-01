@@ -25,11 +25,13 @@ Quickstart
   remote_user: vagrant
   become: true
   become_method: sudo
-  become: root
+  become_user: root
 
   vars:
     elasticsearch_version: '2.x'
     elasticsearch_cluster_name: 'graylog'
+    elasticsearch_network_host: '0.0.0.0'
+    elasticsearch_gateway_type: ''
     elasticsearch_gateway_expected_nodes: 1
 
   roles:
@@ -49,14 +51,19 @@ is_master: 'true'
 password_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
 root_password_sha2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
 
-# Elasticsearch
+# Elasticsearch message retention
 graylog_elasticsearch_max_docs_per_index: 20000000
 graylog_elasticsearch_max_number_of_indices: 20
 graylog_elasticsearch_shards: 4
 graylog_elasticsearch_replicas: 0
 
-# Basic web interface settings
-web_server_uri: http://127.0.0.1:12900
+# The web interface and the rest api should be accessable by the web browser
+graylog_rest_listen_uri: http://0.0.0.0:12900/
+graylog_web_listen_uri: http://0.0.0.0:9000/
+
+#the rest_transport_uri tells the browser how to connect to the api endpoint
+graylog_rest_transport_uri: http://127.0.0.1:12900/
+
 ```
 
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters
@@ -74,11 +81,12 @@ More detailed example
 - hosts: web
   sudo: yes
   vars:
-    elasticsearch_cluster_name: 'graylog2'
+    elasticsearch_cluster_name: 'graylog'
     elasticsearch_timezone: 'UTC'
     elasticsearch_version: '2.x'
     elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
-    elasticsearch_network_host: ''
+    elasticsearch_gateway_type: ''
+    elasticsearch_network_host: '0.0.0.0'
     elasticsearch_network_bind_host: ''
     elasticsearch_network_publish_host: ''
     elasticsearch_index_number_of_shards: '4'

@@ -7,6 +7,8 @@ graylog_java_src_repo: 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu
 graylog_java_repo_keyserver: 'keyserver.ubuntu.com'
 graylog_java_repo_key: 'EEA14886'
 
+graylog_packages_url: 'http://packages.graylog2.org/repo/debian/pool/stable/2.0/g/graylog-2.0-repository/graylog-2.0-repository_1-1_all.deb'
+
 # General
 graylog_is_master: 'true'
 graylog_node_id_file: /etc/graylog/server/node-id
@@ -20,7 +22,7 @@ graylog_alert_check_interval: 60
 graylog_disable_sigar: false
 
 # Rest
-graylog_rest_listen_uri: http://127.0.0.1:12900/
+graylog_rest_listen_uri: http://0.0.0.0:12900/
 graylog_rest_transport_uri: http://127.0.0.1:12900/
 graylog_rest_enable_cors: 'true'
 graylog_rest_enable_gzip: 'true'
@@ -136,7 +138,7 @@ graylog_transport_email_web_interface_url: ''
 graylog_http_proxy_uri: ''
 
 # Web UI
-graylog_web_listen_uri: 'http://0.0.0.0:9000'
+graylog_web_listen_uri: http://0.0.0.0:9000/
 
 # JVM
 graylog_gc_warning_threshold: '1s'
