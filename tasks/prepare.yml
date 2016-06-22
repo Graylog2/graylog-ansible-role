@@ -1,7 +1,4 @@
 ---
-- name: Include distro-based vars
-  include_vars: ../defaults/{{ ansible_distribution }}.yml
-
 - name: Install python-software-properties
   apt: name=python-software-properties state=present
 

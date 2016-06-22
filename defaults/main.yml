@@ -7,6 +7,8 @@ graylog_java_src_repo: 'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu
 graylog_java_repo_keyserver: 'keyserver.ubuntu.com'
 graylog_java_repo_key: 'EEA14886'
 
+graylog_packages_url: 'http://packages.graylog2.org/repo/debian/pool/stable/2.0/g/graylog-2.0-repository/graylog-2.0-repository_1-1_all.deb'
+
 # General
 graylog_is_master: 'true'
 graylog_node_id_file: /etc/graylog/server/node-id
@@ -20,13 +22,13 @@ graylog_alert_check_interval: 60
 graylog_disable_sigar: false
 
 # Rest
-graylog_rest_listen_uri: http://127.0.0.1:12900/
+graylog_rest_listen_uri: http://0.0.0.0:12900/
 graylog_rest_transport_uri: http://127.0.0.1:12900/
 graylog_rest_enable_cors: 'true'
 graylog_rest_enable_gzip: 'true'
 graylog_rest_enable_tls: 'false'
-graylog_rest_tls_cert_file: '/path/to/graylog2.crt'
-graylog_rest_tls_key_file: '/path/to/graylog2.key'
+graylog_rest_tls_cert_file: '/path/to/graylog.crt'
+graylog_rest_tls_key_file: '/path/to/graylog.key'
 graylog_rest_tls_key_password: 'secret'
 graylog_rest_max_chunk_size: 8192
 graylog_rest_max_header_size: 8192
@@ -40,8 +42,8 @@ graylog_allow_highlighting: 'false'
 graylog_elasticsearch_config_file: /etc/graylog/server/elasticsearch.yml
 graylog_elasticsearch_shards: 4
 graylog_elasticsearch_replicas: 0
-graylog_elasticsearch_index_prefix: graylog2
-graylog_elasticsearch_cluster_name: graylog2
+graylog_elasticsearch_index_prefix: graylog
+graylog_elasticsearch_cluster_name: graylog
 graylog_elasticsearch_node_name: graylog-server
 graylog_elasticsearch_transport_tcp_port: 9350
 graylog_elasticsearch_discovery_zen_ping_multicast_enabled: false
@@ -111,7 +113,7 @@ graylog_outputbuffer_processor_threads_core_pool_size: 3
 graylog_outputbuffer_processor_threads_max_pool_size: 30
 
 # MongoDB
-graylog_mongodb_uri: 'mongodb://127.0.0.1:27017/graylog2'
+graylog_mongodb_uri: 'mongodb://127.0.0.1:27017/graylog'
 graylog_mongodb_max_connections: 100
 graylog_mongodb_threads_allowed_to_block_multiplier: 5
 graylog_enable_metrics_collection: false
@@ -136,12 +138,7 @@ graylog_transport_email_web_interface_url: ''
 graylog_http_proxy_uri: ''
 
 # Web UI
-graylog_web_server_uri: http://127.0.0.1:12900
-graylog_web_secret: 2jueVqZpwLLjaWxV
-graylog_web_timezone: 'UTC'
-graylog_web_field_list_limit: 100
-graylog_web_listen_address: '0.0.0.0'
-graylog_web_port: 9000
+graylog_web_listen_uri: http://0.0.0.0:9000/
 
 # JVM
 graylog_gc_warning_threshold: '1s'
