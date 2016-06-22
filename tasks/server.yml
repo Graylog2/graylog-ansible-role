@@ -14,3 +14,7 @@
 - name: Configure Graylog server defaults
   template: src=graylog.server.default.j2 dest=/etc/default/graylog-server owner=graylog group=graylog mode=0644
   notify: restart graylog-server
+
+- name: Ensure Graylog server starts after reboot
+  file: path=/etc/init/graylog-server.override state=absent
+  
