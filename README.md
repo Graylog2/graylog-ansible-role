@@ -47,9 +47,10 @@ Variables
 
 ```yaml
 # Basic server settings
-is_master: 'true'
-password_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
-root_password_sha2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+graylog_is_master: 'true'
+graylog_password_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
+# Create a password hash using: echo -n yourpassword | shasum -a 256
+graylog_root_password_sha2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
 
 # Elasticsearch message retention
 graylog_elasticsearch_max_docs_per_index: 20000000
