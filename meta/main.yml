@@ -2,7 +2,7 @@
 dependencies:
   - { role: greendayonfire.mongodb }
   - { role: f500.elasticsearch }
-  - { role: jdauphant.nginx }
+  - { role: jdauphant.nginx, when: graylog_install_nginx }
 
 galaxy_info:
   author: Marius Sturm
