@@ -46,7 +46,6 @@ graylog_elasticsearch_index_prefix: graylog
 graylog_elasticsearch_cluster_name: graylog
 graylog_elasticsearch_node_name: graylog-server
 graylog_elasticsearch_transport_tcp_port: 9350
-graylog_elasticsearch_discovery_zen_ping_multicast_enabled: false
 graylog_elasticsearch_discovery_zen_ping_unicast_hosts: 127.0.0.1:9300
 graylog_elasticsearch_network_host: ''
 graylog_elasticsearch_network_bind_host: ''
