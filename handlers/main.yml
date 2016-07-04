@@ -2,5 +2,3 @@
 - name: restart graylog-server
   service: name=graylog-server state=restarted
 
-- name: restart graylog-web
-  service: name=graylog-web state=restarted
