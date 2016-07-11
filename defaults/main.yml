@@ -141,9 +141,6 @@ graylog_web_listen_uri: http://0.0.0.0:9000/
 
 # JVM
 graylog_gc_warning_threshold: '1s'
-graylog_web_java_opts: '-Djava.net.preferIPv4Stack=true'
-graylog_web_args: ''
-graylog_web_wrapper: ''
 graylog_server_java_opts: '-Djava.net.preferIPv4Stack=true -Xms1500m -Xmx1500m -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
 graylog_server_args: ''
 graylog_server_wrapper: ''
@@ -157,4 +154,3 @@ graylog_install_elasticsearch: true
 graylog_install_mongodb: true
 graylog_install_nginx: true
 graylog_install_server: true
-graylog_install_web: true
