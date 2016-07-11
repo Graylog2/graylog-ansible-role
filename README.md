@@ -79,7 +79,7 @@ More detailed example
 ```yaml
 # main.yml
 ---
-- hosts: web
+- hosts: server
   sudo: yes
   vars:
     elasticsearch_cluster_name: 'graylog'
