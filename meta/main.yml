@@ -1,7 +1,7 @@
 ---
 dependencies:
-  - { role: greendayonfire.mongodb }
-  - { role: f500.elasticsearch }
+  - { role: greendayonfire.mongodb, when: graylog_install_mongodb }
+  - { role: f500.elasticsearch, when: graylog_install_elastocsearch }
   - { role: jdauphant.nginx, when: graylog_install_nginx }
 
 galaxy_info:
