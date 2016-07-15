@@ -153,4 +153,3 @@ graylog_collector_expiration_threshold: '14d'
 graylog_install_elasticsearch: true
 graylog_install_mongodb: true
 graylog_install_nginx: true
-graylog_install_server: true
