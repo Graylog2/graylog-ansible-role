@@ -35,10 +35,10 @@ Quickstart
     elasticsearch_gateway_expected_nodes: 1
 
   roles:
-      - graylog2.graylog
+      - Graylog2.graylog-ansible-role
 ```
 
-- Fetch this role with dependencies `ansible-galaxy install -p . graylog2.graylog`
+- Fetch this role with dependencies `ansible-galaxy install -p . Graylog2.graylog-ansible-role`
 - Run the playbook with `ansible-playbook playbook.yml -i "127.0.0.1,"`
 - Login to Graylog by opening `http://localhost:9000` in your browser, default username and password is `admin`
 
@@ -72,7 +72,7 @@ More detailed example
 ---------------------
 
 - Set up `roles_path = ./roles` in `ansible.cfg` (`[defaults]` block)
-- Install role and dependencies `ansible-galaxy install graylog2.graylog`
+- Install role and dependencies `ansible-galaxy install Graylog2.graylog-ansible-role`
 - Set up playbook (see example below):
 
 ```yaml
@@ -112,7 +112,7 @@ More detailed example
           client_body_buffer_size 128k; }
 
   roles:
-    - { role: 'graylog2.graylog', tags: 'graylog' }
+    - { role: 'Graylog2.graylog-ansible-role', tags: 'graylog' }
 ```
 - Run the playbook with `ansible-playbook -i inventory_file main.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
