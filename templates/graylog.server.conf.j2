@@ -42,6 +42,32 @@ rest_listen_uri = {{ graylog_rest_listen_uri }}
 # Web interface
 web_listen_uri = {{ graylog_web_listen_uri }}
 
+# Web interface endpoint URI. This setting can be overriden on a per-request basis with the X-Graylog-Server-URL header.
+# Default: $rest_transport_uri
+web_endpoint_uri = {{ graylog_web_endpoint_uri }}
+
+# Enable CORS headers for the web interface. This is necessary for JS-clients accessing the server directly.
+# If these are disabled, modern browsers will not be able to retrieve resources from the server.
+web_enable_cors = {{ graylog_enable_cors }}
+
+# Enable/disable GZIP support for the web interface. This compresses HTTP responses and therefore helps to reduce
+# overall round trip times. This is enabled by default. Uncomment the next line to disable it.
+web_enable_gzip = {{ graylog_enable_gzip }}
+
+# Enable HTTPS support for the web interface. This secures the communication of the web browser with the web interface
+# using TLS to prevent request forgery and eavesdropping.
+# This is disabled by default. Uncomment the next line to enable it and see the other related configuration settings.
+web_enable_tls = {{ graylog_web_enable_tls }}
+
+# The X.509 certificate chain file in PEM format to use for securing the web interface.
+web_tls_cert_file = {{ graylog_web_tls_cert_file }}
+
+# The PKCS#8 private key file in PEM format to use for securing the web interface.
+web_tls_key_file = {{ graylog_web_tls_key_file }}
+
+# The password to unlock the private key used for securing the web interface.
+web_tls_key_password = {{ graylog_web_tls_key_password }}
+
 ## REST API transport address. Defaults to the value of graylog_rest_listen_uri. Exception: If graylog_rest_listen_uri
 ## is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
 ## This will be promoted in the cluster discovery APIs and other nodes may try to connect on this

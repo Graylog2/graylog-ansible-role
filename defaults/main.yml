@@ -138,6 +138,13 @@ graylog_http_proxy_uri: ''
 
 # Web UI
 graylog_web_listen_uri: http://0.0.0.0:9000/
+graylog_web_endpoint_uri: ''
+graylog_enable_cors: 'false'
+graylog_enable_gzip: 'false'
+graylog_web_enable_tls: 'false'
+graylog_web_tls_cert_file: ''
+graylog_web_tls_key_file: ''
+graylog_web_tls_key_password: ''
 
 # JVM
 graylog_gc_warning_threshold: '1s'
