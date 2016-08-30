@@ -3,6 +3,8 @@
 - name: Install Graylog server
   apt: name=graylog-server state=present update_cache=yes
 
+- file: path=/etc/graylog/server owner=graylog group=graylog mode=0750
+
 - name: Configure Graylog server
   template: src=graylog.server.conf.j2 dest=/etc/graylog/server/server.conf owner=graylog group=graylog mode=0644
   notify: restart graylog-server
