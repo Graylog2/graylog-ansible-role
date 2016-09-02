@@ -72,7 +72,9 @@ web_tls_key_password = {{ graylog_web_tls_key_password }}
 ## is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
 ## This will be promoted in the cluster discovery APIs and other nodes may try to connect on this
 ## address. (see graylog_rest_listen_uri)
+{% if graylog_rest_transport_uri %}
 rest_transport_uri = {{ graylog_rest_transport_uri }}
+{% endif %}
 
 ## Enable CORS headers for REST api. This is necessary for JS-clients accessing the server directly.
 ## If these are disabled, modern browsers will not be able to retrieve resources from the server.
