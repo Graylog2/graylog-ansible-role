@@ -33,7 +33,7 @@ Quickstart
     elasticsearch_network_host: '0.0.0.0'
     elasticsearch_gateway_type: ''
     elasticsearch_gateway_expected_nodes: 1
-    graylog_web_endpoint_uri: http://127.0.0.1:12900/
+    graylog_web_endpoint_uri: http://127.0.0.1:9000/api/
 
   roles:
       - Graylog2.graylog-ansible-role
@@ -60,11 +60,11 @@ graylog_elasticsearch_shards: 4
 graylog_elasticsearch_replicas: 0
 
 # The web interface and the rest api should be accessable by the web browser
-graylog_rest_listen_uri: http://0.0.0.0:12900/
+graylog_rest_listen_uri: http://0.0.0.0:9000/api/
 graylog_web_listen_uri: http://0.0.0.0:9000/
 
 # web_endpoint_uri tells the browser how to connect to the api endpoint
-graylog_web_endpoint_uri: http://127.0.0.1:12900/
+graylog_web_endpoint_uri: http://127.0.0.1:9000/api/
 
 ```
 
@@ -95,7 +95,7 @@ More detailed example
     elasticsearch_index_number_of_replicas: '0'
     elasticsearch_gateway_recover_after_nodes: '1'
     elasticsearch_gateway_expected_nodes: '1'
-    graylog_web_endpoint_uri: http://127.0.0.1:12900/
+    graylog_web_endpoint_uri: http://127.0.0.1:9000/api/
 
     nginx_sites:
       graylog:
