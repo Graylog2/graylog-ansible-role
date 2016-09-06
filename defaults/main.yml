@@ -8,7 +8,7 @@ graylog_java_repo_keyserver: 'keyserver.ubuntu.com'
 graylog_java_repo_key: 'EEA14886'
 
 graylog_packages_url: 'http://packages.graylog2.org/repo/debian/pool/stable/2.1/g/graylog-2.1-repository/graylog-2.1-repository_1-1_all.deb'
-
+graylog_yum_repo_url: 'https://packages.graylog2.org/repo/packages/graylog-2.1-repository_latest.rpm'
 # General
 graylog_is_master: 'true'
 graylog_node_id_file: /etc/graylog/server/node-id
