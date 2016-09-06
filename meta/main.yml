@@ -1,6 +1,6 @@
 ---
 dependencies:
-  - { role: greendayonfire.mongodb, when: graylog_install_mongodb }
+  - { role: lesmyrmidons.mongodb, when: graylog_install_mongodb }
   - { role: f500.elasticsearch, when: graylog_install_elasticsearch }
   - { role: jdauphant.nginx, when: graylog_install_nginx }
 
