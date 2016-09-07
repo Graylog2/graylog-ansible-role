@@ -1,4 +1,4 @@
 ---
 - src: lesmyrmidons.mongodb
-- src: f500.elasticsearch
+- src: https://github.com/elastic/ansible-elasticsearch.git
 - src: jdauphant.nginx
