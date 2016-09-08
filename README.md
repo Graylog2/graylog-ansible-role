@@ -28,24 +28,24 @@ Quickstart
   become_user: root
 
   vars:
-		es_instance_name: "graylog"
-		es_scripts: false
-		es_templates: false
-		es_version_lock: false
-		es_heap_size: 1g
+    es_instance_name: "graylog"
+    es_scripts: false
+    es_templates: false
+    es_version_lock: false
+    es_heap_size: 1g
 
-		es_config: {
-			node.name: "graylog",
-			cluster.name: "graylog",
-			discovery.zen.ping.unicast.hosts: "localhost:9301",
-			http.port: 9200,
-			transport.tcp.port: 9300,
-			network.host: 0.0.0.0,
-			node.data: true,
-			node.master: true,
-			bootstrap.mlockall: false,
-			discovery.zen.ping.multicast.enabled: false
-		}
+    es_config: {
+      node.name: "graylog",
+      cluster.name: "graylog",
+      discovery.zen.ping.unicast.hosts: "localhost:9301",
+      http.port: 9200,
+      transport.tcp.port: 9300,
+      network.host: 0.0.0.0,
+      node.data: true,
+      node.master: true,
+      bootstrap.mlockall: false,
+      discovery.zen.ping.multicast.enabled: false
+    }
     graylog_web_endpoint_uri: http://127.0.0.1:9000/api/
 
   roles:
@@ -97,23 +97,23 @@ More detailed example
   sudo: yes
   vars:
     es_instance_name: "graylog"
-		es_scripts: false
-		es_templates: false
-		es_version_lock: false
-		es_heap_size: 1g
+    es_scripts: false
+    es_templates: false
+    es_version_lock: false
+    es_heap_size: 1g
 
-		es_config: {
-			node.name: "graylog",
-			cluster.name: "graylog",
-			discovery.zen.ping.unicast.hosts: "localhost:9301",
-			http.port: 9200,
-			transport.tcp.port: 9300,
-			network.host: 0.0.0.0,
-			node.data: true,
-			node.master: true,
-			bootstrap.mlockall: false,
-			discovery.zen.ping.multicast.enabled: false
-		}
+    es_config: {
+      node.name: "graylog",
+      cluster.name: "graylog",
+      discovery.zen.ping.unicast.hosts: "localhost:9301",
+      http.port: 9200,
+      transport.tcp.port: 9300,
+      network.host: 0.0.0.0,
+      node.data: true,
+      node.master: true,
+      bootstrap.mlockall: false,
+      discovery.zen.ping.multicast.enabled: false
+    }
     graylog_web_endpoint_uri: http://127.0.0.1:9000/api/
 
     nginx_sites:
