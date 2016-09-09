@@ -1,7 +1,6 @@
 ---
 - name: Install python-software-properties
   apt: name=python-software-properties state=present
-  when: ansible_os_family == 'Debian'
 
 - name: Update repositories
   apt_repository: repo={{ graylog_java_ppa }} state=present update_cache=yes
@@ -13,10 +12,6 @@
     - "{{ graylog_java_repo }}"
     - "{{ graylog_java_src_repo }}"
   when: ansible_distribution == "Debian"
-
-- name: Update repositories
-  yum: name="{{ graylog_yum_repo_url }}" state=present update_cache=yes
-  when: ansible_os_family == 'RedHat'
 
 - name: Accept apt key for java repo
   apt_key: keyserver={{ graylog_java_repo_keyserver }} id={{ graylog_java_repo_key }}
@@ -30,16 +25,16 @@
 
 - name: Download Graylog repository package
   get_url: url={{ graylog_packages_url }} dest=/tmp/graylog_repository.deb
-  when: ansible_os_family == 'Debian'
 
 - name: Install transport https
   apt: name=apt-transport-https state=installed
-  when: ansible_os_family == 'Debian'
 
 - name: Install Graylog repository
   apt: deb=/tmp/graylog_repository.deb state=installed dpkg_options='force-all'
   register: install_repo
-  when: ansible_os_family == 'Debian'
 
 - apt: update_cache=yes
-  when: ansible_os_family == 'Debian' and install_repo.changed == True
+  when: install_repo.changed == True
+
+- name: Install Graylog server
+  apt: name=graylog-server state=present update_cache=yes
