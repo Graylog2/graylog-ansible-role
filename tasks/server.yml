@@ -1,12 +1,6 @@
 ---
 
-- name: Install Graylog server
-  apt: name=graylog-server state=present update_cache=yes
-  when: ansible_os_family == 'Debian'
 
-- name: Install Graylog server
-  yum: name=graylog-server state=present
-  when: ansible_os_family == 'RedHat'
 
 - name: Create directory
   file: path=/etc/graylog/server state=directory owner=graylog group=graylog mode=0750
