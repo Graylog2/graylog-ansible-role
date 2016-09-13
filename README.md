@@ -94,7 +94,7 @@ More detailed example
 # main.yml
 ---
 - hosts: server
-  sudo: yes
+  become: True
   vars:
     es_instance_name: "graylog"
     es_scripts: false
