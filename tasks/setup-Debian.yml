@@ -24,7 +24,7 @@
   apt: name=oracle-java8-installer state=present force=True
 
 - name: Download Graylog repository package
-  get_url: url={{ graylog_packages_url }} dest=/tmp/graylog_repository.deb
+  get_url: url={{ graylog_apt_deb_url }} dest=/tmp/graylog_repository.deb
 
 - name: Install transport https
   apt: name=apt-transport-https state=installed

@@ -1,7 +1,7 @@
 ---
 
 - name: Update repositories
-  yum: name="{{ graylog_yum_repo_url }}" state=present update_cache=True
+  yum: name="{{ graylog_yum_rpm_url }}" state=present update_cache=True
 
 - name: Install Graylog server
   yum: name=graylog-server state=present
