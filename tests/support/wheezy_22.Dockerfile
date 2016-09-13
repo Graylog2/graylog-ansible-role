@@ -10,4 +10,3 @@ RUN apt-get -y install ca-certificates \
 RUN pip install ansible==2.2.1
 
 COPY run-tests.sh run-tests.sh
-CMD ["./run-tests.sh"]

@@ -18,21 +18,10 @@
 - name: Graylog server defaults should be configured
   template:
     src: 'graylog.server.default.j2'
-    dest: '/etc/default/graylog-server'
+    dest: "{{ graylog_server_defaults_file_path }}"
     owner: graylog
     group: graylog
     mode: '0644'
-  when: ansible_os_family == 'Debian'
-  notify: restart graylog-server
-
-- name: Configure Graylog server sysconfig
-  template:
-    src: 'graylog.server.default.j2'
-    dest: '/etc/sysconfig/graylog-server'
-    owner: graylog
-    group: graylog
-    mode: '0644'
-  when: ansible_os_family == 'RedHat'
   notify: restart graylog-server
 
 - name: Graylog server should start after reboot
