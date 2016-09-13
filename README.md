@@ -3,7 +3,6 @@ Description
 
 Ansible role which installs and configures Graylog log management.
 
-
 Dependencies
 ------------
 
@@ -17,24 +16,26 @@ Quickstart
 ----------
 
 - You need at least 4GB of memory to run Graylog
-- Here's an example of a playbook targeting Vagrant box(es):
+- Here is an example of a playbook targeting Vagrant box(es):
 
-    ---
-    - hosts: all
-      remote_user: vagrant
-      become: True
+```yaml
+---
+- hosts: all
+  remote_user: vagrant
+  become: True
 
-      vars:
-        elasticsearch_version: '2.x'
-        elasticsearch_cluster_name: 'graylog'
-        elasticsearch_network_host: '0.0.0.0'
-        elasticsearch_gateway_type: ''
-        elasticsearch_gateway_expected_nodes: 1
-        graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
+  vars:
+    elasticsearch_version: '2.x'
+    elasticsearch_cluster_name: 'graylog'
+    elasticsearch_network_host: '0.0.0.0'
+    elasticsearch_gateway_type: ''
+    elasticsearch_gateway_expected_nodes: 1
+    graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 
-      roles:
-        - role: Graylog2.graylog-ansible-role
-          tags: graylog
+  roles:
+    - role: Graylog2.graylog-ansible-role
+      tags: graylog
+```
 
 - Fetch this role `ansible-galaxy install -p ./roles Graylog2.graylog-ansible-role`
 - Install role's dependencies `ansible-galaxy install -r roles/Graylog2.graylog-ansible-role/requirements.yml -p ./roles`
@@ -44,6 +45,7 @@ Quickstart
 Variables
 --------
 
+```yaml
     # Basic server settings
     graylog_is_master:          'true'
     graylog_password_secret:    '2jueVqZpwLLjaWxV' # generate with: pwgen -s 96 1
@@ -58,6 +60,7 @@ Variables
     graylog_rest_listen_uri:  'http://0.0.0.0:9000/api/'
     graylog_web_listen_uri:   'http://0.0.0.0:9000/'
     graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
+```
 
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters.
 
@@ -69,45 +72,47 @@ More detailed example
 - Install role's dependencies `ansible-galaxy install -r roles/Graylog2.graylog-ansible-role/requirements.yml`
 - Set up playbook (see example below):
 
-    # your_playbook.yml
-    ---
-    - hosts: server
-      become: True
-      vars:
-        elasticsearch_cluster_name: 'graylog'
-        elasticsearch_timezone: 'UTC'
-        elasticsearch_version: '2.x'
-        elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
-        elasticsearch_gateway_type: ''
-        elasticsearch_network_host: '0.0.0.0'
-        elasticsearch_network_bind_host: ''
-        elasticsearch_network_publish_host: ''
-        elasticsearch_index_number_of_shards: '4'
-        elasticsearch_index_number_of_replicas: '0'
-        elasticsearch_gateway_recover_after_nodes: '1'
-        elasticsearch_gateway_expected_nodes: '1'
-        graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
+```yaml
+# your_playbook.yml
+---
+- hosts: server
+  become: True
+  vars:
+    elasticsearch_cluster_name: 'graylog'
+    elasticsearch_timezone: 'UTC'
+    elasticsearch_version: '2.x'
+    elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
+    elasticsearch_gateway_type: ''
+    elasticsearch_network_host: '0.0.0.0'
+    elasticsearch_network_bind_host: ''
+    elasticsearch_network_publish_host: ''
+    elasticsearch_index_number_of_shards: '4'
+    elasticsearch_index_number_of_replicas: '0'
+    elasticsearch_gateway_recover_after_nodes: '1'
+    elasticsearch_gateway_expected_nodes: '1'
+    graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 
-        nginx_sites:
-          graylog:
-            - listen 80
-            - server_name graylog
-            - location / {
-              proxy_pass http://localhost:9000/;
-              proxy_set_header Host $host;
-              proxy_set_header X-Real-IP $remote_addr;
-              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-              proxy_pass_request_headers on;
-              proxy_connect_timeout 150;
-              proxy_send_timeout 100;
-              proxy_read_timeout 100;
-              proxy_buffers 4 32k;
-              client_max_body_size 8m;
-              client_body_buffer_size 128k; }
+    nginx_sites:
+      graylog:
+        - listen 80
+        - server_name graylog
+        - location / {
+          proxy_pass http://localhost:9000/;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_pass_request_headers on;
+          proxy_connect_timeout 150;
+          proxy_send_timeout 100;
+          proxy_read_timeout 100;
+          proxy_buffers 4 32k;
+          client_max_body_size 8m;
+          client_body_buffer_size 128k; }
 
-      roles:
-        - role: 'Graylog2.graylog-ansible-role'
-          tags: graylog
+  roles:
+    - role: 'Graylog2.graylog-ansible-role'
+      tags: graylog
+```
 
 - Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
