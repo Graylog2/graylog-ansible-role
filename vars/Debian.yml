@@ -1,0 +1,2 @@
+---
+graylog_server_defaults_file_path: '/etc/default/graylog-server'
