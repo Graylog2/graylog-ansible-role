@@ -27,7 +27,7 @@
 
 - name: Configure Graylog server sysconfig
   template:
-    src: graylog.server.default.j2
+    src: 'graylog.server.default.j2'
     dest: '/etc/sysconfig/graylog-server'
     owner: graylog
     group: graylog
@@ -39,4 +39,3 @@
   file:
     path: '/etc/init/graylog-server.override'
     state: absent
-
