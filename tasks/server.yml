@@ -1,7 +1,5 @@
 ---
 
-
-
 - name: Create directory
   file: path=/etc/graylog/server state=directory owner=graylog group=graylog mode=0750
 
