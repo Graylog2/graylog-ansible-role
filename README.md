@@ -26,7 +26,6 @@ Quickstart
     - hosts: all
       remote_user: vagrant
       become: True
-
       vars:
         # Graylog2 is not compatible with elasticsearch 5.x, so ensure to use 2.x (graylog3 will be compatible)
         # Also use version 0.2 of elastic.elasticsearch (ansible role), because vars are different
@@ -101,7 +100,6 @@ More detailed example
     - hosts: server
       become: True
       vars:
-
         # Graylog2 is not compatible with elasticsearch 5.x, so ensure to use 2.x (graylog3 will be compatible)
         # Also use version 0.2 of elastic.elasticsearch (ansible role), because vars are different
         es_major_version: "2.x"
@@ -153,14 +151,13 @@ More detailed example
 - Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
 
-
 Details to avoid issues with java, install behind proxy, use openjdk
 --------------------------------------------------------------------
 
 You can use var: `graylog_install_java: false` and then add java from openjdk-8 instead of installing oracle java 8. 
 Openjdk doesn't have problems to use a proxy for apt, also doesn't requires the license agreement that oracle requires.
 
-Example: 
+Example:
 
     ---
     - name: Add java-jdk-8 ppa for Ubuntu trusty
@@ -183,7 +180,6 @@ Example:
         es_java: openjdk-8-jre-headless
 
       roles:
-
         - role: geerlingguy.java
           when: ansible_distribution_release == 'trusty'
           java_packages:
