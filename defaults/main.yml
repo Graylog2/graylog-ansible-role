@@ -25,7 +25,7 @@ graylog_disable_sigar: false
 graylog_rest_listen_uri: http://0.0.0.0:9000/api/
 graylog_rest_transport_uri: ''
 graylog_rest_enable_cors: 'true'
-graylog_rest_enable_gzip: 'true'
+graylog_rest_enable_gzip: 'false'
 graylog_rest_enable_tls: 'false'
 graylog_rest_tls_cert_file: '/path/to/graylog.crt'
 graylog_rest_tls_key_file: '/path/to/graylog.key'
