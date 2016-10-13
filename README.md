@@ -7,7 +7,7 @@ Ansible role which installs and configures Graylog log management.
 Dependencies
 ------------
 
-- Ansible 1.6 or higher.
+- Ansible 2.0 or higher.
 - [MongoDB](https://github.com/UnderGreen/ansible-role-mongodb)
 - [Elasticsearch](https://github.com/f500/ansible-elasticsearch)
 - [Nginx](https://github.com/jdauphant/ansible-role-nginx)
