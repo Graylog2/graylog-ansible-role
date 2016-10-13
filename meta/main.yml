@@ -8,7 +8,7 @@ galaxy_info:
   author: Marius Sturm
   company: Graylog, Inc.
   description: "Install and configure Graylog log management."
-  min_ansible_version: 1.6
+  min_ansible_version: 2.0
   license: Apache 2
   platforms:
   - name: Ubuntu
