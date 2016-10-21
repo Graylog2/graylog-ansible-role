@@ -13,18 +13,18 @@
 
 - block:
     - name: 'Repositories should be updated (Debian)'
-    apt_repository:
-      repo: "{{ item }}"
-      state: present
-      update_cache: True
-    with_items:
-      - "{{ graylog_java_repo }}"
-      - "{{ graylog_java_src_repo }}"
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+        update_cache: True
+      with_items:
+        - "{{ graylog_java_repo }}"
+        - "{{ graylog_java_src_repo }}"
 
-  - name: 'APT Key should be accepted for the Java repo (Debian)'
-    apt_key:
-      keyserver: "{{ graylog_java_repo_keyserver }}"
-      id: "{{ graylog_java_repo_key }}"
+    - name: 'APT Key should be accepted for the Java repo (Debian)'
+      apt_key:
+        keyserver: "{{ graylog_java_repo_keyserver }}"
+        id: "{{ graylog_java_repo_key }}"
 
   when: ansible_distribution == 'Debian'
 
