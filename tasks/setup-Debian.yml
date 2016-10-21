@@ -43,7 +43,7 @@
 
 - name: Graylog repository package should be downloaded
   get_url:
-    url: "{{ graylog_packages_url }}"
+    url: "{{ graylog_apt_deb_url }}"
     dest: '/tmp/graylog_repository.deb'
 
 - name: 'Package "apt-transport-https" should be installed'
