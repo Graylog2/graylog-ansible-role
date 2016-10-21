@@ -4,27 +4,28 @@
     name: 'python-software-properties'
     state: present
 
-- name: Repositories should be updated (Ubuntu)
+- name: 'Repositories should be updated (Ubuntu)'
   apt_repository:
     repo: "{{ graylog_java_ppa }}"
     state: present
     update_cache: True
   when: ansible_distribution == 'Ubuntu'
 
-- name: Repositories should be updated (Debian)
-  apt_repository:
-    repo: "{{ item }}"
-    state: present
-    update_cache: True
-  with_items:
-    - "{{ graylog_java_repo }}"
-    - "{{ graylog_java_src_repo }}"
-  when: ansible_distribution == 'Debian'
+- block:
+    - name: 'Repositories should be updated (Debian)'
+    apt_repository:
+      repo: "{{ item }}"
+      state: present
+      update_cache: True
+    with_items:
+      - "{{ graylog_java_repo }}"
+      - "{{ graylog_java_src_repo }}"
 
-- name: APT Key should be accepted for the Java repo (Debian)
-  apt_key:
-    keyserver: "{{ graylog_java_repo_keyserver }}"
-    id: "{{ graylog_java_repo_key }}"
+  - name: 'APT Key should be accepted for the Java repo (Debian)'
+    apt_key:
+      keyserver: "{{ graylog_java_repo_keyserver }}"
+      id: "{{ graylog_java_repo_key }}"
+
   when: ansible_distribution == 'Debian'
 
 - name: Oracle license should be accepted
@@ -50,7 +51,7 @@
     name: 'apt-transport-https'
     state: installed
 
-- name: Install Graylog repository
+- name: Graylog repository package should be installed
   apt:
     deb: '/tmp/graylog_repository.deb'
     state: installed
@@ -61,3 +62,9 @@
   apt:
     update_cache: True
   when: install_repo.changed
+
+- name: Graylog server package should be installed
+  apt:
+    name: 'graylog-server'
+    state: present
+    update_cache: True

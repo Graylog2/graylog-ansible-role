@@ -1,16 +1,10 @@
 ---
-- name: '"graylog-server" package should be installed'
-  apt:
-    name: 'graylog-server'
-    state: present
-    update_cache: True
-
-- name: Ownership and privileges should be set
+- name: Directory should be created with correct ownership and privileges
   file:
     path: '/etc/graylog/server'
     owner: graylog
     group: graylog
-    mode: 0750
+    mode: '0750'
 
 - name: Graylog server should be configured
   template:
@@ -18,7 +12,7 @@
     dest: '/etc/graylog/server/server.conf'
     owner: graylog
     group: graylog
-    mode: 0644
+    mode: '0644'
   notify: restart graylog-server
 
 - name: Graylog ElasticSearch should be configured
@@ -27,7 +21,7 @@
     dest: '/etc/graylog/server/elasticsearch.yml'
     owner: graylog
     group: graylog
-    mode: 0644
+    mode: '0644'
   notify: restart graylog-server
 
 - name: Graylog server defaults should be configured
@@ -36,7 +30,7 @@
     dest: '/etc/default/graylog-server'
     owner: graylog
     group: graylog
-    mode: 0644
+    mode: '0644'
   notify: restart graylog-server
 
 - name: Graylog server should start after reboot
