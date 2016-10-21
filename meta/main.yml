@@ -1,7 +1,7 @@
 ---
 dependencies:
   - { role: lesmyrmidons.mongodb, when: graylog_install_mongodb }
-  - { role: ansible-elasticsearch, when: graylog_install_elasticsearch }
+  - { role: elastic.ansible-elasticsearch, when: graylog_install_elasticsearch }
   - { role: jdauphant.nginx, when: graylog_install_nginx }
 
 galaxy_info:
@@ -20,6 +20,6 @@ galaxy_info:
   - name: EL
     versions:
     - 7
-  categories:
+  galaxy_tags:
   - monitoring
   - system
