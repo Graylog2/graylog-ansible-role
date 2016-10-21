@@ -11,7 +11,7 @@ Dependencies
 - [MongoDB](https://github.com/UnderGreen/ansible-role-mongodb)
 - [Elasticsearch](https://github.com/elastic/ansible-elasticsearch)
 - [Nginx](https://github.com/jdauphant/ansible-role-nginx)
-- Tested on Ubuntu 14.04 and Debian 7
+- Tested on Ubuntu 14.04 / Debian 7 / Centos 7
 
 Quickstart
 ----------
