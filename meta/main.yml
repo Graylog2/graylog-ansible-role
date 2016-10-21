@@ -3,7 +3,7 @@ dependencies:
   - role: 'lesmyrmidons.mongodb'
     when: graylog_install_mongodb
 
-  - role: 'elastic.ansible-elasticsearch'
+  - role: 'ansible-elasticsearch'
     when: graylog_install_elasticsearch
 
   - role: 'jdauphant.nginx'
