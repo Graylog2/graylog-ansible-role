@@ -9,4 +9,4 @@
 
 - name: 'jdauphant.nginx'
   src: 'https://github.com/jdauphant/ansible-role-nginx.git'
-  version: 'v2.7.4'
+  ersion: 'v2.7.4'
