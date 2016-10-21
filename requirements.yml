@@ -1,8 +1,8 @@
 ---
 - name: 'lesmyrmidons.mongodb'
-  src: 'https://github.com/lesmyrmidons/ansible-role-mongodb'
+  src: 'https://github.com/lesmyrmidons/ansible-role-mongodb.git'
 
-- src: 'https://github.com/elastic/ansible-elasticsearch'
+- src: 'https://github.com/elastic/ansible-elasticsearch.git'
 
 - name: 'jdauphant.nginx'
-  src: 'https://github.com/jdauphant/ansible-role-nginx'
+  src: 'https://github.com/jdauphant/ansible-role-nginx.git'
