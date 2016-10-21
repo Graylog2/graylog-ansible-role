@@ -1,0 +1,13 @@
+---
+services:
+  - docker
+
+install:
+  - docker build -t graylog-ansible-role tests/support
+  - docker run -it -v $PWD:/role graylog-ansible-role
+
+before_script:
+  - docker images
+
+script:
+  - docker ps -a
