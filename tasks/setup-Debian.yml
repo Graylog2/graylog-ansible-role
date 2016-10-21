@@ -3,11 +3,11 @@
   apt: name=python-software-properties state=present
 
 - name: Update repositories
-  apt_repository: repo={{ graylog_java_ppa }} state=present update_cache=yes
+  apt_repository: repo={{ graylog_java_ppa }} state=present update_cache=True
   when: ansible_distribution == "Ubuntu"
 
 - name: Update repositories
-  apt_repository: repo="{{ item }}" state=present update_cache=yes
+  apt_repository: repo="{{ item }}" state=present update_cache=True
   with_items:
     - "{{ graylog_java_repo }}"
     - "{{ graylog_java_src_repo }}"
@@ -21,16 +21,20 @@
   shell: echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections; echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections creates=/usr/lib/jvm/java-8-oracle
 
 - name: Install Java 8
-  apt: name=oracle-java8-installer state=present force=yes
+  apt: name=oracle-java8-installer state=present force=True
 
 - name: Download Graylog repository package
-  get_url: url={{ graylog_packages_url }} dest=/tmp/graylog_repository.deb
+  get_url: url={{ graylog_apt_deb_url }} dest=/tmp/graylog_repository.deb
 
-- apt: name=apt-transport-https state=installed
+- name: Install transport https
+  apt: name=apt-transport-https state=installed
 
 - name: Install Graylog repository
   apt: deb=/tmp/graylog_repository.deb state=installed dpkg_options='force-all'
   register: install_repo
 
-- apt: update_cache=yes
+- apt: update_cache=True
   when: install_repo.changed == True
+
+- name: Install Graylog server
+  apt: name=graylog-server state=present update_cache=True
