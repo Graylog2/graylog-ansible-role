@@ -52,7 +52,17 @@ Quickstart
       - Graylog2.graylog-ansible-role
 ```
 
-- Fetch this role with dependencies `ansible-galaxy install -p . Graylog2.graylog-ansible-role`
+- Create a `requirements.yml` file, containing
+
+```yaml
+---
+- src: lesmyrmidons.mongodb
+- src: https://github.com/elastic/ansible-elasticsearch.git
+- src: jdauphant.nginx
+```
+
+- Fetch this role with `ansible-galaxy install -p . -n Graylog2.graylog-ansible-role`
+- Fetch dependencies with `ansible-galaxy install -p . -r requirements.yml`
 - Run the playbook with `ansible-playbook playbook.yml -i "127.0.0.1,"`
 - Login to Graylog by opening `http://localhost:9000` in your browser, default username and password is `admin`
 
