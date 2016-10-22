@@ -138,6 +138,35 @@ More detailed example
 - Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
 
+# Tests
+
+One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
+by using the Docker images provided.
+
+Example for Debian Wheezy:
+
+```
+$ cd graylog-ansible-role
+$ docker build -t graylog-ansible-role-wheezy -f tests/support/wheezy.Dockerfile tests/support
+$ docker run -it -v $PWD:/role graylog-ansible-role-wheezy
+```
+
+Example for CentOS 7:
+
+Due to how `systemd` works with Docker, the following approach is suggested:
+
+```
+$ cd graylog-ansible-role
+$ docker build -t graylog-ansible-role-centos7 -f tests/support/centos7.Dockerfile tests/support
+$ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-centos7 /usr/sbin/init
+$ DOCKER_CONTAINER_ID=$(docker ps | grep centos | awk '{print $1}')
+$ docker logs $DOCKER_CONTAINER_ID
+$ docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
+$ docker ps -a
+$ docker stop $DOCKER_CONTAINER_ID
+$ docker rm -v $DOCKER_CONTAINER_ID
+```
+
 License
 -------
 
