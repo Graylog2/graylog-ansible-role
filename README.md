@@ -143,13 +143,15 @@ More detailed example
 One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
 by using the Docker images provided.
 
-Example for Debian Wheezy:
+Example for Debian Wheezy and Ubuntu Trusty:
 
 ```
 $ cd graylog-ansible-role
 $ docker build -t graylog-ansible-role-wheezy -f tests/support/wheezy.Dockerfile tests/support
 $ docker run -it -v $PWD:/role graylog-ansible-role-wheezy
 ```
+
+For Trusty, just replace `wheezy` with `trusty` in the above commands.
 
 Example for CentOS 7:
 
