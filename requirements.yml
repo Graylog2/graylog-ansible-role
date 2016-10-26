@@ -1,9 +1,12 @@
 ---
-- name: greendayonfire.mongodb
-  src: https://github.com/UnderGreen/ansible-role-mongodb
+- name: 'lesmyrmidons.mongodb'
+  src: 'https://github.com/lesmyrmidons/ansible-role-mongodb.git'
+  version: 'v1.1.0'
 
-- name: f500.elasticsearch
-  src: https://github.com/f500/ansible-elasticsearch
+- name: 'ansible-elasticsearch'
+  src: 'https://github.com/elastic/ansible-elasticsearch.git'
+  version: '0.1.2'
 
-- name: jdauphant.nginx
-  src: https://github.com/jdauphant/ansible-role-nginx
+- name: 'jdauphant.nginx'
+  src: 'https://github.com/jdauphant/ansible-role-nginx.git'
+  version: 'v2.3.1'

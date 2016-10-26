@@ -5,12 +5,14 @@ graylog_java_repo:                 'deb http://ppa.launchpad.net/webupd8team/jav
 graylog_java_src_repo:             'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
 graylog_java_repo_keyserver:       'keyserver.ubuntu.com'
 graylog_java_repo_key:             'EEA14886'
-graylog_packages_url:              'http://packages.graylog2.org/repo/debian/pool/stable/2.1/g/graylog-2.1-repository/graylog-2.1-repository_1-1_all.deb'
+graylog_version:                   '2.1'
+graylog_apt_deb_url:               "http://packages.graylog2.org/repo/debian/pool/stable/{{ graylog_version }}/g/graylog-{{ graylog_version }}-repository/graylog-{{ graylog_version }}-repository_1-1_all.deb"
+graylog_yum_rpm_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm"
 graylog_java_oracle_installer_key: 'oracle-java8-installer'
 graylog_java_oracle_license_key:   'accepted-oracle-license-v1-1'
 
 # General
-graylog_is_master:            'true'
+graylog_is_master:            'True'
 graylog_node_id_file:         '/etc/graylog/server/node-id'
 graylog_password_secret:      '2jueVqZpwLLjaWxV'
 graylog_root_username:        'admin'
@@ -19,14 +21,14 @@ graylog_plugin_dir:           '/usr/share/graylog-server/plugin'
 graylog_root_email:           ''
 graylog_root_timezone:        'UTC'
 graylog_alert_check_interval: 60
-graylog_disable_sigar:        'false'
+graylog_disable_sigar:        'False'
 
-# Rest
+# REST
 graylog_rest_listen_uri:                   'http://0.0.0.0:9000/api/'
 graylog_rest_transport_uri:                ''
-graylog_rest_enable_cors:                  'true'
-graylog_rest_enable_gzip:                  'true'
-graylog_rest_enable_tls:                   'false'
+graylog_rest_enable_cors:                  'True'
+graylog_rest_enable_gzip:                  'True'
+graylog_rest_enable_tls:                   'False'
 graylog_rest_tls_cert_file:                '/path/to/graylog.crt'
 graylog_rest_tls_key_file:                 '/path/to/graylog.key'
 graylog_rest_tls_key_password:             'secret'
@@ -37,8 +39,8 @@ graylog_rest_thread_pool_size:             16
 graylog_rest_worker_threads_max_pool_size: 16
 
 # Search
-graylog_allow_leading_wildcard_searches:                'false'
-graylog_allow_highlighting:                             'false'
+graylog_allow_leading_wildcard_searches:                'False'
+graylog_allow_highlighting:                             'False'
 graylog_elasticsearch_config_file:                      '/etc/graylog/server/elasticsearch.yml'
 graylog_elasticsearch_shards:                           4
 graylog_elasticsearch_replicas:                         0
@@ -53,14 +55,14 @@ graylog_elasticsearch_network_publish_host:             ''
 graylog_elasticsearch_analyzer:                         'standard'
 graylog_elasticsearch_output_batch_size:                25
 graylog_elasticsearch_output_flush_interval:            1
-graylog_elasticsearch_disable_version_check:            'true'
-graylog_elasticsearch_http_enabled:                     'false'
-graylog_disable_index_optimization:                     'true'
+graylog_elasticsearch_disable_version_check:            'True'
+graylog_elasticsearch_http_enabled:                     'False'
+graylog_disable_index_optimization:                     'True'
 graylog_index_optimization_max_num_segments:            1
-graylog_disable_index_range_calculation:                'true'
+graylog_disable_index_range_calculation:                'True'
 
 # Retention
-graylog_no_retention:                        'false'
+graylog_no_retention:                        'False'
 graylog_elasticsearch_retention_strategy:    'delete'
 graylog_rotation_strategy:                   'count'
 graylog_elasticsearch_max_docs_per_index:    20000000
@@ -72,10 +74,10 @@ graylog_elasticsearch_max_time_per_index:    '1d'
 graylog_processbuffer_processors:       5
 graylog_outputbuffer_processors:        3
 graylog_processor_wait_strategy:        'blocking'
-graylog_dead_letters_enabled:           'false'
+graylog_dead_letters_enabled:           'False'
 graylog_lb_recognition_period_seconds:  3
 graylog_stream_processing_max_faults:   3
-graylog_message_journal_enabled:        'true'
+graylog_message_journal_enabled:        'True'
 graylog_message_journal_dir:            '/var/lib/graylog-server/journal'
 graylog_message_journal_max_age:        '12h'
 graylog_message_journal_max_size:       '5gb'
@@ -115,18 +117,18 @@ graylog_outputbuffer_processor_threads_max_pool_size:  30
 graylog_mongodb_uri:                                 'mongodb://127.0.0.1:27017/graylog'
 graylog_mongodb_max_connections:                     100
 graylog_mongodb_threads_allowed_to_block_multiplier: 5
-graylog_enable_metrics_collection:                   'false'
+graylog_enable_metrics_collection:                   'False'
 
 # Drools
 graylog_rules_file: ''
 
 # Mail
-graylog_transport_email_enabled:           'false'
+graylog_transport_email_enabled:           'False'
 graylog_transport_email_hostname:          ''
 graylog_transport_email_port:              587
-graylog_transport_email_use_auth:          'true'
-graylog_transport_email_use_tls:           'true'
-graylog_transport_email_use_ssl:           'true'
+graylog_transport_email_use_auth:          'True'
+graylog_transport_email_use_tls:           'True'
+graylog_transport_email_use_ssl:           'True'
 graylog_transport_email_auth_username:     ''
 graylog_transport_email_auth_password:     ''
 graylog_transport_email_subject_prefix:    '[graylog]'
@@ -139,9 +141,9 @@ graylog_http_proxy_uri: ''
 # Web UI
 graylog_web_listen_uri:       'http://0.0.0.0:9000/'
 graylog_web_endpoint_uri:     ''
-graylog_enable_cors:          'false'
-graylog_enable_gzip:          'false'
-graylog_web_enable_tls:       'false'
+graylog_enable_cors:          'False'
+graylog_enable_gzip:          'False'
+graylog_web_enable_tls:       'False'
 graylog_web_tls_cert_file:    ''
 graylog_web_tls_key_file:     ''
 graylog_web_tls_key_password: ''

@@ -8,9 +8,9 @@ Dependencies
 
 - Ansible 2.0 or higher.
 - [MongoDB](https://github.com/UnderGreen/ansible-role-mongodb)
-- [Elasticsearch](https://github.com/f500/ansible-elasticsearch)
+- [Elasticsearch](https://github.com/elastic/ansible-elasticsearch)
 - [Nginx](https://github.com/jdauphant/ansible-role-nginx)
-- Tested on Ubuntu 14.04 and Debian 7
+- Tested on Ubuntu 14.04 / Debian 7 / Centos 7
 
 Quickstart
 ----------
@@ -25,15 +25,28 @@ Quickstart
   become: True
 
   vars:
-    elasticsearch_version: '2.x'
-    elasticsearch_cluster_name: 'graylog'
-    elasticsearch_network_host: '0.0.0.0'
-    elasticsearch_gateway_type: ''
-    elasticsearch_gateway_expected_nodes: 1
+    es_instance_name: "graylog"
+    es_scripts: False
+    es_templates: False
+    es_version_lock: False
+    es_heap_size: 1g
+
+    es_config: {
+      node.name: "graylog",
+      cluster.name: "graylog",
+      discovery.zen.ping.unicast.hosts: "localhost:9301",
+      http.port: 9200,
+      transport.tcp.port: 9300,
+      network.host: 0.0.0.0,
+      node.data: true,
+      node.master: true,
+      bootstrap.mlockall: false,
+      discovery.zen.ping.multicast.enabled: false
+    }
     graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 
   roles:
-    - role: Graylog2.graylog-ansible-role
+    - role: 'Graylog2.graylog-ansible-role'
       tags: graylog
 ```
 
@@ -78,18 +91,24 @@ More detailed example
 - hosts: server
   become: True
   vars:
-    elasticsearch_cluster_name: 'graylog'
-    elasticsearch_timezone: 'UTC'
-    elasticsearch_version: '2.x'
-    elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
-    elasticsearch_gateway_type: ''
-    elasticsearch_network_host: '0.0.0.0'
-    elasticsearch_network_bind_host: ''
-    elasticsearch_network_publish_host: ''
-    elasticsearch_index_number_of_shards: '4'
-    elasticsearch_index_number_of_replicas: '0'
-    elasticsearch_gateway_recover_after_nodes: '1'
-    elasticsearch_gateway_expected_nodes: '1'
+    es_instance_name: 'graylog'
+    es_scripts: False
+    es_templates: False
+    es_version_lock: False
+    es_heap_size: 1g
+
+    es_config: {
+      node.name: "graylog",
+      cluster.name: "graylog",
+      discovery.zen.ping.unicast.hosts: "localhost:9301",
+      http.port: 9200,
+      transport.tcp.port: 9300,
+      network.host: 0.0.0.0,
+      node.data: true,
+      node.master: true,
+      bootstrap.mlockall: false,
+      discovery.zen.ping.multicast.enabled: false
+    }
     graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 
     nginx_sites:
