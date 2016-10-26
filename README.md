@@ -27,7 +27,7 @@ Quickstart
   become: True
 
   vars:
-    es_instance_name: "graylog"
+    es_instance_name: 'graylog'
     es_scripts: False
     es_templates: False
     es_version_lock: False
@@ -61,20 +61,20 @@ Variables
 --------
 
 ```yaml
-    # Basic server settings
-    graylog_is_master:          'true'
-    graylog_password_secret:    '2jueVqZpwLLjaWxV' # generate with: pwgen -s 96 1
-    graylog_root_password_sha2: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918' # generate with: echo -n yourpassword | shasum -a 256
+# Basic server settings
+graylog_is_master:          'True'
+graylog_password_secret:    '2jueVqZpwLLjaWxV' # generate with: pwgen -s 96 1
+graylog_root_password_sha2: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918' # generate with: echo -n yourpassword | shasum -a 256
 
-    # Elasticsearch message retention
-    graylog_elasticsearch_max_docs_per_index:    20000000
-    graylog_elasticsearch_max_number_of_indices: 20
-    graylog_elasticsearch_shards:                4
-    graylog_elasticsearch_replicas:              0
+# Elasticsearch message retention
+graylog_elasticsearch_max_docs_per_index:    20000000
+graylog_elasticsearch_max_number_of_indices: 20
+graylog_elasticsearch_shards:                4
+graylog_elasticsearch_replicas:              0
 
-    graylog_rest_listen_uri:  'http://0.0.0.0:9000/api/'
-    graylog_web_listen_uri:   'http://0.0.0.0:9000/'
-    graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
+graylog_rest_listen_uri:  'http://0.0.0.0:9000/api/'
+graylog_web_listen_uri:   'http://0.0.0.0:9000/'
+graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 ```
 
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters.
