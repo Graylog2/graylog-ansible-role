@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/danvaida/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/danvaida/graylog-ansible-role)
+[![Build Status](https://travis-ci.org/Graylog2/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/danvaida/graylog-ansible-role)
 
 Description
 -----------
@@ -52,10 +52,11 @@ Quickstart
       tags: graylog
 ```
 
-- Fetch this role `ansible-galaxy install -p ./roles Graylog2.graylog-ansible-role`
+- Create a playbook file with that content, e.g. `your_playbook.yml`
+- Fetch this role `ansible-galaxy install -n -p ./roles Graylog2.graylog-ansible-role`
 - Install role's dependencies `ansible-galaxy install -r roles/Graylog2.graylog-ansible-role/requirements.yml -p ./roles`
-- Run the playbook with `ansible-playbook your_playbook.yml -i "127.0.0.1,"`
-- Login to Graylog by opening `http://<host IP>:9000` in your browser. Default username and password is `admin`
+- Apply the playbook to a Vagrant box `ansible-playbook your_playbook.yml -i "127.0.0.1:2222,"`
+- Login to Graylog by opening `http://127.0.0.1:9000` in your browser. Default username and password is `admin`
 
 Variables
 --------
