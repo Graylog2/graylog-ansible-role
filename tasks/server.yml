@@ -1,20 +1,39 @@
 ---
+- name: Directory should be created with correct ownership and privileges
+  file:
+    path: '/etc/graylog/server'
+    owner: graylog
+    group: graylog
+    mode: '0750'
 
-- name: Create directory
-  file: path=/etc/graylog/server state=directory owner=graylog group=graylog mode=0750
-
-- name: Configure Graylog server
-  template: src=graylog.server.conf.j2 dest=/etc/graylog/server/server.conf owner=graylog group=graylog mode=0644
+- name: Graylog server should be configured
+  template:
+    src: 'graylog.server.conf.j2'
+    dest: '/etc/graylog/server/server.conf'
+    owner: graylog
+    group: graylog
+    mode: '0644'
   notify: restart graylog-server
 
-- name: Configure Graylog ES
-  template: src=graylog.server.elasticsearch.yml.j2 dest=/etc/graylog/server/elasticsearch.yml owner=graylog group=graylog mode=0644
+- name: Graylog ElasticSearch should be configured
+  template:
+    src: 'graylog.server.elasticsearch.yml.j2'
+    dest: '/etc/graylog/server/elasticsearch.yml'
+    owner: graylog
+    group: graylog
+    mode: '0644'
   notify: restart graylog-server
 
-- name: Configure Graylog server defaults
-  template: src=graylog.server.default.j2 dest=/etc/default/graylog-server owner=graylog group=graylog mode=0644
+- name: Graylog server defaults should be configured
+  template:
+    src: 'graylog.server.default.j2'
+    dest: '/etc/default/graylog-server'
+    owner: graylog
+    group: graylog
+    mode: '0644'
   notify: restart graylog-server
 
-- name: Ensure Graylog server starts after reboot
-  file: path=/etc/init/graylog-server.override state=absent
-
+- name: Graylog server should start after reboot
+  file:
+    path: '/etc/init/graylog-server.override'
+    state: absent

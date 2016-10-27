@@ -1,8 +1,9 @@
+[![Build Status](https://travis-ci.org/danvaida/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/danvaida/graylog-ansible-role)
+
 Description
 -----------
 
 Ansible role which installs and configures Graylog log management.
-
 
 Dependencies
 ------------
@@ -16,22 +17,20 @@ Dependencies
 Quickstart
 ----------
 
-- Copy your ssh key to the target host and make sure you can login passwordless (You need about 4GB ram to run Graylog at least)
-- Create a `playbook.yml` file, containing the following
+- You need at least 4GB of memory to run Graylog
+- Here is an example of a playbook targeting Vagrant box(es):
 
 ```yaml
 ---
 - hosts: all
   remote_user: vagrant
-  become: true
-  become_method: sudo
-  become_user: root
+  become: True
 
   vars:
-    es_instance_name: "graylog"
-    es_scripts: false
-    es_templates: false
-    es_version_lock: false
+    es_instance_name: 'graylog'
+    es_scripts: False
+    es_templates: False
+    es_version_lock: False
     es_heap_size: 1g
 
     es_config: {
@@ -46,70 +45,58 @@ Quickstart
       bootstrap.mlockall: false,
       discovery.zen.ping.multicast.enabled: false
     }
-    graylog_web_endpoint_uri: http://127.0.0.1:9000/api/
+    graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 
   roles:
-      - Graylog2.graylog-ansible-role
+    - role: 'Graylog2.graylog-ansible-role'
+      tags: graylog
 ```
 
-- Create a `requirements.yml` file, containing
-
-```yaml
----
-- src: lesmyrmidons.mongodb
-- src: https://github.com/elastic/ansible-elasticsearch.git
-- src: jdauphant.nginx
-```
-
-- Fetch this role with `ansible-galaxy install -p . -n Graylog2.graylog-ansible-role`
-- Fetch dependencies with `ansible-galaxy install -p . -r requirements.yml`
-- Run the playbook with `ansible-playbook playbook.yml -i "127.0.0.1,"`
-- Login to Graylog by opening `http://localhost:9000` in your browser, default username and password is `admin`
+- Fetch this role `ansible-galaxy install -p ./roles Graylog2.graylog-ansible-role`
+- Install role's dependencies `ansible-galaxy install -r roles/Graylog2.graylog-ansible-role/requirements.yml -p ./roles`
+- Run the playbook with `ansible-playbook your_playbook.yml -i "127.0.0.1,"`
+- Login to Graylog by opening `http://<host IP>:9000` in your browser. Default username and password is `admin`
 
 Variables
 --------
 
 ```yaml
 # Basic server settings
-graylog_is_master: 'true'
-graylog_password_secret: 2jueVqZpwLLjaWxV # generate with pwgen -s 96 1
-# Create a password hash using: echo -n yourpassword | shasum -a 256
-graylog_root_password_sha2: 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918
+graylog_is_master:          'True'
+graylog_password_secret:    '2jueVqZpwLLjaWxV' # generate with: pwgen -s 96 1
+graylog_root_password_sha2: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918' # generate with: echo -n yourpassword | shasum -a 256
 
 # Elasticsearch message retention
-graylog_elasticsearch_max_docs_per_index: 20000000
+graylog_elasticsearch_max_docs_per_index:    20000000
 graylog_elasticsearch_max_number_of_indices: 20
-graylog_elasticsearch_shards: 4
-graylog_elasticsearch_replicas: 0
+graylog_elasticsearch_shards:                4
+graylog_elasticsearch_replicas:              0
 
-# The web interface and the rest api should be accessable by the web browser
-graylog_rest_listen_uri: http://0.0.0.0:9000/api/
-graylog_web_listen_uri: http://0.0.0.0:9000/
-
-# web_endpoint_uri tells the browser how to connect to the api endpoint
-graylog_web_endpoint_uri: http://127.0.0.1:9000/api/
-
+graylog_rest_listen_uri:  'http://0.0.0.0:9000/api/'
+graylog_web_listen_uri:   'http://0.0.0.0:9000/'
+graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 ```
 
-Take a look into `defaults/main.yml` to get an overview of all configuration parameters
+Take a look into `defaults/main.yml` to get an overview of all configuration parameters.
 
 More detailed example
 ---------------------
 
 - Set up `roles_path = ./roles` in `ansible.cfg` (`[defaults]` block)
-- Install role and dependencies `ansible-galaxy install Graylog2.graylog-ansible-role`
+- Install role `ansible-galaxy install Graylog2.graylog-ansible-role`
+- Install role's dependencies `ansible-galaxy install -r roles/Graylog2.graylog-ansible-role/requirements.yml`
 - Set up playbook (see example below):
 
 ```yaml
-# main.yml
+# your_playbook.yml
 ---
 - hosts: server
   become: True
   vars:
-    es_instance_name: "graylog"
-    es_scripts: false
-    es_templates: false
-    es_version_lock: false
+    es_instance_name: 'graylog'
+    es_scripts: False
+    es_templates: False
+    es_version_lock: False
     es_heap_size: 1g
 
     es_config: {
@@ -124,7 +111,7 @@ More detailed example
       bootstrap.mlockall: false,
       discovery.zen.ping.multicast.enabled: false
     }
-    graylog_web_endpoint_uri: http://127.0.0.1:9000/api/
+    graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 
     nginx_sites:
       graylog:
@@ -144,10 +131,43 @@ More detailed example
           client_body_buffer_size 128k; }
 
   roles:
-    - { role: 'Graylog2.graylog-ansible-role', tags: 'graylog' }
+    - role: 'Graylog2.graylog-ansible-role'
+      tags: graylog
 ```
-- Run the playbook with `ansible-playbook -i inventory_file main.yml`
+
+- Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
+
+# Tests
+
+One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
+by using the Docker images provided.
+
+Example for Debian Wheezy and Ubuntu Trusty:
+
+```
+$ cd graylog-ansible-role
+$ docker build -t graylog-ansible-role-wheezy -f tests/support/wheezy.Dockerfile tests/support
+$ docker run -it -v $PWD:/role graylog-ansible-role-wheezy
+```
+
+For Trusty, just replace `wheezy` with `trusty` in the above commands.
+
+Example for CentOS 7:
+
+Due to how `systemd` works with Docker, the following approach is suggested:
+
+```
+$ cd graylog-ansible-role
+$ docker build -t graylog-ansible-role-centos7 -f tests/support/centos7.Dockerfile tests/support
+$ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-centos7 /usr/sbin/init
+$ DOCKER_CONTAINER_ID=$(docker ps | grep centos | awk '{print $1}')
+$ docker logs $DOCKER_CONTAINER_ID
+$ docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
+$ docker ps -a
+$ docker stop $DOCKER_CONTAINER_ID
+$ docker rm -v $DOCKER_CONTAINER_ID
+```
 
 License
 -------

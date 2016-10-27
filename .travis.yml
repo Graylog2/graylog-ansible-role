@@ -1,0 +1,20 @@
+---
+services:
+  - docker
+
+install:
+  - docker build -t graylog-ansible-role-wheezy  -f tests/support/wheezy.Dockerfile  tests/support
+  - docker build -t graylog-ansible-role-trusty  -f tests/support/trusty.Dockerfile  tests/support
+  - docker build -t graylog-ansible-role-centos7 -f tests/support/centos7.Dockerfile tests/support
+  - docker run -it -v $PWD:/role graylog-ansible-role-wheezy
+  - docker run -it -v $PWD:/role graylog-ansible-role-trusty
+  - docker run -it -v $PWD:/role:ro -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged graylog-ansible-role-centos7 /usr/sbin/init
+  - DOCKER_CONTAINER_ID=$(docker ps | grep centos | awk '{print $1}')
+  - docker logs $DOCKER_CONTAINER_ID
+  - docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
+
+before_script:
+  - docker images
+
+script:
+  - docker ps -a
