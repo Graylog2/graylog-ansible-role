@@ -1,12 +1,15 @@
 ---
 dependencies:
   - role: 'lesmyrmidons.mongodb'
+    name: galaxy.graylog_mongodb
     when: graylog_install_mongodb
 
   - role: 'ansible-elasticsearch'
+    name: galaxy.graylog_nginx
     when: graylog_install_elasticsearch
 
   - role: 'jdauphant.nginx'
+    name: galaxy.graylog_nginx
     when: graylog_install_nginx
 
 galaxy_info:

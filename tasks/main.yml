@@ -7,3 +7,6 @@
   when: ansible_os_family == 'Debian'
 
 - include: server.yml
+
+- include: inputs.yml
+  when: not graylog_skip_inputs_installation

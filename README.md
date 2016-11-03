@@ -65,7 +65,7 @@ Variables
 # Basic server settings
 graylog_is_master:          'True'
 graylog_password_secret:    '2jueVqZpwLLjaWxV' # generate with: pwgen -s 96 1
-graylog_root_password_sha2: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918' # generate with: echo -n yourpassword | shasum -a 256
+graylog_root_password: 'pwd'
 
 # Elasticsearch message retention
 graylog_elasticsearch_max_docs_per_index:    20000000
@@ -131,6 +131,10 @@ More detailed example
           client_max_body_size 8m;
           client_body_buffer_size 128k; }
 
+    graylog_inputs:
+      - type: 'org.graylog2.inputs.syslog.tcp.SyslogTCPInput'
+        port: 8514
+        title: 'Syslog TCP 8514'
   roles:
     - role: 'Graylog2.graylog-ansible-role'
       tags: graylog
