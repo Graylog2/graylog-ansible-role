@@ -1,14 +1,17 @@
 ---
 dependencies:
-  - role: 'lesmyrmidons.mongodb'
-    name: galaxy.graylog_mongodb
+  - src: https://github.com/UnderGreen/ansible-role-mongodb
+    version: v2.0.2
+    name: lgalaxy.graylog_mongodb
     when: graylog_install_mongodb
 
-  - role: 'ansible-elasticsearch'
-    name: galaxy.graylog_nginx
+  - src: https://github.com/elastic/ansible-elasticsearch
+    version: 0.1.2
+    name: galaxy.graylog_elasticsearch
     when: graylog_install_elasticsearch
 
-  - role: 'jdauphant.nginx'
+  - src: https://github.com/jdauphant/ansible-role-nginx.git
+    version: v2.3.1
     name: galaxy.graylog_nginx
     when: graylog_install_nginx
 
