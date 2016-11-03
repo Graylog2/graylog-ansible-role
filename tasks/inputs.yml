@@ -24,11 +24,9 @@
         "type": "{{ item.type }}",
         "configuration": {
           "bind_address": "{{ item.bind_address | default('0.0.0.0') }}",
-          "port": {{ item.port }},
-          "recv_buffer_size": {{ item.recv_buffer_size | default(1048576) }},
-          "tcp_keepalive": {{ item.tcp_keepalive | default(false) }},
-          "use_null_delimiter": {{ item.use_null_delimiter | default(false) }},
-          "max_message_size": {{ item.max_message_size | default(2097152) }}
+          "port": {{ item.port }}
+          {% if item.extra is defined %},{% endif %}
+          {{ item.extra | default('') }}
         },
         "global": true
       }
