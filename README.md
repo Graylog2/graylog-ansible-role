@@ -146,7 +146,8 @@ Dependencies can be enabled/disabled with the `host_vars` `graylog_install_*`. T
 for more informations. Keep in mind that you have to install all dependencies even when they are disabled to prevent
 errors.
 
-# Tests
+Tests
+-----
 
 One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
 by using the Docker images provided.
