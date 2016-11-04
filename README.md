@@ -139,6 +139,13 @@ More detailed example
 - Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
 
+Conditional role dependencies
+-----------------------------
+
+Dependencies can be enabled/disabled with the `host_vars` `graylog_install_*`. Take look into [meta/main.yml](https://github.com/Graylog2/graylog-ansible-role/blob/master/meta/main.yml)
+for more informations. Keep in mind that you have to install all dependencies even when they are disabled to prevent
+errors.
+
 # Tests
 
 One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
