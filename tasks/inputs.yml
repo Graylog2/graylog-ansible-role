@@ -1,5 +1,10 @@
 ---
 
+- name: Ensure Graylog is started
+  service:
+    name: 'graylog-server'
+    state: started
+
 - name: Graylog get all inputs
   uri:
     url: http://localhost:9000/api/system/inputs
