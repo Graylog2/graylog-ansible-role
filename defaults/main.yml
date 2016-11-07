@@ -32,13 +32,12 @@ graylog_rest_enable_tls:                   'False'
 graylog_rest_tls_cert_file:                '/path/to/graylog.crt'
 graylog_rest_tls_key_file:                 '/path/to/graylog.key'
 graylog_rest_tls_key_password:             'secret'
-graylog_rest_max_chunk_size:               8192
 graylog_rest_max_header_size:              8192
 graylog_rest_max_initial_line_length:      4096
 graylog_rest_thread_pool_size:             16
-graylog_rest_worker_threads_max_pool_size: 16
 
 # Search
+graylog_elasticsearch_template_name:                    'graylog-internal'
 graylog_allow_leading_wildcard_searches:                'False'
 graylog_allow_highlighting:                             'False'
 graylog_elasticsearch_config_file:                      '/etc/graylog/server/elasticsearch.yml'
@@ -46,7 +45,7 @@ graylog_elasticsearch_shards:                           4
 graylog_elasticsearch_replicas:                         0
 graylog_elasticsearch_index_prefix:                     'graylog'
 graylog_elasticsearch_cluster_name:                     'graylog'
-graylog_elasticsearch_node_name:                        'graylog-server'
+graylog_elasticsearch_node_name_prefix:                 'graylog-'
 graylog_elasticsearch_transport_tcp_port:               9350
 graylog_elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
 graylog_elasticsearch_network_host:                     ''
@@ -59,7 +58,6 @@ graylog_elasticsearch_disable_version_check:            'True'
 graylog_elasticsearch_http_enabled:                     'False'
 graylog_disable_index_optimization:                     'True'
 graylog_index_optimization_max_num_segments:            1
-graylog_disable_index_range_calculation:                'True'
 
 # Retention
 graylog_no_retention:                        'False'
@@ -71,28 +69,30 @@ graylog_elasticsearch_max_size_per_index:    1073741824
 graylog_elasticsearch_max_time_per_index:    '1d'
 
 # Processing
-graylog_processbuffer_processors:       5
-graylog_outputbuffer_processors:        3
-graylog_processor_wait_strategy:        'blocking'
-graylog_dead_letters_enabled:           'False'
-graylog_lb_recognition_period_seconds:  3
-graylog_stream_processing_max_faults:   3
-graylog_message_journal_enabled:        'True'
-graylog_message_journal_dir:            '/var/lib/graylog-server/journal'
-graylog_message_journal_max_age:        '12h'
-graylog_message_journal_max_size:       '5gb'
-graylog_message_journal_flush_age:      '1m'
-graylog_message_journal_flush_interval: 1000000
-graylog_message_journal_segment_age:    '1h'
-graylog_message_journal_segment_size:   '100mb'
-graylog_output_fault_count_threshold:   5
-graylog_output_fault_penalty_seconds:   30
-graylog_async_eventbus_processors:      2
+graylog_processbuffer_processors:         5
+graylog_outputbuffer_processors:          3
+graylog_processor_wait_strategy:          'blocking'
+graylog_dead_letters_enabled:             'False'
+graylog_lb_recognition_period_seconds:    3
+graylog_lb_throttle_threshold_percentage: 95
+graylog_stream_processing_max_faults:     3
+graylog_message_journal_enabled:          'True'
+graylog_message_journal_dir:              '/var/lib/graylog-server/journal'
+graylog_message_journal_max_age:          '12h'
+graylog_message_journal_max_size:         '5gb'
+graylog_message_journal_flush_age:        '1m'
+graylog_message_journal_flush_interval:   1000000
+graylog_message_journal_segment_age:      '1h'
+graylog_message_journal_segment_size:     '100mb'
+graylog_output_fault_count_threshold:     5
+graylog_output_fault_penalty_seconds:     30
+graylog_async_eventbus_processors:        2
 
 # Timeouts
 graylog_elasticsearch_cluster_discovery_timeout:       5000
 graylog_elasticsearch_discovery_initial_state_timeout: '3s'
 graylog_elasticsearch_request_timeout:                 '1m'
+graylog_index_ranges_cleanup_interval:                 '1h'
 graylog_stream_processing_timeout:                     2000
 graylog_output_module_timeout:                         10000
 graylog_stale_master_timeout:                          2000
@@ -102,6 +102,11 @@ graylog_http_read_timeout:                             '10s'
 graylog_http_write_timeout:                            '10s'
 graylog_ldap_connection_timeout:                       2000
 graylog_dashboard_widget_default_cache_time:           '10s'
+
+# Content packs
+graylog_content_packs_loader_enabled: true
+graylog_content_packs_dir: /usr/share/graylog-server/contentpacks
+graylog_content_packs_auto_load: ''
 
 # Buffer
 graylog_udp_recvbuffer_sizes:                          1048576
@@ -117,7 +122,6 @@ graylog_outputbuffer_processor_threads_max_pool_size:  30
 graylog_mongodb_uri:                                 'mongodb://127.0.0.1:27017/graylog'
 graylog_mongodb_max_connections:                     100
 graylog_mongodb_threads_allowed_to_block_multiplier: 5
-graylog_enable_metrics_collection:                   'False'
 
 # Drools
 graylog_rules_file: ''
@@ -136,27 +140,28 @@ graylog_transport_email_from_email:        ''
 graylog_transport_email_web_interface_url: ''
 
 # Proxy
-graylog_http_proxy_uri: ''
+graylog_http_proxy_uri:                    ''
+graylog_proxied_requests_thread_pool_size: 32
 
 # Web UI
-graylog_web_listen_uri:       'http://0.0.0.0:9000/'
-graylog_web_endpoint_uri:     ''
-graylog_enable_cors:          'False'
-graylog_enable_gzip:          'False'
-graylog_web_enable_tls:       'False'
-graylog_web_tls_cert_file:    ''
-graylog_web_tls_key_file:     ''
-graylog_web_tls_key_password: ''
+graylog_web_enable:                  True
+graylog_web_listen_uri:              'http://0.0.0.0:9000/'
+graylog_web_endpoint_uri:            ''
+graylog_enable_cors:                 'True'
+graylog_enable_gzip:                 'True'
+graylog_web_enable_tls:              'False'
+graylog_web_tls_cert_file:           ''
+graylog_web_tls_key_file:            ''
+graylog_web_tls_key_password:        ''
+graylog_web_max_header_size:         8192
+graylog_web_max_initial_line_length: 4096
+graylog_web_thread_pool_size:        16
 
 # JVM
 graylog_gc_warning_threshold: '1s'
 graylog_server_java_opts:     '-Djava.net.preferIPv4Stack=true -Xms1500m -Xmx1500m -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:+UseParNewGC -XX:-OmitStackTraceInFastThrow'
 graylog_server_args:          ''
 graylog_server_wrapper:       ''
-
-# Collector
-graylog_collector_inactive_threshold:   '1m'
-graylog_collector_expiration_threshold: '14d'
 
 # Install Switches
 graylog_install_elasticsearch: True
