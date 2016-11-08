@@ -67,4 +67,3 @@
   apt:
     name: 'graylog-server'
     state: present
-    update_cache: True
