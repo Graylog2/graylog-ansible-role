@@ -12,7 +12,7 @@ Dependencies
 - [MongoDB](https://github.com/UnderGreen/ansible-role-mongodb)
 - [Elasticsearch](https://github.com/elastic/ansible-elasticsearch)
 - [Nginx](https://github.com/jdauphant/ansible-role-nginx)
-- Tested on Ubuntu 14.04 / Debian 7 / Centos 7
+- Tested on Ubuntu 14.04, 16.04 / Debian 7 / Centos 7
 
 Quickstart
 ----------
@@ -52,9 +52,10 @@ Quickstart
       tags: graylog
 ```
 
-- Fetch this role `ansible-galaxy install -p ./roles Graylog2.graylog-ansible-role`
+- Create a playbook file with that content, e.g. `your_playbook.yml`
+- Fetch this role `ansible-galaxy install -n -p ./roles Graylog2.graylog-ansible-role`
 - Install role's dependencies `ansible-galaxy install -r roles/Graylog2.graylog-ansible-role/requirements.yml -p ./roles`
-- Run the playbook with `ansible-playbook your_playbook.yml -i "127.0.0.1,"`
+- Run the playbook with `ansible-playbook your_playbook.yml -i "<host IP>,"`
 - Login to Graylog by opening `http://<host IP>:9000` in your browser. Default username and password is `admin`
 
 Variables
@@ -138,7 +139,13 @@ More detailed example
 - Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
 
-# Tests
+Conditional role dependencies
+-----------------------------
+
+Dependencies can be enabled/disabled with the `host_vars` `graylog_install_*`. Take a look into [meta/main.yml](https://github.com/Graylog2/graylog-ansible-role/blob/master/meta/main.yml) for more information. Keep in mind that you have to install all dependencies even when they are disabled to prevent errors.
+
+Tests
+-----
 
 One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
 by using the Docker images provided.
@@ -168,6 +175,8 @@ $ docker ps -a
 $ docker stop $DOCKER_CONTAINER_ID
 $ docker rm -v $DOCKER_CONTAINER_ID
 ```
+
+For Xenial, just replace `centos7` with `xenial` in the above commands.
 
 License
 -------
