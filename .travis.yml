@@ -13,7 +13,7 @@ install:
   - DOCKER_CONTAINER_ID=$(docker ps | grep centos | awk '{print $1}')
   - docker logs $DOCKER_CONTAINER_ID
   - docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
-  - docker run -it -v $PWD:/role:ro -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged graylog-ansible-role-xenial /usr/sbin/init
+  - docker run -it -v $PWD:/role:ro -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged graylog-ansible-role-xenial /sbin/init
   - DOCKER_CONTAINER_ID=$(docker ps | grep xenial | awk '{print $1}')
   - docker logs $DOCKER_CONTAINER_ID
   - docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
