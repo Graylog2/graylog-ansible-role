@@ -104,16 +104,16 @@ graylog_ldap_connection_timeout:                       2000
 graylog_dashboard_widget_default_cache_time:           '10s'
 
 # Content packs
-graylog_content_packs_loader_enabled: true
-graylog_content_packs_dir: /usr/share/graylog-server/contentpacks
-graylog_content_packs_auto_load: ''
+graylog_content_packs_loader_enabled: 'True'
+graylog_content_packs_dir:            '/usr/share/graylog-server/contentpacks'
+graylog_content_packs_auto_load:      ''
 
 # Buffer
 graylog_udp_recvbuffer_sizes:                          1048576
 graylog_ring_size:                                     65536
 graylog_inputbuffer_ring_size:                         65536
 graylog_inputbuffer_processors:                        2
-graylog_inputbuffer_wait_strategy:                     blocking
+graylog_inputbuffer_wait_strategy:                     'blocking'
 graylog_outputbuffer_processor_keep_alive_time:        5000
 graylog_outputbuffer_processor_threads_core_pool_size: 3
 graylog_outputbuffer_processor_threads_max_pool_size:  30
@@ -144,7 +144,7 @@ graylog_http_proxy_uri:                    ''
 graylog_proxied_requests_thread_pool_size: 32
 
 # Web UI
-graylog_web_enable:                  True
+graylog_web_enable:                  'True'
 graylog_web_listen_uri:              'http://0.0.0.0:9000/'
 graylog_web_endpoint_uri:            ''
 graylog_enable_cors:                 'True'
@@ -164,6 +164,6 @@ graylog_server_args:          ''
 graylog_server_wrapper:       ''
 
 # Install Switches
-graylog_install_elasticsearch: True
-graylog_install_mongodb:       True
-graylog_install_nginx:         True
+graylog_install_elasticsearch: 'True'
+graylog_install_mongodb:       'True'
+graylog_install_nginx:         'True'
