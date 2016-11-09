@@ -1,5 +1,5 @@
 cluster.name: {{ graylog_elasticsearch_cluster_name }}
-node.name: {{ graylog_elasticsearch_node_name }}
+node.name: {{ graylog_elasticsearch_node_name_prefix }}{{ inventory_hostname }}
 node.master: false
 node.data: false
 transport.tcp.port: {{ graylog_elasticsearch_transport_tcp_port }}
