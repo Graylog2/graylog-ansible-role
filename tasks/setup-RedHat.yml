@@ -9,3 +9,4 @@
   yum:
     name: 'graylog-server'
     state: present
+  notify: restart graylog-server
