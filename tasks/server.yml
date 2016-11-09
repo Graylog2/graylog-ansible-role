@@ -15,15 +15,6 @@
     mode: '0644'
   notify: restart graylog-server
 
-- name: Graylog ElasticSearch should be configured
-  template:
-    src: 'graylog.server.elasticsearch.yml.j2'
-    dest: '/etc/graylog/server/elasticsearch.yml'
-    owner: graylog
-    group: graylog
-    mode: '0644'
-  notify: restart graylog-server
-
 - name: Graylog server defaults should be configured
   template:
     src: 'graylog.server.default.j2'
