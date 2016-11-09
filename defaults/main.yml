@@ -40,7 +40,7 @@ graylog_rest_thread_pool_size:             16
 graylog_elasticsearch_template_name:                    'graylog-internal'
 graylog_allow_leading_wildcard_searches:                'False'
 graylog_allow_highlighting:                             'False'
-graylog_elasticsearch_config_file:                      '/etc/graylog/server/elasticsearch.yml'
+graylog_elasticsearch_config_file:                      ''
 graylog_elasticsearch_shards:                           4
 graylog_elasticsearch_replicas:                         0
 graylog_elasticsearch_index_prefix:                     'graylog'
