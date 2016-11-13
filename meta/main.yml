@@ -19,6 +19,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - '14.04'
+        - '16.04'
     - name: Debian
       versions:
         - 7
