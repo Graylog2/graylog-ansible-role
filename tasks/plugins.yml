@@ -1,0 +1,4 @@
+- name: Installation du plugin {{item.name}}
+  get_url: url={{item.url}} dest=/etc/graylog/plugins owner="www-data" group="www-data"
+  with_dict: graylog_plugins|default({})
+  notify: restart graylog-server
