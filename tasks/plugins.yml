@@ -1,4 +1,11 @@
 - name: Installation du plugin {{item.name}}
-  get_url: url={{item.url}} dest=/etc/graylog/plugins owner="www-data" group="www-data"
-  with_dict: graylog_plugins|default({})
+  get_url: url={{item.url}} dest="{{ graylog_plugin_dir }}" owner="www-data" group="www-data"
+  with_items: "{{ graylog_plugins | default([]) }}"
+  notify: restart graylog-server
+
+- name: Suppression du plugin {{item.name}}
+  command: "{{ rm  graylog_plugin_dir/item.name}}"
+  stat: path="{{graylog_plugin_dir/item.name}}"
+  register: p
+  when: p.stat.exists
   notify: restart graylog-server

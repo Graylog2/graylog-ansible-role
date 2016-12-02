@@ -166,8 +166,3 @@ graylog_install_nginx:         True
 # Inputs json file
 graylog_skip_inputs_installation: false
 graylog_inputs: []
-
-# Plugins
-graylog_plugins:
-  - name: 'pagerDuty'
-    url: https://github.com/Graylog2/graylog-plugin-pagerduty/releases/download/1.3.0/graylog-plugin-pagerduty-1.3.0.jar
