@@ -5,7 +5,7 @@
 
 - name: Suppression du plugin {{item.name}}
   command: "{{ rm  graylog_plugin_dir/item.name}}"
-  stat: path="{{graylog_plugin_dir/item.name}}"
-  register: p
-  when: p.stat.exists
+  when: item.name not in graylog_plugins
   notify: restart graylog-server
+  with_fileglob:
+    - "{{graylog_plugin_dir}}/*"
