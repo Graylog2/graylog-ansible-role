@@ -1,11 +1,12 @@
-- name: Installation du plugin {{item.name}}
-  get_url: url={{item.url}} dest="{{ graylog_plugin_dir }}" owner="www-data" group="www-data"
+- name: Installation des plugins
+  get_url: url={{item.url}} dest="{{ graylog_plugin_dir }}" owner="root" group="root"
   with_items: "{{ graylog_plugins | default([]) }}"
   notify: restart graylog-server
 
-- name: Suppression du plugin {{item.name}}
-  command: "{{ rm  graylog_plugin_dir/item.name}}"
-  when: item.name not in graylog_plugins
+- name: Suppression des plugins
+  file:
+    path: "{{graylog_plugin_dir}}/{{item.name}}"
+    state: absent
+  when: "{{item.toDelete}}"
   notify: restart graylog-server
-  with_fileglob:
-    - "{{graylog_plugin_dir}}/*"
+  with_items: "{{ graylog_plugins | default([]) }}"
