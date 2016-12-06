@@ -7,6 +7,6 @@
   file:
     path: "{{graylog_plugin_dir}}/{{item.name}}"
     state: absent
-  when: "{{item.toDelete}}"
+  when: "{{item.to_delete | default(false)}}"
   notify: restart graylog-server
   with_items: "{{ graylog_plugins | default([]) }}"

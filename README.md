@@ -84,7 +84,7 @@ graylog_skip_plugins_installation: false
 graylog_plugins:
   - name: 'graylog-plugin-pagerduty-1.3.0.jar'
     url: https://github.com/Graylog2/graylog-plugin-pagerduty/releases/download/1.3.0/graylog-plugin-pagerduty-1.3.0.jar
-    toDelete: false
+    to_delete: false
 ```
 
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters.
