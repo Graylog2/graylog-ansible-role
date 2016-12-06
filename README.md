@@ -76,6 +76,15 @@ graylog_elasticsearch_replicas:              0
 graylog_rest_listen_uri:  'http://0.0.0.0:9000/api/'
 graylog_web_listen_uri:   'http://0.0.0.0:9000/'
 graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
+
+# Plugins
+# Permet de passer l'étape
+graylog_skip_plugins_installation: false
+# Name pour le nom du jar, url pour l'url de téléchargememnt, toDelete pour retirer le plugin
+graylog_plugins:
+  - name: 'graylog-plugin-pagerduty-1.3.0.jar'
+    url: https://github.com/Graylog2/graylog-plugin-pagerduty/releases/download/1.3.0/graylog-plugin-pagerduty-1.3.0.jar
+    to_delete: false
 ```
 
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters.

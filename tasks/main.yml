@@ -10,3 +10,6 @@
 
 - include: inputs.yml
   when: not graylog_skip_inputs_installation
+
+- include: plugins.yml
+  when: not graylog_skip_plugins_installation
