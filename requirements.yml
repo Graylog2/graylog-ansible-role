@@ -1,7 +1,7 @@
 ---
-- name: 'lesmyrmidons.mongodb'
-  src: 'https://github.com/lesmyrmidons/ansible-role-mongodb.git'
-  version: 'v1.1.0'
+- name: 'nwalke.mongodb'
+  src: 'https://github.com/nwalke/ansible-role-mongodb.git'
+  version: 'v2.0.0'
 
 - name: 'ansible-elasticsearch'
   src: 'https://github.com/elastic/ansible-elasticsearch.git'
