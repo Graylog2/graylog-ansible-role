@@ -9,7 +9,7 @@ Dependencies
 ------------
 
 - Ansible 2.0 or higher.
-- [MongoDB](https://github.com/UnderGreen/ansible-role-mongodb)
+- [MongoDB](https://github.com/lesmyrmidons/ansible-role-mongodb) (currently not compatible with Ansible 2.2 see [issue#5](https://github.com/lesmyrmidons/ansible-role-mongodb/issues/5)
 - [Elasticsearch](https://github.com/elastic/ansible-elasticsearch)
 - [Nginx](https://github.com/jdauphant/ansible-role-nginx)
 - Tested on Ubuntu 14.04, 16.04 / Debian 7 / Centos 7
