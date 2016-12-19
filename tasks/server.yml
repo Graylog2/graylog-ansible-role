@@ -15,9 +15,9 @@
     mode: '0644'
   notify: restart graylog-server
 
-- name: Configure Graylog server defaults
+- name: Graylog server defaults should be configured
   template:
-    src: graylog.server.default.j2
+    src: 'graylog.server.default.j2'
     dest: '/etc/default/graylog-server'
     owner: graylog
     group: graylog
