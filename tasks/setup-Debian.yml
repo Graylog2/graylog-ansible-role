@@ -1,40 +1,70 @@
 ---
-- name: Install python-software-properties
-  apt: name=python-software-properties state=present
+- name: 'Package "python-software-properties" should be installed'
+  apt:
+    name: 'python-software-properties'
+    state: present
 
-- name: Update repositories
-  apt_repository: repo={{ graylog_java_ppa }} state=present update_cache=True
-  when: ansible_distribution == "Ubuntu"
+- name: 'Repositories should be updated (Ubuntu)'
+  apt_repository:
+    repo: "{{ graylog_java_ppa }}"
+    state: present
+    update_cache: True
+  when: ansible_distribution == 'Ubuntu'
 
-- name: Update repositories
-  apt_repository: repo="{{ item }}" state=present update_cache=True
-  with_items:
-    - "{{ graylog_java_repo }}"
-    - "{{ graylog_java_src_repo }}"
-  when: ansible_distribution == "Debian"
+- block:
+    - name: 'Repositories should be updated (Debian)'
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+        update_cache: True
+      with_items:
+        - "{{ graylog_java_repo }}"
+        - "{{ graylog_java_src_repo }}"
 
-- name: Accept apt key for java repo
-  apt_key: keyserver={{ graylog_java_repo_keyserver }} id={{ graylog_java_repo_key }}
-  when: ansible_distribution == "Debian"
+    - name: 'APT Key should be accepted for the Java repo (Debian)'
+      apt_key:
+        keyserver: "{{ graylog_java_repo_keyserver }}"
+        id: "{{ graylog_java_repo_key }}"
 
-- name: Accept Oracle license prior JDK installation
-  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections; echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections creates=/usr/lib/jvm/java-8-oracle
+  when: ansible_distribution == 'Debian'
 
-- name: Install Java 8
-  apt: name=oracle-java8-installer state=present force=True
+- name: Oracle license should be accepted
+  debconf:
+    name: "{{ graylog_java_oracle_installer_key }}"
+    question: "shared/{{ graylog_java_oracle_license_key }}"
+    value: 'true'
+    vtype: 'select'
 
-- name: Download Graylog repository package
-  get_url: url={{ graylog_apt_deb_url }} dest=/tmp/graylog_repository.deb
+- name: Java 8 should be installed
+  apt:
+    name: 'oracle-java8-installer'
+    state: present
+    force: True
 
-- name: Install transport https
-  apt: name=apt-transport-https state=installed
+- name: Graylog repository package should be downloaded
+  get_url:
+    url: "{{ graylog_apt_deb_url }}"
+    dest: '/tmp/graylog_repository.deb'
 
-- name: Install Graylog repository
-  apt: deb=/tmp/graylog_repository.deb state=installed dpkg_options='force-all'
+- name: 'Package "apt-transport-https" should be installed'
+  apt:
+    name: 'apt-transport-https'
+    state: installed
+
+- name: Graylog repository package should be installed
+  apt:
+    deb: '/tmp/graylog_repository.deb'
+    state: installed
+    dpkg_options: 'force-all'
   register: install_repo
 
-- apt: update_cache=True
-  when: install_repo.changed == True
+- name: APT cache should be updated
+  apt:
+    update_cache: True
+  when: install_repo.changed
 
-- name: Install Graylog server
-  apt: name=graylog-server state=present update_cache=True
+- name: Graylog server package should be installed
+  apt:
+    name: 'graylog-server'
+    state: present
+  notify: restart graylog-server

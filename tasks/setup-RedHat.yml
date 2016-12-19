@@ -1,7 +1,12 @@
 ---
+- name: Repositories should be updated
+  yum:
+    name: "{{ graylog_yum_rpm_url }}"
+    state: present
+    update_cache: True
 
-- name: Update repositories
-  yum: name="{{ graylog_yum_rpm_url }}" state=present update_cache=True
-
-- name: Install Graylog server
-  yum: name=graylog-server state=present
+- name: Graylog server should be installed
+  yum:
+    name: 'graylog-server'
+    state: present
+  notify: restart graylog-server
