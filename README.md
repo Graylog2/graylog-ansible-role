@@ -160,13 +160,12 @@ Example:
 - name: Install java from openjdk
   hosts: graylog2_servers
   become: yes
-    
+  vars:
+    # --- ommited lines ---
+    graylog_install_java: false    
   roles:    
     
     - role: geerlingguy.java
-      vars:
-        # --- ommited lines ---
-        graylog_install_java: false
       
       when: ansible_distribution_release == 'trusty'
       java_packages:
