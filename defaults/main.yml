@@ -1,5 +1,6 @@
 ---
 # Requirements
+graylog_install_java:              true
 graylog_java_ppa:                  'ppa:webupd8team/java'
 graylog_java_repo:                 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
 graylog_java_src_repo:             'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'

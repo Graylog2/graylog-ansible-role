@@ -9,7 +9,7 @@ Dependencies
 ------------
 
 - Ansible 2.0 or higher.
-- [MongoDB](https://github.com/lesmyrmidons/ansible-role-mongodb) (currently not compatible with Ansible 2.2 see [issue#5](https://github.com/lesmyrmidons/ansible-role-mongodb/issues/5))
+- [MongoDB](https://github.com/lesmyrmidons/ansible-role-mongodb) (use master version for compatibility with Ansible 2.2 see [issue#5](https://github.com/lesmyrmidons/ansible-role-mongodb/issues/5))
 - [Elasticsearch](https://github.com/elastic/ansible-elasticsearch)
 - [Nginx](https://github.com/jdauphant/ansible-role-nginx)
 - Tested on Ubuntu 14.04, 16.04 / Debian 7 / Centos 7
@@ -42,8 +42,7 @@ Quickstart
       network.host: 0.0.0.0,
       node.data: true,
       node.master: true,
-      bootstrap.mlockall: false,
-      discovery.zen.ping.multicast.enabled: false
+      bootstrap.memory_lock: true
     }
     graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 
@@ -91,6 +90,7 @@ More detailed example
 ```yaml
 # your_playbook.yml
 ---
+
 - hosts: server
   become: True
   vars:
@@ -109,8 +109,7 @@ More detailed example
       network.host: 0.0.0.0,
       node.data: true,
       node.master: true,
-      bootstrap.mlockall: false,
-      discovery.zen.ping.multicast.enabled: false
+      bootstrap.memory_lock: true
     }
     graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 
@@ -132,12 +131,52 @@ More detailed example
           client_body_buffer_size 128k; }
 
   roles:
+  
     - role: 'Graylog2.graylog-ansible-role'
       tags: graylog
 ```
 
 - Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
+
+
+Details to avoid issues with java, install behind proxy, use openjdk
+--------------------------------------------------------------------
+
+You can use var: `graylog_install_java: false` and then add java from openjdk-8 instead of installing oracle java 8. 
+
+Example: 
+
+```
+- name: Add java-jdk-8 ppa for Ubuntu trusty
+  hosts: graylog2_servers
+  become: yes
+  tasks:
+  
+    - name: installing repo for Java 8 in Ubuntu 14.04
+      apt_repository: repo='ppa:openjdk-r/ppa'
+      when: ansible_distribution_release == 'trusty'
+
+- name: Install java from openjdk
+  hosts: graylog2_servers
+  become: yes
+    
+  roles:    
+    
+    - role: geerlingguy.java
+      vars:
+        # --- ommited lines ---
+        graylog_install_java: false
+      
+      when: ansible_distribution_release == 'trusty'
+      java_packages:
+        - openjdk-8-jdk   # This is the same package that elasticsearch installs
+    
+    - role: 'Graylog2.graylog-ansible-role'
+      tags: graylog
+      
+      
+```
 
 Conditional role dependencies
 -----------------------------
