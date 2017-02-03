@@ -34,17 +34,17 @@ Quickstart
     es_heap_size: 1g
 
     es_config: {
-      node.name: "graylog",
-      cluster.name: "graylog",
-      discovery.zen.ping.unicast.hosts: "localhost:9301",
-      http.port: 9200,
-      transport.tcp.port: 9300,
-      network.host: 0.0.0.0,
-      node.data: true,
-      node.master: true,
-      bootstrap.mlockall: false,
-      discovery.zen.ping.multicast.enabled: false
+    node.name: "graylog",
+    cluster.name: "graylog",
+    discovery.zen.ping.unicast.hosts: "localhost:9301",
+    http.port: 9200,
+    transport.tcp.port: 9300,
+    network.host: 0.0.0.0,
+    node.data: true,
+    node.master: true,
+    bootstrap.memory_lock: true,
     }
+    
     graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
 
   roles:
