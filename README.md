@@ -346,3 +346,4 @@ License
 Author: Marius Sturm (<marius@graylog.com>) and [contributors](https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors)
 
 License: Apache 2.0
+
