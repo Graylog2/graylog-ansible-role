@@ -226,7 +226,7 @@ Example:
       
       when: ansible_distribution_release == 'trusty'
       java_packages:
-        - openjdk-8-jdk   # This is the same package that elasticsearch installs
+        - openjdk-8-jdk  
     
     - role: 'Graylog2.graylog-ansible-role'
       tags: graylog
