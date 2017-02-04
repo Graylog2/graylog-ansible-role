@@ -1,6 +1,5 @@
 ---
 # Requirements
-graylog_install_java:              true
 graylog_java_ppa:                  'ppa:webupd8team/java'
 graylog_java_repo:                 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
 graylog_java_src_repo:             'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
@@ -168,3 +167,4 @@ graylog_server_wrapper:       ''
 graylog_install_elasticsearch: True
 graylog_install_mongodb:       True
 graylog_install_nginx:         True
+graylog_install_java:          True
