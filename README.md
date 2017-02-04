@@ -242,10 +242,15 @@ Is good to be explicit, these are all the roles that you need to run for graylog
 If not set in this will it will work anyway, but you don't see the roles until you run it. 
 Note: in this example vars are in a more appropiate place at `group_vars/group/vars` 
 
-```
+```yaml
 - name: Apply roles for graylog2 servers
   hosts: graylog2_servers
   become: yes
+  vars:
+    graylog_install_elasticsearch: False
+    graylog_install_mongodb:       False
+    graylog_install_nginx:         False
+    graylog_install_java:          False
 
   roles:
 
@@ -279,6 +284,7 @@ Note: in this example vars are in a more appropiate place at `group_vars/group/v
         - graylog2_servers
 
 ```
+
 
 
 Conditional role dependencies
