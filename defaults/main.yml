@@ -167,3 +167,4 @@ graylog_server_wrapper:       ''
 graylog_install_elasticsearch: True
 graylog_install_mongodb:       True
 graylog_install_nginx:         True
+graylog_install_java:          True

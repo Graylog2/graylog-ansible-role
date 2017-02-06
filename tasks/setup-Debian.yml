@@ -9,7 +9,7 @@
     repo: "{{ graylog_java_ppa }}"
     state: present
     update_cache: True
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == 'Ubuntu' and graylog_install_java
 
 - block:
     - name: 'Repositories should be updated (Debian)'
@@ -26,7 +26,7 @@
         keyserver: "{{ graylog_java_repo_keyserver }}"
         id: "{{ graylog_java_repo_key }}"
 
-  when: ansible_distribution == 'Debian'
+  when: ansible_distribution == 'Debian' and graylog_install_java
 
 - name: Oracle license should be accepted
   debconf:
@@ -34,12 +34,14 @@
     question: "shared/{{ graylog_java_oracle_license_key }}"
     value: 'true'
     vtype: 'select'
+  when: graylog_install_java
 
 - name: Java 8 should be installed
   apt:
     name: 'oracle-java8-installer'
     state: present
     force: True
+  when: graylog_install_java
 
 - name: Graylog repository package should be downloaded
   get_url:
