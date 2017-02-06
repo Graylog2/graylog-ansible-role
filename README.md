@@ -215,7 +215,7 @@ Example:
     # --- ommited lines ---
     graylog_install_java: false    
     # Ensure to add this option if not added elastic.elasticsearch will install openjdk-7 that will break graylog2
-    es_java_install:               False
+    es_java_install: False
     
     # Option 2: seems that there is undocummented var that could be used with elastic.elasticsearch 
     # role to force java version:
