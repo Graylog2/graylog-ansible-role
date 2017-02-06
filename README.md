@@ -196,7 +196,8 @@ Openjdk doesn't have problems to use a proxy for apt, also doesn't requires the 
 
 Example: 
 
-```
+```yaml
+---
 - name: Add java-jdk-8 ppa for Ubuntu trusty
   hosts: graylog2_servers
   become: yes
@@ -243,6 +244,7 @@ If not set in this will it will work anyway, but you don't see the roles until y
 Note: in this example vars are in a more appropiate place at `group_vars/group/vars` 
 
 ```yaml
+---
 - name: Apply roles for graylog2 servers
   hosts: graylog2_servers
   become: yes
