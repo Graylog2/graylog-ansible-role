@@ -1,5 +1,6 @@
 ---
 dependencies:
+
   - role: 'lesmyrmidons.mongodb'
     when: graylog_install_mongodb
 
