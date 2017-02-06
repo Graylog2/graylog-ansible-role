@@ -22,7 +22,7 @@ RUN yum install -y ca-certificates-2015.2.6 \
                    git-1.8.3.1 \
                    openssl-1.0.1e \
                    openssl-devel-1.0.1e \
-                   python-pip-7.1.0 \
+                   python2-pip-8.1.2 \
                    python-devel-2.7.5 \
                    libffi-devel-3.0.13
 RUN pip install --upgrade pip setuptools

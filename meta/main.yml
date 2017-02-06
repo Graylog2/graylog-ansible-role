@@ -6,7 +6,7 @@ dependencies:
     when: graylog_install_mongodb
 
   - src: https://github.com/elastic/ansible-elasticsearch
-    version: 0.1.2
+    version: "0.2"
     name: galaxy.graylog_elasticsearch
     when: graylog_install_elasticsearch
 
@@ -25,6 +25,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - '14.04'
+        - '16.04'
     - name: Debian
       versions:
         - 7

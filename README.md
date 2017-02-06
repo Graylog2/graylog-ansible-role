@@ -9,10 +9,10 @@ Dependencies
 ------------
 
 - Ansible 2.0 or higher.
-- [MongoDB](https://github.com/UnderGreen/ansible-role-mongodb)
+- [MongoDB](https://github.com/lesmyrmidons/ansible-role-mongodb) (currently not compatible with Ansible 2.2 see [issue#5](https://github.com/lesmyrmidons/ansible-role-mongodb/issues/5))
 - [Elasticsearch](https://github.com/elastic/ansible-elasticsearch)
 - [Nginx](https://github.com/jdauphant/ansible-role-nginx)
-- Tested on Ubuntu 14.04 / Debian 7 / Centos 7
+- Tested on Ubuntu 14.04, 16.04 / Debian 7 / Centos 7
 
 Quickstart
 ----------
@@ -152,7 +152,15 @@ More detailed example
 - Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
 
-# Tests
+Conditional role dependencies
+-----------------------------
+
+Dependencies can be enabled/disabled with the `host_vars` `graylog_install_*`. Take look into [meta/main.yml](https://github.com/Graylog2/graylog-ansible-role/blob/master/meta/main.yml)
+for more informations. Keep in mind that you have to install all dependencies even when they are disabled to prevent
+errors.
+
+Tests
+-----
 
 One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
 by using the Docker images provided.
@@ -167,7 +175,7 @@ $ docker run -it -v $PWD:/role graylog-ansible-role-wheezy
 
 For Trusty, just replace `wheezy` with `trusty` in the above commands.
 
-Example for CentOS 7:
+Example for CentOS 7 and Ubuntu Xenial:
 
 Due to how `systemd` works with Docker, the following approach is suggested:
 
@@ -176,6 +184,20 @@ $ cd graylog-ansible-role
 $ docker build -t graylog-ansible-role-centos7 -f tests/support/centos7.Dockerfile tests/support
 $ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-centos7 /usr/sbin/init
 $ DOCKER_CONTAINER_ID=$(docker ps | grep centos | awk '{print $1}')
+$ docker logs $DOCKER_CONTAINER_ID
+$ docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
+$ docker ps -a
+$ docker stop $DOCKER_CONTAINER_ID
+$ docker rm -v $DOCKER_CONTAINER_ID
+```
+
+Ubuntu Xenial:
+
+```
+$ cd graylog-ansible-role
+$ docker build -t graylog-ansible-role-xenial -f tests/support/xenial.Dockerfile tests/support
+$ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-xenial /sbin/init
+$ DOCKER_CONTAINER_ID=$(docker ps | grep xenial | awk '{print $1}')
 $ docker logs $DOCKER_CONTAINER_ID
 $ docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
 $ docker ps -a
