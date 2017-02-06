@@ -2,7 +2,7 @@ FROM debian:wheezy
 
 RUN apt-get -y update
 RUN apt-get -y install ca-certificates \
-                       git' \
+                       git \
                        openssh-client \
                        python-pip \
                        python-dev \
