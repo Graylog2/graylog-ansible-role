@@ -19,12 +19,11 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - '14.04'
-        - '16.04'
+        - all
     - name: Debian
       versions:
-        - 7
-    - name: CentOS
+        - all
+    - name: EL
       versions:
         - 7
   galaxy_tags:
