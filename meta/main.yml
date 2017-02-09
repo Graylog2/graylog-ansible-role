@@ -19,10 +19,12 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - all
+        - trusty
+        - xenial
     - name: Debian
       versions:
-        - all
+        - wheezy
+        - jessie
     - name: EL
       versions:
         - 7
