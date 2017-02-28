@@ -142,6 +142,7 @@ graylog_transport_email_web_interface_url: ''
 # Proxy
 graylog_http_proxy_uri:                    ''
 graylog_proxied_requests_thread_pool_size: 32
+graylog_trusted_proxies:                   ''
 
 # Web UI
 graylog_web_enable:                  'True'

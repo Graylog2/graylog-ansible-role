@@ -127,7 +127,11 @@ rest_thread_pool_size = {{ graylog_rest_thread_pool_size }}
 
 # Comma separated list of trusted proxies that are allowed to set the client address with X-Forwarded-For
 # header. May be subnets, or hosts.
+{% if graylog_trusted_proxies %}
+trusted_proxies = {{ graylog_trusted_proxies }}
+{% else %}
 #trusted_proxies = 127.0.0.1/32, 0:0:0:0:0:0:0:1/128
+{% endif %}
 
 # Enable the embedded Graylog web interface.
 # Default: true
