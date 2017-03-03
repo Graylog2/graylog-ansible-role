@@ -7,6 +7,6 @@
 
 - name: Graylog server should be installed
   yum:
-    name: 'graylog-server'
+    name: "graylog-server{{ graylog_server_version is defined | ternary('-' + graylog_version, '') }}"
     state: present
   notify: restart graylog-server
