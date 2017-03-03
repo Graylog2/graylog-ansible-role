@@ -280,7 +280,7 @@ Note: in this example vars are in a more appropiate place at `group_vars/group/v
         - role::nginx
         - graylog2_servers
 
-    - role: graylog2.graylog
+    - role: Graylog2.graylog-ansible-role
       tags:
         - role::graylog
         - graylog2_servers
