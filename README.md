@@ -8,36 +8,13 @@ Ansible role which installs and configures Graylog log management.
 Dependencies
 ------------
 
-- Ansible 2.0 or higher.
+- **Ansible versions > 2.1.2 or > 2.2.1 are supported.**
 - [MongoDB](https://github.com/lesmyrmidons/ansible-role-mongodb) (use master version for compatibility with Ansible 2.2 see [issue#5](https://github.com/lesmyrmidons/ansible-role-mongodb/issues/5))
-- [Elasticsearch](https://github.com/elastic/ansible-elasticsearch) (Use 0.2 version to ensure compatibility with 2.x)
+- [Elasticsearch](https://github.com/elastic/ansible-elasticsearch) (Use 0.2 version to ensure compatibility with 2.x. Graylog doesn't support Elasticsearch 5.x yet)
 - [Nginx](https://github.com/jdauphant/ansible-role-nginx)
 - Tested on Ubuntu 14.04, 16.04 / Debian 7 / Centos 7
 
-Example for `requirements.yml` file comptabile with ansible 2.2:
-
-```
-# graylog2 
-
-- src: graylog2.graylog
-  version: master
-
-# graylog2 dependency
-
-- src: lesmyrmidons.mongodb
-  version: master
-
-- src: geerlingguy.java
-  version: master
-
-# 0.2 is required version to use elasticsearch 2.x
-- src: elastic.elasticsearch
-  version: "0.2"
-
-- src: jdauphant.nginx
-  version: master
-
-```
+See the `requirements.yml` file for a comptabile configuration for Ansible 2.1 and 2.2.
 
 Quickstart
 ----------
