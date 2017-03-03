@@ -3,18 +3,32 @@ services:
   - docker
 
 install:
-  - docker build -t graylog-ansible-role-wheezy  -f tests/support/wheezy.Dockerfile  tests/support
-  - docker build -t graylog-ansible-role-trusty  -f tests/support/trusty.Dockerfile  tests/support
-  - docker build -t graylog-ansible-role-centos7 -f tests/support/centos7.Dockerfile tests/support
-  - docker build -t graylog-ansible-role-xenial  -f tests/support/xenial.Dockerfile  tests/support
-  - docker run -it -v $PWD:/role graylog-ansible-role-wheezy
-  - docker run -it -v $PWD:/role graylog-ansible-role-trusty
-  - docker run -it -v $PWD:/role:ro -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged graylog-ansible-role-centos7 /usr/sbin/init
-  - DOCKER_CONTAINER_ID=$(docker ps | grep centos | awk '{print $1}')
+  - docker build -t graylog-ansible-role-wheezy-21  -f tests/support/wheezy_21.Dockerfile  tests/support
+  - docker build -t graylog-ansible-role-trusty-21  -f tests/support/trusty_21.Dockerfile  tests/support
+  - docker build -t graylog-ansible-role-centos7-21 -f tests/support/centos7_21.Dockerfile tests/support
+  - docker build -t graylog-ansible-role-xenial-21  -f tests/support/xenial_21.Dockerfile  tests/support
+  - docker build -t graylog-ansible-role-wheezy-22  -f tests/support/wheezy_22.Dockerfile  tests/support
+  - docker build -t graylog-ansible-role-trusty-22  -f tests/support/trusty_22.Dockerfile  tests/support
+  - docker build -t graylog-ansible-role-centos7-22 -f tests/support/centos7_22.Dockerfile tests/support
+  - docker build -t graylog-ansible-role-xenial-22  -f tests/support/xenial_22.Dockerfile  tests/support
+  - docker run -it -v $PWD:/role graylog-ansible-role-wheezy-21
+  - docker run -it -v $PWD:/role graylog-ansible-role-wheezy-22
+  - docker run -it -v $PWD:/role graylog-ansible-role-trusty-21
+  - docker run -it -v $PWD:/role graylog-ansible-role-trusty-22
+  - docker run -it -v $PWD:/role:ro -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged graylog-ansible-role-centos7-21 /usr/sbin/init
+  - DOCKER_CONTAINER_ID=$(docker ps | grep centos7-21 | awk '{print $1}')
   - docker logs $DOCKER_CONTAINER_ID
   - docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
-  - docker run -it -v $PWD:/role:ro -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged graylog-ansible-role-xenial /sbin/init
-  - DOCKER_CONTAINER_ID=$(docker ps | grep xenial | awk '{print $1}')
+  - docker run -it -v $PWD:/role:ro -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged graylog-ansible-role-centos7-22 /usr/sbin/init
+  - DOCKER_CONTAINER_ID=$(docker ps | grep centos7-22 | awk '{print $1}')
+  - docker logs $DOCKER_CONTAINER_ID
+  - docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
+  - docker run -it -v $PWD:/role:ro -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged graylog-ansible-role-xenial-21 /sbin/init
+  - DOCKER_CONTAINER_ID=$(docker ps | grep xenial-21 | awk '{print $1}')
+  - docker logs $DOCKER_CONTAINER_ID
+  - docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
+  - docker run -it -v $PWD:/role:ro -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged graylog-ansible-role-xenial-22 /sbin/init
+  - DOCKER_CONTAINER_ID=$(docker ps | grep xenial-22 | awk '{print $1}')
   - docker logs $DOCKER_CONTAINER_ID
   - docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
 
