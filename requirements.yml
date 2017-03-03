@@ -1,7 +1,7 @@
 ---
 - name: 'lesmyrmidons.mongodb'
   src: 'https://github.com/lesmyrmidons/ansible-role-mongodb.git'
-  version: 'v1.1.0'
+  version: 'master'
 
 - name: 'elastic.elasticsearch'
   src: 'https://github.com/elastic/ansible-elasticsearch.git'
@@ -9,4 +9,4 @@
 
 - name: 'jdauphant.nginx'
   src: 'https://github.com/jdauphant/ansible-role-nginx.git'
-  version: 'v2.3.1'
+  version: 'v2.7.4'

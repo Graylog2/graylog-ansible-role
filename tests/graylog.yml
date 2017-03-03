@@ -3,6 +3,11 @@
   hosts: localhost
   connection: local
   vars:
+    graylog_install_elasticsearch: False
+    graylog_install_mongodb:       False
+    graylog_install_nginx:         False
+    graylog_install_java:          False
+
     es_instance_name: 'graylog'
     es_scripts: False
     es_templates: False
