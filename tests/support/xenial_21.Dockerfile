@@ -20,4 +20,3 @@ RUN pip install setuptools \
                 ansible==2.1.2
 
 COPY run-tests.sh run-tests.sh
-CMD ["./run-tests.sh"]
