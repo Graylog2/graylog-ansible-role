@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/danvaida/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/danvaida/graylog-ansible-role)
+[![Build Status](https://travis-ci.org/Graylog2/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/Graylog2/graylog-ansible-role)
 
 Description
 -----------
