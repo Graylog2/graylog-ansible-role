@@ -10,6 +10,8 @@ graylog_apt_deb_url:               "https://packages.graylog2.org/repo/packages/
 graylog_yum_rpm_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm"
 graylog_java_oracle_installer_key: 'oracle-java8-installer'
 graylog_java_oracle_license_key:   'accepted-oracle-license-v1-1'
+# This will ensure to have es version 2.x, even when for some reason es repo 5.x is added (ex when logstash 5.x is installed)
+graylog_es_debian_pin_version:     '2.*'
 
 # General
 graylog_is_master:            'True'
