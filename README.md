@@ -287,6 +287,15 @@ Ubuntu Xenial:
     $ docker stop $DOCKER_CONTAINER_ID
     $ docker rm -v $DOCKER_CONTAINER_ID
 
+Further Reading
+----------------
+
+Great articles by Pablo Daniel Estigarribia Davyt on how to use this role:
+
+- [Install Graylog][7]
+- [Receive messages from Logstash][8]
+- [Monitor Graylog with NSCA][9]
+
 License
 -------
 
@@ -300,3 +309,6 @@ License: Apache 2.0
 [4]: https://github.com/jdauphant/ansible-role-nginx
 [5]: https://github.com/Graylog2/graylog-ansible-role/blob/master/meta/main.yml
 [6]: https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors
+[7]: https://pablodav.github.io/post/graylog/graylog_ansible
+[8]: https://pablodav.github.io/post/graylog/logstash_input
+[9]: https://pablodav.github.io/post/graylog/graylog_logstash_nagios_nsca
