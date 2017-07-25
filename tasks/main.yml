@@ -1,4 +1,12 @@
 ---
-- include: prepare.yml
+- name: Check for supported distros should be made
+  fail:
+    msg: "Distro {{ ansible_distribution }} is not supported yet."
+  when: ansible_os_family not in graylog_supported_os_families
+
+- name: OS-family specific vars should be loaded
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- include: "setup-{{ ansible_os_family }}.yml"
 
 - include: server.yml
