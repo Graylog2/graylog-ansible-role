@@ -10,9 +10,9 @@ Dependencies
 
 - **Ansible versions > 2.1.2 or > 2.2.1 are supported.**
 - [MongoDB][1] - use master branch for compatibility with Ansible 2.2 see [issue 5][2]
-- [Elasticsearch][3] - use version 0.2 to ensure compatibility with 2.x. Graylog doesn't support Elasticsearch 5.x yet
+- [Elasticsearch][3]
 - [NGINX][4]
-- Tested on Ubuntu 14.04, 16.04 / Debian 7 / Centos 7
+- Tested on Ubuntu 16.04 / Debian 7 / Centos 7
 
 See the `requirements.yml` file for a compatible configuration for Ansible 2.1 and 2.2.
 
@@ -28,8 +28,7 @@ Quickstart
   vars:
     # Graylog2 is not compatible with elasticsearch 5.x, so ensure to use 2.x (graylog3 will be compatible)
     # Also use version 0.2 of elastic.elasticsearch (ansible role), because vars are different
-    es_major_version: "2.x"
-    es_version: "2.4.3"
+    es_major_version: "5.x"
     es_instance_name: 'graylog'
     es_scripts: False
     es_templates: False
@@ -38,16 +37,15 @@ Quickstart
     es_config: {
       node.name: "graylog",
       cluster.name: "graylog",
-      discovery.zen.ping.unicast.hosts: "localhost:9301",
       http.port: 9200,
       transport.tcp.port: 9300,
       network.host: 0.0.0.0,
       node.data: true,
       node.master: true,
-      bootstrap.mlockall: false,
-      discovery.zen.ping.multicast.enabled: false
     }
 
+    # Elasticsearch role already installed Java
+    graylog_java_install: False
     # Do not set web_endpoint_uri to choose the first ip address available automatically
     graylog_web_endpoint_uri: ''
     # Option 2:
@@ -71,7 +69,7 @@ Variables
 
 ```yaml
 # Basic server settings
-graylog_server_version:     '2.2.2-1' # Optional, if not provided the latest version will be installed
+graylog_server_version:     '2.3.0-1' # Optional, if not provided the latest version will be installed
 graylog_is_master:          'True'
 graylog_password_secret:    '2jueVqZpwLLjaWxV' # generate with: pwgen -s 96 1
 graylog_root_password_sha2: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918' # generate with: echo -n yourpassword | shasum -a 256
@@ -103,8 +101,7 @@ More detailed example
   vars:
     # Graylog2 is not compatible with elasticsearch 5.x, so ensure to use 2.x (graylog3 will be compatible)
     # Also use version 0.2 of elastic.elasticsearch (ansible role), because vars are different
-    es_major_version: "2.x"
-    es_version: "2.4.3"
+    es_major_version: "5.x"
     es_instance_name: 'graylog'
     es_scripts: False
     es_templates: False
@@ -113,16 +110,15 @@ More detailed example
     es_config: {
       node.name: "graylog",
       cluster.name: "graylog",
-      discovery.zen.ping.unicast.hosts: "localhost:9301",
       http.port: 9200,
       transport.tcp.port: 9300,
       network.host: 0.0.0.0,
       node.data: true,
       node.master: true,
-      bootstrap.mlockall: false,
-      discovery.zen.ping.multicast.enabled: false
     }
 
+    # Elasticsearch role already installed Java
+    graylog_java_install: False
     # Do not set web_endpoint_uri to choose the first ip address available automatically
     graylog_web_endpoint_uri: ''
     # Option 2:
@@ -162,13 +158,13 @@ Openjdk doesn't have problems to use a proxy for apt, also doesn't requires the 
 Example:
 
 ```yaml
-- name: Add java-jdk-8 ppa for Ubuntu trusty
+- name: Add java-jdk-8 ppa for Ubuntu xenial
   hosts: graylog2_servers
   become: True
   tasks:
-    - name: installing repo for Java 8 in Ubuntu 14.04
+    - name: installing repo for Java 8 in Ubuntu 16.04
       apt_repository: repo='ppa:openjdk-r/ppa'
-      when: ansible_distribution_release == 'trusty'
+      when: ansible_distribution_release == 'xenial'
 
 - name: Install java from openjdk
   hosts: graylog2_servers
@@ -183,7 +179,7 @@ Example:
 
   roles:
     - role: geerlingguy.java
-      when: ansible_distribution_release == 'trusty'
+      when: ansible_distribution_release == 'xenial'
       java_packages:
         - openjdk-8-jdk
 
@@ -216,7 +212,7 @@ Note: in this example vars are in a more appropiate place at `group_vars/group/v
         - graylog2_servers
 
     - role: geerlingguy.java
-      when: ansible_distribution_release == 'trusty'
+      when: ansible_distribution_release == 'xenial'
       java_packages:
         - openjdk-8-jdk
       tags:
@@ -253,13 +249,13 @@ Tests
 One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
 by using the Docker images provided.
 
-Example for Debian Wheezy and Ubuntu Trusty:
+Example for Debian Wheezy and Ubuntu Xenial:
 
     $ cd graylog-ansible-role
     $ docker build -t graylog-ansible-role-wheezy -f tests/support/wheezy.Dockerfile tests/support
     $ docker run -it -v $PWD:/role graylog-ansible-role-wheezy
 
-For Trusty, just replace `wheezy` with `trusty` in the above commands.
+For Xenial, just replace `wheezy` with `xenial` in the above commands.
 
 Example for CentOS 7 and Ubuntu Xenial:
 

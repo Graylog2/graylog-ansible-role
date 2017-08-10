@@ -19,8 +19,8 @@ galaxy_info:
   platforms:
     - name: Ubuntu
       versions:
-        - trusty
         - xenial
+        - zesty
     - name: Debian
       versions:
         - wheezy

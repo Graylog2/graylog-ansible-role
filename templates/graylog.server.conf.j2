@@ -237,32 +237,6 @@ elasticsearch_disable_version_check = {{ graylog_elasticsearch_disable_version_c
 # Disable message retention on this node, i. e. disable Elasticsearch index rotation.
 no_retention = {{ graylog_no_retention }}
 
-# How many indices do you want to keep?
-#
-# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
-#            to your previous 1.x settings so they will be migrated to the database!
-elasticsearch_max_number_of_indices = {{ graylog_elasticsearch_max_number_of_indices }}
-
-# Decide what happens with the oldest indices when the maximum number of indices is reached.
-# The following strategies are availble:
-#   - delete # Deletes the index completely (Default)
-#   - close # Closes the index and hides it from the system. Can be re-opened later.
-#
-# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
-#            to your previous 1.x settings so they will be migrated to the database!
-retention_strategy = {{ graylog_elasticsearch_retention_strategy }}
-
-# How many Elasticsearch shards and replicas should be used per index? Note that this only applies to newly created indices.
-elasticsearch_shards = {{ graylog_elasticsearch_shards }}
-elasticsearch_replicas = {{ graylog_elasticsearch_replicas }}
-
-# Prefix for all Elasticsearch indices and index aliases managed by Graylog.
-elasticsearch_index_prefix = {{ graylog_elasticsearch_index_prefix }}
-
-# Name of the Elasticsearch index template used by Graylog to apply the mandatory index mapping.
-# # Default: graylog-internal
-elasticsearch_template_name = {{ graylog_elasticsearch_template_name }}
-
 # Do you want to allow searches with leading wildcards? This can be extremely resource hungry and should only
 # be enabled with care. See also: http://docs.graylog.org/en/2.1/pages/queries.html
 allow_leading_wildcard_searches = {{ graylog_allow_leading_wildcard_searches }}
@@ -271,51 +245,13 @@ allow_leading_wildcard_searches = {{ graylog_allow_leading_wildcard_searches }}
 # should only be enabled after making sure your Elasticsearch cluster has enough memory.
 allow_highlighting = {{ graylog_allow_highlighting }}
 
-# settings to be passed to elasticsearch's client (overriding those in the provided elasticsearch_config_file)
-# all these
-# this must be the same as for your Elasticsearch cluster
-elasticsearch_cluster_name = {{ graylog_elasticsearch_cluster_name }}
-
-# The prefix being used to generate the Elasticsearch node name which makes it easier to identify the specific Graylog
-# server running the embedded Elasticsearch instance. The node name will be constructed by concatenating this prefix
-# and the Graylog node ID (see node_id_file), for example "graylog-17052010-1234-5678-abcd-1337cafebabe".
-# Default: graylog-
-elasticsearch_node_name_prefix = {{ graylog_elasticsearch_node_name_prefix }}
-
-# A comma-separated list of Elasticsearch nodes which Graylog is using to connect to the Elasticsearch cluster,
-# see https://www.elastic.co/guide/en/elasticsearch/reference/2.3/modules-discovery-zen.html for details.
-# Default: 127.0.0.1
-elasticsearch_discovery_zen_ping_unicast_hosts = {{ graylog_elasticsearch_discovery_zen_ping_unicast_hosts }}
-
-# Use multiple Elasticsearch nodes as seed
-#elasticsearch_discovery_zen_ping_unicast_hosts = 198.51.100.23:9300, 198.51.100.42:9300
-
-# we don't want the Graylog server to store any data, or be master node
-elasticsearch_node_master = false
-elasticsearch_node_data = false
-
-# use a different port if you run multiple Elasticsearch nodes on one machine
-elasticsearch_transport_tcp_port = {{ graylog_elasticsearch_transport_tcp_port }}
-
-# we don't need to run the embedded HTTP server here
-elasticsearch_http_enabled = {{ graylog_elasticsearch_http_enabled }}
-
-# Change the following setting if you are running into problems with timeouts during Elasticsearch cluster discovery.
-# The setting is specified in milliseconds, the default is 5000ms (5 seconds).
-elasticsearch_cluster_discovery_timeout = {{ graylog_elasticsearch_cluster_discovery_timeout }}
-
-# the following settings allow to change the bind addresses for the Elasticsearch client in Graylog
-# these settings are empty by default, letting Elasticsearch choose automatically,
-# override them here or in the 'elasticsearch_config_file' if you need to bind to a special address
-# refer to https://www.elastic.co/guide/en/elasticsearch/reference/2.3/modules-network.html
-# for special values here
-elasticsearch_network_host = {{ graylog_elasticsearch_network_host }}
-elasticsearch_network_bind_host = {{ graylog_elasticsearch_network_bind_host }}
-elasticsearch_network_publish_host = {{ graylog_elasticsearch_network_publish_host }}
-
-# The total amount of time discovery will look for other Elasticsearch nodes in the cluster
-# before giving up and declaring the current node master.
-elasticsearch_discovery_initial_state_timeout = {{ graylog_elasticsearch_discovery_initial_state_timeout }}
+# List of Elasticsearch hosts Graylog should connect to.
+# Need to be specified as a comma-separated list of valid URIs for the http ports of your elasticsearch nodes.
+# If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that
+# requires authentication.
+#
+# Default: http://127.0.0.1:9200
+elasticsearch_hosts = {{ graylog_elasticsearch_hosts }}
 
 # Analyzer (tokenizer) to use for message and full_message field. The "standard" filter usually is a good idea.
 # All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom

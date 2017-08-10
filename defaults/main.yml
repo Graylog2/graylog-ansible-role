@@ -1,17 +1,17 @@
 ---
 # Requirements
 graylog_java_ppa:                  'ppa:webupd8team/java'
-graylog_java_repo:                 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
-graylog_java_src_repo:             'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main'
+graylog_java_repo:                 'deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main'
+graylog_java_src_repo:             'deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main'
 graylog_java_repo_keyserver:       'keyserver.ubuntu.com'
 graylog_java_repo_key:             'EEA14886'
-graylog_version:                   '2.2'
+graylog_version:                   '2.3'
 graylog_apt_deb_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.deb"
 graylog_yum_rpm_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm"
 graylog_java_oracle_installer_key: 'oracle-java8-installer'
 graylog_java_oracle_license_key:   'accepted-oracle-license-v1-1'
 # This will ensure to have es version 2.x, even when for some reason es repo 5.x is added (ex when logstash 5.x is installed)
-graylog_es_debian_pin_version:     '2.*'
+graylog_es_debian_pin_version:     '5.*'
 
 # General
 graylog_is_master:            'True'
@@ -39,20 +39,12 @@ graylog_rest_max_initial_line_length: 4096
 graylog_rest_thread_pool_size:        16
 
 # Search
+graylog_elasticsearch_hosts:                            'http://127.0.0.1:9200'
 graylog_elasticsearch_template_name:                    'graylog-internal'
 graylog_allow_leading_wildcard_searches:                'False'
 graylog_allow_highlighting:                             'False'
 graylog_elasticsearch_config_file:                      ''
-graylog_elasticsearch_shards:                           4
-graylog_elasticsearch_replicas:                         0
 graylog_elasticsearch_index_prefix:                     'graylog'
-graylog_elasticsearch_cluster_name:                     'graylog'
-graylog_elasticsearch_node_name_prefix:                 'graylog-'
-graylog_elasticsearch_transport_tcp_port:               9350
-graylog_elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
-graylog_elasticsearch_network_host:                     ''
-graylog_elasticsearch_network_bind_host:                ''
-graylog_elasticsearch_network_publish_host:             ''
 graylog_elasticsearch_analyzer:                         'standard'
 graylog_elasticsearch_output_batch_size:                25
 graylog_elasticsearch_output_flush_interval:            1
@@ -63,12 +55,6 @@ graylog_index_optimization_max_num_segments:            1
 
 # Retention
 graylog_no_retention:                        'False'
-graylog_elasticsearch_retention_strategy:    'delete'
-graylog_rotation_strategy:                   'count'
-graylog_elasticsearch_max_docs_per_index:    20000000
-graylog_elasticsearch_max_number_of_indices: 20
-graylog_elasticsearch_max_size_per_index:    1073741824
-graylog_elasticsearch_max_time_per_index:    '1d'
 
 # Processing
 graylog_processbuffer_processors:         5
