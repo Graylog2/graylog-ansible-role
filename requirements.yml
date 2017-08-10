@@ -1,8 +1,4 @@
 ---
-- name: 'lesmyrmidons.mongodb'
-  src: 'https://github.com/lesmyrmidons/ansible-role-mongodb.git'
-  version: 'master'
-
 - name: 'elastic.elasticsearch'
   src: 'https://github.com/elastic/ansible-elasticsearch.git'
   version: 'master'

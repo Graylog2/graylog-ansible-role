@@ -188,48 +188,6 @@ web_thread_pool_size = {{ graylog_web_thread_pool_size }}
 elasticsearch_config_file = {{ graylog_elasticsearch_config_file }}
 {% endif %}
 
-# Graylog will use multiple indices to store documents in. You can configured the strategy it uses to determine
-# when to rotate the currently active write index.
-# It supports multiple rotation strategies:
-#   - "count" of messages per index, use elasticsearch_max_docs_per_index below to configure
-#   - "size" per index, use elasticsearch_max_size_per_index below to configure
-# valid values are "count", "size" and "time", default is "count"
-#
-# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
-#            to your previous 1.x settings so they will be migrated to the database!
-rotation_strategy = {{ graylog_rotation_strategy }}
-
-# (Approximate) maximum number of documents in an Elasticsearch index before a new index
-# is being created, also see no_retention and elasticsearch_max_number_of_indices.
-# Configure this if you used 'rotation_strategy = count' above.
-#
-# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
-#            to your previous 1.x settings so they will be migrated to the database!
-elasticsearch_max_docs_per_index = {{ graylog_elasticsearch_max_docs_per_index }}
-
-# (Approximate) maximum size in bytes per Elasticsearch index on disk before a new index is being created, also see
-# no_retention and elasticsearch_max_number_of_indices. Default is 1GB.
-# Configure this if you used 'rotation_strategy = size' above.
-#
-# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
-#            to your previous 1.x settings so they will be migrated to the database!
-elasticsearch_max_size_per_index = {{ graylog_elasticsearch_max_size_per_index }}
-
-# (Approximate) maximum time before a new Elasticsearch index is being created, also see
-# no_retention and elasticsearch_max_number_of_indices. Default is 1 day.
-# Configure this if you used 'rotation_strategy = time' above.
-# Please note that this rotation period does not look at the time specified in the received messages, but is
-# using the real clock value to decide when to rotate the index!
-# Specify the time using a duration and a suffix indicating which unit you want:
-#  1w  = 1 week
-#  1d  = 1 day
-#  12h = 12 hours
-# Permitted suffixes are: d for day, h for hour, m for minute, s for second.
-#
-# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
-#            to your previous 1.x settings so they will be migrated to the database!
-elasticsearch_max_time_per_index = {{ graylog_elasticsearch_max_time_per_index }}
-
 # Disable checking the version of Elasticsearch for being compatible with this Graylog release.
 # WARNING: Using Graylog with unsupported and untested versions of Elasticsearch may lead to data loss!
 elasticsearch_disable_version_check = {{ graylog_elasticsearch_disable_version_check }}

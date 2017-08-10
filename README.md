@@ -9,9 +9,9 @@ Dependencies
 ------------
 
 - **Ansible versions > 2.1.2 or > 2.2.1 are supported.**
-- [MongoDB][1] - use master branch for compatibility with Ansible 2.2 see [issue 5][2]
-- [Elasticsearch][3]
-- [NGINX][4]
+- Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions consider backports accordingly
+- [Elasticsearch][1]
+- [NGINX][2]
 - Tested on Ubuntu 16.04 / Debian 7 / Centos 7
 
 See the `requirements.yml` file for a compatible configuration for Ansible 2.1 and 2.2.
@@ -20,10 +20,10 @@ Quickstart
 ----------
 
 - You need at least 4GB of memory to run Graylog
-- Here is an example of a playbook targeting Vagrant box(es):
+- Here is an example of a playbook targeting Vagrant (Ubuntu Xenial):
 ```yaml
 - hosts: all
-  remote_user: vagrant
+  remote_user: ubuntu
   become: True
   vars:
     # Graylog2 is not compatible with elasticsearch 5.x, so ensure to use 2.x (graylog3 will be compatible)
@@ -45,13 +45,14 @@ Quickstart
     }
 
     # Elasticsearch role already installed Java
-    graylog_java_install: False
-    # Do not set web_endpoint_uri to choose the first ip address available automatically
-    graylog_web_endpoint_uri: ''
-    # Option 2:
+    graylog_install_java: False
+
+    graylog_install_mongodb: True
+
+    # For Vagrant installations make sure port 9000 is forwarded
+    graylog_web_endpoint_uri: 'http://localhost:9000/api/'
+    # For other setups, use the external IP of the Graylog server
     # graylog_web_endpoint_uri: 'http://{{ ansible_host }}:9000/api/'
-    # Note: if you set here localhost or 127.0.0.1 the web interface will never reach your webui as client
-    # runs with javascript on your browser since graylog 2.0
 
   roles:
     - role: 'Graylog2.graylog-ansible-role'
@@ -119,9 +120,12 @@ More detailed example
 
     # Elasticsearch role already installed Java
     graylog_java_install: False
-    # Do not set web_endpoint_uri to choose the first ip address available automatically
-    graylog_web_endpoint_uri: ''
-    # Option 2:
+
+    graylog_install_mongodb: True
+
+    # For Vagrant installations make sure port 9000 is forwarded
+    graylog_web_endpoint_uri: 'http://localhost:9000/api/'
+    # For other setups, use the external IP of the Graylog server
     # graylog_web_endpoint_uri: 'http://{{ ansible_host }}:9000/api/'
 
     nginx_sites:
@@ -206,11 +210,6 @@ Note: in this example vars are in a more appropiate place at `group_vars/group/v
 
   roles:
 
-    - role: lesmyrmidons.mongodb
-      tags:
-        - mongodb
-        - graylog2_servers
-
     - role: geerlingguy.java
       when: ansible_distribution_release == 'xenial'
       java_packages:
@@ -240,7 +239,7 @@ Conditional role dependencies
 -----------------------------
 
 Dependencies can be enabled/disabled with the `host_vars` `graylog_install_*`.
-Take look into [meta/main.yml][5] for more information. Keep in mind that you
+Take look into [meta/main.yml][3] for more information. Keep in mind that you
 have to install all dependencies even when they are disabled to prevent errors.
 
 Tests
@@ -288,23 +287,21 @@ Further Reading
 
 Great articles by Pablo Daniel Estigarribia Davyt on how to use this role:
 
-- [Install Graylog][7]
-- [Receive messages from Logstash][8]
-- [Monitor Graylog with NSCA][9]
+- [Install Graylog][5]
+- [Receive messages from Logstash][6]
+- [Monitor Graylog with NSCA][7]
 
 License
 -------
 
-Author: Marius Sturm (<marius@graylog.com>) and [contributors][6]
+Author: Marius Sturm (<marius@graylog.com>) and [contributors][4]
 
 License: Apache 2.0
 
-[1]: https://github.com/lesmyrmidons/ansible-role-mongodb
-[2]: https://github.com/lesmyrmidons/ansible-role-mongodb/issues/5
-[3]: https://github.com/elastic/ansible-elasticsearch
-[4]: https://github.com/jdauphant/ansible-role-nginx
-[5]: https://github.com/Graylog2/graylog-ansible-role/blob/master/meta/main.yml
-[6]: https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors
-[7]: https://pablodav.github.io/post/graylog/graylog_ansible
-[8]: https://pablodav.github.io/post/graylog/logstash_input
-[9]: https://pablodav.github.io/post/graylog/graylog_logstash_nagios_nsca
+[1]: https://github.com/elastic/ansible-elasticsearch
+[2]: https://github.com/jdauphant/ansible-role-nginx
+[3]: https://github.com/Graylog2/graylog-ansible-role/blob/master/meta/main.yml
+[4]: https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors
+[5]: https://pablodav.github.io/post/graylog/graylog_ansible
+[6]: https://pablodav.github.io/post/graylog/logstash_input
+[7]: https://pablodav.github.io/post/graylog/graylog_logstash_nagios_nsca
