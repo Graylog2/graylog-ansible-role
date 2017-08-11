@@ -7,25 +7,10 @@ services:
   - docker
 
 env:
-  - distro: centos7_21
-    init: /usr/sbin/init
-    run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
   - distro: centos7_22
     init: /usr/sbin/init
     run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: wheezy_21
-    init: ""
-    run_opts: ""
-  - distro: wheezy_22
-    init: ""
-    run_opts: ""
-  - distro: trusty_21
-    init: ""
-    run_opts: ""
-  - distro: trusty_22
-    init: ""
-    run_opts: ""
-  - distro: xenial_21
+  - distro: jessie_22
     init: /sbin/init
     run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
   - distro: xenial_22

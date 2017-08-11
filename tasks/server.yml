@@ -32,3 +32,4 @@
 - meta: flush_handlers
 - name: Wait for Graylog server to startup
   wait_for: host=127.0.0.1 port=9000 delay=5 connect_timeout=1
+  when: graylog_not_testing
