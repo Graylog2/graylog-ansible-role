@@ -15,7 +15,7 @@ env:
     run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
   - distro: xenial_22
     init: /lib/systemd/systemd
-    run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
+    run_opts: "--privileged --security-opt seccomp=unconfined -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
 
 before_script:
   - >
