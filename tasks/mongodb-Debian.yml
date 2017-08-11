@@ -12,7 +12,6 @@
         update_cache: True
   when:
     - ansible_distribution == 'Ubuntu'
-    - graylog_install_mongodb
 
 - block:
     - name: 'APT Key should be accepted for the MongoDB repo (Debian)'
@@ -27,13 +26,11 @@
         update_cache: True
   when:
     - ansible_distribution == 'Debian'
-    - graylog_install_mongodb
 
 - name: MongoDB should be installed
   apt:
     name: 'mongodb-org'
     state: present
-  when: graylog_install_mongodb
 
 - name: MongoDB service file should be installed
   template:
@@ -45,7 +42,6 @@
   when:
     - use_system_d
     - ansible_distribution == 'Ubuntu'
-    - graylog_install_mongodb
   notify:
     - reload systemd configuration
     - restart mongod
@@ -57,7 +53,6 @@
     owner: root
     group: root
     mode: '0644'
-  when: graylog_install_mongodb
   notify: restart mongod
 
 - meta: flush_handlers

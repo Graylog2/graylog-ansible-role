@@ -6,7 +6,6 @@
     update_cache: True
   when:
     - ansible_distribution == 'Ubuntu'
-    - graylog_install_java
 
 - block:
     - name: 'Repositories should be updated (Debian)'
@@ -25,7 +24,6 @@
 
   when:
     - ansible_distribution == 'Debian'
-    - graylog_install_java
 
 - name: Oracle license should be accepted
   debconf:
@@ -33,10 +31,8 @@
     question: "shared/{{ graylog_java_oracle_license_key }}"
     value: 'true'
     vtype: 'select'
-  when: graylog_install_java
 
 - name: Java 8 should be installed
   apt:
     name: 'oracle-java8-installer'
     state: present
-  when: graylog_install_java
