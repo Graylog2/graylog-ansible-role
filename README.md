@@ -24,8 +24,8 @@ Quickstart
   remote_user: ubuntu
   become: True
   vars:
-    # Graylog2 is not compatible with elasticsearch 5.x, so ensure to use 2.x (graylog3 will be compatible)
-    # Also use version 0.2 of elastic.elasticsearch (ansible role), because vars are different
+    # Graylog is compatible with elasticsearch 5.x since version 2.3.0, so ensure to use the right combination for your installation
+    # Also use the right branch of the Elasticsearch Ansible role, master supports 5.x.
     es_major_version: "5.x"
     es_instance_name: 'graylog'
     es_scripts: False
@@ -98,8 +98,8 @@ More detailed example
 - hosts: server
   become: True
   vars:
-    # Graylog2 is not compatible with elasticsearch 5.x, so ensure to use 2.x (graylog3 will be compatible)
-    # Also use version 0.2 of elastic.elasticsearch (ansible role), because vars are different
+    # Graylog is compatible with elasticsearch 5.x since version 2.3.0, so ensure to use the right combination for your installation
+    # Also use the right branch of the Elasticsearch Ansible role, master supports 5.x.
     es_major_version: "5.x"
     es_instance_name: 'graylog'
     es_scripts: False
@@ -161,7 +161,7 @@ Example:
 
 ```yaml
 - name: Add java-jdk-8 ppa for Ubuntu xenial
-  hosts: graylog2_servers
+  hosts: graylog_servers
   become: True
   tasks:
     - name: installing repo for Java 8 in Ubuntu 16.04
@@ -169,11 +169,11 @@ Example:
       when: ansible_distribution_release == 'xenial'
 
 - name: Install java from openjdk
-  hosts: graylog2_servers
+  hosts: graylog_servers
   become: True
   vars:
+    # Graylog and Elasticsearch 5.x need both Java 8. This should be installed by a dedicated Java role. 
     graylog_install_java: false
-    # Ensure to add this option if not added elastic.elasticsearch will install openjdk-7 that will break graylog2
     es_java_install: False
 
     # Var to be be used with elastic.elasticsearch role to force java version:
@@ -192,13 +192,13 @@ Example:
 Explicit playbook of roles
 --------------------------
 
-Is good to be explicit, these are all the roles that you need to run for graylog2.
+It's good to be explicit, these are all the roles that you need to run for Graylog.
 
 Note: in this example vars are in a more appropiate place at `group_vars/group/vars`
 
 ```yaml
-- name: Apply roles for graylog2 servers
-  hosts: graylog2_servers
+- name: Apply roles for Graylog servers
+  hosts: graylog_servers
   become: True
   vars:
     graylog_install_elasticsearch: False
@@ -215,22 +215,22 @@ Note: in this example vars are in a more appropiate place at `group_vars/group/v
       tags:
         - elasticsearch
         - graylog
-        - graylog2_servers
+        - graylog_servers
 
     - role: elastic.elasticsearch
       tags:
         - elasticsearch
-        - graylog2_servers
+        - graylog_servers
 
     - role: jdauphant.nginx
       tags:
         - nginx
-        - graylog2_servers
+        - graylog_servers
 
     - role: Graylog2.graylog-ansible-role
       tags:
         - graylog
-        - graylog2_servers
+        - graylog_servers
 ```
 
 Conditional role dependencies
