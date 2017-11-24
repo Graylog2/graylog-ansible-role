@@ -31,3 +31,10 @@
     name: "graylog-server{% if graylog_server_version is defined %}={{ graylog_server_version }}{% endif %}"
     state: present
   notify: restart graylog-server
+
+- name: setup-Debian.yml | Set elasticsearch priority to {{ graylog_es_debian_pin_version }} apt_preferences
+  template:
+    src: 'apt_preferences.d/debian_elasticsearch.j2'
+    dest: '/etc/apt/preferences.d/elasticsearch'
+    owner: root
+    mode: '0644'
