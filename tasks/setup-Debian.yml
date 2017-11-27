@@ -1,9 +1,4 @@
 ---
-- name: 'Package "python-software-properties" should be installed'
-  apt:
-    name: 'python-software-properties'
-    state: present
-
 - name: Graylog repository package should be downloaded
   get_url:
     url: "{{ graylog_apt_deb_url }}"
