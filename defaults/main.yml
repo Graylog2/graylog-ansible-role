@@ -7,7 +7,9 @@ graylog_java_repo_keyserver:       'keyserver.ubuntu.com'
 graylog_java_repo_key:             'EEA14886'
 graylog_version:                   '2.3'
 graylog_apt_deb_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.deb"
+graylog_manage_apt_repo:           'True'
 graylog_yum_rpm_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm"
+graylog_manage_yum_repo:           'True'
 graylog_java_oracle_installer_key: 'oracle-java8-installer'
 graylog_java_oracle_license_key:   'accepted-oracle-license-v1-1'
 # This will ensure to have es version 2.x, even when for some reason es repo 5.x is added (ex when logstash 5.x is installed)
