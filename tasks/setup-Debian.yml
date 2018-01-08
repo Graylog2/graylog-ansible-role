@@ -3,6 +3,7 @@
   get_url:
     url: "{{ graylog_apt_deb_url }}"
     dest: '/tmp/graylog_repository.deb'
+  when: graylog_manage_apt_repo
 
 - name: 'Package "apt-transport-https" should be installed'
   apt:
@@ -14,6 +15,7 @@
     deb: '/tmp/graylog_repository.deb'
     state: installed
     dpkg_options: 'force-all'
+  when: graylog_manage_apt_repo
   register: install_repo
 
 - name: APT cache should be updated
