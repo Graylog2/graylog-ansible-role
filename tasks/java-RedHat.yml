@@ -1,3 +1,5 @@
 ---
 - name: Ensure Java is installed
-  yum: name={{ graylog_java }} state=present
+  package: 
+    name: {{ graylog_java }} 
+    state: present
