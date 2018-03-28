@@ -25,6 +25,14 @@
     group: root
     mode: '0644'
   notify: restart mongod
+  
+# Allow MongoDB to listen on tcp port 27017
+- name: set SELinux MongoDB Port access allowed
+  seport:
+    ports: 27017
+    proto: tcp
+    setype: mongod_port_t
+    state: present
 
 - meta: flush_handlers
 - name: Wait for MongoDB to startup
