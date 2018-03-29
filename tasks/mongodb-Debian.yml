@@ -34,7 +34,7 @@
 
 - name: MongoDB service file should be installed
   template:
-    src: 'mongodb.service.j2'
+    src: 'mongodb.service-Debian.j2'
     dest: "/lib/systemd/system/mongod.service"
     owner: root
     group: root

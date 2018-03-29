@@ -17,6 +17,19 @@
     name: "mongodb-org"
     state: present
 
+- name: MongoDB service file should be installed
+  template:
+    src: 'mongodb.service-RedHat.j2'
+    dest: "/lib/systemd/system/mongod.service"
+    owner: root
+    group: root
+    mode: '0644'
+  when:
+    - use_system_d
+  notify:
+    - reload systemd configuration
+    - restart mongod
+
 - name: MongoDB should be configured
   template:
     src: 'mongodb.conf.j2'
@@ -26,8 +39,7 @@
     mode: '0644'
   notify: restart mongod
   
-# Allow MongoDB to listen on tcp port 27017
-- name: set SELinux MongoDB Port access allowed
+- name: SELinux port access should be granted for MongoDB
   seport:
     ports: 27017
     proto: tcp
