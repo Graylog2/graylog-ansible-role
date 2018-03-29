@@ -25,8 +25,10 @@ net:
   bindIp: 127.0.0.1
 
 
+{% if ansible_distribution != "RedHat" %}
 processManagement:
   fork: false
+{% endif %}
 
 #security:
 
