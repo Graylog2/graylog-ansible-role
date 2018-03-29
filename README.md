@@ -103,6 +103,9 @@ More detailed example
     # Also use the right branch of the Elasticsearch Ansible role, master supports 5.x.
     es_major_version: "5.x"
     es_version: "5.6.7"
+    # Install Elasticsearch via repository or direct package download
+    #es_use_repository: False
+    #es_custom_package_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.7.rpm"
     es_instance_name: 'graylog'
     es_scripts: False
     es_templates: False
