@@ -4,6 +4,7 @@ After=network.target
 Documentation=https://docs.mongodb.org/manual
 
 [Service]
+Type=oneshot
 User=mongodb
 Group=mongodb
 ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf
