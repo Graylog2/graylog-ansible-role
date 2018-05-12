@@ -10,10 +10,10 @@ graylog_version:                   "2.4"
 graylog_apt_deb_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.deb"
 graylog_manage_apt_repo:           True
 graylog_yum_rpm_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm"
-# This will ensure to have es version 2.x, even when for some reason es repo 5.x is added (ex when logstash 5.x is installed)
 graylog_manage_yum_repo:           True
 graylog_java_oracle_installer_key: "oracle-java8-installer"
 graylog_java_oracle_license_key:   "accepted-oracle-license-v1-1"
+# Pin to compatible ElasticSearch version to avoid issues if newer repositories are present, e.g. for Logstash 6.X.
 graylog_es_debian_pin_version:     "5.*"
 
 # General

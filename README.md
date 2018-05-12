@@ -12,7 +12,7 @@ Dependencies
 - Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions consider backports accordingly
 - [Elasticsearch][1]
 - [NGINX][2]
-- Tested on Ubuntu 16.04 / Debian 7 / Centos 7
+- Tested on Ubuntu 16.04 / Debian 8 / Centos 7
 
 Quickstart
 ----------
@@ -254,20 +254,20 @@ Tests
 One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
 by using the Docker images provided.
 
-Example for Debian Wheezy and Ubuntu Xenial:
+Example for Debian Jessie and Ubuntu Xenial:
 
     $ cd graylog-ansible-role
-    $ docker build -t graylog-ansible-role-wheezy -f tests/support/wheezy.Dockerfile tests/support
-    $ docker run -it -v $PWD:/role graylog-ansible-role-wheezy
+    $ docker build -t graylog-ansible-role-jessie -f tests/support/jessie_22.Dockerfile tests/support
+    $ docker run -it -v $PWD:/role graylog-ansible-role-jessie
 
-For Xenial, just replace `wheezy` with `xenial` in the above commands.
+For Xenial, just replace `jessie` with `xenial` in the above commands.
 
 Example for CentOS 7 and Ubuntu Xenial:
 
 Due to how `systemd` works with Docker, the following approach is suggested:
 
     $ cd graylog-ansible-role
-    $ docker build -t graylog-ansible-role-centos7 -f tests/support/centos7.Dockerfile tests/support
+    $ docker build -t graylog-ansible-role-centos7 -f tests/support/centos7_22.Dockerfile tests/support
     $ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-centos7 /usr/sbin/init
     $ DOCKER_CONTAINER_ID=$(docker ps | grep centos | awk '{print $1}')
     $ docker logs $DOCKER_CONTAINER_ID
@@ -279,7 +279,7 @@ Due to how `systemd` works with Docker, the following approach is suggested:
 Ubuntu Xenial:
 
     $ cd graylog-ansible-role
-    $ docker build -t graylog-ansible-role-xenial -f tests/support/xenial.Dockerfile tests/support
+    $ docker build -t graylog-ansible-role-xenial -f tests/support/xenial_22.Dockerfile tests/support
     $ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-xenial /sbin/init
     $ DOCKER_CONTAINER_ID=$(docker ps | grep xenial | awk '{print $1}')
     $ docker logs $DOCKER_CONTAINER_ID
