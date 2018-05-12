@@ -8,7 +8,7 @@ RUN apt-get -y install ca-certificates \
                        python-pip \
                        python-dev \
                        libffi-dev
-RUN pip install -U cffi
+RUN pip install -U cffi setuptools
 RUN pip install ansible==2.2.1
 
 COPY run-tests.sh run-tests.sh
