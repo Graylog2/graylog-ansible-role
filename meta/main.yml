@@ -1,29 +1,29 @@
 ---
-dependencies:
 
-  - role: 'elastic.elasticsearch'
+dependencies:
+  - role: "elastic.elasticsearch"
     when: graylog_install_elasticsearch
 
-  - role: 'jdauphant.nginx'
+  - role: "jdauphant.nginx"
     when: graylog_install_nginx
 
 galaxy_info:
-  author: 'Marius Sturm'
-  company: 'Graylog, Inc.'
-  description: 'Install and configure Graylog log management.'
-  min_ansible_version: '2.2'
-  license: 'Apache 2'
+  author: "Marius Sturm"
+  company: "Graylog, Inc."
+  description: "Install and configure Graylog log management."
+  min_ansible_version: "2.2"
+  license: "Apache 2"
   platforms:
-    - name: Ubuntu
+    - name: "Ubuntu"
       versions:
-        - xenial
-        - zesty
-    - name: Debian
+        - "xenial"
+        - "zesty"
+    - name: "Debian"
       versions:
-        - jessie
-    - name: EL
+        - "jessie"
+    - name: "EL"
       versions:
-        - 7
+        - "7"
   galaxy_tags:
-    - monitoring
-    - system
+    - "monitoring"
+    - "system"

@@ -20,28 +20,27 @@ Quickstart
 - You need at least 4GB of memory to run Graylog
 - Here is an example of a playbook targeting Vagrant (Ubuntu Xenial):
 ```yaml
-- hosts: all
-  remote_user: ubuntu
+- hosts: "all"
+  remote_user: "ubuntu"
   become: True
   vars:
     # Graylog is compatible with elasticsearch 5.x since version 2.3.0, so ensure to use the right combination for your installation
     # Also use the right branch of the Elasticsearch Ansible role, master supports 5.x.
     es_major_version: "5.x"
     es_version: "5.6.7"
-    es_instance_name: 'graylog'
+    es_instance_name: "graylog"
     es_scripts: False
     es_templates: False
     es_version_lock: False
-    es_heap_size: 1g
-    es_config: {
-      node.name: "graylog",
-      cluster.name: "graylog",
-      http.port: 9200,
-      transport.tcp.port: 9300,
-      network.host: 0.0.0.0,
-      node.data: true,
-      node.master: true,
-    }
+    es_heap_size: "1g"
+    es_config:
+      node.name: "graylog"
+      cluster.name: "graylog"
+      http.port: 9200
+      transport.tcp.port: 9300
+      network.host: "0.0.0.0"
+      node.data: True,
+      node.master: True
 
     # Elasticsearch role already installed Java
     graylog_install_java: False
@@ -49,13 +48,14 @@ Quickstart
     graylog_install_mongodb: True
 
     # For Vagrant installations make sure port 9000 is forwarded
-    graylog_web_endpoint_uri: 'http://localhost:9000/api/'
+    graylog_web_endpoint_uri: "http://localhost:9000/api/"
     # For other setups, use the external IP of the Graylog server
-    # graylog_web_endpoint_uri: 'http://{{ ansible_host }}:9000/api/'
+    # graylog_web_endpoint_uri: "http://{{ ansible_host }}:9000/api/"
 
   roles:
-    - role: 'Graylog2.graylog-ansible-role'
-      tags: graylog
+    - role: "Graylog2.graylog-ansible-role"
+      tags:
+        - "graylog"
 ```
 
 - Create a playbook file with that content, e.g. `your_playbook.yml`
@@ -69,10 +69,10 @@ Variables
 
 ```yaml
 # Basic server settings
-graylog_server_version:     '2.4.3-1' # Optional, if not provided the latest version will be installed
-graylog_is_master:          'True'
-graylog_password_secret:    '2jueVqZpwLLjaWxV' # generate with: pwgen -s 96 1
-graylog_root_password_sha2: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918' # generate with: echo -n yourpassword | shasum -a 256
+graylog_server_version:     "2.4.3-1" # Optional, if not provided the latest version will be installed
+graylog_is_master:          "True"
+graylog_password_secret:    "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
+graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" # generate with: echo -n yourpassword | shasum -a 256
 
 # Elasticsearch message retention
 graylog_elasticsearch_max_docs_per_index:    20000000
@@ -80,9 +80,9 @@ graylog_elasticsearch_max_number_of_indices: 20
 graylog_elasticsearch_shards:                4
 graylog_elasticsearch_replicas:              0
 
-graylog_rest_listen_uri:  'http://0.0.0.0:9000/api/'
-graylog_web_listen_uri:   'http://0.0.0.0:9000/'
-graylog_web_endpoint_uri: 'http://127.0.0.1:9000/api/'
+graylog_rest_listen_uri:  "http://0.0.0.0:9000/api/"
+graylog_web_listen_uri:   "http://0.0.0.0:9000/"
+graylog_web_endpoint_uri: "http://127.0.0.1:9000/api/"
 ```
 
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters.
@@ -96,7 +96,7 @@ More detailed example
 - Set up playbook (see example below):
 
 ```yaml
-- hosts: server
+- hosts: "server"
   become: True
   vars:
     # Graylog is compatible with elasticsearch 5.x since version 2.3.0, so ensure to use the right combination for your installation
@@ -106,20 +106,19 @@ More detailed example
     # Install Elasticsearch via repository or direct package download
     #es_use_repository: False
     #es_custom_package_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.7.rpm"
-    es_instance_name: 'graylog'
+    es_instance_name: "graylog"
     es_scripts: False
     es_templates: False
     es_version_lock: False
-    es_heap_size: 1g
-    es_config: {
-      node.name: "graylog",
-      cluster.name: "graylog",
-      http.port: 9200,
-      transport.tcp.port: 9300,
-      network.host: 0.0.0.0,
-      node.data: true,
-      node.master: true,
-    }
+    es_heap_size: "1g"
+    es_config:
+      node.name: "graylog"
+      cluster.name: "graylog"
+      http.port: 9200
+      transport.tcp.port: 9300
+      network.host: "0.0.0.0"
+      node.data: True
+      node.master: True
 
     # Elasticsearch role already installed Java
     graylog_java_install: False
@@ -127,30 +126,33 @@ More detailed example
     graylog_install_mongodb: True
 
     # For Vagrant installations make sure port 9000 is forwarded
-    graylog_web_endpoint_uri: 'http://localhost:9000/api/'
+    graylog_web_endpoint_uri: "http://localhost:9000/api/"
     # For other setups, use the external IP of the Graylog server
-    # graylog_web_endpoint_uri: 'http://{{ ansible_host }}:9000/api/'
+    # graylog_web_endpoint_uri: "http://{{ ansible_host }}:9000/api/"
 
     nginx_sites:
       graylog:
-        - listen 80
-        - server_name graylog
-        - location / {
-          proxy_pass http://localhost:9000/;
-          proxy_set_header Host $host;
-          proxy_set_header X-Real-IP $remote_addr;
-          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-          proxy_pass_request_headers on;
-          proxy_connect_timeout 150;
-          proxy_send_timeout 100;
-          proxy_read_timeout 100;
-          proxy_buffers 4 32k;
-          client_max_body_size 8m;
-          client_body_buffer_size 128k; }
+        - "listen 80"
+        - "server_name graylog"
+        - |
+          location / {
+            proxy_pass http://localhost:9000/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass_request_headers on;
+            proxy_connect_timeout 150;
+            proxy_send_timeout 100;
+            proxy_read_timeout 100;
+            proxy_buffers 4 32k;
+            client_max_body_size 8m;
+            client_body_buffer_size 128k;
+          }
 
   roles:
-    - role: 'Graylog2.graylog-ansible-role'
-      tags: graylog
+    - role: "Graylog2.graylog-ansible-role"
+      tags:
+        - "graylog"
 ```
 
 - Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
@@ -159,39 +161,40 @@ More detailed example
 Details to avoid issues with java, install behind proxy, use openjdk
 --------------------------------------------------------------------
 
-You can use var: `graylog_install_java: false` and then add java from openjdk-8 instead of installing oracle java 8. 
+You can use var: `graylog_install_java: False` and then add java from openjdk-8 instead of installing oracle java 8.
 Openjdk doesn't have problems to use a proxy for apt, also doesn't requires the license agreement that oracle requires.
 
 Example:
 
 ```yaml
-- name: Add java-jdk-8 ppa for Ubuntu xenial
-  hosts: graylog_servers
+- name: "Add java-jdk-8 ppa for Ubuntu xenial"
+  hosts: "graylog_servers"
   become: True
   tasks:
-    - name: installing repo for Java 8 in Ubuntu 16.04
-      apt_repository: repo='ppa:openjdk-r/ppa'
+    - name: "installing repo for Java 8 in Ubuntu 16.04"
+      apt_repository:
+        repo: "ppa:openjdk-r/ppa"
       when: ansible_distribution_release == 'xenial'
 
-- name: Install java from openjdk
-  hosts: graylog_servers
+- name: "Install java from openjdk"
+  hosts: "graylog_servers"
   become: True
   vars:
     # Graylog and Elasticsearch 5.x need both Java 8. This should be installed by a dedicated Java role. 
-    graylog_install_java: false
+    graylog_install_java: False
     es_java_install: False
 
     # Var to be be used with elastic.elasticsearch role to force java version:
-    es_java: openjdk-8-jre-headless
+    es_java: "openjdk-8-jre-headless"
 
   roles:
-    - role: geerlingguy.java
+    - role: "geerlingguy.java"
       when: ansible_distribution_release == 'xenial'
       java_packages:
-        - openjdk-8-jdk
+        - "openjdk-8-jdk"
 
-    - role: 'Graylog2.graylog-ansible-role'
-      tags: graylog
+    - role: "Graylog2.graylog-ansible-role"
+      tags: "graylog"
 ```
 
 Explicit playbook of roles
@@ -199,11 +202,11 @@ Explicit playbook of roles
 
 It's good to be explicit, these are all the roles that you need to run for Graylog.
 
-Note: in this example vars are in a more appropiate place at `group_vars/group/vars`
+Note: in this example vars are in a more appropriate place at `group_vars/group/vars`
 
 ```yaml
-- name: Apply roles for Graylog servers
-  hosts: graylog_servers
+- name: "Apply roles for Graylog servers"
+  hosts: "graylog_servers"
   become: True
   vars:
     graylog_install_elasticsearch: False
@@ -213,29 +216,29 @@ Note: in this example vars are in a more appropiate place at `group_vars/group/v
 
   roles:
 
-    - role: geerlingguy.java
+    - role: "geerlingguy.java"
       when: ansible_distribution_release == 'xenial'
       java_packages:
-        - openjdk-8-jdk
+        - "openjdk-8-jdk"
       tags:
-        - elasticsearch
-        - graylog
-        - graylog_servers
+        - "elasticsearch"
+        - "graylog"
+        - "graylog_servers"
 
-    - role: elastic.elasticsearch
+    - role: "elastic.elasticsearch"
       tags:
-        - elasticsearch
-        - graylog_servers
+        - "elasticsearch"
+        - "graylog_servers"
 
-    - role: jdauphant.nginx
+    - role: "jdauphant.nginx"
       tags:
-        - nginx
-        - graylog_servers
+        - "nginx"
+        - "graylog_servers"
 
-    - role: Graylog2.graylog-ansible-role
+    - role: "Graylog2.graylog-ansible-role"
       tags:
-        - graylog
-        - graylog_servers
+        - "graylog"
+        - "graylog_servers"
 ```
 
 Conditional role dependencies
