@@ -1,3 +1,4 @@
 ---
-graylog_server_defaults_file_path: '/etc/default/graylog-server'
-graylog_mongodb_data_path:         '/var/lib/mongodb'
+
+graylog_server_defaults_file_path: "/etc/default/graylog-server"
+graylog_mongodb_data_path:         "/var/lib/mongodb"

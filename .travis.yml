@@ -1,20 +1,21 @@
 ---
+
 branches:
   only:
-    - master
+    - "master"
 
 services:
-  - docker
+  - "docker"
 
 env:
-  - distro: centos7_22
-    init: /usr/sbin/init
+  - distro: "centos7_22"
+    init: "/usr/sbin/init"
     run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: jessie_22
-    init: /sbin/init
+  - distro: "jessie_22"
+    init: "/sbin/init"
     run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: xenial_22
-    init: /lib/systemd/systemd
+  - distro: "xenial_22"
+    init: "/lib/systemd/systemd"
     run_opts: "--privileged --security-opt seccomp=unconfined -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
 
 before_script:
