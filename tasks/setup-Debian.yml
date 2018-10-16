@@ -27,7 +27,7 @@
 - name: "Graylog server package should be installed"
   apt:
     name: "graylog-server{% if graylog_server_version is defined %}={{ graylog_server_version }}{% endif %}"
-    state: "present"
+    state: "{{ graylog_package_state }}"
   notify: "restart graylog-server"
 
 - name: "setup-Debian.yml | Set elasticsearch priority to {{ graylog_es_debian_pin_version }} apt_preferences"
