@@ -39,7 +39,7 @@ Quickstart
       http.port: 9200
       transport.tcp.port: 9300
       network.host: "0.0.0.0"
-      node.data: True,
+      node.data: True
       node.master: True
 
     # Elasticsearch role already installed Java
