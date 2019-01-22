@@ -1,12 +1,28 @@
 ---
-- name: Check for supported distros should be made
+
+- name: "Check for supported distribution"
   fail:
     msg: "Distro {{ ansible_distribution }} is not supported yet."
   when: ansible_os_family not in graylog_supported_os_families
 
-- name: OS-family specific vars should be loaded
+- name: "Load OS-family specific vars"
   include_vars: "{{ ansible_os_family }}.yml"
+
+- name: "Discover systemd capabilities"
+  set_fact:
+    use_system_d: >
+      {{
+        (ansible_distribution == 'Debian' and ansible_distribution_version | version_compare('8', '>=')) or
+        (ansible_distribution in ['RedHat','CentOS'] and ansible_distribution_version | version_compare('7', '>=')) or
+        (ansible_distribution == 'Ubuntu' and ansible_distribution_version | version_compare('15', '>='))
+      }}
+
+- include: "mongodb-{{ ansible_os_family }}.yml"
+  when: graylog_install_mongodb
+
+- include: "java-{{ ansible_os_family }}.yml"
+  when: graylog_install_java
 
 - include: "setup-{{ ansible_os_family }}.yml"
 
-- include: server.yml
+- include: "server.yml"

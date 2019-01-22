@@ -1,2 +1,7 @@
 ---
-graylog_server_defaults_file_path: '/etc/sysconfig/graylog-server'
+
+graylog_server_defaults_file_path:    "/etc/sysconfig/graylog-server"
+graylog_mongodb_data_path:            "/var/lib/mongo"
+graylog_mongodb_package_dependencies:
+  - "libselinux-python"
+graylog_java:                         "java-1.8.0-openjdk-headless.x86_64"

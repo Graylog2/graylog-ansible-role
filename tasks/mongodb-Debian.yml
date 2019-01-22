@@ -1,0 +1,65 @@
+---
+
+- block:
+    - name: "APT Key should be accepted for the MongoDB repo (Ubuntu)"
+      apt_key:
+        keyserver: "{{ graylog_mongodb_ubuntu_keyserver }}"
+        id: "{{ graylog_mongodb_ubuntu_key }}"
+
+    - name: "Repositories should be updated (Ubuntu)"
+      apt_repository:
+        repo: "{{ graylog_mongodb_ubuntu_repo }}"
+        state: "present"
+        update_cache: True
+  when:
+    - ansible_distribution == 'Ubuntu'
+
+- block:
+    - name: "APT Key should be accepted for the MongoDB repo (Debian)"
+      apt_key:
+        keyserver: "{{ graylog_mongodb_debian_keyserver }}"
+        id: "{{ graylog_mongodb_debain_key }}"
+
+    - name: "Repositories should be updated (Debian)"
+      apt_repository:
+        repo: "{{ graylog_mongodb_debian_repo }}"
+        state: "present"
+        update_cache: True
+  when:
+    - ansible_distribution == 'Debian'
+
+- name: "MongoDB should be installed"
+  apt:
+    name: "mongodb-org"
+    state: "present"
+
+- name: "MongoDB service file should be installed"
+  template:
+    src: "mongodb.service-Debian.j2"
+    dest: "/lib/systemd/system/mongod.service"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  when:
+    - use_system_d
+    - ansible_distribution == 'Ubuntu'
+  notify:
+    - "reload systemd configuration"
+    - "restart mongod"
+
+- name: "MongoDB should be configured"
+  template:
+    src: "mongodb.conf.j2"
+    dest: "/etc/mongod.conf"
+    owner: "root"
+    group: "root"
+    mode: 0644
+  notify: "restart mongod"
+
+- meta: "flush_handlers"
+- name: "Wait for MongoDB to startup"
+  wait_for:
+    host: "127.0.0.1"
+    port: 27017
+    delay: 5
+    connect_timeout: 1

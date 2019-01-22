@@ -1,83 +1,38 @@
 ---
-- name: 'Package "python-software-properties" should be installed'
-  apt:
-    name: 'python-software-properties'
-    state: present
 
-- name: 'Repositories should be updated (Ubuntu)'
-  apt_repository:
-    repo: "{{ graylog_java_ppa }}"
-    state: present
-    update_cache: True
-  when:
-    - ansible_distribution == 'Ubuntu'
-    - graylog_install_java
-
-- block:
-    - name: 'Repositories should be updated (Debian)'
-      apt_repository:
-        repo: "{{ item }}"
-        state: present
-        update_cache: True
-      with_items:
-        - "{{ graylog_java_repo }}"
-        - "{{ graylog_java_src_repo }}"
-
-    - name: 'APT Key should be accepted for the Java repo (Debian)'
-      apt_key:
-        keyserver: "{{ graylog_java_repo_keyserver }}"
-        id: "{{ graylog_java_repo_key }}"
-
-  when:
-    - ansible_distribution == 'Debian'
-    - graylog_install_java
-
-- name: Oracle license should be accepted
-  debconf:
-    name: "{{ graylog_java_oracle_installer_key }}"
-    question: "shared/{{ graylog_java_oracle_license_key }}"
-    value: 'true'
-    vtype: 'select'
-  when: graylog_install_java
-
-- name: Java 8 should be installed
-  apt:
-    name: 'oracle-java8-installer'
-    state: present
-  when: graylog_install_java
-
-- name: Graylog repository package should be downloaded
+- name: "Graylog repository package should be downloaded"
   get_url:
     url: "{{ graylog_apt_deb_url }}"
-    dest: '/tmp/graylog_repository.deb'
+    dest: "/tmp/graylog_repository.deb"
+  when: graylog_manage_apt_repo
 
-- name: 'Package "apt-transport-https" should be installed'
+- name: "Package 'apt-transport-https' should be installed"
   apt:
-    name: 'apt-transport-https'
-    state: installed
+    name: "apt-transport-https"
+    state: "installed"
 
-- name: Graylog repository package should be installed
+- name: "Graylog repository package should be installed"
   apt:
-    deb: '/tmp/graylog_repository.deb'
-    state: installed
-    dpkg_options: 'force-all'
-  register: install_repo
+    deb: "/tmp/graylog_repository.deb"
+    state: "installed"
+    dpkg_options: "force-all"
+  when: graylog_manage_apt_repo
+  register: "install_repo"
 
-- name: APT cache should be updated
+- name: "APT cache should be updated"
   apt:
     update_cache: True
   when: install_repo.changed
 
-- name: Graylog server package should be installed
+- name: "Graylog server package should be installed"
   apt:
     name: "graylog-server{% if graylog_server_version is defined %}={{ graylog_server_version }}{% endif %}"
-    state: present
-  notify: restart graylog-server
+    state: "{{ graylog_package_state }}"
+  notify: "restart graylog-server"
 
-# This will ensure to have es version 2.x, even when for some reason es repo 5.x is added (ex when logstash 5.x is installed)
-- name: setup-Debian.yml | Set elasticsearch priority to {{ graylog_es_debian_pin_version }} apt_preferences
+- name: "setup-Debian.yml | Set elasticsearch priority to {{ graylog_es_debian_pin_version }} apt_preferences"
   template:
-    src: 'apt_preferences.d/debian_elasticsearch.j2'
-    dest: '/etc/apt/preferences.d/elasticsearch'
-    owner: root
-    mode: '0644'
+    src: "apt_preferences.d/debian_elasticsearch.j2"
+    dest: "/etc/apt/preferences.d/elasticsearch"
+    owner: "root"
+    mode: 0644

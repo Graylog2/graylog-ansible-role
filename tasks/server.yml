@@ -1,30 +1,41 @@
 ---
-- name: Directory should be created with correct ownership and privileges
+
+- name: "Directory should be created with correct ownership and privileges"
   file:
-    path: '/etc/graylog/server'
-    owner: graylog
-    group: graylog
-    mode: '0750'
+    path: "/etc/graylog/server"
+    owner: "graylog"
+    group: "graylog"
+    mode: 0750
 
-- name: Graylog server should be configured
+- name: "Graylog server should be configured"
   template:
-    src: 'graylog.server.conf.j2'
-    dest: '/etc/graylog/server/server.conf'
-    owner: graylog
-    group: graylog
-    mode: '0644'
-  notify: restart graylog-server
+    src: "graylog.server.conf.j2"
+    dest: "/etc/graylog/server/server.conf"
+    owner: "graylog"
+    group: "graylog"
+    mode: 0644
+  notify: "restart graylog-server"
 
-- name: Graylog server defaults should be configured
+- name: "Graylog server defaults should be configured"
   template:
-    src: 'graylog.server.default.j2'
+    src: "graylog.server.default.j2"
     dest: "{{ graylog_server_defaults_file_path }}"
-    owner: graylog
-    group: graylog
-    mode: '0644'
-  notify: restart graylog-server
+    owner: "graylog"
+    group: "graylog"
+    mode: 0644
+  notify: "restart graylog-server"
 
-- name: Graylog server should start after reboot
+- name: "Graylog server should start after reboot"
   file:
-    path: '/etc/init/graylog-server.override'
-    state: absent
+    path: "/etc/init/graylog-server.override"
+    state: "absent"
+
+- meta: "flush_handlers"
+
+- name: "Wait for Graylog server to startup"
+  wait_for:
+    host: "127.0.0.1"
+    port: 9000
+    delay: 5
+    connect_timeout: 1
+  when: graylog_not_testing
