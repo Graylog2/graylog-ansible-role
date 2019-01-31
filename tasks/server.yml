@@ -33,9 +33,12 @@
 - meta: "flush_handlers"
 
 - name: "Wait for Graylog server to startup"
-  wait_for:
-    host: "127.0.0.1"
-    port: 9000
-    delay: 5
-    connect_timeout: 1
+  uri:
+    url: "{{ graylog_web_listen_uri }}"
+    status_code: 200
+    validate_certs: False
+  register: result
+  until: result.status == 200
+  retries: 60
+  delay: 5
   when: graylog_not_testing
