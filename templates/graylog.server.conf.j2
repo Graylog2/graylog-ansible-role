@@ -188,6 +188,13 @@ web_thread_pool_size = {{ graylog_web_thread_pool_size }}
 elasticsearch_config_file = {{ graylog_elasticsearch_config_file }}
 {% endif %}
 
+# Disable checking the version of Elasticsearch for being compatible with this Graylog release.
+# WARNING: Using Graylog with unsupported and untested versions of Elasticsearch may lead to data loss!
+elasticsearch_disable_version_check = {{ graylog_elasticsearch_disable_version_check }}
+
+# Disable message retention on this node, i. e. disable Elasticsearch index rotation.
+no_retention = {{ graylog_no_retention }}
+
 # Do you want to allow searches with leading wildcards? This can be extremely resource hungry and should only
 # be enabled with care. See also: http://docs.graylog.org/en/2.1/pages/queries.html
 allow_leading_wildcard_searches = {{ graylog_allow_leading_wildcard_searches }}
@@ -203,13 +210,6 @@ allow_highlighting = {{ graylog_allow_highlighting }}
 #
 # Default: http://127.0.0.1:9200
 elasticsearch_hosts = {{ graylog_elasticsearch_hosts }}
-
-# Disable checking the version of Elasticsearch for being compatible with this Graylog release.
-# WARNING: Using Graylog with unsupported and untested versions of Elasticsearch may lead to data loss!
-elasticsearch_disable_version_check = {{ graylog_elasticsearch_disable_version_check }}
-
-# Disable message retention on this node, i. e. disable Elasticsearch index rotation.
-no_retention = {{ graylog_no_retention }}
 
 {% if graylog_version < 2.4 %}
 # Graylog will use multiple indices to store documents in. You can configured the strategy it uses to determine
