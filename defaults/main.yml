@@ -57,8 +57,27 @@ graylog_elasticsearch_http_enabled:                     False
 graylog_disable_index_optimization:                     True
 graylog_index_optimization_max_num_segments:            1
 
+# Graylog version < 2.4
+graylog_elasticsearch_node_name_prefix:                 'graylog-'
+graylog_elasticsearch_shards:                           4
+graylog_elasticsearch_replicas:                         0
+graylog_elasticsearch_cluster_name:                     'graylog'
+graylog_elasticsearch_transport_tcp_port:               9350
+graylog_elasticsearch_discovery_zen_ping_unicast_hosts: '127.0.0.1:9300'
+graylog_elasticsearch_network_host:                     ''
+graylog_elasticsearch_network_bind_host:                ''
+graylog_elasticsearch_network_publish_host:             ''
+
 # Retention
 graylog_no_retention:                        False
+
+# Graylog version < 2.4
+graylog_elasticsearch_retention_strategy:    'delete'
+graylog_rotation_strategy:                   'count'
+graylog_elasticsearch_max_docs_per_index:    20000000
+graylog_elasticsearch_max_number_of_indices: 20
+graylog_elasticsearch_max_size_per_index:    1073741824
+graylog_elasticsearch_max_time_per_index:    '1d'
 
 # Processing
 graylog_processbuffer_processors:         5
