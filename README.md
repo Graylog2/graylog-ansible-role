@@ -33,6 +33,8 @@ Quickstart
     es_templates: False
     es_version_lock: False
     es_heap_size: "1g"
+    es_api_basic_auth_username: <username>
+    es_api_basic_auth_password: <secretpassword>
     es_config:
       node.name: "graylog"
       cluster.name: "graylog"
