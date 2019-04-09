@@ -28,6 +28,7 @@ Quickstart
     # Also use the right branch of the Elasticsearch Ansible role, master supports 5.x.
     es_major_version: "5.x"
     es_version: "5.6.7"
+    es_enable_xpack: False
     es_instance_name: "graylog"
     es_scripts: False
     es_templates: False
