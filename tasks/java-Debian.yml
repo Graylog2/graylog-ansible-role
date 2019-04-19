@@ -1,39 +1,48 @@
 ---
-
-- name: "Repositories should be updated (Ubuntu)"
-  apt_repository:
-    repo: "{{ graylog_java_ppa }}"
-    state: "present"
-    update_cache: True
-  when:
-    - ansible_distribution == 'Ubuntu'
-
 - block:
-    - name: "Repositories should be updated (Debian)"
-      apt_repository:
-        repo: "{{ item }}"
-        state: "present"
-        update_cache: True
-      with_items:
-        - "{{ graylog_java_repo }}"
-        - "{{ graylog_java_src_repo }}"
+  - name: "Repositories should be updated (Debian)"
+    apt_repository:
+      repo: "{{ item }}"
+      state: "present"
+      update_cache: True
+    with_items:
+      - "{{ graylog_java_repo }}"
+      - "{{ graylog_java_src_repo }}"
 
-    - name: "APT Key should be accepted for the Java repo (Debian)"
-      apt_key:
-        keyserver: "{{ graylog_java_repo_keyserver }}"
-        id: "{{ graylog_java_repo_key }}"
+  - name: "APT Key should be accepted for the Java repo (Debian)"
+    apt_key:
+      keyserver: "{{ graylog_java_repo_keyserver }}"
+      id: "{{ graylog_java_repo_key }}"
 
   when:
     - ansible_distribution == 'Debian'
+    - graylog_oracle_java
 
-- name: "Oracle license should be accepted"
-  debconf:
-    name: "{{ graylog_java_oracle_installer_key }}"
-    question: "shared/{{ graylog_java_oracle_license_key }}"
-    value: "true"
-    vtype: "select"
+- block:
+  - name: "Repositories should be updated (Ubuntu)"
+    apt_repository:
+      repo: "{{ graylog_java_ppa }}"
+      state: "present"
+      update_cache: True
 
-- name: "Java 8 should be installed"
+  - name: "Oracle license should be accepted"
+    debconf:
+      name: "{{ graylog_java_oracle_installer_key }}"
+      question: "shared/{{ graylog_java_oracle_license_key }}"
+      value: "true"
+      vtype: "select"
+
+  - name: "Java 8 should be installed"
+    apt:
+      name: "oracle-java8-installer"
+      state: "present"
+  when:
+    - ansible_distribution == 'Ubuntu'
+    - graylog_oracle_java
+
+- name: "openjdk-8-jre-headless should be installed"
   apt:
-    name: "oracle-java8-installer"
+    name: "openjdk-8-jre-headless"
     state: "present"
+    update_cache: true
+    when:  not graylog_oracle_java
