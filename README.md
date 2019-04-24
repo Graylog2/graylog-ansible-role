@@ -71,9 +71,6 @@ graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81
 graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
 graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
 graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
-graylog_rest_listen_uri:  "http://0.0.0.0:9000/api/"
-graylog_web_listen_uri:   "http://0.0.0.0:9000/"
-graylog_web_endpoint_uri: "http://127.0.0.1:9000/api/"
 ```
 
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters.
