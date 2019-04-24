@@ -97,7 +97,7 @@ More detailed example
       cluster.name: "graylog"
       http.port: 9200
       transport.tcp.port: 9300
-      network.host: "0.0.0.0"
+      network.host: "127.0.0.1"
       node.data: True
       node.master: True
     graylog_install_java: False # Elasticsearch role already installed Java
