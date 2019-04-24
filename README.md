@@ -28,33 +28,21 @@ Quickstart
   remote_user: "ubuntu"
   become: True
   vars:
-    # Graylog is compatible with elasticsearch 5.x since version 2.3.0, so ensure to use the right combination for your installation
-    # Also use the right branch of the Elasticsearch Ansible role, master supports 5.x.
     es_enable_xpack: False
     es_instance_name: "graylog"
-    es_scripts: False
-    es_templates: False
-    es_version_lock: False
     es_heap_size: "1g"
     es_config:
       node.name: "graylog"
       cluster.name: "graylog"
       http.port: 9200
       transport.tcp.port: 9300
-      network.host: "0.0.0.0"
-      node.data: True
-      node.master: True
-
-    # Elasticsearch role already installed Java
-    graylog_install_java: False
-
-    graylog_install_mongodb: True
-
-    # For Vagrant installations make sure port 9000 is forwarded
-    graylog_web_endpoint_uri: "http://localhost:9000/api/"
-    # For other setups, use the external IP of the Graylog server
-    # graylog_web_endpoint_uri: "http://{{ ansible_host }}:9000/api/"
-
+      network.host: "127.0.0.1"
+    graylog_install_java: False # Elasticsearch role already installed Java
+    graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
+    graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+    graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
+    graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+    graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
   roles:
     - role: "Graylog2.graylog-ansible-role"
       tags:
@@ -75,7 +63,7 @@ Variables
 graylog_server_version:     "2.4.3-1" # Optional, if not provided the latest version will be installed
 graylog_is_master:          "True"
 graylog_password_secret:    "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
-graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918" # generate with: echo -n yourpassword | shasum -a 256
+graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
 
 # Elasticsearch message retention
 graylog_elasticsearch_max_docs_per_index:    20000000
@@ -122,16 +110,12 @@ More detailed example
       network.host: "0.0.0.0"
       node.data: True
       node.master: True
-
-    # Elasticsearch role already installed Java
-    graylog_java_install: False
-
-    graylog_install_mongodb: True
-
-    # For Vagrant installations make sure port 9000 is forwarded
-    graylog_web_endpoint_uri: "http://localhost:9000/api/"
-    # For other setups, use the external IP of the Graylog server
-    # graylog_web_endpoint_uri: "http://{{ ansible_host }}:9000/api/"
+    graylog_install_java: False # Elasticsearch role already installed Java
+    graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
+    graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+    graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
+    graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+    graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
 
     nginx_sites:
       graylog:
