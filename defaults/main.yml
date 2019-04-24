@@ -29,17 +29,18 @@ graylog_alert_check_interval: 60
 graylog_disable_sigar:        False
 
 # REST
-graylog_rest_listen_uri:              "http://0.0.0.0:9000/api/"
-graylog_rest_transport_uri:           ""
-graylog_rest_enable_cors:             True
-graylog_rest_enable_gzip:             True
-graylog_rest_enable_tls:              False
-graylog_rest_tls_cert_file:           "/path/to/graylog.crt"
-graylog_rest_tls_key_file:            "/path/to/graylog.key"
-graylog_rest_tls_key_password:        "secret"
-graylog_rest_max_header_size:         8192
-graylog_rest_max_initial_line_length: 4096
-graylog_rest_thread_pool_size:        16
+graylog_http_bind_address:            "0.0.0.0:9000"
+graylog_http_publish_uri:             "http://0.0.0.0:9000/"
+graylog_http_external_uri:            "http://0.0.0.0:9000/"
+graylog_http_enable_cors:             True
+graylog_http_enable_gzip:             True
+graylog_http_enable_tls:              False
+graylog_http_tls_cert_file:           "/path/to/graylog.crt"
+graylog_http_tls_key_file:            "/path/to/graylog.key"
+graylog_http_tls_key_password:        "secret"
+graylog_http_max_header_size:         8192
+graylog_http_max_initial_line_length: 4096
+graylog_http_thread_pool_size:        16
 
 # Search
 graylog_elasticsearch_hosts:                            "http://127.0.0.1:9200"
