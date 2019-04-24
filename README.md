@@ -6,6 +6,7 @@ Description
 Ansible role which installs and configures Graylog log management.
 
 **THIS ROLE IS FOR GRAYLOG-3.X ONLY! FOR OLDER VERSIONS USE THE `GRAYLOG-2.X` BRANCH!**
+
 Dependencies
 ------------
 
