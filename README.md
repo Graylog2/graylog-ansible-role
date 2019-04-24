@@ -18,6 +18,9 @@ Quickstart
 ----------
 
 - You need at least 4GB of memory to run Graylog
+- Generate the password hash for the admin user:
+  - `echo -n yourpassword | sha256sum     # Linux`
+  - `echo -n yourpassword | shasum -a 256 # Mac`
 - Here is an example of a playbook targeting Vagrant (Ubuntu Xenial):
 ```yaml
 - hosts: "all"
