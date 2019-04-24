@@ -29,8 +29,6 @@ Quickstart
   vars:
     # Graylog is compatible with elasticsearch 5.x since version 2.3.0, so ensure to use the right combination for your installation
     # Also use the right branch of the Elasticsearch Ansible role, master supports 5.x.
-    es_major_version: "5.x"
-    es_version: "5.6.7"
     es_enable_xpack: False
     es_instance_name: "graylog"
     es_scripts: False
