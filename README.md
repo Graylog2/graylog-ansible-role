@@ -68,12 +68,9 @@ graylog_is_master:          "True"
 graylog_password_secret:    "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
 graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
 
-# Elasticsearch message retention
-graylog_elasticsearch_max_docs_per_index:    20000000
-graylog_elasticsearch_max_number_of_indices: 20
-graylog_elasticsearch_shards:                4
-graylog_elasticsearch_replicas:              0
-
+graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
+graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
 graylog_rest_listen_uri:  "http://0.0.0.0:9000/api/"
 graylog_web_listen_uri:   "http://0.0.0.0:9000/"
 graylog_web_endpoint_uri: "http://127.0.0.1:9000/api/"
@@ -93,13 +90,6 @@ More detailed example
 - hosts: "server"
   become: True
   vars:
-    # Graylog is compatible with elasticsearch 5.x since version 2.3.0, so ensure to use the right combination for your installation
-    # Also use the right branch of the Elasticsearch Ansible role, master supports 5.x.
-    es_major_version: "5.x"
-    es_version: "5.6.7"
-    # Install Elasticsearch via repository or direct package download
-    #es_use_repository: False
-    #es_custom_package_url: "https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.7.rpm"
     es_instance_name: "graylog"
     es_scripts: False
     es_templates: False
