@@ -159,45 +159,6 @@ More detailed example
 - Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
 - Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
 
-Details to avoid issues with java, install behind proxy, use openjdk
---------------------------------------------------------------------
-
-You can use var: `graylog_install_java: False` and then add java from openjdk-8 instead of installing oracle java 8.
-Openjdk doesn't have problems to use a proxy for apt, also doesn't requires the license agreement that oracle requires.
-
-Example:
-
-```yaml
-- name: "Add java-jdk-8 ppa for Ubuntu xenial"
-  hosts: "graylog_servers"
-  become: True
-  tasks:
-    - name: "installing repo for Java 8 in Ubuntu 16.04"
-      apt_repository:
-        repo: "ppa:openjdk-r/ppa"
-      when: ansible_distribution_release == 'xenial'
-
-- name: "Install java from openjdk"
-  hosts: "graylog_servers"
-  become: True
-  vars:
-    # Graylog and Elasticsearch 5.x need both Java 8. This should be installed by a dedicated Java role. 
-    graylog_install_java: False
-    es_java_install: False
-
-    # Var to be be used with elastic.elasticsearch role to force java version:
-    es_java: "openjdk-8-jre-headless"
-
-  roles:
-    - role: "geerlingguy.java"
-      when: ansible_distribution_release == 'xenial'
-      java_packages:
-        - "openjdk-8-jdk"
-
-    - role: "Graylog2.graylog-ansible-role"
-      tags: "graylog"
-```
-
 Explicit playbook of roles
 --------------------------
 
@@ -213,18 +174,8 @@ Note: in this example vars are in a more appropriate place at `group_vars/group/
     graylog_install_elasticsearch: False
     graylog_install_mongodb:       False
     graylog_install_nginx:         False
-    graylog_install_java:          False
 
   roles:
-
-    - role: "geerlingguy.java"
-      when: ansible_distribution_release == 'xenial'
-      java_packages:
-        - "openjdk-8-jdk"
-      tags:
-        - "elasticsearch"
-        - "graylog"
-        - "graylog_servers"
 
     - role: "elastic.elasticsearch"
       tags:
