@@ -63,7 +63,7 @@ Variables
 
 ```yaml
 # Basic server settings
-graylog_server_version:     "2.4.3-1" # Optional, if not provided the latest version will be installed
+graylog_server_version:     "3.0.1-1" # Optional, if not provided the latest version will be installed
 graylog_is_master:          "True"
 graylog_password_secret:    "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
 graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
