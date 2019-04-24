@@ -14,7 +14,7 @@ graylog_manage_yum_repo:           True
 graylog_java_oracle_installer_key: "oracle-java8-installer"
 graylog_java_oracle_license_key:   "accepted-oracle-license-v1-1"
 # Pin to compatible ElasticSearch version to avoid issues if newer repositories are present, e.g. for Logstash 6.X.
-graylog_es_debian_pin_version:     "5.*"
+graylog_es_debian_pin_version:     "6.*"
 
 # General
 graylog_is_master:            True
