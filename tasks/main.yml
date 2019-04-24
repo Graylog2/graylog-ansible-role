@@ -20,7 +20,7 @@
 - include: "mongodb-{{ ansible_os_family }}.yml"
   when: graylog_install_mongodb
 
-- include: "java-{{ ansible_os_family }}.yml"
+- include: "install-java.yml"
   when: graylog_install_java
 
 - include: "setup-{{ ansible_os_family }}.yml"
