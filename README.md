@@ -13,7 +13,7 @@ Dependencies
 - Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions consider backports accordingly
 - [Elasticsearch][1]
 - [NGINX][2]
-- Tested on Ubuntu 18.04 / Ubuntu 16.04 / Debian 8 / Centos 7
+- Tested on Ubuntu 16.04 / Ubuntu 18.04 / Debian 9 / Centos 7
 
 Quickstart
 ----------
