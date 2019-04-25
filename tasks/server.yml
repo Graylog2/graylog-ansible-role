@@ -34,7 +34,7 @@
 
 - name: "Wait for Graylog server to startup"
   uri:
-    url: "{{ graylog_http_publish_uri) }}"
+    url: "{{ graylog_http_publish_uri }}"
     status_code: 200
     validate_certs: False
   register: result
