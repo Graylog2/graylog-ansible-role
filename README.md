@@ -122,7 +122,7 @@ More detailed example
       node.master: True
 
     # Elasticsearch role already installed Java
-    graylog_java_install: False
+    graylog_install_java: False
 
     graylog_install_mongodb: True
 
