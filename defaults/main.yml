@@ -116,7 +116,7 @@ graylog_mongodb_ubuntu_keyserver:                    "keyserver.ubuntu.com"
 graylog_mongodb_ubuntu_key:                          "2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5"
 graylog_mongodb_debian_repo:                         "deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/3.6 main"
 graylog_mongodb_debian_keyserver:                    "keyserver.ubuntu.com"
-graylog_mongodb_debain_key:                          "2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5"
+graylog_mongodb_debian_key:                          "2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5"
 graylog_mongodb_redhat_repo:                         "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.6/x86_64/"
 graylog_mongodb_redhat_key:                          "https://www.mongodb.org/static/pgp/server-3.6.asc"
 
