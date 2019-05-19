@@ -2,7 +2,7 @@
 
 - name: "elastic.elasticsearch"
   src: "https://github.com/elastic/ansible-elasticsearch.git"
-  version: "master"
+  version: "6.6.0"
 
 - name: "jdauphant.nginx"
   src: "https://github.com/jdauphant/ansible-role-nginx.git"
