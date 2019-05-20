@@ -24,11 +24,11 @@ net:
   port: 27017
   bindIp: 127.0.0.1
 
-
-{% if ansible_distribution != "RedHat" %}
+# how the process runs
 processManagement:
-  fork: false
-{% endif %}
+  fork: true  # fork and run in background
+  pidFilePath: /var/run/mongodb/mongod.pid  # location of pidfile
+  timeZoneInfo: /usr/share/zoneinfo
 
 #security:
 
