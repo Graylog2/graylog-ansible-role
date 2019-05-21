@@ -13,9 +13,6 @@ graylog_manage_apt_repo:           True
 graylog_yum_rpm_url:               "https://packages.graylog2.org/repo/packages/graylog-3.0-repository_latest.rpm"
 graylog_manage_yum_repo:           True
 graylog_es_debian_pin_version:     "6.*"
-graylog_java_oracle_license_key:   "accepted-oracle-license-v1-1"
-# Pin to compatible ElasticSearch version to avoid issues if newer repositories are present, e.g. for Logstash 6.X.
-graylog_es_debian_pin_version:     "5.*"
 
 # General
 graylog_is_master:            True
