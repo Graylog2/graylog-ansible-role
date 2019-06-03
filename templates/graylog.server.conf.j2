@@ -6,7 +6,7 @@
 # Characters that cannot be directly represented in this encoding can be written using Unicode escapes
 # as defined in https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.3, using the \u prefix.
 # For example, \u002c.
-#
+# 
 # * Entries are generally expected to be a single line of the form, one of the following:
 #
 # propertyName=propertyValue
@@ -14,7 +14,7 @@
 #
 # * White space that appears between the property name and property value is ignored,
 #   so the following are equivalent:
-#
+# 
 # name=Stephen
 # name = Stephen
 #
@@ -34,11 +34,11 @@
 #         Los Angeles
 #
 #   This is equivalent to targetCities=Detroit,Chicago,Los Angeles (white space at the beginning of lines is ignored).
-#
+# 
 # * The characters newline, carriage return, and tab can be inserted with characters \n, \r, and \t, respectively.
-#
+# 
 # * The backslash character must be escaped as a double backslash. For example:
-#
+# 
 # path=c:\\docs\\doc1
 #
 
@@ -73,57 +73,105 @@ root_email = {{ graylog_root_email }}
 # Default is UTC
 root_timezone = {{ graylog_root_timezone }}
 
+# Set the bin directory here (relative or absolute)
+# This directory contains binaries that are used by the Graylog server.
+# Default: bin
+bin_dir = {{ graylog_bin_dir }}
+
+# Set the data directory here (relative or absolute)
+# This directory is used to store Graylog server state.
+# Default: data
+data_dir = {{ graylog_data_dir }}
+
 # Set plugin directory here (relative or absolute)
 plugin_dir = {{ graylog_plugin_dir }}
 
-# REST API listen URI. Must be reachable by other Graylog server nodes if you run a cluster.
-# When using Graylog Collectors, this URI will be used to receive heartbeat messages and must be accessible for all collectors.
-rest_listen_uri = {{ graylog_rest_listen_uri }}
+###############
+# HTTP settings
+###############
 
-# REST API transport address. Defaults to the value of graylog_rest_listen_uri. Exception: If graylog_rest_listen_uri
-# is set to a wildcard IP address (0.0.0.0) the first non-loopback IPv4 system address is used.
-# If set, this will be promoted in the cluster discovery APIs, so other nodes may try to connect on
-# this address and it is used to generate URLs addressing entities in the REST API. (see graylog_rest_listen_uri)
-# You will need to define this, if your Graylog server is running behind a HTTP proxy that is rewriting
-# the scheme, host name or URI.
-# This must not contain a wildcard address (0.0.0.0).
-{% if graylog_rest_transport_uri %}
-rest_transport_uri = {{ graylog_rest_transport_uri }}
-{% else %}
-#rest_transport_uri = http://192.168.1.1:12900/
-{% endif %}
+#### HTTP bind address
+#
+# The network interface used by the Graylog HTTP interface.
+#
+# This network interface must be accessible by all Graylog nodes in the cluster and by all clients
+# using the Graylog web interface.
+#
+# If the port is omitted, Graylog will use port 9000 by default.
+#
+# Default: 127.0.0.1:9000
+http_bind_address = {{ graylog_http_bind_address }}
+#http_bind_address = [2001:db8::1]:9000
 
-# Enable CORS headers for REST API. This is necessary for JS-clients accessing the server directly.
+#### HTTP publish URI
+#
+# The HTTP URI of this Graylog node which is used to communicate with the other Graylog nodes in the cluster and by all
+# clients using the Graylog web interface.
+#
+# The URI will be published in the cluster discovery APIs, so that other Graylog nodes will be able to find and connect to this Graylog node.
+#
+# This configuration setting has to be used if this Graylog node is available on another network interface than $http_bind_address,
+# for example if the machine has multiple network interfaces or is behind a NAT gateway.
+#
+# If $http_bind_address contains a wildcard IPv4 address (0.0.0.0), the first non-loopback IPv4 address of this machine will be used.
+# This configuration setting *must not* contain a wildcard address!
+#
+# Default: http://$http_bind_address/
+http_publish_uri = {{ graylog_http_publish_uri }}
+
+#### External Graylog URI
+#
+# The public URI of Graylog which will be used by the Graylog web interface to communicate with the Graylog REST API.
+#
+# The external Graylog URI usually has to be specified, if Graylog is running behind a reverse proxy or load-balancer
+# and it will be used to generate URLs addressing entities in the Graylog REST API (see $http_bind_address).
+#
+# When using Graylog Collector, this URI will be used to receive heartbeat messages and must be accessible for all collectors.
+#
+# This setting can be overriden on a per-request basis with the "X-Graylog-Server-URL" HTTP request header.
+#
+# Default: $http_publish_uri
+http_external_uri = {{ graylog_http_external_uri }}
+
+#### Enable CORS headers for HTTP interface
+#
+# This is necessary for JS-clients accessing the server directly.
 # If these are disabled, modern browsers will not be able to retrieve resources from the server.
 # This is enabled by default. Uncomment the next line to disable it.
-rest_enable_cors = {{ graylog_rest_enable_cors }}
+http_enable_cors = {{ graylog_http_enable_cors }}
 
-# Enable GZIP support for REST API. This compresses API responses and therefore helps to reduce
+#### Enable GZIP support for HTTP interface
+#
+# This compresses API responses and therefore helps to reduce
 # overall round trip times. This is enabled by default. Uncomment the next line to disable it.
-rest_enable_gzip = {{ graylog_rest_enable_gzip }}
-
-# Enable HTTPS support for the REST API. This secures the communication with the REST API with
-# TLS to prevent request forgery and eavesdropping. This is disabled by default. Uncomment the
-# next line to enable it.
-rest_enable_tls = {{ graylog_rest_enable_tls }}
-
-# The X.509 certificate chain file in PEM format to use for securing the REST API.
-rest_tls_cert_file = {{ graylog_rest_tls_cert_file }}
-
-# The PKCS#8 private key file in PEM format to use for securing the REST API.
-rest_tls_key_file = {{ graylog_rest_tls_key_file }}
-
-# The password to unlock the private key used for securing the REST API.
-rest_tls_key_password = {{ graylog_rest_tls_key_password }}
+http_enable_gzip = {{ graylog_http_enable_gzip }}
 
 # The maximum size of the HTTP request headers in bytes.
-rest_max_header_size = {{ graylog_rest_max_header_size }}
+http_max_header_size = {{ graylog_http_max_header_size }}
 
-# The maximal length of the initial HTTP/1.1 line in bytes.
-rest_max_initial_line_length = {{ graylog_rest_max_initial_line_length }}
+# The size of the thread pool used exclusively for serving the HTTP interface.
+http_thread_pool_size = {{ graylog_http_thread_pool_size }}
 
-# The size of the thread pool used exclusively for serving the REST API.
-rest_thread_pool_size = {{ graylog_rest_thread_pool_size }}
+################
+# HTTPS settings
+################
+
+#### Enable HTTPS support for the HTTP interface
+#
+# This secures the communication with the HTTP interface with TLS to prevent request forgery and eavesdropping.
+#
+# Default: false
+http_enable_tls = {{ graylog_http_enable_tls }}
+
+# The X.509 certificate chain file in PEM format to use for securing the HTTP interface.
+# http_tls_cert_file = {{ graylog_http_tls_cert_file }}
+
+# The PKCS#8 private key file in PEM format to use for securing the HTTP interface.
+#http_tls_key_file = {{ graylog_http_tls_key_file }}
+
+# The password to unlock the private key used for securing the HTTP interface.
+#http_tls_key_password = {{ graylog_http_tls_key_password }}
+
 
 # Comma separated list of trusted proxies that are allowed to set the client address with X-Forwarded-For
 # header. May be subnets, or hosts.
@@ -133,60 +181,123 @@ trusted_proxies = {{ graylog_trusted_proxies }}
 #trusted_proxies = 127.0.0.1/32, 0:0:0:0:0:0:0:1/128
 {% endif %}
 
-# Enable the embedded Graylog web interface.
-# Default: true
-web_enable = {{ graylog_web_enable }}
+# List of Elasticsearch hosts Graylog should connect to.
+# Need to be specified as a comma-separated list of valid URIs for the http ports of your elasticsearch nodes.
+# If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that
+# requires authentication.
+#
+# Default: http://127.0.0.1:9200
+elasticsearch_hosts = {{ graylog_elasticsearch_hosts }}
 
-# Web interface listen URI.
-# Configuring a path for the URI here effectively prefixes all URIs in the web interface. This is a replacement
-# for the application.context configuration parameter in pre-2.0 versions of the Graylog web interface.
-web_listen_uri = {{ graylog_web_listen_uri }}
+# Maximum amount of time to wait for successfull connection to Elasticsearch HTTP port.
+#
+# Default: 10 Seconds
+elasticsearch_connect_timeout = {{ graylog_elasticsearch_connect_timeout }}
 
-# Web interface endpoint URI. This setting can be overriden on a per-request basis with the X-Graylog-Server-URL header.
-# Default: $rest_transport_uri
-{% if graylog_web_endpoint_uri %}
-web_endpoint_uri = {{ graylog_web_endpoint_uri }}
-{% else %}
-#web_endpoint_uri =
-{% endif %}
+# Maximum amount of time to wait for reading back a response from an Elasticsearch server.
+#
+# Default: 60 seconds
+elasticsearch_socket_timeout = {{ graylog_elasticsearch_socket_timeout }}
 
-# Enable CORS headers for the web interface. This is necessary for JS-clients accessing the server directly.
-# If these are disabled, modern browsers will not be able to retrieve resources from the server.
-web_enable_cors = {{ graylog_enable_cors }}
+# Maximum idle time for an Elasticsearch connection. If this is exceeded, this connection will
+# be tore down.
+#
+# Default: inf
+#elasticsearch_idle_timeout = {{ graylog_elasticsearch_idle_timeout }}
 
-# Enable/disable GZIP support for the web interface. This compresses HTTP responses and therefore helps to reduce
-# overall round trip times. This is enabled by default. Uncomment the next line to disable it.
-web_enable_gzip = {{ graylog_enable_gzip }}
+# Maximum number of total connections to Elasticsearch.
+#
+# Default: 20
+elasticsearch_max_total_connections = {{ graylog_elasticsearch_max_total_connections }}
 
-# Enable HTTPS support for the web interface. This secures the communication of the web browser with the web interface
-# using TLS to prevent request forgery and eavesdropping.
-# This is disabled by default. Uncomment the next line to enable it and see the other related configuration settings.
-web_enable_tls = {{ graylog_web_enable_tls }}
+# Maximum number of total connections per Elasticsearch route (normally this means per
+# elasticsearch server).
+#
+# Default: 2
+elasticsearch_max_total_connections_per_route = {{ graylog_elasticsearch_max_total_connections_per_route }}
 
-# The X.509 certificate chain file in PEM format to use for securing the web interface.
-web_tls_cert_file = {{ graylog_web_tls_cert_file }}
+# Maximum number of times Graylog will retry failed requests to Elasticsearch.
+#
+# Default: 2
+elasticsearch_max_retries = {{ graylog_elasticsearch_max_retries }}
 
-# The PKCS#8 private key file in PEM format to use for securing the web interface.
-web_tls_key_file = {{ graylog_web_tls_key_file }}
+# Enable automatic Elasticsearch node discovery through Nodes Info,
+# see https://www.elastic.co/guide/en/elasticsearch/reference/5.4/cluster-nodes-info.html
+#
+# WARNING: Automatic node discovery does not work if Elasticsearch requires authentication, e. g. with Shield.
+#
+# Default: false
+elasticsearch_discovery_enabled = {{ graylog_elasticsearch_discovery_enabled }}
 
-# The password to unlock the private key used for securing the web interface.
-web_tls_key_password = {{ graylog_web_tls_key_password }}
-
-# The maximum size of the HTTP request headers in bytes.
-web_max_header_size = {{ graylog_web_max_header_size }}
-
-# The maximal length of the initial HTTP/1.1 line in bytes.
-web_max_initial_line_length = {{ graylog_web_max_initial_line_length }}
-
-# The size of the thread pool used exclusively for serving the web interface.
-web_thread_pool_size = {{ graylog_web_thread_pool_size }}
-
-# Configuration file for the embedded Elasticsearch instance in Graylog.
-# Pay attention to the working directory of the server, maybe use an absolute path here.
+# Filter for including/excluding Elasticsearch nodes in discovery according to their custom attributes,
+# see https://www.elastic.co/guide/en/elasticsearch/reference/5.4/cluster.html#cluster-nodes
+#
 # Default: empty
-{% if graylog_elasticsearch_config_file %}
-elasticsearch_config_file = {{ graylog_elasticsearch_config_file }}
-{% endif %}
+#elasticsearch_discovery_filter = {{ graylog_elasticsearch_discovery_filter }}
+
+# Frequency of the Elasticsearch node discovery.
+#
+# Default: 30s
+elasticsearch_discovery_frequency = {{ graylog_elasticsearch_discovery_frequency }}
+
+# Enable payload compression for Elasticsearch requests.
+#
+# Default: false
+elasticsearch_compression_enabled = {{ graylog_elasticsearch_compression_enabled }}
+
+# Graylog will use multiple indices to store documents in. You can configured the strategy it uses to determine
+# when to rotate the currently active write index.
+# It supports multiple rotation strategies:
+#   - "count" of messages per index, use elasticsearch_max_docs_per_index below to configure
+#   - "size" per index, use elasticsearch_max_size_per_index below to configure
+# valid values are "count", "size" and "time", default is "count"
+#
+# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
+#            to your previous 1.x settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+rotation_strategy = {{ graylog_rotation_strategy }}
+
+# (Approximate) maximum number of documents in an Elasticsearch index before a new index
+# is being created, also see no_retention and elasticsearch_max_number_of_indices.
+# Configure this if you used 'rotation_strategy = count' above.
+#
+# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
+#            to your previous 1.x settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+elasticsearch_max_docs_per_index = {{ graylog_elasticsearch_max_docs_per_index }}
+
+# (Approximate) maximum size in bytes per Elasticsearch index on disk before a new index is being created, also see
+# no_retention and elasticsearch_max_number_of_indices. Default is 1GB.
+# Configure this if you used 'rotation_strategy = size' above.
+#
+# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
+#            to your previous 1.x settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+elasticsearch_max_size_per_index = {{ graylog_elasticsearch_max_size_per_index }}
+
+# (Approximate) maximum time before a new Elasticsearch index is being created, also see
+# no_retention and elasticsearch_max_number_of_indices. Default is 1 day.
+# Configure this if you used 'rotation_strategy = time' above.
+# Please note that this rotation period does not look at the time specified in the received messages, but is
+# using the real clock value to decide when to rotate the index!
+# Specify the time using a duration and a suffix indicating which unit you want:
+#  1w  = 1 week
+#  1d  = 1 day
+#  12h = 12 hours
+# Permitted suffixes are: d for day, h for hour, m for minute, s for second.
+#
+# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
+#            to your previous 1.x settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+elasticsearch_max_time_per_index = {{ graylog_elasticsearch_max_time_per_index }}
 
 # Disable checking the version of Elasticsearch for being compatible with this Graylog release.
 # WARNING: Using Graylog with unsupported and untested versions of Elasticsearch may lead to data loss!
@@ -194,6 +305,55 @@ elasticsearch_disable_version_check = {{ graylog_elasticsearch_disable_version_c
 
 # Disable message retention on this node, i. e. disable Elasticsearch index rotation.
 no_retention = {{ graylog_no_retention }}
+
+# How many indices do you want to keep?
+#
+# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
+#            to your previous 1.x settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+elasticsearch_max_number_of_indices = {{ graylog_elasticsearch_max_number_of_indices }}
+
+# Decide what happens with the oldest indices when the maximum number of indices is reached.
+# The following strategies are availble:
+#   - delete # Deletes the index completely (Default)
+#   - close # Closes the index and hides it from the system. Can be re-opened later.
+#
+# ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
+#            to your previous 1.x settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+retention_strategy = {{ graylog_retention_strategy }}
+
+# How many Elasticsearch shards and replicas should be used per index? Note that this only applies to newly created indices.
+# ATTENTION: These settings have been moved to the database in Graylog 2.2.0. When you upgrade, make sure to set these
+#            to your previous settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+elasticsearch_shards = {{ graylog_elasticsearch_shards }}
+elasticsearch_replicas = {{ graylog_elasticsearch_replicas }}
+
+# Prefix for all Elasticsearch indices and index aliases managed by Graylog.
+#
+# ATTENTION: These settings have been moved to the database in Graylog 2.2.0. When you upgrade, make sure to set these
+#            to your previous settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+elasticsearch_index_prefix = {{ graylog_elasticsearch_index_prefix }}
+
+# Name of the Elasticsearch index template used by Graylog to apply the mandatory index mapping.
+# Default: graylog-internal
+#
+# ATTENTION: These settings have been moved to the database in Graylog 2.2.0. When you upgrade, make sure to set these
+#            to your previous settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+elasticsearch_template_name = {{ graylog_elasticsearch_template_name }}
 
 # Do you want to allow searches with leading wildcards? This can be extremely resource hungry and should only
 # be enabled with care. See also: http://docs.graylog.org/en/2.1/pages/queries.html
@@ -203,18 +363,16 @@ allow_leading_wildcard_searches = {{ graylog_allow_leading_wildcard_searches }}
 # should only be enabled after making sure your Elasticsearch cluster has enough memory.
 allow_highlighting = {{ graylog_allow_highlighting }}
 
-# List of Elasticsearch hosts Graylog should connect to.
-# Need to be specified as a comma-separated list of valid URIs for the http ports of your elasticsearch nodes.
-# If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that
-# requires authentication.
-#
-# Default: http://127.0.0.1:9200
-elasticsearch_hosts = {{ graylog_elasticsearch_hosts }}
-
 # Analyzer (tokenizer) to use for message and full_message field. The "standard" filter usually is a good idea.
 # All supported analyzers are: standard, simple, whitespace, stop, keyword, pattern, language, snowball, custom
 # Elasticsearch documentation: https://www.elastic.co/guide/en/elasticsearch/reference/2.3/analysis.html
 # Note that this setting only takes effect on newly created indices.
+#
+# ATTENTION: These settings have been moved to the database in Graylog 2.2.0. When you upgrade, make sure to set these
+#            to your previous settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 elasticsearch_analyzer = {{ graylog_elasticsearch_analyzer }}
 
 # Global request timeout for Elasticsearch requests (e. g. during search, index creation, or index time-range
@@ -222,10 +380,24 @@ elasticsearch_analyzer = {{ graylog_elasticsearch_analyzer }}
 # Default: 1m
 elasticsearch_request_timeout = {{ graylog_elasticsearch_request_timeout }}
 
+# Global timeout for index optimization (force merge) requests.
+# Default: 1h
+elasticsearch_index_optimization_timeout = {{ graylog_elasticsearch_index_optimization_timeout }}
+
+# Maximum number of concurrently running index optimization (force merge) jobs.
+# If you are using lots of different index sets, you might want to increase that number.
+# Default: 20
+elasticsearch_index_optimization_jobs = {{ graylog_elasticsearch_index_optimization_jobs }}
+
 # Time interval for index range information cleanups. This setting defines how often stale index range information
 # is being purged from the database.
 # Default: 1h
 index_ranges_cleanup_interval = {{ graylog_index_ranges_cleanup_interval }}
+
+# Time interval for the job that runs index field type maintenance tasks like cleaning up stale entries. This doesn't
+# need to run very often.
+# Default: 1h
+index_field_type_periodical_interval = {{ graylog_index_field_type_periodical_interval }}
 
 # Batch size for the Elasticsearch output. This is the maximum (!) number of messages the Elasticsearch output
 # module will get at once and write to Elasticsearch in a batch call. If the configured batch size has not been
@@ -250,8 +422,20 @@ output_fault_penalty_seconds = {{ graylog_output_fault_penalty_seconds }}
 processbuffer_processors = {{ graylog_processbuffer_processors }}
 outputbuffer_processors = {{ graylog_outputbuffer_processors }}
 
+# The following settings (outputbuffer_processor_*) configure the thread pools backing each output buffer processor.
+# See https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/ThreadPoolExecutor.html for technical details
+
+# When the number of threads is greater than the core (see outputbuffer_processor_threads_core_pool_size),
+# this is the maximum time in milliseconds that excess idle threads will wait for new tasks before terminating.
+# Default: 5000
 outputbuffer_processor_keep_alive_time = {{ graylog_outputbuffer_processor_keep_alive_time }}
+
+# The number of threads to keep in the pool, even if they are idle, unless allowCoreThreadTimeOut is set
+# Default: 3
 outputbuffer_processor_threads_core_pool_size = {{ graylog_outputbuffer_processor_threads_core_pool_size }}
+
+# The maximum number of threads to allow in the pool
+# Default: 30
 outputbuffer_processor_threads_max_pool_size = {{ graylog_outputbuffer_processor_threads_max_pool_size }}
 
 # UDP receive buffer size for all message inputs (e. g. SyslogUDPInput).
@@ -281,7 +465,7 @@ inputbuffer_wait_strategy = {{ graylog_inputbuffer_wait_strategy }}
 # Enable the disk based message journal.
 message_journal_enabled = {{ graylog_message_journal_enabled }}
 
-# The directory which will be used to store the message journal. The directory must me exclusively used by Graylog and
+# The directory which will be used to store the message journal. The directory must be exclusively used by Graylog and
 # must not contain any other files than the ones created by Graylog itself.
 #
 # ATTENTION:
@@ -343,6 +527,7 @@ shutdown_timeout = {{ graylog_shutdown_timeout }}
 # mongodb_uri = mongodb://localhost/graylog
 
 # Authenticate against the MongoDB server
+# '+'-signs in the username or password need to be replaced by '%2B'
 #mongodb_uri = mongodb://grayloguser:secret@localhost:27017/graylog
 
 # Use a replica set instead of a single host
@@ -359,21 +544,29 @@ mongodb_max_connections = {{ graylog_mongodb_max_connections }}
 # http://api.mongodb.com/java/current/com/mongodb/MongoOptions.html#threadsAllowedToBlockForConnectionMultiplier
 mongodb_threads_allowed_to_block_multiplier = {{ graylog_mongodb_threads_allowed_to_block_multiplier }}
 
-# Drools Rule File (Use to rewrite incoming log messages)
-# See: http://docs.graylog.org/en/2.1/pages/drools.html
-rules_file = {{ graylog_rules_file }}
 
 # Email transport
 transport_email_enabled = {{ graylog_transport_email_enabled }}
 transport_email_hostname = {{ graylog_transport_email_hostname }}
 transport_email_port = {{ graylog_transport_email_port }}
 transport_email_use_auth = {{ graylog_transport_email_use_auth }}
-transport_email_use_tls = {{ graylog_transport_email_use_tls }}
-transport_email_use_ssl = {{ graylog_transport_email_use_ssl }}
 transport_email_auth_username = {{ graylog_transport_email_auth_username }}
 transport_email_auth_password = {{ graylog_transport_email_auth_password }}
 transport_email_subject_prefix = {{ graylog_transport_email_subject_prefix }}
 transport_email_from_email = {{ graylog_transport_email_from_email }}
+
+# Encryption settings
+#
+# ATTENTION:
+#    Using SMTP with STARTTLS *and* SMTPS at the same time is *not* possible.
+
+# Use SMTP with STARTTLS, see https://en.wikipedia.org/wiki/Opportunistic_TLS
+transport_email_use_tls = {{ graylog_transport_email_use_tls }}
+
+# Use SMTP over SSL (SMTPS), see https://en.wikipedia.org/wiki/SMTPS
+# This is deprecated on most SMTP services!
+# transport_email_use_ssl = {{ graylog_transport_email_use_ssl }}
+
 
 # Specify and uncomment this if you want to include links to the stream in your stream alert mails.
 # This should define the fully qualified base url to your web interface exactly the same way as it is accessed by your users.
@@ -395,15 +588,40 @@ http_read_timeout = {{ graylog_http_read_timeout }}
 http_write_timeout = {{ graylog_http_write_timeout }}
 
 # HTTP proxy for outgoing HTTP connections
+# ATTENTION: If you configure a proxy, make sure to also configure the "http_non_proxy_hosts" option so internal
+#            HTTP connections with other nodes does not go through the proxy.
+# Examples:
+#   - http://proxy.example.com:8123
+#   - http://username:password@proxy.example.com:8123
 # http_proxy_uri = {{ graylog_http_proxy_uri }}
+
+# A list of hosts that should be reached directly, bypassing the configured proxy server.
+# This is a list of patterns separated by ",". The patterns may start or end with a "*" for wildcards.
+# Any host matching one of these patterns will be reached through a direct connection instead of through a proxy.
+# Examples:
+#   - localhost,127.0.0.1
+#   - 10.0.*,*.example.com
+#http_non_proxy_hosts = {{ graylog_non_proxy_hosts }}
 
 # Disable the optimization of Elasticsearch indices after index cycling. This may take some load from Elasticsearch
 # on heavily used systems with large indices, but it will decrease search performance. The default is to optimize
 # cycled indices.
+#
+# ATTENTION: These settings have been moved to the database in Graylog 2.2.0. When you upgrade, make sure to set these
+#            to your previous settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 disable_index_optimization = {{ graylog_disable_index_optimization }}
 
 # Optimize the index down to <= index_optimization_max_num_segments. A higher number may take some load from Elasticsearch
 # on heavily used systems with large indices, but it will decrease search performance. The default is 1.
+#
+# ATTENTION: These settings have been moved to the database in Graylog 2.2.0. When you upgrade, make sure to set these
+#            to your previous settings so they will be migrated to the database!
+#            This configuration setting is only used on the first start of Graylog. After that,
+#            index related settings can be changed in the Graylog web interface on the 'System / Indices' page.
+#            Also see http://docs.graylog.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 index_optimization_max_num_segments = {{ graylog_index_optimization_max_num_segments }}
 
 # The threshold of the garbage collection runs. If GC runs take longer than this threshold, a system notification
@@ -419,18 +637,7 @@ disable_sigar = {{ graylog_disable_sigar }}
 # The default cache time for dashboard widgets. (Default: 10 seconds, minimum: 1 second)
 dashboard_widget_default_cache_time = {{ graylog_dashboard_widget_default_cache_time }}
 
-# Automatically load content packs in "content_packs_dir" on the first start of Graylog.
-content_packs_loader_enabled = {{ graylog_content_packs_loader_enabled }}
-
-# The directory which contains content packs which should be loaded on the first start of Graylog.
-content_packs_dir = {{ graylog_content_packs_dir }}
-
-# A comma-separated list of content packs (files in "content_packs_dir") which should be applied on
-# the first start of Graylog.
-# Default: empty
-content_packs_auto_load = {{ graylog_content_packs_auto_load }}
-
 # For some cluster-related REST requests, the node must query all other nodes in the cluster. This is the maximum number
 # of threads available for this. Increase it, if '/cluster/*' requests take long to complete.
-# Should be rest_thread_pool_size * average_cluster_size if you have a high number of concurrent users.
+# Should be http_thread_pool_size * average_cluster_size if you have a high number of concurrent users.
 proxied_requests_thread_pool_size = {{ graylog_proxied_requests_thread_pool_size }}

@@ -26,7 +26,7 @@
 
 - name: "Graylog server package should be installed"
   apt:
-    name: "graylog-server{% if graylog_server_version is defined %}={{ graylog_server_version }}{% endif %}"
+    name: "graylog-server{% if graylog_version is defined %}={{ graylog_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
   notify: "restart graylog-server"
 
