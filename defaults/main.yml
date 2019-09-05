@@ -31,7 +31,6 @@ graylog_disable_sigar:        False
 
 # REST
 graylog_http_bind_address:            "0.0.0.0:9000"
-graylog_http_publish_uri:             "http://0.0.0.0:9000/"
 graylog_http_external_uri:            "http://0.0.0.0:9000/"
 graylog_http_enable_cors:             True
 graylog_http_enable_gzip:             True

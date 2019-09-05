@@ -117,7 +117,9 @@ http_bind_address = {{ graylog_http_bind_address }}
 # This configuration setting *must not* contain a wildcard address!
 #
 # Default: http://$http_bind_address/
+{% if graylog_http_publish_uri is defined %}
 http_publish_uri = {{ graylog_http_publish_uri }}
+{% endif %}
 
 #### External Graylog URI
 #
