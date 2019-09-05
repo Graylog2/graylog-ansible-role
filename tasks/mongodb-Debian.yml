@@ -18,7 +18,7 @@
     - name: "APT Key should be accepted for the MongoDB repo (Debian)"
       apt_key:
         keyserver: "{{ graylog_mongodb_debian_keyserver }}"
-        id: "{{ graylog_mongodb_debain_key }}"
+        id: "{{ graylog_mongodb_debian_key }}"
 
     - name: "Repositories should be updated (Debian)"
       apt_repository:
