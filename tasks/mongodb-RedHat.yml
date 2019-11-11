@@ -12,7 +12,7 @@
 - name: "Package dependencies should be installed"
   yum:
     name: "{{ item }}"
-    state: "installed"
+    state: "present"
   with_items: "{{ graylog_mongodb_package_dependencies | default([]) }}"
 
 - name: "MongoDB should be installed"
