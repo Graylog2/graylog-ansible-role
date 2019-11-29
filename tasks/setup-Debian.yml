@@ -9,7 +9,7 @@
 - name: "Package 'apt-transport-https' should be installed"
   apt:
     name: "apt-transport-https"
-    state: "installed"
+    state: "present"
 
 - name: "Graylog repository package should be installed"
   apt:
