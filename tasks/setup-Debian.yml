@@ -14,7 +14,7 @@
 - name: "Graylog repository package should be installed"
   apt:
     deb: "/tmp/graylog_repository.deb"
-    state: "installed"
+    state: "present"
     dpkg_options: "force-all"
   when: graylog_manage_apt_repo
   register: "install_repo"
