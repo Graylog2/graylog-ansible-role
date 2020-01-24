@@ -9,6 +9,8 @@
   uri:
     url: http://localhost:9000/api/system/inputs
     method: GET
+    headers:
+      X-Requested-By: '{{ graylog_root_username }}'
     user: '{{ graylog_root_username }}'
     password: '{{ graylog_root_password }}'
     status_code: 200
@@ -19,6 +21,8 @@
 - name: Graylog install inputs
   uri:
     url: http://localhost:9000/api/system/inputs
+    headers:
+      X-Requested-By: '{{ graylog_root_username }}'
     method: POST
     user: '{{ graylog_root_username }}'
     password: '{{ graylog_root_password }}'

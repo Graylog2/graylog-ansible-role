@@ -1,0 +1,5 @@
+---
+
+graylog_supported_os_families:
+  - "Debian"
+  - "RedHat"

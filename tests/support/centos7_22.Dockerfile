@@ -17,15 +17,15 @@ RUN echo 'root:root' | chpasswd
 
 RUN yum update -y && \
     yum install -y epel-release
-RUN yum install -y ca-certificates-2015.2.6 \
-                   gcc-4.8.5 \
-                   git-1.8.3.1 \
-                   openssl-1.0.1e \
-                   openssl-devel-1.0.1e \
-                   python2-pip-8.1.2 \
-                   python-devel-2.7.5 \
-                   libffi-devel-3.0.13
-RUN pip install --upgrade pip setuptools
-RUN pip install ansible==2.1
+RUN yum install -y ca-certificates \
+                   gcc \
+                   git \
+                   openssl \
+                   openssl-devel \
+                   python2-pip \
+                   python-devel \
+                   libffi-devel
+RUN pip install setuptools
+RUN pip install ansible==2.2.1
 
 COPY run-tests.sh run-tests.sh
