@@ -20,6 +20,7 @@ graylog_is_master:            True
 graylog_node_id_file:         "/etc/graylog/server/node-id"
 graylog_password_secret:      "2jueVqZpwLLjaWxV"
 graylog_root_username:        "admin"
+graylog_root_password:        "admin"
 graylog_bin_dir:              "/usr/share/graylog-server/bin"
 graylog_data_dir:             "/var/lib/graylog-server"
 graylog_plugin_dir:           "/usr/share/graylog-server/plugin"
