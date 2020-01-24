@@ -1,37 +1,29 @@
 ---
-dependencies:
-  - src: https://github.com/UnderGreen/ansible-role-mongodb
-    version: v2.0.2
-    name: lgalaxy.graylog_mongodb
-    when: graylog_install_mongodb
 
-  - src: https://github.com/elastic/ansible-elasticsearch
-    version: "0.2"
-    name: galaxy.graylog_elasticsearch
+dependencies:
+  - role: "elastic.elasticsearch"
     when: graylog_install_elasticsearch
 
-  - src: https://github.com/jdauphant/ansible-role-nginx.git
-    version: v2.3.1
-    name: galaxy.graylog_nginx
+  - role: "jdauphant.nginx"
     when: graylog_install_nginx
 
 galaxy_info:
-  author: 'Marius Sturm'
-  company: 'Graylog, Inc.'
-  description: 'Install and configure Graylog log management.'
-  min_ansible_version: '2.0'
-  license: 'Apache 2'
+  author: "Marius Sturm"
+  company: "Graylog, Inc."
+  description: "Install and configure Graylog log management."
+  min_ansible_version: "2.2"
+  license: "Apache 2"
   platforms:
-    - name: Ubuntu
+    - name: "Ubuntu"
       versions:
-        - '14.04'
-        - '16.04'
-    - name: Debian
+        - "xenial"
+        - "zesty"
+    - name: "Debian"
       versions:
-        - 7
-    - name: CentOS
+        - "jessie"
+    - name: "EL"
       versions:
-        - 7
+        - "7"
   galaxy_tags:
-    - monitoring
-    - system
+    - "monitoring"
+    - "system"
