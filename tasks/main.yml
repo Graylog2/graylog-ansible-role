@@ -32,3 +32,13 @@
 
 - include: plugins.yml
   when: not graylog_skip_plugins_installation
+
+- include: inject_extractor.yml
+  vars:
+    input_id: "{{ inputs_dictionary[extractor.input_name] }}"
+    body: "{{ extractor.extra | default('') }}"
+    input_name: "{{ extractor.title }}"
+  loop: "{{ graylog_extractor }}"
+  loop_control:
+    loop_var: extractor
+  when: not graylog_skip_extractor_injection

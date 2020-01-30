@@ -197,6 +197,7 @@ graylog_install_java:          True
 
 # Inputs json file
 graylog_skip_inputs_installation: false
+graylog_skip_extractor_injection: true
 graylog_skip_plugins_installation: true
 graylog_inputs: []
 

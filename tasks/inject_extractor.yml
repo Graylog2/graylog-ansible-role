@@ -1,0 +1,26 @@
+- name: Graylog get all extrator's inputs
+  uri:
+    url: http://localhost:9000/api/system/inputs/{{ input_id }}/extractors
+    method: GET
+    headers:
+      X-Requested-By: '{{ graylog_root_username }}'
+    user: '{{ graylog_root_username }}'
+    password: '{{ graylog_root_password }}'
+    status_code: 200
+  register: inputs_extrators
+
+- name: "Create Extractors"
+  uri:
+    url: "http://localhost:9000/api/system/inputs/{{ input_id }}/extractors"
+    headers:
+      X-Requested-By: '{{ graylog_root_username }}'
+    method: POST
+    user: '{{ graylog_root_username }}'
+    password: '{{ graylog_root_password }}'
+    status_code: 201
+    body: >-
+      {
+       {{ body }}
+      }
+    body_format: json
+  when: "input_name not in (inputs_extrators.json.extractors | map(attribute='title') | list)"

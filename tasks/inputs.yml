@@ -16,6 +16,12 @@
     status_code: 200
   register: inputs_result
 
+- name: "Generate a dictionary of input"
+  set_fact:
+    inputs_dictionary: "{{ inputs_dictionary|default({}) | combine( {item.title: item.id} ) }}"
+    cacheable: yes
+  with_items: "{{ inputs_result.json.inputs }}"
+
 - debug: var=inputs_result verbosity=1
 
 - name: Graylog install inputs
