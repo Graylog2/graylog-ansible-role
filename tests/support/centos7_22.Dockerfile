@@ -26,6 +26,6 @@ RUN yum install -y ca-certificates \
                    python-devel \
                    libffi-devel
 RUN pip install setuptools
-RUN pip install ansible==2.2.1
+RUN pip install ansible==2.5
 
 COPY run-tests.sh run-tests.sh
