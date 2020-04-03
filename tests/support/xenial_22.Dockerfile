@@ -2,8 +2,6 @@ FROM ubuntu:xenial
 
 ENV container docker
 
-VOLUME [ "/sys/fs/cgroup" ]
-
 RUN echo 'root:root' | chpasswd
 
 RUN apt-get -y update
