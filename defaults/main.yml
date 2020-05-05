@@ -134,7 +134,7 @@ graylog_outputbuffer_processor_threads_core_pool_size: 3
 graylog_outputbuffer_processor_threads_max_pool_size:  30
 
 # MongoDB
-graylog_mongodb_ubuntu_repo:                         "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse"
+graylog_mongodb_ubuntu_repo:                         "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/3.6 multiverse"
 graylog_mongodb_ubuntu_keyserver:                    "keyserver.ubuntu.com"
 graylog_mongodb_ubuntu_key:                          "2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5"
 graylog_mongodb_debian_repo:                         "deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/3.6 main"
