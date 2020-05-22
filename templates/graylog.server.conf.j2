@@ -164,13 +164,27 @@ http_thread_pool_size = {{ graylog_http_thread_pool_size }}
 http_enable_tls = {{ graylog_http_enable_tls }}
 
 # The X.509 certificate chain file in PEM format to use for securing the HTTP interface.
+{% if graylog_http_enable_tls %}
+http_tls_cert_file = {{ graylog_http_tls_cert_file }}
+{% else %}
 #http_tls_cert_file = {{ graylog_http_tls_cert_file }}
+{% endif %}
+
 
 # The PKCS#8 private key file in PEM format to use for securing the HTTP interface.
+{% if graylog_http_enable_tls %}
+http_tls_key_file = {{ graylog_http_tls_key_file }}
+{% else %}
 #http_tls_key_file = {{ graylog_http_tls_key_file }}
+{% endif %}
+
 
 # The password to unlock the private key used for securing the HTTP interface.
+{% if graylog_http_enable_tls and graylog_http_tls_key_password != "" %}
+http_tls_key_password = {{ graylog_http_tls_key_password }}
+{% else %}
 #http_tls_key_password = {{ graylog_http_tls_key_password }}
+{% endif %}
 
 
 # Comma separated list of trusted proxies that are allowed to set the client address with X-Forwarded-For
