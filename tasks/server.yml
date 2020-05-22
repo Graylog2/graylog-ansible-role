@@ -25,32 +25,6 @@
     mode: 0644
   notify: "restart graylog-server"
 
-- name: "Toggle tls_key_file based on tls mode in server conf"
-  lineinfile:
-    path: "/etc/graylog/server/server.conf"
-    regexp: '^#http_tls_key_file(.*)'
-    line: 'http_tls_key_file\1'
-    backrefs: yes
-  when: graylog_http_enable_tls == True
-
-- name: "Toggle tls_cert_file based on tls mode in server conf"
-  lineinfile:
-    path: "/etc/graylog/server/server.conf"
-    regexp: '^#http_tls_cert_file(.*)'
-    line: 'http_tls_cert_file\1'
-    backrefs: yes
-  when: graylog_http_enable_tls == True
-  
-- name: "Toggle http_tls_key_password based on tls mode in server conf"
-  lineinfile:
-    path: "/etc/graylog/server/server.conf"
-    regexp: '^#http_tls_key_password(.*)'
-    line: 'http_tls_key_password\1'
-    backrefs: yes
-  when: 
-    - graylog_http_enable_tls == True
-    - graylog_http_tls_key_password != ""
-  
 - name: "Graylog server should start after reboot"
   file:
     path: "/etc/init/graylog-server.override"
