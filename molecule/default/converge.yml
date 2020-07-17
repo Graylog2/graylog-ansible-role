@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include graylog-ansible-role"
+      include_role:
+        name: "graylog-ansible-role"

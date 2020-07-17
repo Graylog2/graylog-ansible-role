@@ -1,0 +1,24 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+platforms:
+  - name: centos7
+    box: centos/7
+    memory: 4096
+    cpus: 1
+  - name: debian8
+    box: debian/jessie64
+    memory: 4096
+    cpus: 1
+providers:
+  - name: libvirt
+    type: libvirt
+    driver: kvm
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
