@@ -11,6 +11,9 @@
 
     graylog_not_testing:           False
 
+    graylog_additional_config:
+      test: value
+
     es_major_version: "5.x"
     es_instance_name: "graylog"
     es_scripts: False
