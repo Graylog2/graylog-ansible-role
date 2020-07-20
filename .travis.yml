@@ -26,11 +26,11 @@ install:
   - sudo wget -nv https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.deb
   - sudo dpkg -i vagrant_2.2.7_x86_64.deb
   - vagrant --version
-
   - sudo vagrant plugin install vagrant-libvirt
-
   - pip3 install molecule yamllint ansible-lint python-vagrant molecule-vagrant
 
 
 script:
-  - molecule test
+  - ls -la /home/travis
+  - whoami
+  #- molecule test
