@@ -6,12 +6,8 @@ driver:
   provider:
     name: libvirt
 platforms:
-  - name: centos7
-    box: centos/7
-    memory: 4096
-    cpus: 1
-  - name: debian8
-    box: debian/jessie64
+  - name: instance
+    box: ${MOLECULE_DISTRO:-centos/7}
     memory: 4096
     cpus: 1
 providers:
