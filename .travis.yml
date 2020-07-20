@@ -3,32 +3,34 @@
 branches:
   only:
     - "master"
+    - "molecule-test-harness"
 
-services:
-  - "docker"
+dist: bionic
+
+language: python
+python: 3.5
 
 env:
-  - distro: "centos7_22"
-    init: "/usr/sbin/init"
-    run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: "jessie_22"
-    init: "/sbin/init"
-    run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: "xenial_22"
-    init: "/sbin/init"
-    run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
+  matrix:
+    - MOLECULE_DISTRO: centos/7
+    - MOLECULE_DISTRO: centos/8
+    - MOLECULE_DISTRO: debian/jessie64
+    - MOLECULE_DISTRO: debian/stretch64
+    - MOLECULE_DISTRO: debian/buster64
+    - MOLECULE_DISTRO: generic/ubuntu1604
+    - MOLECULE_DISTRO: generic/ubuntu1804
 
-before_script:
-  - >
-    docker build -t graylog-ansible-role-${distro}
-    -f tests/support/${distro}.Dockerfile tests/support
+
+install:
+  - sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
+  - sudo wget -nv https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.deb
+  - sudo dpkg -i vagrant_2.2.7_x86_64.deb
+  - vagrant --version
+
+  - sudo vagrant plugin install vagrant-libvirt
+
+  - pip3 install molecule yamllint ansible-lint python-vagrant molecule-vagrant
+
 
 script:
-  - >
-    docker run -d -it -v $PWD:/role:ro
-    ${run_opts} --name ${distro}
-    graylog-ansible-role-${distro} ${init}
-  - DOCKER_CONTAINER_ID=$(docker ps --filter name=${distro} -q)
-  - >
-    docker exec -it $DOCKER_CONTAINER_ID
-    /bin/bash -xec "bash -x run-tests.sh"
+  - molecule test
