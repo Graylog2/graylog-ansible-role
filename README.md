@@ -10,11 +10,11 @@ Ansible role which installs and configures Graylog log management.
 Dependencies
 ------------
 
-- **Only Ansible versions > 2.2.0 are supported.**
+- **Only Ansible versions > 2.5.0 are supported.**
 - Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions consider backports accordingly
 - [Elasticsearch][1]
 - [NGINX][2]
-- Tested on Ubuntu 16.04 / Ubuntu 18.04 / Debian 9 / Centos 7
+- Tested on Ubuntu 16.04 / Ubuntu 18.04 / Debian 9 / Debian 10 / Centos 7
 
 Quickstart
 ----------

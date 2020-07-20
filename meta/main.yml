@@ -2,6 +2,7 @@
 
 dependencies:
   - role: "elastic.elasticsearch"
+    version: master
     when: graylog_install_elasticsearch
 
   - role: "jdauphant.nginx"

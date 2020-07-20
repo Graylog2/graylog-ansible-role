@@ -6,6 +6,21 @@
     owner: "graylog"
     group: "graylog"
     mode: 0750
+    
+- name: "Make sure graylog-server directories exist"
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "graylog"
+    group: "graylog"
+    recurse: true
+    follow: true
+  loop:
+    - "{{ graylog_bin_dir }}"
+    - "{{ graylog_data_dir }}"
+    - "{{ graylog_plugin_dir }}"
+    - "{{ graylog_message_journal_dir }}"
+    - "{{ graylog_content_packs_dir }}"
 
 - name: "Graylog server should be configured"
   template:
