@@ -22,15 +22,16 @@ env:
 
 
 install:
-  - sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
-  - sudo wget -nv https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.7_x86_64.deb
-  - sudo dpkg -i vagrant_2.2.7_x86_64.deb
-  - vagrant --version
+  - |
+    export VAGRANT_VERSION=2.2.9
+    sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
+    sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
+    sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
+    vagrant --version
   - sudo vagrant plugin install vagrant-libvirt
   - pip3 install molecule yamllint ansible-lint python-vagrant molecule-vagrant
-
+  - sudo chown -R travis:travis /home/travis/.vagrant.d
+  - sudo gpasswd -a travis libvirt
 
 script:
-  - ls -la /home/travis
-  - whoami
-  #- molecule test
+  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; molecule test"
