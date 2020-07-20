@@ -1,7 +1,52 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    graylog_install_elasticsearch: False
+    graylog_install_mongodb:       False
+    graylog_install_nginx:         False
+    graylog_install_java:          False
+    graylog_not_testing:           False
+    
+    es_major_version: "5.x"
+    es_instance_name: "graylog"
+    es_scripts: False
+    es_templates: False
+    es_version_lock: False
+    es_heap_size: "1g"
+
+    es_config:
+      node.name: "graylog"
+      cluster.name: "graylog"
+      http.port: 9200
+      transport.tcp.port: 9300
+      network.host: "0.0.0.0"
+      node.data: True
+      node.master: True
+
+    graylog_web_endpoint_uri: "http://127.0.0.1:9000/api/"
+
+    nginx_sites:
+      graylog:
+        - "listen 80"
+        - "server_name graylog"
+        - |
+          location / {
+            proxy_pass http://localhost:9000/;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass_request_headers on;
+            proxy_connect_timeout 150;
+            proxy_send_timeout 100;
+            proxy_read_timeout 100;
+            proxy_buffers 4 32k;
+            client_max_body_size 8m;
+            client_body_buffer_size 128k;
+          }
+
   tasks:
     - name: "Include graylog-ansible-role"
       include_role:
         name: "graylog-ansible-role"
+  become: yes
