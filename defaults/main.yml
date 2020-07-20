@@ -198,3 +198,5 @@ graylog_install_java:          True
 
 # Disable steps which break tests
 graylog_not_testing:           True
+
+graylog_additional_config: {}
