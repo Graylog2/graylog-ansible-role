@@ -15,7 +15,7 @@ env:
     init: "/sbin/init"
     run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
   - distro: "buster"
-    init: "/sbin/init"
+    init: "/lib/systemd/systemd"
     run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
   - distro: "xenial_22"
     init: "/sbin/init"
