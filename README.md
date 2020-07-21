@@ -202,14 +202,15 @@ To destroy the VM:
 
     molecule destroy
 
-To test against other distros, you can alsoset MOLECULE_DISTRO environment variable to:
+To test against other distros, you can also set the MOLECULE_DISTRO environment variable to:
 
-- centos/7
-- centos/8
-- debian/jessie64
-- debian/stretch64
-- debian/buster64
-- generic/ubuntu1604
+    export MOLECULE_DISTRO='centos/7'
+    export MOLECULE_DISTRO='centos/8'
+    export MOLECULE_DISTRO='debian/jessie64'
+    export MOLECULE_DISTRO='debian/stretch64'
+    export MOLECULE_DISTRO='debian/buster64'
+    export MOLECULE_DISTRO='generic/ubuntu1604'
+    export MOLECULE_DISTRO='generic/ubuntu1804'
 
 
 Further Reading

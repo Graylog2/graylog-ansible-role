@@ -2,10 +2,10 @@
 - name: Converge
   hosts: all
   vars:
-    graylog_install_elasticsearch: True
+    graylog_install_elasticsearch: False
     graylog_install_mongodb:       False
     graylog_install_nginx:         False
-    graylog_install_java:          True
+    graylog_install_java:          False
     graylog_not_testing:           False
 
     es_major_version: "6.x"
