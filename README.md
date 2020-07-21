@@ -192,7 +192,7 @@ To spin up a test VM:
 
 To run the Ansible playbook:
 
-    molecule convenge
+    molecule converge
 
 To login to the VM:
 
