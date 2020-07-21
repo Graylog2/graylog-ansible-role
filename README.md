@@ -190,7 +190,7 @@ To spin up a test VM:
     export MOLECULE_DISTRO='generic/ubuntu1804'
     molecule create
 
-To run Ansible playbook:
+To run the Ansible playbook:
 
     molecule convenge
 
