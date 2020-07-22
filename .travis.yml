@@ -13,7 +13,6 @@ env:
   matrix:
     - MOLECULE_DISTRO: centos/7
     - MOLECULE_DISTRO: centos/8
-    - MOLECULE_DISTRO: debian/jessie64
     - MOLECULE_DISTRO: debian/stretch64
     - MOLECULE_DISTRO: debian/buster64
     - MOLECULE_DISTRO: generic/ubuntu1604
