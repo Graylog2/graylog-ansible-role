@@ -134,14 +134,15 @@ graylog_outputbuffer_processor_threads_core_pool_size: 3
 graylog_outputbuffer_processor_threads_max_pool_size:  30
 
 # MongoDB
-graylog_mongodb_ubuntu_repo:                         "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse"
+graylog_mongodb_version:                              4.2
+graylog_mongodb_ubuntu_repo:                         "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/{{ graylog_mongodb_version }} multiverse"
 graylog_mongodb_ubuntu_keyserver:                    "hkp://keyserver.ubuntu.com:80"
-graylog_mongodb_ubuntu_key:                          "2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5"
-graylog_mongodb_debian_repo:                         "deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/3.6 main"
+graylog_mongodb_ubuntu_key:                          "4B7C549A058F8B6B"
+graylog_mongodb_debian_repo:                         "deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} main"
 graylog_mongodb_debian_keyserver:                    "keyserver.ubuntu.com"
-graylog_mongodb_debian_key:                          "2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5"
-graylog_mongodb_redhat_repo:                         "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.6/x86_64/"
-graylog_mongodb_redhat_key:                          "https://www.mongodb.org/static/pgp/server-3.6.asc"
+graylog_mongodb_debian_key:                          "4B7C549A058F8B6B"
+graylog_mongodb_redhat_repo:                         "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ graylog_mongodb_version }}/x86_64/"
+graylog_mongodb_redhat_key:                          "https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc"
 
 graylog_mongodb_uri:                                 "mongodb://127.0.0.1:27017/graylog"
 graylog_mongodb_max_connections:                     100
