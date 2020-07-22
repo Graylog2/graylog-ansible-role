@@ -4,7 +4,7 @@
   vars:
     #Graylog
     graylog_install_elasticsearch: True
-    graylog_install_mongodb:       False
+    graylog_install_mongodb:       True
     graylog_install_nginx:         False
     graylog_install_java:          True
     graylog_not_testing:           False
