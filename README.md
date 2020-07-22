@@ -14,7 +14,7 @@ Dependencies
 - Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions consider backports accordingly
 - [Elasticsearch][1]
 - [NGINX][2]
-- Tested on Ubuntu 16.04 / Ubuntu 18.04 / Debian 8 / Debian 9 / Debian 10 / Centos 7 / Centos 8
+- Tested on Ubuntu 16.04 / Ubuntu 18.04 / Debian 9 / Debian 10 / Centos 7 / Centos 8
 
 Quickstart
 ----------
@@ -206,7 +206,6 @@ To test against other distros, you can also set the MOLECULE_DISTRO environment 
 
     export MOLECULE_DISTRO='centos/7'
     export MOLECULE_DISTRO='centos/8'
-    export MOLECULE_DISTRO='debian/jessie64'
     export MOLECULE_DISTRO='debian/stretch64'
     export MOLECULE_DISTRO='debian/buster64'
     export MOLECULE_DISTRO='generic/ubuntu1604'

@@ -1,6 +1,65 @@
 ---
 
-- name: "Ensure Java is installed"
-  package:
-    name: "{{ graylog_java }}"
-    state: "present"
+- name: Gather package facts
+  package_facts:
+    manager: auto
+
+- block:
+    - name: Add the Apt signing key of AdoptOpenJDK from jfrog.io
+      apt_key:
+        url: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+        state: "present"
+
+    - name: Add apt repository for AdoptOpenJDK
+      apt_repository:
+        repo: "deb https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/ {{ ansible_distribution_release }} main"
+        filename: adoptopenjdk_role
+        state: "present"
+
+    - name: Install AdoptOpenJDK package
+      apt:
+        state: "present"
+        name: "{{ graylog_java }}"
+        update_cache: yes
+  when:
+    - ansible_os_family == 'Debian' and packages[graylog_java] is not defined
+
+
+- block:
+    - name: Find out OS release
+      shell: . /etc/os-release  && echo $ID
+      register: osrelease
+
+    - name: Add yum repository for AdoptOpenJDK
+      yum_repository:
+        baseurl: "http://adoptopenjdk.jfrog.io/adoptopenjdk/rpm/{{ osrelease.stdout }}/$releasever/$basearch"
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public
+        name: adoptopenjdk_role
+        description: AdoptOpenJDK Java packages
+        state: "present"
+
+    - name: Install AdoptOpenJDK package
+      yum:
+        name: "{{ graylog_java }}"
+        state: "present"
+        update_cache: yes
+  when:
+    - ansible_os_family == 'RedHat' and packages[graylog_java] is not defined
+
+
+- name: update alternatives for java
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/{{ graylog_java }}/bin/java
+    link: /usr/bin/java
+    priority: 20000
+  when: packages[graylog_java] is not defined
+
+- name: set java home as environment variable
+  blockinfile:
+    insertafter: EOF
+    path: /etc/environment
+    block: export JAVA_HOME=/usr/lib/jvm/{{ graylog_java }}-amd64
+  when: packages[graylog_java] is not defined

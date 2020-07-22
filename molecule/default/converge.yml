@@ -5,7 +5,7 @@
     graylog_install_elasticsearch: False
     graylog_install_mongodb:       False
     graylog_install_nginx:         False
-    graylog_install_java:          False
+    graylog_install_java:          True
     graylog_not_testing:           False
 
     es_major_version: "6.x"
@@ -15,6 +15,8 @@
     es_templates: False
     es_version_lock: False
     es_heap_size: "1g"
+    es_java_install: False
+    oss_version: True
 
     es_config:
       node.name: "graylog"
@@ -24,6 +26,7 @@
       network.host: "0.0.0.0"
       node.data: True
       node.master: True
+
 
     graylog_web_endpoint_uri: "http://127.0.0.1:9000/api/"
 
