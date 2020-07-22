@@ -1,4 +1,6 @@
 ---
+- role: lean_delivery.java
+  version: 7.1.0
 
 - name: "elastic.elasticsearch"
   src: "https://github.com/elastic/ansible-elasticsearch.git"
