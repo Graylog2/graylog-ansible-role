@@ -2,7 +2,10 @@
 
 graylog_server_defaults_file_path:    "/etc/sysconfig/graylog-server"
 graylog_mongodb_data_path:            "/var/lib/mongo"
-graylog_mongodb_package_dependencies:
+graylog_mongodb_package_dependencies_python2:
   - "libselinux-python"
   - "policycoreutils-python"
+graylog_mongodb_package_dependencies_python3:
+  - "python3-libselinux"
+  - "python3-policycoreutils"
 graylog_java:                         "java-1.8.0-openjdk-headless.x86_64"
