@@ -11,7 +11,7 @@ driver:
 lint: |
   set -e
   yamllint .
-  #ansible-lint .
+  ansible-lint --exclude=$HOME/.ansible/roles/ -x 503
 platforms:
   - name: instance
     box: ${MOLECULE_DISTRO:-generic/ubuntu1804}

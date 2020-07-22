@@ -202,7 +202,7 @@ To destroy the VM:
 
     molecule destroy
 
-To test against other distros, you can also set the MOLECULE_DISTRO environment variable to:
+To test against other distros, you can also set the MOLECULE_DISTRO environment variable to one of these:
 
     export MOLECULE_DISTRO='centos/7'
     export MOLECULE_DISTRO='centos/8'
