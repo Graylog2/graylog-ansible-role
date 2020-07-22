@@ -6,7 +6,7 @@
     owner: "graylog"
     group: "graylog"
     mode: 0750
-    
+
 - name: "Make sure graylog-server directories exist"
   file:
     path: "{{ item }}"
