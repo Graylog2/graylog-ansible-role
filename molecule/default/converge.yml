@@ -32,7 +32,7 @@
       node.master: True
 
     #Java
-    transport: repositories
+    java_distribution: adoptopenjdk
     java_major_version: 8
 
     nginx_sites:
