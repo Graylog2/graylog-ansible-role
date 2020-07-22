@@ -14,7 +14,7 @@ Dependencies
 - Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions consider backports accordingly
 - [Elasticsearch][1]
 - [NGINX][2]
-- Tested on Ubuntu 16.04 / Ubuntu 18.04 / Debian 9 / Debian 10 / Centos 7
+- Tested on Ubuntu 16.04 / Ubuntu 18.04 / Debian 8 / Debian 9 / Debian 10 / Centos 7 / Centos 8
 
 Quickstart
 ----------
@@ -179,42 +179,39 @@ have to install all dependencies even when they are disabled to prevent errors.
 Tests
 -----
 
-One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
-by using the Docker images provided.
+If you'd like to test the role out using our test suite, you'll need a few things installed:
 
-Example for Debian Jessie and Ubuntu Xenial:
+- [Vagrant](https://www.vagrantup.com/docs/installation)
+- [libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
+- [Molecule](https://molecule.readthedocs.io/en/latest/installation.html)
 
-    $ cd graylog-ansible-role
-    $ docker build -t graylog-ansible-role-jessie -f tests/support/jessie_22.Dockerfile tests/support
-    $ docker run -it -v $PWD:/role graylog-ansible-role-jessie
+To spin up a test VM:
 
-For Xenial, just replace `jessie` with `xenial` in the above commands.
+    export MOLECULE_DISTRO='generic/ubuntu1804'
+    molecule create
 
-Example for CentOS 7 and Ubuntu Xenial:
+To run the Ansible playbook:
 
-Due to how `systemd` works with Docker, the following approach is suggested:
+    molecule converge
 
-    $ cd graylog-ansible-role
-    $ docker build -t graylog-ansible-role-centos7 -f tests/support/centos7_22.Dockerfile tests/support
-    $ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-centos7 /usr/sbin/init
-    $ DOCKER_CONTAINER_ID=$(docker ps | grep centos | awk '{print $1}')
-    $ docker logs $DOCKER_CONTAINER_ID
-    $ docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
-    $ docker ps -a
-    $ docker stop $DOCKER_CONTAINER_ID
-    $ docker rm -v $DOCKER_CONTAINER_ID
+To login to the VM:
 
-Ubuntu Xenial:
+    molecule login
 
-    $ cd graylog-ansible-role
-    $ docker build -t graylog-ansible-role-xenial -f tests/support/xenial_22.Dockerfile tests/support
-    $ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-xenial /sbin/init
-    $ DOCKER_CONTAINER_ID=$(docker ps | grep xenial | awk '{print $1}')
-    $ docker logs $DOCKER_CONTAINER_ID
-    $ docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
-    $ docker ps -a
-    $ docker stop $DOCKER_CONTAINER_ID
-    $ docker rm -v $DOCKER_CONTAINER_ID
+To destroy the VM:
+
+    molecule destroy
+
+To test against other distros, you can also set the MOLECULE_DISTRO environment variable to:
+
+    export MOLECULE_DISTRO='centos/7'
+    export MOLECULE_DISTRO='centos/8'
+    export MOLECULE_DISTRO='debian/jessie64'
+    export MOLECULE_DISTRO='debian/stretch64'
+    export MOLECULE_DISTRO='debian/buster64'
+    export MOLECULE_DISTRO='generic/ubuntu1604'
+    export MOLECULE_DISTRO='generic/ubuntu1804'
+
 
 Further Reading
 ----------------

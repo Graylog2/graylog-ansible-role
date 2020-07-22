@@ -1,20 +1,15 @@
 ---
-
-- name: "Testing the idempotence with the default vars"
-  hosts: "all"
-  connection: "local"
+- name: Converge
+  hosts: all
   vars:
     graylog_install_elasticsearch: False
     graylog_install_mongodb:       False
     graylog_install_nginx:         False
     graylog_install_java:          False
-
     graylog_not_testing:           False
 
-    graylog_additional_config:
-      test: value
-
-    es_major_version: "5.x"
+    es_major_version: "6.x"
+    es_version: 6.8.10
     es_instance_name: "graylog"
     es_scripts: False
     es_templates: False
@@ -51,5 +46,8 @@
             client_body_buffer_size 128k;
           }
 
-  roles:
-    - role: "../../role"
+  tasks:
+    - name: "Include graylog-ansible-role"
+      include_role:
+        name: "graylog-ansible-role"
+  become: yes

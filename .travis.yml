@@ -4,34 +4,33 @@ branches:
   only:
     - "master"
 
-services:
-  - "docker"
+dist: bionic
+
+language: python
+python: 3.5
 
 env:
-  - distro: "centos7_22"
-    init: "/usr/sbin/init"
-    run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: "jessie_22"
-    init: "/sbin/init"
-    run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: "buster"
-    init: "/lib/systemd/systemd"
-    run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
-  - distro: "xenial_22"
-    init: "/sbin/init"
-    run_opts: "--privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro"
+  matrix:
+    - MOLECULE_DISTRO: centos/7
+    - MOLECULE_DISTRO: centos/8
+    - MOLECULE_DISTRO: debian/jessie64
+    - MOLECULE_DISTRO: debian/stretch64
+    - MOLECULE_DISTRO: debian/buster64
+    - MOLECULE_DISTRO: generic/ubuntu1604
+    - MOLECULE_DISTRO: generic/ubuntu1804
 
-before_script:
-  - >
-    docker build -t graylog-ansible-role-${distro}
-    -f tests/support/${distro}.Dockerfile tests/support
+
+install:
+  - |
+    export VAGRANT_VERSION=2.2.9
+    sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
+    sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
+    sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
+    vagrant --version
+  - sudo vagrant plugin install vagrant-libvirt
+  - pip3 install molecule yamllint ansible-lint python-vagrant molecule-vagrant
+  - sudo chown -R travis:travis /home/travis/.vagrant.d
+  - sudo gpasswd -a travis libvirt
 
 script:
-  - >
-    docker run -d -it -v $PWD:/role:ro
-    ${run_opts} --name ${distro}
-    graylog-ansible-role-${distro} ${init}
-  - DOCKER_CONTAINER_ID=$(docker ps --filter name=${distro} -q)
-  - >
-    docker exec -it $DOCKER_CONTAINER_ID
-    /bin/bash -xec "bash -x run-tests.sh"
+  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; molecule test"
