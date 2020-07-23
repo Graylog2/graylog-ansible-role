@@ -9,9 +9,3 @@
     name: "graylog-server"
     state: "restarted"
     enabled: "yes"
-
-- name: "restart mongod"
-  service:
-    name: "mongod"
-    state: "restarted"
-    enabled: "yes"

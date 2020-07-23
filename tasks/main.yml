@@ -22,9 +22,6 @@
         (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('15', '>='))
       }}
 
-- include: "mongodb-{{ ansible_os_family }}.yml"
-  when: graylog_install_mongodb
-
 - include: "setup-{{ ansible_os_family }}.yml"
 
 - include: "server.yml"

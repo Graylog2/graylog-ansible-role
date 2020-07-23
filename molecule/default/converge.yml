@@ -61,6 +61,15 @@
       vars:
         version: 7.1.0
 
+    - name: "Install MongoDB"
+      include_role:
+        name: "undergreen.mongodb"
+      vars:
+        version: v2.6.1
+        mongodb_version: "4.2"
+        mongodb_apt_keyserver: "hkp://keyserver.ubuntu.com:80"
+        mongodb_pymongo_from_pip: false
+
     - name: "Install Elasticsearch"
       include_role:
           name: "elastic.elasticsearch"
