@@ -44,11 +44,12 @@ Dependencies
   - Debian 10
   - Centos 7
   - Centos 8
-- This role is for Graylog-3.X only!
-  - For older versions, use the graylog-2.X branch.
 
-Quickstart
+
+Usage
 ----------
+
+*Note: This role is for Graylog-3.X only! For older versions, use the graylog-2.X branch.*
 
 - You need at least 4GB of memory to run Graylog
 - Generate the password hash for the admin user:
