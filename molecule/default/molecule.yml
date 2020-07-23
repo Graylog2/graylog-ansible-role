@@ -32,5 +32,5 @@ providers:
     driver: kvm
 provisioner:
   name: ansible
-#verifier:
-#  name: testinfra
+verifier:
+ name: testinfra
