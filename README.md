@@ -11,7 +11,7 @@ Changelog
 
 - **Breaking changes in this release**:
   - The `graylog_version` variable must now be explicitly declared.
-    - Renamed the optional `graylog_server_version` variable to `graylog_full_version`. If not set, it will pull the latest `graylog_version` defined.
+  - Renamed the optional `graylog_server_version` variable to `graylog_full_version`. If not set, it will pull the latest `graylog_version` defined.
   - Increased the minimum Ansible version from 2.2 to 2.5.
   - No longer testing the Ansible role against Debian Jessie.
 - New stuff:
