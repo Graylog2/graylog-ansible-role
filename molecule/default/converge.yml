@@ -8,7 +8,7 @@
     graylog_install_nginx:         False
     graylog_install_java:          True
     graylog_not_testing:           False
-
+    graylog_version:               3.3
     graylog_web_endpoint_uri: "http://127.0.0.1:9000/api/"
 
     #Elasticsearch

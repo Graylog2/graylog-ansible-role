@@ -5,6 +5,11 @@
     msg: "Distro {{ ansible_distribution }} is not supported yet."
   when: ansible_os_family not in graylog_supported_os_families
 
+- name: "Check required variables"
+  fail: msg="Variable '{{ item }}' is not defined"
+  when: item not in vars
+  with_items: "{{ required_vars }}"
+
 - name: "Load OS-family specific vars"
   include_vars: "{{ ansible_os_family }}.yml"
 
