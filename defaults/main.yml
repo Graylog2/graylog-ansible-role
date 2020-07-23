@@ -126,6 +126,10 @@ graylog_outputbuffer_processor_keep_alive_time:        5000
 graylog_outputbuffer_processor_threads_core_pool_size: 3
 graylog_outputbuffer_processor_threads_max_pool_size:  30
 
+graylog_mongodb_uri:                                 "mongodb://127.0.0.1:27017/graylog"
+graylog_mongodb_max_connections:                     100
+graylog_mongodb_threads_allowed_to_block_multiplier: 5
+
 # Drools
 graylog_rules_file: ""
 
