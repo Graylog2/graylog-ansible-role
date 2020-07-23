@@ -16,7 +16,8 @@ Changelog
   - No longer testing the Ansible role against Debian Jessie.
 - New stuff:
   - Added ability to supply arbitrary key/values for server config [PR #142](https://github.com/Graylog2/graylog-ansible-role/pull/142)
-  Example:
+
+    Example:
 
     ```
     graylog_additional_config:
