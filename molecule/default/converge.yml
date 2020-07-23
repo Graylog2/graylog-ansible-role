@@ -10,6 +10,7 @@
     graylog_not_testing:           False
 
     graylog_web_endpoint_uri: "http://127.0.0.1:9000/api/"
+    graylog_mongodb_version:  4.2
 
     #Elasticsearch
     es_major_version: "6.x"

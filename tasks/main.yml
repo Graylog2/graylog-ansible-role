@@ -5,6 +5,9 @@
     msg: "Distro {{ ansible_distribution }} is not supported yet."
   when: ansible_os_family not in graylog_supported_os_families
 
+- fail: msg="The 'graylog_mongodb_version' variable is not defined."
+  when: (graylog_install_mongodb == True) and (graylog_mongodb_version is not defined)
+
 - name: "Load OS-family specific vars"
   include_vars: "{{ ansible_os_family }}.yml"
 
