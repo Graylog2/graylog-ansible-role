@@ -184,6 +184,7 @@ If you'd like to test the role out using our test suite, you'll need a few thing
 - [Vagrant](https://www.vagrantup.com/docs/installation)
 - [libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
 - [Molecule](https://molecule.readthedocs.io/en/latest/installation.html)
+- [testinfra](https://testinfra.readthedocs.io/en/latest/)
 
 To spin up a test VM:
 
