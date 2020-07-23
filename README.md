@@ -1,12 +1,4 @@
-[![Build Status](https://travis-ci.org/Graylog2/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/Graylog2/graylog-ansible-role)
-
-[![Galaxy](https://img.shields.io/badge/galaxy-graylog--ansible--role-blue)](https://galaxy.ansible.com/graylog2/graylog-ansible-role)
-
-![Ansible](https://img.shields.io/ansible/role/d/11230.svg)
-
-![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F11230%2F&query=$.min_ansible_version)
-
-![Ansible](https://img.shields.io/ansible/quality/11230)
+[![Build Status](https://travis-ci.org/Graylog2/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/Graylog2/graylog-ansible-role) [![Galaxy](https://img.shields.io/badge/galaxy-graylog--ansible--role-blue)](https://galaxy.ansible.com/graylog2/graylog-ansible-role) ![Ansible](https://img.shields.io/ansible/role/d/11230.svg) ![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F11230%2F&query=$.min_ansible_version) ![Ansible](https://img.shields.io/ansible/quality/11230)
 Description
 -----------
 
