@@ -68,7 +68,7 @@
         version: v2.6.1
         mongodb_version: "4.2"
         mongodb_apt_keyserver: "hkp://keyserver.ubuntu.com:80"
-        mongodb_pymongo_from_pip: false
+        mongodb_pymongo_from_pip: False
 
     - name: "Install Elasticsearch"
       include_role:
