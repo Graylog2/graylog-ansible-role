@@ -2,12 +2,16 @@
 - name: Converge
   hosts: all
   vars:
-    graylog_install_elasticsearch: False
-    graylog_install_mongodb:       False
+    #Graylog
+    graylog_install_elasticsearch: True
+    graylog_install_mongodb:       True
     graylog_install_nginx:         False
-    graylog_install_java:          False
+    graylog_install_java:          True
     graylog_not_testing:           False
 
+    graylog_web_endpoint_uri: "http://127.0.0.1:9000/api/"
+
+    #Elasticsearch
     es_major_version: "6.x"
     es_version: 6.8.10
     es_instance_name: "graylog"
@@ -15,6 +19,8 @@
     es_templates: False
     es_version_lock: False
     es_heap_size: "1g"
+    es_java_install: False
+    oss_version: True
 
     es_config:
       node.name: "graylog"
@@ -25,7 +31,9 @@
       node.data: True
       node.master: True
 
-    graylog_web_endpoint_uri: "http://127.0.0.1:9000/api/"
+    #Java
+    java_distribution: adoptopenjdk
+    java_major_version: 8
 
     nginx_sites:
       graylog:

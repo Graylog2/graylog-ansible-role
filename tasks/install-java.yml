@@ -1,6 +1,0 @@
----
-
-- name: "Ensure Java is installed"
-  package:
-    name: "{{ graylog_java }}"
-    state: "present"

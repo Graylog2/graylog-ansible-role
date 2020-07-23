@@ -1,6 +1,10 @@
 ---
 
 dependencies:
+  - role: lean_delivery.java
+    version: 7.1.0
+    when: graylog_install_java
+
   - role: "elastic.elasticsearch"
     version: master
     when: graylog_install_elasticsearch
