@@ -55,7 +55,23 @@
           }
 
   tasks:
-    - name: "Include graylog-ansible-role"
+    - name: "Install Java"
+      include_role:
+        name: "lean_delivery.java"
+      vars:
+        version: 7.1.0
+
+    - name: "Install Elasticsearch"
+      include_role:
+          name: "elastic.elasticsearch"
+      vars:
+        version: master
+
+    - name: "Install nginx"
+      include_role:
+          name: "nginxinc.nginx"
+
+    - name: "Install Graylog"
       include_role:
         name: "graylog-ansible-role"
   become: yes

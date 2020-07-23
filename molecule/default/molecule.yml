@@ -2,7 +2,7 @@
 dependency:
   name: galaxy
   options:
-    role-file: requirements.yml
+    role-file: molecule/resources/requirements.yml
     ignore-errors: true
 driver:
   name: vagrant
