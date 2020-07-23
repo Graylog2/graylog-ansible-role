@@ -19,16 +19,18 @@ galaxy_info:
   min_ansible_version: "2.5"
   license: "Apache 2"
   platforms:
+    - name: "CentOS"
+      versions:
+        - "7"
+        - "8"
+    - name: "Debian"
+      versions:
+        - "stretch"
+        - "buster"
     - name: "Ubuntu"
       versions:
         - "xenial"
-        - "zesty"
-    - name: "Debian"
-      versions:
-        - "jessie"
-    - name: "EL"
-      versions:
-        - "7"
+        - "bionic"
   galaxy_tags:
     - "monitoring"
     - "system"

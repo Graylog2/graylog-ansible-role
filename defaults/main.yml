@@ -6,7 +6,6 @@ graylog_java_repo:                 "deb http://ppa.launchpad.net/webupd8team/jav
 graylog_java_src_repo:             "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
 graylog_java_repo_keyserver:       "keyserver.ubuntu.com"
 graylog_java_repo_key:             "EEA14886"
-graylog_version:                   "3.1"
 
 graylog_package_state:             "present"
 graylog_apt_deb_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.deb"
@@ -201,3 +200,6 @@ graylog_install_java:          True
 graylog_not_testing:           True
 
 graylog_additional_config: {}
+
+required_vars:
+  - graylog_version

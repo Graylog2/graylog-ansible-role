@@ -1,11 +1,40 @@
 [![Build Status](https://travis-ci.org/Graylog2/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/Graylog2/graylog-ansible-role)
 
+[![Galaxy](https://img.shields.io/badge/galaxy-graylog--ansible--role-blue)](https://galaxy.ansible.com/graylog2/graylog-ansible-role)
+
+![Ansible](https://img.shields.io/ansible/role/d/11230.svg)
+
+![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F11230%2F&query=$.min_ansible_version)
+
+![Ansible](https://img.shields.io/ansible/quality/11230)
 Description
 -----------
 
-Ansible role which installs and configures Graylog log management.
+An Ansible role which installs and configures [Graylog](https://docs.graylog.org) for log management.
 
-**THIS ROLE IS FOR GRAYLOG-3.X ONLY! FOR OLDER VERSIONS USE THE `GRAYLOG-2.X` BRANCH!**
+Changelog
+---
+####  v3.3
+
+- **Breaking changes in this release**:
+  - The `graylog_version` variable must now be explicitly declared.
+    - Renamed the optional `graylog_server_version` variable to `graylog_full_version`. If not set, it will pull the latest `graylog_version` defined.
+  - Increased the minimum Ansible version from 2.2 to 2.5.
+  - No longer testing the Ansible role against Debian Jessie.
+- New stuff:
+  - Added ability to supply arbitrary key/values for server config [PR #142](https://github.com/Graylog2/graylog-ansible-role/pull/142)
+  Example:
+
+    ```
+    graylog_additional_config:
+      test: value   
+    ```
+- Fixes:
+  - Only enable permission if SELInux is actually enabled - [PR #121](https://github.com/Graylog2/graylog-ansible-role/pull/121)
+  - Make sure graylog-server directories exist - [PR #134](https://github.com/Graylog2/graylog-ansible-role/pull/134)
+  - Fixed missing policycoreutils-python package on Centos 7 - [Issue #119](https://github.com/Graylog2/graylog-ansible-role/issues/119)
+
+
 
 Dependencies
 ------------
@@ -15,6 +44,8 @@ Dependencies
 - [Elasticsearch][1]
 - [NGINX][2]
 - Tested on Ubuntu 16.04 / Ubuntu 18.04 / Debian 9 / Debian 10 / Centos 7 / Centos 8
+- This role is for Graylog-3.X only!
+  - For older versions, use the graylog-2.X branch.
 
 Quickstart
 ----------
@@ -40,6 +71,7 @@ Here is an example of a playbook targeting Vagrant (Ubuntu Xenial):
       http.port: 9200
       transport.tcp.port: 9300
       network.host: "127.0.0.1"
+    graylog_version: 3.3
     graylog_install_java: False # Elasticsearch role already installed Java
     graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
     graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
@@ -63,9 +95,10 @@ Variables
 
 ```yaml
 # Basic server settings
-graylog_server_version:     "3.0.1-1" # Optional, if not provided the latest version will be installed
-graylog_is_master:          "True"
-graylog_password_secret:    "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
+graylog_version: 3.3     # Required
+graylog_full_version: "3.3.2-1" # Optional, if not provided, the latest revision of {{ graylog_version }} will be installed
+graylog_is_master: "True"
+graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
 graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
 
 graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
@@ -100,6 +133,7 @@ More detailed example
       network.host: "127.0.0.1"
       node.data: True
       node.master: True
+    graylog_version: 3.3
     graylog_install_java: False # Elasticsearch role already installed Java
     graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
     graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
@@ -152,6 +186,9 @@ Note: in this example vars are in a more appropriate place at `group_vars/group/
     graylog_install_nginx:         False
 
   roles:
+    - role: lean_delivery.java
+      version: 7.1.0
+      when: graylog_install_java
 
     - role: "elastic.elasticsearch"
       tags:
