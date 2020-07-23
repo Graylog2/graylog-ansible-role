@@ -34,7 +34,7 @@ Dependencies
 ------------
 
 - **Only Ansible versions > 2.5.0 are supported.**
-- Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions consider backports accordingly
+- Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions, consider backports accordingly
 - [Elasticsearch][1]
 - [NGINX][2]
 - Tested on
