@@ -10,6 +10,11 @@
   when: item not in vars
   with_items: "{{ required_vars }}"
 
+- name: "Check deprecated variables"
+  fail:
+    msg: "Varible 'graylog_server_version' has been deprecated. Use 'graylog_full_version' instead."
+  when: graylog_server_version is defined
+
 - name: "Load OS-family specific vars"
   include_vars: "{{ ansible_os_family }}.yml"
 

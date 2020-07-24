@@ -217,12 +217,58 @@ have to install all dependencies even when they are disabled to prevent errors.
 Tests
 -----
 
-If you'd like to test the role out using our test suite, you'll need a few things installed:
+If you'd like to run the Molecule tests, you'll need a few things installed:
 
 - [Vagrant](https://www.vagrantup.com/docs/installation)
 - [libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
 - [Molecule](https://molecule.readthedocs.io/en/latest/installation.html)
 - [testinfra](https://testinfra.readthedocs.io/en/latest/)
+
+Note that this is ONLY required if you want to run the test harness. You don't need any of this to run the playbook. This is a special setup that allows you to test the Ansible playbook against disposable VMs. 
+
+#### Install Notes
+
+Setting up Molecule requires installing a number tools for the VM enviroment. The following are notes from a successful install on Ubuntu 20.04.
+
+Install Virtualenv, Molecule, and testharness
+
+    sudo apt-get update
+    sudo apt-get install -y python3-pip libssl-dev python3-virtualenv
+    source venv/bin/activate
+    python3 -m pip install "molecule[lint]"
+    pip3 install testinfra
+
+Install Vagrant and libvirt
+
+    sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
+    sudo wget -nv https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb
+    sudo dpkg -i vagrant_2.2.9_x86_64.deb
+    vagrant --version
+    sudo apt-get install ruby-libvirt qemu libvirt-daemon-system libvirt-clients ebtables
+    sudo apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev
+    vagrant plugin install vagrant-libvirt
+    vagrant plugin list
+    pip3 install python-vagrant molecule-vagrant
+
+Test that Vagrant works
+
+    vagrant init generic/ubuntu1804
+    vagrant up --provider=libvirt
+    vagrant ssh
+    vagrant halt
+
+Test that Molecule works
+
+    git clone https://github.com/Graylog2/graylog-ansible-role.git
+    cd graylog-ansible-role
+    molecule create
+    molecule converge
+    molecule login
+    systemctl status graylog-server
+    exit
+    molecule destroy
+
+#### Commands
 
 To spin up a test VM:
 
