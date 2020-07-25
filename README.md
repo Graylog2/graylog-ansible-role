@@ -230,7 +230,7 @@ Note that this is ONLY required if you want to run the test harness. You don't n
 
 Setting up Molecule requires installing a number tools for the VM enviroment. The following are notes from a successful install on Ubuntu 20.04.
 
-Install Virtualenv, Molecule, and testharness
+Install Virtualenv, Molecule, and testinfra
 
     sudo apt-get update
     sudo apt-get install -y python3-pip libssl-dev python3-virtualenv
