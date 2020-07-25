@@ -24,7 +24,7 @@ Changelog
       test: value   
     ```
 - Fixes:
-  - Only enable permission if SELInux is actually enabled - [PR #121](https://github.com/Graylog2/graylog-ansible-role/pull/121)
+  - Only enable permission if SELinux is actually enabled - [PR #121](https://github.com/Graylog2/graylog-ansible-role/pull/121)
   - Make sure graylog-server directories exist - [PR #134](https://github.com/Graylog2/graylog-ansible-role/pull/134)
   - Fixed missing policycoreutils-python package on Centos 7 - [Issue #119](https://github.com/Graylog2/graylog-ansible-role/issues/119)
 
@@ -224,7 +224,7 @@ If you'd like to run the Molecule tests, you'll need a few things installed:
 - [Molecule](https://molecule.readthedocs.io/en/latest/installation.html)
 - [testinfra](https://testinfra.readthedocs.io/en/latest/)
 
-Note that this is ONLY required if you want to run the test harness. You don't need any of this to run the playbook. This is a special setup that allows you to test the Ansible playbook against disposable VMs. 
+Note that this is ONLY required if you want to run the test harness. You don't need any of this to run the playbook. This is a special setup that allows you to test the Ansible playbook against disposable VMs.
 
 #### Install Notes
 
