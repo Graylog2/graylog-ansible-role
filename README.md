@@ -234,6 +234,7 @@ Install Virtualenv, Molecule, and testharness
 
     sudo apt-get update
     sudo apt-get install -y python3-pip libssl-dev python3-virtualenv
+    virtualenv venv
     source venv/bin/activate
     python3 -m pip install "molecule[lint]"
     pip3 install testinfra
