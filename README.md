@@ -246,7 +246,7 @@ Install Vagrant and libvirt
     sudo dpkg -i vagrant_2.2.9_x86_64.deb
     vagrant --version
     sudo apt-get install ruby-libvirt qemu libvirt-daemon-system libvirt-clients ebtables
-    sudo apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev ruby-dev
+    sudo apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev
     vagrant plugin install vagrant-libvirt
     vagrant plugin list
     pip3 install python-vagrant molecule-vagrant
