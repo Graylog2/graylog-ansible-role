@@ -202,4 +202,3 @@ graylog_additional_config: {}
 
 required_vars:
   - graylog_version
-  - graylog_mongodb_version
