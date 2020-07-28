@@ -6,7 +6,6 @@ graylog_java_repo:                 "deb http://ppa.launchpad.net/webupd8team/jav
 graylog_java_src_repo:             "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
 graylog_java_repo_keyserver:       "keyserver.ubuntu.com"
 graylog_java_repo_key:             "EEA14886"
-graylog_version:                   "3.0"
 
 graylog_package_state:             "present"
 graylog_apt_deb_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.deb"
@@ -38,7 +37,7 @@ graylog_http_enable_gzip:             True
 graylog_http_enable_tls:              False
 graylog_http_tls_cert_file:           "/path/to/graylog.crt"
 graylog_http_tls_key_file:            "/path/to/graylog.key"
-graylog_http_tls_key_password:        "secret"
+graylog_http_tls_key_password:        ""
 graylog_http_max_header_size:         8192
 graylog_http_max_initial_line_length: 4096
 graylog_http_thread_pool_size:        16
@@ -51,7 +50,7 @@ graylog_allow_highlighting:                             False
 graylog_elasticsearch_config_file:                      ""
 graylog_elasticsearch_index_prefix:                     "graylog"
 graylog_elasticsearch_analyzer:                         "standard"
-graylog_elasticsearch_output_batch_size:                25
+graylog_elasticsearch_output_batch_size:                500
 graylog_elasticsearch_output_flush_interval:            1
 graylog_elasticsearch_disable_version_check:            True
 graylog_elasticsearch_http_enabled:                     False
@@ -134,14 +133,14 @@ graylog_outputbuffer_processor_threads_core_pool_size: 3
 graylog_outputbuffer_processor_threads_max_pool_size:  30
 
 # MongoDB
-graylog_mongodb_ubuntu_repo:                         "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse"
-graylog_mongodb_ubuntu_keyserver:                    "keyserver.ubuntu.com"
-graylog_mongodb_ubuntu_key:                          "2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5"
-graylog_mongodb_debian_repo:                         "deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/3.6 main"
+graylog_mongodb_ubuntu_repo:                         "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} multiverse"
+graylog_mongodb_ubuntu_keyserver:                    "hkp://keyserver.ubuntu.com:80"
+graylog_mongodb_ubuntu_key:                          "4B7C549A058F8B6B"
+graylog_mongodb_debian_repo:                         "deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} main"
 graylog_mongodb_debian_keyserver:                    "keyserver.ubuntu.com"
-graylog_mongodb_debian_key:                          "2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5"
-graylog_mongodb_redhat_repo:                         "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.6/x86_64/"
-graylog_mongodb_redhat_key:                          "https://www.mongodb.org/static/pgp/server-3.6.asc"
+graylog_mongodb_debian_key:                          "4B7C549A058F8B6B"
+graylog_mongodb_redhat_repo:                         "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ graylog_mongodb_version }}/x86_64/"
+graylog_mongodb_redhat_key:                          "https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc"
 
 graylog_mongodb_uri:                                 "mongodb://127.0.0.1:27017/graylog"
 graylog_mongodb_max_connections:                     100
@@ -185,7 +184,8 @@ graylog_web_thread_pool_size:        16
 
 # JVM
 graylog_gc_warning_threshold: "1s"
-graylog_server_java_opts:     "-Djava.net.preferIPv4Stack=true -Xms1500m -Xmx1500m -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:-OmitStackTraceInFastThrow"
+graylog_server_heap_size:     "1500m"
+graylog_server_java_opts:     "-Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:-OmitStackTraceInFastThrow"
 graylog_server_args:          ""
 graylog_server_wrapper:       ""
 
@@ -197,3 +197,8 @@ graylog_install_java:          True
 
 # Disable steps which break tests
 graylog_not_testing:           True
+
+graylog_additional_config: {}
+
+required_vars:
+  - graylog_version

@@ -9,12 +9,12 @@
 - name: "Package 'apt-transport-https' should be installed"
   apt:
     name: "apt-transport-https"
-    state: "installed"
+    state: present
 
 - name: "Graylog repository package should be installed"
   apt:
     deb: "/tmp/graylog_repository.deb"
-    state: "installed"
+    state: present
     dpkg_options: "force-all"
   when: graylog_manage_apt_repo
   register: "install_repo"
@@ -26,7 +26,7 @@
 
 - name: "Graylog server package should be installed"
   apt:
-    name: "graylog-server{% if graylog_server_version is defined %}={{ graylog_server_version }}{% endif %}"
+    name: "graylog-server{% if graylog_full_version is defined %}={{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
   notify: "restart graylog-server"
 

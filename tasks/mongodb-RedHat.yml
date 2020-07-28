@@ -11,9 +11,15 @@
 
 - name: "Package dependencies should be installed"
   yum:
-    name: "{{ item }}"
-    state: "installed"
-  with_items: "{{ graylog_mongodb_package_dependencies | default([]) }}"
+    name: "{{ graylog_mongodb_package_dependencies_python2 }}"
+    state: present
+  when: ansible_python_version is version('3.0.0', '<')
+
+- name: "Package dependencies should be installed"
+  yum:
+    name: "{{ graylog_mongodb_package_dependencies_python3 }}"
+    state: present
+  when: ansible_python_version is version('3.0.0', '>=')
 
 - name: "MongoDB should be installed"
   yum:
@@ -48,6 +54,7 @@
     proto: "tcp"
     setype: "mongod_port_t"
     state: "present"
+  when: ansible_selinux.status == "enabled"
 
 - meta: "flush_handlers"
 

@@ -1,9 +1,11 @@
 ---
+- role: lean_delivery.java
+  version: 7.1.0
 
 - name: "elastic.elasticsearch"
   src: "https://github.com/elastic/ansible-elasticsearch.git"
-  version: "6.6.0"
+  version: master
 
 - name: "jdauphant.nginx"
   src: "https://github.com/jdauphant/ansible-role-nginx.git"
-  version: "v2.21.2"
+  version: "v2.22"

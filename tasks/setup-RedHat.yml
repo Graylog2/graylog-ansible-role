@@ -9,6 +9,6 @@
 
 - name: "Graylog server should be installed"
   yum:
-    name: "graylog-server{% if graylog_server_version is defined %}-{{ graylog_server_version }}{% endif %}"
+    name: "graylog-server{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
   notify: restart graylog-server
