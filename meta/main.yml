@@ -1,7 +1,12 @@
 ---
 
 dependencies:
+  - role: lean_delivery.java
+    version: 7.1.0
+    when: graylog_install_java
+
   - role: "elastic.elasticsearch"
+    version: master
     when: graylog_install_elasticsearch
 
   - role: "jdauphant.nginx"
@@ -11,19 +16,21 @@ galaxy_info:
   author: "Marius Sturm"
   company: "Graylog, Inc."
   description: "Install and configure Graylog log management."
-  min_ansible_version: "2.2"
+  min_ansible_version: "2.5"
   license: "Apache 2"
   platforms:
+    - name: "CentOS"
+      versions:
+        - "7"
+        - "8"
+    - name: "Debian"
+      versions:
+        - "stretch"
+        - "buster"
     - name: "Ubuntu"
       versions:
         - "xenial"
-        - "zesty"
-    - name: "Debian"
-      versions:
-        - "jessie"
-    - name: "EL"
-      versions:
-        - "7"
+        - "bionic"
   galaxy_tags:
     - "monitoring"
     - "system"

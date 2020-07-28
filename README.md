@@ -1,23 +1,55 @@
-[![Build Status](https://travis-ci.org/Graylog2/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/Graylog2/graylog-ansible-role)
+[![Build Status](https://travis-ci.org/Graylog2/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/Graylog2/graylog-ansible-role) [![Galaxy](https://img.shields.io/badge/galaxy-graylog--ansible--role-blue)](https://galaxy.ansible.com/graylog2/graylog-ansible-role) ![Ansible](https://img.shields.io/ansible/role/d/11230.svg) ![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F11230%2F&query=$.min_ansible_version) ![Ansible](https://img.shields.io/ansible/quality/11230)
 
 Description
 -----------
 
-Ansible role which installs and configures Graylog log management.
+An Ansible role which installs and configures [Graylog](https://docs.graylog.org) for log management.
 
-**THIS ROLE IS FOR GRAYLOG-3.X ONLY! FOR OLDER VERSIONS USE THE `GRAYLOG-2.X` BRANCH!**
+Changelog
+---
+####  v3.1.0
+
+- **Breaking changes**:
+  - The `graylog_version` variable must now be explicitly declared.
+  - Renamed the optional `graylog_server_version` variable to `graylog_full_version`. If not set, it will pull the latest `graylog_version` defined.
+  - Increased the minimum Ansible version from 2.2 to 2.5.
+  - No longer testing the Ansible role against Debian Jessie.
+- New stuff:
+  - Added ability to supply arbitrary key/values for server config [PR #142](https://github.com/Graylog2/graylog-ansible-role/pull/142)
+
+    Example:
+
+    ```
+    graylog_additional_config:
+      test: value   
+    ```
+- Fixes:
+  - Only enable permission if SELinux is actually enabled - [PR #121](https://github.com/Graylog2/graylog-ansible-role/pull/121)
+  - Make sure graylog-server directories exist - [PR #134](https://github.com/Graylog2/graylog-ansible-role/pull/134)
+  - Fixed missing policycoreutils-python package on Centos 7 - [Issue #119](https://github.com/Graylog2/graylog-ansible-role/issues/119)
+
+
 
 Dependencies
 ------------
 
-- **Only Ansible versions > 2.2.0 are supported.**
-- Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions consider backports accordingly
+- **Only Ansible versions > 2.5.0 are supported.**
+- Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions, consider backports accordingly
 - [Elasticsearch][1]
 - [NGINX][2]
-- Tested on Ubuntu 16.04 / Ubuntu 18.04 / Debian 9 / Centos 7
+- Tested on
+  - Ubuntu 16.04
+  - Ubuntu 18.04
+  - Debian 9
+  - Debian 10
+  - Centos 7
+  - Centos 8
 
-Quickstart
+
+Usage
 ----------
+
+*Note: This role is for Graylog-3.X only! For older versions, use the graylog-2.X branch.*
 
 - You need at least 4GB of memory to run Graylog
 - Generate the password hash for the admin user:
@@ -40,6 +72,7 @@ Here is an example of a playbook targeting Vagrant (Ubuntu Xenial):
       http.port: 9200
       transport.tcp.port: 9300
       network.host: "127.0.0.1"
+    graylog_version: 3.3
     graylog_install_java: False # Elasticsearch role already installed Java
     graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
     graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
@@ -63,9 +96,10 @@ Variables
 
 ```yaml
 # Basic server settings
-graylog_server_version:     "3.0.1-1" # Optional, if not provided the latest version will be installed
-graylog_is_master:          "True"
-graylog_password_secret:    "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
+graylog_version: 3.3     # Required
+graylog_full_version: "3.3.2-1" # Optional, if not provided, the latest revision of {{ graylog_version }} will be installed
+graylog_is_master: "True"
+graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
 graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
 
 graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
@@ -100,6 +134,7 @@ More detailed example
       network.host: "127.0.0.1"
       node.data: True
       node.master: True
+    graylog_version: 3.3
     graylog_install_java: False # Elasticsearch role already installed Java
     graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
     graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
@@ -152,6 +187,9 @@ Note: in this example vars are in a more appropriate place at `group_vars/group/
     graylog_install_nginx:         False
 
   roles:
+    - role: lean_delivery.java
+      version: 7.1.0
+      when: graylog_install_java
 
     - role: "elastic.elasticsearch"
       tags:
@@ -179,42 +217,87 @@ have to install all dependencies even when they are disabled to prevent errors.
 Tests
 -----
 
-One can test the role on the supported distributions (see `meta/main.yml` for the complete list),
-by using the Docker images provided.
+If you'd like to run the Molecule tests, you'll need a few things installed:
 
-Example for Debian Jessie and Ubuntu Xenial:
+- [Vagrant](https://www.vagrantup.com/docs/installation)
+- [libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
+- [Molecule](https://molecule.readthedocs.io/en/latest/installation.html)
+- [testinfra](https://testinfra.readthedocs.io/en/latest/)
 
-    $ cd graylog-ansible-role
-    $ docker build -t graylog-ansible-role-jessie -f tests/support/jessie_22.Dockerfile tests/support
-    $ docker run -it -v $PWD:/role graylog-ansible-role-jessie
+Note that this is ONLY required if you want to run the test harness. You don't need any of this to run the playbook. This is a special setup that allows you to test the Ansible playbook against disposable VMs.
 
-For Xenial, just replace `jessie` with `xenial` in the above commands.
+#### Install Notes
 
-Example for CentOS 7 and Ubuntu Xenial:
+Setting up Molecule requires installing a number tools for the VM enviroment. The following are notes from a successful install on Ubuntu 20.04.
 
-Due to how `systemd` works with Docker, the following approach is suggested:
+Install Virtualenv, Molecule, and testinfra
 
-    $ cd graylog-ansible-role
-    $ docker build -t graylog-ansible-role-centos7 -f tests/support/centos7_22.Dockerfile tests/support
-    $ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-centos7 /usr/sbin/init
-    $ DOCKER_CONTAINER_ID=$(docker ps | grep centos | awk '{print $1}')
-    $ docker logs $DOCKER_CONTAINER_ID
-    $ docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
-    $ docker ps -a
-    $ docker stop $DOCKER_CONTAINER_ID
-    $ docker rm -v $DOCKER_CONTAINER_ID
+    sudo apt-get update
+    sudo apt-get install -y python3-pip libssl-dev python3-virtualenv
+    virtualenv venv
+    source venv/bin/activate
+    python3 -m pip install "molecule[lint]"
+    pip3 install testinfra
 
-Ubuntu Xenial:
+Install Vagrant and libvirt
 
-    $ cd graylog-ansible-role
-    $ docker build -t graylog-ansible-role-xenial -f tests/support/xenial_22.Dockerfile tests/support
-    $ docker run -d --privileged -it -v /sys/fs/cgroup:/sys/fs/cgroup:ro -v $PWD:/role:ro graylog-ansible-role-xenial /sbin/init
-    $ DOCKER_CONTAINER_ID=$(docker ps | grep xenial | awk '{print $1}')
-    $ docker logs $DOCKER_CONTAINER_ID
-    $ docker exec -it $DOCKER_CONTAINER_ID /bin/bash -xec "bash -x run-tests.sh"
-    $ docker ps -a
-    $ docker stop $DOCKER_CONTAINER_ID
-    $ docker rm -v $DOCKER_CONTAINER_ID
+    sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
+    sudo wget -nv https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb
+    sudo dpkg -i vagrant_2.2.9_x86_64.deb
+    vagrant --version
+    sudo apt-get install ruby-libvirt qemu libvirt-daemon-system libvirt-clients ebtables
+    sudo apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev
+    vagrant plugin install vagrant-libvirt
+    vagrant plugin list
+    pip3 install python-vagrant molecule-vagrant
+
+Test that Vagrant works
+
+    vagrant init generic/ubuntu1804
+    vagrant up --provider=libvirt
+    vagrant ssh
+    vagrant halt
+
+Test that Molecule works
+
+    git clone https://github.com/Graylog2/graylog-ansible-role.git
+    cd graylog-ansible-role
+    molecule create
+    molecule converge
+    molecule login
+    systemctl status graylog-server
+    exit
+    molecule destroy
+
+#### Commands
+
+To spin up a test VM:
+
+    export MOLECULE_DISTRO='generic/ubuntu1804'
+    molecule create
+
+To run the Ansible playbook:
+
+    molecule converge
+
+To login to the VM:
+
+    molecule login
+
+To destroy the VM:
+
+    molecule destroy
+
+To test against other distros, you can also set the MOLECULE_DISTRO environment variable to one of these:
+
+    export MOLECULE_DISTRO='centos/7'
+    export MOLECULE_DISTRO='centos/8'
+    export MOLECULE_DISTRO='debian/jessie64'
+    export MOLECULE_DISTRO='debian/stretch64'
+    export MOLECULE_DISTRO='debian/buster64'
+    export MOLECULE_DISTRO='generic/ubuntu1604'
+    export MOLECULE_DISTRO='generic/ubuntu1804'
+
 
 Further Reading
 ----------------
