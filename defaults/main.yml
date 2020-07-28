@@ -50,7 +50,7 @@ graylog_allow_highlighting:                             False
 graylog_elasticsearch_config_file:                      ""
 graylog_elasticsearch_index_prefix:                     "graylog"
 graylog_elasticsearch_analyzer:                         "standard"
-graylog_elasticsearch_output_batch_size:                25
+graylog_elasticsearch_output_batch_size:                500
 graylog_elasticsearch_output_flush_interval:            1
 graylog_elasticsearch_disable_version_check:            True
 graylog_elasticsearch_http_enabled:                     False
