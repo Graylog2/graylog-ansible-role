@@ -180,3 +180,24 @@ graylog_additional_config: {}
 
 required_vars:
   - graylog_version
+
+deprecated_vars:
+  - graylog_server_version
+  - graylog_java_ppa
+  - graylog_java_repo
+  - graylog_java_src_repo
+  - graylog_java_repo_keyserver
+  - graylog_java_repo_key
+  - graylog_mongodb_version
+  - graylog_mongodb_ubuntu_repo
+  - graylog_mongodb_ubuntu_keyserver
+  - graylog_mongodb_ubuntu_key
+  - graylog_mongodb_debian_repo
+  - graylog_mongodb_debian_keyserver
+  - graylog_mongodb_debian_key
+  - graylog_mongodb_redhat_repo
+  - graylog_mongodb_redhat_key
+  - graylog_install_elasticsearch
+  - graylog_install_mongodb
+  - graylog_install_nginx
+  - graylog_install_java
