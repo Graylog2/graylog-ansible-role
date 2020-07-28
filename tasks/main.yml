@@ -10,8 +10,9 @@
   when: item not in vars
   with_items: "{{ required_vars }}"
 
-- fail: msg="The 'graylog_mongodb_version' variable is not defined."
-  when: (graylog_install_mongodb == True) and (graylog_mongodb_version is not defined)
+- name: "Check graylog_mongodb_version var"
+  fail: msg="The 'graylog_mongodb_version' variable is not defined."
+  when: (graylog_install_mongodb) and (graylog_mongodb_version is not defined)
 
 - name: "Check deprecated variables"
   fail:
