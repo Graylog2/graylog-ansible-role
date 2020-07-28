@@ -37,7 +37,7 @@ graylog_http_enable_gzip:             True
 graylog_http_enable_tls:              False
 graylog_http_tls_cert_file:           "/path/to/graylog.crt"
 graylog_http_tls_key_file:            "/path/to/graylog.key"
-graylog_http_tls_key_password:        "secret"
+graylog_http_tls_key_password:        ""
 graylog_http_max_header_size:         8192
 graylog_http_max_initial_line_length: 4096
 graylog_http_thread_pool_size:        16
