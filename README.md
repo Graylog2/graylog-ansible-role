@@ -7,7 +7,7 @@ An Ansible role which installs and configures [Graylog](https://docs.graylog.org
 
 Changelog
 ---
-####  v3.3
+####  v3.1.0
 
 - **Breaking changes**:
   - The `graylog_version` variable must now be explicitly declared.
