@@ -17,7 +17,7 @@ env:
     - MOLECULE_DISTRO: debian/buster64
     - MOLECULE_DISTRO: generic/ubuntu1604
     - MOLECULE_DISTRO: generic/ubuntu1804
-
+    - MOLECULE_DISTRO: generic/ubuntu2004
 
 install:
   - |
