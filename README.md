@@ -297,6 +297,7 @@ To test against other distros, you can also set the MOLECULE_DISTRO environment 
     export MOLECULE_DISTRO='debian/buster64'
     export MOLECULE_DISTRO='generic/ubuntu1604'
     export MOLECULE_DISTRO='generic/ubuntu1804'
+    export MOLECULE_DISTRO='generic/ubuntu2004'
 
 
 Further Reading

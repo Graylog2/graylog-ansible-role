@@ -11,6 +11,13 @@
         repo: "{{ graylog_mongodb_ubuntu_repo }}"
         state: "present"
         update_cache: True
+
+    - name: Update MongoDB variables (Ubuntu 20.04)
+      set_fact:
+        graylog_mongodb_package_name: mongodb
+        graylog_mongodb_service_name: mongodb
+      when:
+         - ansible_distribution_release == 'focal'
   when:
     - ansible_distribution == 'Ubuntu'
 
@@ -30,7 +37,7 @@
 
 - name: "MongoDB should be installed"
   apt:
-    name: "mongodb-org"
+    name: "{{ graylog_mongodb_package_name }}"
     state: "present"
 
 - name: "MongoDB service file should be installed"
