@@ -1,0 +1,9 @@
+exclude_paths:
+  - ./venv/
+  - ../../.ansible/roles/
+parseable: true
+quiet: true
+skip_list:
+  - '503'
+use_default_rules: true
+verbosity: 1
