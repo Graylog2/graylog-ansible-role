@@ -19,7 +19,7 @@ galaxy_info:
   min_ansible_version: "2.5"
   license: "Apache 2"
   platforms:
-    - name: "CentOS"
+    - name: "EL"
       versions:
         - "7"
         - "8"
