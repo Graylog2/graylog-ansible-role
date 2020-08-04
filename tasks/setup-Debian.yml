@@ -3,7 +3,7 @@
 - name: "Graylog repository package should be downloaded"
   get_url:
     url: "{{ graylog_apt_deb_url }}"
-    dest: "/tmp/graylog_repository.deb"
+    dest: "/tmp/graylog_{{ graylog_version }}_repository.deb"
   when: graylog_manage_apt_repo
 
 - name: "Package 'apt-transport-https' should be installed"
@@ -13,7 +13,7 @@
 
 - name: "Graylog repository package should be installed"
   apt:
-    deb: "/tmp/graylog_repository.deb"
+    deb: "/tmp/graylog_{{ graylog_version }}_repository.deb"
     state: present
     dpkg_options: "force-all"
   when: graylog_manage_apt_repo
