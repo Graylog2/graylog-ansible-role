@@ -5,30 +5,6 @@ Description
 
 An Ansible role which installs and configures [Graylog](https://docs.graylog.org) for log management.
 
-Changelog
----
-####  v3.1.0
-
-- **Breaking changes**:
-  - The `graylog_version` variable must now be explicitly declared.
-  - Renamed the optional `graylog_server_version` variable to `graylog_full_version`. If not set, it will pull the latest `graylog_version` defined.
-  - Increased the minimum Ansible version from 2.2 to 2.5.
-  - No longer testing the Ansible role against Debian Jessie.
-- New stuff:
-  - Added ability to supply arbitrary key/values for server config [PR #142](https://github.com/Graylog2/graylog-ansible-role/pull/142)
-
-    Example:
-
-    ```
-    graylog_additional_config:
-      test: value   
-    ```
-- Fixes:
-  - Only enable permission if SELinux is actually enabled - [PR #121](https://github.com/Graylog2/graylog-ansible-role/pull/121)
-  - Make sure graylog-server directories exist - [PR #134](https://github.com/Graylog2/graylog-ansible-role/pull/134)
-  - Fixed missing policycoreutils-python package on Centos 7 - [Issue #119](https://github.com/Graylog2/graylog-ansible-role/issues/119)
-
-
 
 Dependencies
 ------------
