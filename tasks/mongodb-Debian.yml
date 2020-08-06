@@ -24,8 +24,8 @@
 - block:
     - name: "APT Key should be accepted for the MongoDB repo (Debian)"
       apt_key:
-        keyserver: "{{ graylog_mongodb_debian_keyserver }}"
-        id: "{{ graylog_mongodb_debian_key }}"
+        url: "{{ graylog_mongodb_debian_key }}"
+        state: present
 
     - name: "Repositories should be updated (Debian)"
       apt_repository:
