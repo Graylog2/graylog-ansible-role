@@ -3,8 +3,8 @@
 - block:
     - name: "APT Key should be accepted for the MongoDB repo (Ubuntu)"
       apt_key:
-        keyserver: "{{ graylog_mongodb_ubuntu_keyserver }}"
-        id: "{{ graylog_mongodb_ubuntu_key }}"
+        url: "{{ graylog_mongodb_ubuntu_key }}"
+        state: present
 
     - name: "Repositories should be updated (Ubuntu)"
       apt_repository:
