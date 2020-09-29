@@ -30,7 +30,6 @@ addons:
       - qemu-kvm
       - qemu-utils
       - ruby-dev
-    update: true
 
 env:
   matrix:
@@ -43,12 +42,15 @@ env:
     - MOLECULE_DISTRO: generic/ubuntu2004
 
 before_install:
+  #Install Chromedriver
   - wget https://chromedriver.storage.googleapis.com/85.0.4183.87/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip
   - sudo mv chromedriver /usr/local/bin
   - rm chromedriver_linux64.zip
+  - sudo apt-get update
 
 install:
+  #Install Vagrant
   - |
     export VAGRANT_VERSION=2.2.10
     sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
@@ -59,5 +61,6 @@ install:
   - sudo chown -R travis:travis /home/travis/.vagrant.d
   - sudo gpasswd -a travis libvirt
 
+#Run Molecule tests
 script:
   - travis_retry sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; molecule create && molecule converge && TEST && molecule destroy"
