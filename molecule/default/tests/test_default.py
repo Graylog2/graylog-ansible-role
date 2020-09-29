@@ -16,9 +16,10 @@ def test_basic_login(host):
     driver = webdriver.Chrome(options=options)
     wait = WebDriverWait(driver, 10)
 
-    url = 'http://' + host.interface('eth0').addresses[0] + ':9000'
+    with open('/tmp/graylog_http_external_uri', 'r') as file:
+        url = file.read().replace('\n', '')
 
-    driver.get(url + "/gettingstarted")
+    driver.get(url + "gettingstarted")
 
     element = wait.until(EC.title_is(('Graylog - Sign in')))
 

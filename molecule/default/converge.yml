@@ -63,4 +63,10 @@
         name: "graylog-ansible-role"
     - debug:
         msg: "Graylog is up at {{ graylog_http_external_uri }}"
+    - name: "Write external url to tmp file."
+      local_action:
+        module: copy
+        content: "{{ graylog_http_external_uri }}"
+        dest: "/tmp/graylog_http_external_uri"
+      become: false
   become: yes
