@@ -13,13 +13,14 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(os.environ['MOLEC
 def test_basic_login(host):
     options = Options()
     options.headless = True
+    opts.add_argument('--no-sandbox')
+    opts.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(options=options)
     wait = WebDriverWait(driver, 10)
 
-    with open('/tmp/graylog_http_external_uri', 'r') as file:
-        url = file.read().replace('\n', '')
+    url = 'http://' + host.interface('eth0').addresses[0] + ':9000'
 
-    driver.get(url + "gettingstarted")
+    driver.get(url + "/gettingstarted")
 
     element = wait.until(EC.title_is(('Graylog - Sign in')))
 

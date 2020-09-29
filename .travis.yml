@@ -30,6 +30,7 @@ addons:
       - qemu-kvm
       - qemu-utils
       - ruby-dev
+      - chromium-chromedriver
 
 env:
   matrix:
@@ -61,6 +62,9 @@ install:
   - sudo chown -R travis:travis /home/travis/.vagrant.d
   - sudo gpasswd -a travis libvirt
 
+before_script:
+  - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
+  
 #Run Molecule tests
 script:
   - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; source travis_retry.sh; molecule create && travis_retry molecule converge && molecule verify && molecule destroy"
