@@ -11,7 +11,6 @@ driver:
 lint: |
   set -e
   yamllint .
-  ansible-lint
 platforms:
   - name: instance
     box: ${MOLECULE_DISTRO:-generic/ubuntu1804}
