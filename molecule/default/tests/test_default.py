@@ -13,8 +13,8 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(os.environ['MOLEC
 def test_basic_login(host):
     options = Options()
     options.headless = True
-    opts.add_argument('--no-sandbox')
-    opts.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
     driver = webdriver.Chrome(options=options)
     wait = WebDriverWait(driver, 10)
 
