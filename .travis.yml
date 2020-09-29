@@ -4,13 +4,35 @@ branches:
   only:
     - "master"
 
-dist: bionic
+dist: focal
 
 language: python
 python: 3.8
 
 addons:
   chrome: stable
+  apt:
+    packages:
+      - python3-pip
+      - libssl-dev
+      - python3-virtualenv
+      - ruby-libvirt
+      - qemu
+      - libvirt-daemon-system
+      - libvirt-clients
+      - libxslt-dev
+      - libxml2-dev
+      - libvirt-dev
+      - zlib1g-dev
+      - bridge-utils
+      - dnsmasq-base
+      - ebtables
+      - libvirt-bin
+      - libvirt-dev
+      - qemu-kvm
+      - qemu-utils
+      - ruby-dev
+    update: true
 
 env:
   matrix:
@@ -22,15 +44,15 @@ env:
     - MOLECULE_DISTRO: generic/ubuntu1804
     - MOLECULE_DISTRO: generic/ubuntu2004
 
+
 install:
   - |
-    export VAGRANT_VERSION=2.2.9
-    sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
+    export VAGRANT_VERSION=2.2.10
     sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
     sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
     vagrant --version
   - sudo vagrant plugin install vagrant-libvirt
-  - pip3 install molecule yamllint ansible-lint python-vagrant molecule-vagrant testinfra selenium
+  - pip3 install molecule yamllint ansible-lint python-vagrant molecule-vagrant "molecule[lint]" testinfra selenium
   - sudo chown -R travis:travis /home/travis/.vagrant.d
   - sudo gpasswd -a travis libvirt
 
