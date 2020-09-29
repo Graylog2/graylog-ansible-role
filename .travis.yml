@@ -10,7 +10,6 @@ language: python
 python: 3.8
 
 addons:
-  chrome: stable
   apt:
     packages:
       - python3-pip
@@ -43,6 +42,11 @@ env:
     - MOLECULE_DISTRO: generic/ubuntu1804
     - MOLECULE_DISTRO: generic/ubuntu2004
 
+before_install:
+  - wget https://chromedriver.storage.googleapis.com/85.0.4183.87/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - sudo mv chromedriver /usr/local/bin
+  - rm chromedriver_linux64.zip
 
 install:
   - |
@@ -56,4 +60,4 @@ install:
   - sudo gpasswd -a travis libvirt
 
 script:
-  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; molecule test"
+  - travis_retry sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; molecule create && molecule converge && TEST && molecule destroy"
