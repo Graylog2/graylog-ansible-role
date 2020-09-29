@@ -43,11 +43,6 @@ env:
     - MOLECULE_DISTRO: generic/ubuntu2004
 
 before_install:
-  #Install Chromedriver
-  - wget https://chromedriver.storage.googleapis.com/85.0.4183.87/chromedriver_linux64.zip
-  - unzip chromedriver_linux64.zip
-  - sudo mv chromedriver /usr/local/bin
-  - rm chromedriver_linux64.zip
   - sudo apt-get update
 
 install:
@@ -64,7 +59,7 @@ install:
 
 before_script:
   - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
-  
+
 #Run Molecule tests
 script:
   - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; source travis_retry.sh; molecule create && travis_retry molecule converge && molecule verify && molecule destroy"
