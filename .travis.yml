@@ -63,4 +63,4 @@ install:
 
 #Run Molecule tests
 script:
-  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; molecule create && travis_retry molecule converge && molecule verify && molecule destroy"
+  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; source travis_retry.sh; molecule create && travis_retry molecule converge && molecule verify && molecule destroy"
