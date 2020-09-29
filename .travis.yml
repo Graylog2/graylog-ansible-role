@@ -9,6 +9,9 @@ dist: focal
 language: python
 python: 3.8
 
+services:
+  - xvfb
+
 addons:
   apt:
     packages:
@@ -62,4 +65,4 @@ before_script:
 
 #Run Molecule tests
 script:
-  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; source travis_retry.sh; molecule create && travis_retry molecule converge && molecule verify && molecule destroy"
+  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; source travis_retry.sh; molecule create && travis_retry molecule converge && xvfb-run molecule verify && molecule destroy"
