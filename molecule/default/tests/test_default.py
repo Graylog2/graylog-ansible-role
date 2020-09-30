@@ -19,7 +19,7 @@ def test_basic_login(host):
     driver = webdriver.Chrome(options=options)
     wait = WebDriverWait(driver, 10)
 
-    url = 'http://' + host.interface('eth0').addresses[0] + ':9000'
+    url = 'http://localhost:9000'
 
     driver.get(url + "/gettingstarted")
 
