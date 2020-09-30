@@ -1,8 +1,9 @@
 #!/usr/bin/bash
-set -e
 source $VIRTUAL_ENV/bin/activate
+set -e
+set -x
 
-travis_retry()
+retry()
 {
   local result=0
   local count=1
@@ -30,6 +31,6 @@ while sleep 9m; do echo "=====[ $SECONDS seconds still running ]====="; done &  
 molecule create
 kill %1  #Kill background sleep loop
 
-travis_retry molecule converge
+retry molecule converge
 molecule verify
 molecule destroy

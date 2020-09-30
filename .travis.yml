@@ -60,9 +60,7 @@ install:
   - sudo gpasswd -a travis libvirt
 
 before_script:
-  - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
+  - ln -s /home/travis/bin/chromedriver ~/bin/chromedriver
 
 script:
-  - whereis google-chrome-stable
-  - whereis chromedriver
   - sudo -E su travis travis.sh
