@@ -58,6 +58,9 @@
           }
 
   tasks:
+    - name: "Update apt cache"
+      apt:
+        update_cache: True
     - name: "Include graylog-ansible-role"
       include_role:
         name: "graylog-ansible-role"

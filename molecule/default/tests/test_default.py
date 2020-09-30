@@ -15,6 +15,7 @@ def test_basic_login(host):
     options.headless = True
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
+    options.addArguments("--disable-gpu");
     driver = webdriver.Chrome(options=options)
     wait = WebDriverWait(driver, 10)
 
