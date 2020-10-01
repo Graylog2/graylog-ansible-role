@@ -23,7 +23,7 @@ pipeline
             }
             steps
             {
-              sh 'echo test'
+              sh 'molecule test'
             }
           }
           stage('Ubuntu 18.04')
@@ -34,7 +34,7 @@ pipeline
             }
             steps
             {
-              sh 'echo test'
+              sh 'molecule test'
             }
           }
         }
