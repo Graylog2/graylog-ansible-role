@@ -26,16 +26,16 @@ pipeline
               sh 'echo test'
             }
           }
-        }
-        stage('Ubuntu 18.04')
-        {
-          agent
+          stage('Ubuntu 18.04')
           {
-            label 'linux'
-          }
-          steps
-          {
-            sh 'echo test'
+            agent
+            {
+              label 'linux'
+            }
+            steps
+            {
+              sh 'echo test'
+            }
           }
         }
       }
