@@ -23,7 +23,7 @@ pipeline
             }
             steps
             {
-              sh 'MOLECULE_DISTRO='generic/ubuntu2004'; molecule test'
+              sh "MOLECULE_DISTRO='generic/ubuntu2004'; molecule test"
             }
           }
           stage('Ubuntu 18.04')
@@ -34,7 +34,7 @@ pipeline
             }
             steps
             {
-              sh 'MOLECULE_DISTRO='generic/ubuntu1804'; molecule test'
+              sh "MOLECULE_DISTRO='generic/ubuntu1804'; molecule test"
             }
           }
           stage('Ubuntu 16.04')
@@ -45,7 +45,7 @@ pipeline
             }
             steps
             {
-              sh 'MOLECULE_DISTRO='generic/ubuntu1604'; molecule test'
+              sh "MOLECULE_DISTRO='generic/ubuntu1604'; molecule test"
             }
           }
           stage('Debian Buster')
@@ -56,7 +56,7 @@ pipeline
             }
             steps
             {
-              sh 'export MOLECULE_DISTRO='debian/buster64'; molecule test'
+              sh "export MOLECULE_DISTRO='debian/buster64'; molecule test"
             }
           }
           stage('Debian Stretch')
@@ -67,7 +67,7 @@ pipeline
             }
             steps
             {
-              sh 'export MOLECULE_DISTRO='debian/stretch64'; molecule test'
+              sh "export MOLECULE_DISTRO='debian/stretch64'; molecule test"
             }
           }
           stage('Debian Jessie')
@@ -78,7 +78,7 @@ pipeline
             }
             steps
             {
-              sh 'export MOLECULE_DISTRO='debian/stretch64'; molecule test'
+              sh "export MOLECULE_DISTRO='debian/stretch64'; molecule test"
             }
           }
           stage('Debian Jessie')
@@ -89,7 +89,7 @@ pipeline
             }
             steps
             {
-              sh 'export MOLECULE_DISTRO='debian/jessie64'; molecule test'
+              sh "export MOLECULE_DISTRO='debian/jessie64'; molecule test"
             }
           }
           stage('CentOS 8')
@@ -100,7 +100,7 @@ pipeline
             }
             steps
             {
-              sh 'export MOLECULE_DISTRO='centos/8'; molecule test'
+              sh "export MOLECULE_DISTRO='centos/8'; molecule test"
             }
           }
           stage('CentOS 7')
@@ -111,7 +111,7 @@ pipeline
             }
             steps
             {
-              sh 'export MOLECULE_DISTRO='centos/7'; molecule test'
+              sh "export MOLECULE_DISTRO='centos/7'; molecule test"
             }
           }
         }
