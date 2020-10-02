@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+import time
 
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('all')
 
@@ -19,8 +19,9 @@ def test_basic_login(host):
     driver = webdriver.Chrome(options=options)
     wait = WebDriverWait(driver, 10)
 
-    url = 'http://localhost:9000'
+    time.sleep(60) #wait for Graylog to finish starting up
 
+    url = 'http://localhost:9000'
     driver.get(url + "/gettingstarted")
 
     element = wait.until(EC.title_is(('Graylog - Sign in')))
