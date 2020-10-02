@@ -81,17 +81,6 @@ pipeline
               sh "export MOLECULE_DISTRO='debian/stretch64'; molecule test"
             }
           }
-          stage('Debian Jessie')
-          {
-            agent
-            {
-              label 'linux'
-            }
-            steps
-            {
-              sh "export MOLECULE_DISTRO='debian/jessie64'; molecule test"
-            }
-          }
           stage('CentOS 8')
           {
             agent
