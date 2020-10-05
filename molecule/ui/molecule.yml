@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+    ignore-errors: true
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+platforms:
+  - name: instance
+    box: ${MOLECULE_DISTRO:-generic/ubuntu2004}
+    memory: 4096
+    cpus: 1
+    instance_raw_config_args:
+      - "vm.network 'forwarded_port', guest: 9000, host: 9000"
+provisioner:
+  name: ansible
+verifier:
+ name: testinfra

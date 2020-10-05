@@ -1,3 +1,4 @@
+
 ---
 dependency:
   name: galaxy
@@ -8,10 +9,6 @@ driver:
   name: vagrant
   provider:
     name: libvirt
-lint: |
-  set -e
-  yamllint .
-  ansible-lint
 platforms:
   - name: instance
     box: ${MOLECULE_DISTRO:-generic/ubuntu1804}

@@ -2,10 +2,6 @@
 # Based on ansible-lint config
 extends: default
 
-# Ignore virtualenv directory
-ignore: |
-  **/venv/
-
 rules:
   braces:
     max-spaces-inside: 1

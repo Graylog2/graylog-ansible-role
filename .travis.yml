@@ -7,7 +7,7 @@ branches:
 dist: bionic
 
 language: python
-python: 3.5
+python: 3.8
 
 env:
   matrix:
@@ -32,4 +32,4 @@ install:
   - sudo gpasswd -a travis libvirt
 
 script:
-  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; molecule test"
+  - sudo -E su travis travis.sh
