@@ -1,0 +1,35 @@
+---
+
+branches:
+  only:
+    - "master"
+
+dist: bionic
+
+language: python
+python: 3.5
+
+env:
+  matrix:
+    - MOLECULE_DISTRO: centos/7
+    - MOLECULE_DISTRO: centos/8
+    - MOLECULE_DISTRO: debian/stretch64
+    - MOLECULE_DISTRO: debian/buster64
+    - MOLECULE_DISTRO: generic/ubuntu1604
+    - MOLECULE_DISTRO: generic/ubuntu1804
+    - MOLECULE_DISTRO: generic/ubuntu2004
+
+install:
+  - |
+    export VAGRANT_VERSION=2.2.9
+    sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
+    sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
+    sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
+    vagrant --version
+  - sudo vagrant plugin install vagrant-libvirt
+  - pip3 install molecule yamllint ansible-lint python-vagrant molecule-vagrant testinfra
+  - sudo chown -R travis:travis /home/travis/.vagrant.d
+  - sudo gpasswd -a travis libvirt
+
+script:
+  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; molecule test"
