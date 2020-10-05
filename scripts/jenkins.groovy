@@ -19,7 +19,7 @@ pipeline
         }
         steps
         {
-          sh "MOLECULE_DISTRO='generic/ubuntu2004'; molecule test"
+          sh "MOLECULE_DISTRO='generic/ubuntu2004'; molecule test --scenario-name ui"
         }
       }
    }
