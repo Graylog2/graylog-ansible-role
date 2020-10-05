@@ -62,6 +62,11 @@
       apt:
         update_cache: True
       when: ansible_os_family == "Debian"
+    - name: Install gnupg
+      apt:
+        name: gnupg2
+        state: latest
+      when: ansible_os_family == "Debian"
     - name: "Include graylog-ansible-role"
       include_role:
         name: "graylog-ansible-role"
