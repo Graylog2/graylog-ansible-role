@@ -32,4 +32,4 @@ install:
   - sudo gpasswd -a travis libvirt
 
 script:
-  - sudo -E su travis -c "source $VIRTUAL_ENV/bin/activate; molecule test"
+  - sudo -E su travis travis.sh
