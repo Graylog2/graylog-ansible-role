@@ -58,6 +58,10 @@
           }
 
   tasks:
+    - name: "Update apt cache"
+      apt:
+        update_cache: True
+      when: ansible_os_family == "Debian"
     - name: "Include graylog-ansible-role"
       include_role:
         name: "graylog-ansible-role"
