@@ -58,6 +58,8 @@
           }
 
   tasks:
+    - set_fact:
+        graylog_full_version:  "'{{ lookup('env', 'GRAYLOG_VERSION_WITH_REVISION') }}'"
     - name: "Include graylog-ansible-role"
       include_role:
         name: "graylog-ansible-role"

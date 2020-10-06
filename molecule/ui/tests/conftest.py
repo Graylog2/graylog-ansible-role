@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-@pytest.fixture(scope="class")
+@pytest.fixture(scope="session")
 def chromedriver():
     options = Options()
     options.headless = True
@@ -17,7 +17,7 @@ def chromedriver():
     driver = webdriver.Chrome(options=options)
     wait = WebDriverWait(driver, 10)
 
-    #time.sleep(60) #Wait for Graylog to finish starting up
+    time.sleep(60) #Wait for Graylog to finish starting up
 
     url = 'http://localhost:9000'
     driver.get(url + "/gettingstarted")
