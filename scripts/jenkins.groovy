@@ -12,8 +12,9 @@ pipeline
    environment
    {
      MOLECULE_DISTRO='generic/ubuntu2004'
-     GRAYLOG_VERSION='3.3.5'
-     GRAYLOG_VERSION_WITH_REVISION='3.3.5-1'
+     GRAYLOG_VERSION='3.3.6'
+     GRAYLOG_REVISION='1'
+     GRAYLOG_VERSION_WITH_REVISION="${GRAYLOG_VERSION}-${GRAYLOG_REVISION}"
    }
 
    stages
@@ -26,8 +27,19 @@ pipeline
         }
         steps
         {
-          sh "molecule test --scenario-name ui"
+          sh '''molecule destroy --scenario-name ui
+                molecule create --scenario-name ui
+                molecule converge --scenario-name ui
+                molecule verify --scenario-name ui
+             '''
+        }
+        post
+        {
+          always
+          {
+            sh 'molecule destroy --scenario-name ui'
+          }
         }
       }
-   }
+    }
 }
