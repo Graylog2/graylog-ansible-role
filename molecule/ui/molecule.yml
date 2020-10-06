@@ -19,3 +19,5 @@ provisioner:
   name: ansible
 verifier:
  name: testinfra
+ options:
+   s: true
