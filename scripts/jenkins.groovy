@@ -12,8 +12,8 @@ pipeline
    environment
    {
      MOLECULE_DISTRO='generic/ubuntu2004'
-     GRAYLOG_VERSION=3.3.5
-     GRAYLOG_VERSION_WITH_REVISION=3.3.5-1
+     GRAYLOG_VERSION='3.3.5'
+     GRAYLOG_VERSION_WITH_REVISION='3.3.5-1'
    }
 
    stages
