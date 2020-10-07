@@ -1,5 +1,8 @@
 import pytest
 import os
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class TestGraylog():
     url = 'http://localhost:9000'
@@ -13,3 +16,28 @@ class TestGraylog():
 
         chromedriver.get(self.url + "/system/overview")
         assert 'Graylog ' + os.environ['GRAYLOG_VERSION'] in chromedriver.find_element_by_xpath('//footer').text
+
+    def test_input_udp(self, chromedriver):
+        print('Testing GELF UDP Input...')
+        chromedriver.get(self.url + "/system/inputs")
+        wait = WebDriverWait(chromedriver, 10)
+        element = wait.until(EC.title_is('Graylog - Inputs'))
+
+        #Click input dropdown
+        chromedriver.find_element_by_css_selector(".form-group").click()
+
+        #Click GELF UDP option
+        chromedriver.find_element_by_id("react-select-2-option-13").click()
+
+        #Click "Launch new Input" button
+        chromedriver.find_element_by_xpath('//button[text()="Launch new input"]').click()
+
+        #Select node
+        chromedriver.find_element_by_xpath("//select[@name='node-select']/option[2]").click()
+
+        #Fill out input field
+        title_field = chromedriver.find_element_by_id("title")
+        title_field.send_keys('Test UDP Input')
+
+        #Save form
+        title_field.send_keys(Keys.RETURN)
