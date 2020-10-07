@@ -46,3 +46,8 @@ class TestGraylog():
 
         #Save form
         title_field.send_keys(Keys.RETURN)
+
+        #Check that the input is there and running.
+        WebDriverWait(chromedriver, 5).until(expected_conditions.presence_of_element_located((By.XPATH, '//h2[text()="Test UDP Input"]')))
+        input_status = WebDriverWait(chromedriver, 5).until(expected_conditions.presence_of_element_located((By.XPATH, '//span[text()="GELF UDP"]')))
+        assert 'RUNNING' in input_status.text

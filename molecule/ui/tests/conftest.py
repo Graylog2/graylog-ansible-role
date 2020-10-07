@@ -39,5 +39,4 @@ def chromedriver():
         #Run tests
         yield driver
     finally:
-        driver.close()
         driver.quit()
