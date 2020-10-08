@@ -29,7 +29,7 @@ class TestGraylog():
         chromedriver.find_element_by_css_selector(".form-group").click()
 
         #Click GELF UDP option
-        chromedriver.find_element_by_id("react-select-2-option-13").click()
+        chromedriver.find_element_by_xpath('//div[text()="GELF UDP"]').click()
 
         #Click "Launch new Input" button
         chromedriver.find_element_by_xpath('//button[text()="Launch new input"]').click()
