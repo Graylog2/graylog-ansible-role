@@ -18,7 +18,7 @@ def chromedriver():
         driver = webdriver.Chrome(options=options)
         wait = WebDriverWait(driver, 10)
 
-        #time.sleep(60) #Wait for Graylog to finish starting up
+        time.sleep(60) #Wait for Graylog to finish starting up
 
         url = 'http://localhost:9000'
         driver.get(url + "/gettingstarted")
