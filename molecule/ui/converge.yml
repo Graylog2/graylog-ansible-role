@@ -5,13 +5,13 @@
     #Graylog
     graylog_install_elasticsearch: True
     graylog_install_mongodb:       True
-    graylog_install_nginx:         False
+    graylog_install_nginx:         True
     graylog_install_java:          True
     graylog_not_testing:           False
     graylog_version:               3.3
     graylog_mongodb_version:       4.2
     graylog_http_bind_address:     "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000"
-    graylog_http_publish_uri:      "http://localhost:9000/"
+    graylog_http_publish_uri:      "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000/"
     graylog_http_external_uri:     "http://localhost:9000/"
 
     #Elasticsearch
@@ -41,10 +41,9 @@
     nginx_sites:
       graylog:
         - "listen 80"
-        - "server_name graylog"
         - |
           location / {
-            proxy_pass http://localhost:9000/;
+            proxy_pass http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000/;
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -58,6 +57,8 @@
           }
 
   tasks:
+    - set_fact:
+        graylog_full_version:  "'{{ lookup('env', 'GRAYLOG_VERSION_WITH_REVISION') }}'"
     - name: "Include graylog-ansible-role"
       include_role:
         name: "graylog-ansible-role"

@@ -14,8 +14,11 @@ platforms:
     memory: 4096
     cpus: 1
     instance_raw_config_args:
-      - "vm.network 'forwarded_port', guest: 9000, host: 9000"
+      - "vm.network 'forwarded_port', guest: 80, host: 9000"
+      - "vm.network 'forwarded_port', guest: 12201, host: 12201, protocol: 'udp'"
 provisioner:
   name: ansible
 verifier:
  name: testinfra
+ options:
+   s: true
