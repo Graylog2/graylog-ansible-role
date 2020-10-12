@@ -1,5 +1,7 @@
 import pytest
 import os
+import socket
+import time
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
@@ -51,3 +53,13 @@ class TestGraylog():
         WebDriverWait(chromedriver, 5).until(expected_conditions.presence_of_element_located((By.XPATH, '//h2[text()="Test UDP Input"]')))
         input_status = WebDriverWait(chromedriver, 5).until(expected_conditions.presence_of_element_located((By.XPATH, '//span[text()="GELF UDP"]')))
         assert 'RUNNING' in input_status.text
+
+        #Send something through the input
+        for x in range(3):
+            socket.socket(socket.AF_INET, socket.SOCK_DGRAM).sendto(b'{ "version": "1.1", "host": "localhost", "short_message": "Hello Graylog!", "level": 5 }', ("127.0.0.1", 12201))
+
+        time.sleep(5)
+
+        #Check if Graylog received it
+        chromedriver.get(self.url + "/search?q=&rangetype=relative&relative=0")
+        WebDriverWait(chromedriver, 60).until(expected_conditions.presence_of_element_located((By.XPATH, '//div[text()="Hello Graylog!"]')))
