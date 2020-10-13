@@ -6,26 +6,27 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 class TestGraylog():
     url = 'http://localhost:9000'
 
     def test_title(self, chromedriver):
-        print("Verify title...")
+        print("\nVerifying title text...")
         assert "Graylog - Getting started" in chromedriver.title
 
     def test_version(self, chromedriver):
         print('Checking if version is ' + os.environ['GRAYLOG_VERSION'] + '...')
-
         chromedriver.get(self.url + "/system/overview")
-        assert 'Graylog ' + os.environ['GRAYLOG_VERSION'] in chromedriver.find_element_by_xpath('//footer').text
+
+        footer = WebDriverWait(chromedriver, 5).until(expected_conditions.presence_of_element_located((By.XPATH, "//footer"))).text
+        assert os.environ['GRAYLOG_VERSION'] in footer
 
     def test_input_udp(self, chromedriver):
         print('Testing GELF UDP Input...')
         chromedriver.get(self.url + "/system/inputs")
 
-        wait = WebDriverWait(chromedriver, 10)
-        element = wait.until(expected_conditions.title_is('Graylog - Inputs'))
+        element = WebDriverWait(chromedriver, 10).until(expected_conditions.title_is('Graylog - Inputs'))
 
         #Click input dropdown
         chromedriver.find_element_by_css_selector(".form-group").click()
@@ -54,12 +55,24 @@ class TestGraylog():
         input_status = WebDriverWait(chromedriver, 5).until(expected_conditions.presence_of_element_located((By.XPATH, '//span[text()="GELF UDP"]')))
         assert 'RUNNING' in input_status.text
 
+        time.sleep(5)
+
         #Send something through the input
         for x in range(3):
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM).sendto(b'{ "version": "1.1", "host": "localhost", "short_message": "Hello Graylog!", "level": 5 }', ("127.0.0.1", 12201))
 
-        time.sleep(10)
+        time.sleep(5)
 
         #Check if Graylog received it
         chromedriver.get(self.url + "/search?q=&rangetype=relative&relative=0")
-        WebDriverWait(chromedriver, 15).until(expected_conditions.presence_of_element_located((By.XPATH, '//div[text()="Hello Graylog!"]')))
+
+        retries = 1
+        element = None
+        while retries <= 3:
+            try:
+                element = WebDriverWait(chromedriver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, '//div[text()="Hello Graylog!"]')))
+                break
+            except TimeoutException:
+                chromedriver.refresh()
+                retries += 1
+        assert 'Hello Graylog!' == element.text
