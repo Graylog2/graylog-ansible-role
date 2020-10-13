@@ -20,14 +20,13 @@ class TestGraylog():
         chromedriver.get(self.url + "/system/overview")
 
         footer_xpath = '//footer[text()="' + os.environ['GRAYLOG_VERSION'] + '"]'
-        WebDriverWait(chromedriver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, footer_xpath)))
+        WebDriverWait(chromedriver, 30).until(expected_conditions.presence_of_element_located((By.XPATH, footer_xpath)))
 
     def test_input_udp(self, chromedriver):
         print('Testing GELF UDP Input...')
         chromedriver.get(self.url + "/system/inputs")
 
-        wait = WebDriverWait(chromedriver, 10)
-        element = wait.until(expected_conditions.title_is('Graylog - Inputs'))
+        element = WebDriverWait(chromedriver, 30).until(expected_conditions.title_is('Graylog - Inputs'))
 
         #Click input dropdown
         chromedriver.find_element_by_css_selector(".form-group").click()
