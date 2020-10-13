@@ -11,7 +11,7 @@ class TestGraylog():
     url = 'http://localhost:9000'
 
     def test_title(self, chromedriver):
-        print("Verify title...")
+        print("\nVerifying title text...")
         assert "Graylog - Getting started" in chromedriver.title
 
     def test_version(self, chromedriver):
@@ -60,7 +60,7 @@ class TestGraylog():
         for x in range(3):
             socket.socket(socket.AF_INET, socket.SOCK_DGRAM).sendto(b'{ "version": "1.1", "host": "localhost", "short_message": "Hello Graylog!", "level": 5 }', ("127.0.0.1", 12201))
 
-        time.sleep(10)
+        time.sleep(5)
 
         #Check if Graylog received it
         chromedriver.get(self.url + "/search?q=&rangetype=relative&relative=0")
