@@ -18,7 +18,9 @@ class TestGraylog():
         print('Checking if version is ' + os.environ['GRAYLOG_VERSION'] + '...')
 
         chromedriver.get(self.url + "/system/overview")
-        assert 'Graylog ' + os.environ['GRAYLOG_VERSION'] in chromedriver.find_element_by_xpath('//footer').text
+
+        footer_xpath = '//footer[text()="' + os.environ['GRAYLOG_VERSION'] + '"]'
+        WebDriverWait(chromedriver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, footer_xpath)))
 
     def test_input_udp(self, chromedriver):
         print('Testing GELF UDP Input...')
