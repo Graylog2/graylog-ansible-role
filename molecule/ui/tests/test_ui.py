@@ -13,7 +13,7 @@ class TestGraylog():
 
     def test_title(self, chromedriver):
         print("\nVerifying title text...")
-        assert "Graylog - Getting started" in chromedriver.title
+        assert "Getting started" in chromedriver.title
 
     def test_version(self, chromedriver):
         print('Checking if version is ' + os.environ['GRAYLOG_VERSION'] + '...')
@@ -25,8 +25,6 @@ class TestGraylog():
     def test_input_udp(self, chromedriver):
         print('Testing GELF UDP Input...')
         chromedriver.get(self.url + "/system/inputs")
-
-        element = WebDriverWait(chromedriver, 20).until(expected_conditions.title_is('Graylog - Inputs'))
 
         #Wait for dropdown to load
         WebDriverWait(chromedriver, 5).until(expected_conditions.presence_of_element_located((By.CLASS_NAME, 'form-group')))
