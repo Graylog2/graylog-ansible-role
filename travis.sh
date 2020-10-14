@@ -8,7 +8,7 @@ retry()
   set +e
   local result=0
   local count=1
-  local retry_max=5
+  local retry_max=3
   while [[ "${count}" -le "${retry_max}" ]]; do
     [[ "${result}" -ne 0 ]] && {
       echo -e "\\n${ANSI_RED}The command \"${*}\" failed. Retrying, ${count} of ${retry_max}.${ANSI_RESET}\\n" >&2
