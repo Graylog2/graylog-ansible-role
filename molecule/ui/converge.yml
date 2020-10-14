@@ -70,24 +70,6 @@
       include_role:
         name: "graylog-ansible-role"
 
-    - name: "Installing graylog-enterprise-plugins"
-      apt:
-        name: "graylog-enterprise-plugins{% if graylog_full_version is defined %}={{ graylog_full_version }}{% endif %}"
-        state: "present"
-      notify: restart graylog-server
-
-    - name: "Installing graylog-integrations-plugins"
-      apt:
-        name: "graylog-integrations-plugins{% if graylog_full_version is defined %}={{ graylog_full_version }}{% endif %}"
-        state: "present"
-      notify: restart graylog-server
-
-    - name: "Installing graylog-enterprise-integrations-plugins"
-      apt:
-        name: "graylog-enterprise-integrations-plugins{% if graylog_full_version is defined %}={{ graylog_full_version }}{% endif %}"
-        state: "present"
-      notify: restart graylog-server
-
     - debug:
         msg: "Graylog is up at {{ graylog_http_external_uri }}"
 
