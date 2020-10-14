@@ -36,3 +36,24 @@
     dest: "/etc/apt/preferences.d/elasticsearch"
     owner: "root"
     mode: 0644
+
+- name: "Installing graylog-enterprise-plugins"
+  apt:
+    name: "graylog-enterprise-plugins{% if graylog_full_version is defined %}={{ graylog_full_version }}{% endif %}"
+    state: "{{ graylog_package_state }}"
+  when: graylog_install_enterprise_plugins
+  notify: restart graylog-server
+
+- name: "Installing graylog-integrations-plugins"
+  apt:
+    name: "graylog-integrations-plugins{% if graylog_full_version is defined %}={{ graylog_full_version }}{% endif %}"
+    state: "{{ graylog_package_state }}"
+  when: graylog_install_integrations_plugins
+  notify: restart graylog-server
+
+- name: "Installing graylog-enterprise-integrations-plugins"
+  apt:
+    name: "graylog-enterprise-integrations-plugins{% if graylog_full_version is defined %}={{ graylog_full_version }}{% endif %}"
+    state: "{{ graylog_package_state }}"
+  when: graylog_install_enterprise_integrations_plugins
+  notify: restart graylog-server

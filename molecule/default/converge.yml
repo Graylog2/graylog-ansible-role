@@ -37,6 +37,7 @@
     #Java
     java_distribution: adoptopenjdk
     java_major_version: 8
+    adoptopenjdk_api_page: https://api.adoptopenjdk.net/v3/
 
     nginx_sites:
       graylog:

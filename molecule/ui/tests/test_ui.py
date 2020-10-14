@@ -26,7 +26,10 @@ class TestGraylog():
         print('Testing GELF UDP Input...')
         chromedriver.get(self.url + "/system/inputs")
 
-        element = WebDriverWait(chromedriver, 10).until(expected_conditions.title_is('Graylog - Inputs'))
+        element = WebDriverWait(chromedriver, 20).until(expected_conditions.title_is('Graylog - Inputs'))
+
+        #Wait for dropdown to load
+        WebDriverWait(chromedriver, 5).until(expected_conditions.presence_of_element_located((By.CLASS_NAME, 'form-group')))
 
         #Click input dropdown
         chromedriver.find_element_by_css_selector(".form-group").click()

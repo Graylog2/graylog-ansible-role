@@ -31,3 +31,8 @@ def test_service_graylog_started(host):
         server_up = host.run_test("cat /var/log/graylog-server/server.log | grep 'Graylog server up and running.'").exit_status
 
     assert server_up == 0
+
+def test_service_graylog_plugins_loaded(host):
+    print("Checking if plugins loaded...")
+    result = host.run_test('curl -u admin:admin http://' + host.interface('eth0').addresses[0] + ':9000/api/system/plugins')
+    print(result)
