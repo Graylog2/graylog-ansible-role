@@ -32,5 +32,4 @@ install:
   - sudo gpasswd -a travis libvirt
 
 script:
-  - ansible --version
   - sudo -E su travis travis.sh
