@@ -37,6 +37,7 @@
     #Java
     java_distribution: adoptopenjdk
     java_major_version: 8
+    adoptopenjdk_api_page: https://api.adoptopenjdk.net/v3/
 
     nginx_sites:
       graylog:
@@ -56,12 +57,20 @@
             client_body_buffer_size 128k;
           }
 
+    #Plugins
+    graylog_install_enterprise_plugins:               True
+    graylog_install_integrations_plugins:             True
+    graylog_install_enterprise_integrations_plugins:  True
+
   tasks:
     - set_fact:
         graylog_full_version:  "'{{ lookup('env', 'GRAYLOG_VERSION_WITH_REVISION') }}'"
+
     - name: "Include graylog-ansible-role"
       include_role:
         name: "graylog-ansible-role"
+
     - debug:
         msg: "Graylog is up at {{ graylog_http_external_uri }}"
+
   become: yes

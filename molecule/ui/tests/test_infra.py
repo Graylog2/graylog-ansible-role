@@ -1,4 +1,6 @@
 import time
+import json
+import os
 
 def test_service_elasticsearch_running(host):
     print("\nEnsure Elasticsearch is running...")
@@ -31,3 +33,29 @@ def test_service_graylog_started(host):
         server_up = host.run_test("cat /var/log/graylog-server/server.log | grep 'Graylog server up and running.'").exit_status
 
     assert server_up == 0
+
+def test_service_graylog_plugins_loaded(host):
+    print("Checking if plugins loaded...")
+    results = host.run_test('curl -u admin:admin http://' + host.interface('eth0').addresses[0] + ':9000/api/system/plugins')
+    plugins = json.loads(results.stdout)
+
+    enterprise_plugin_loaded = False
+    integrations_plugin_loaded = False
+    enterprise_integrations_plugin_loaded = False
+
+    for plugin in plugins['plugins']:
+      if plugin['name'] == 'Graylog Enterprise':
+        enterprise_plugin_loaded = True
+        assert plugin['version'] == os.environ['GRAYLOG_VERSION']
+
+      if plugin['name'] == 'Integrations':
+        integrations_plugin_loaded = True
+        assert plugin['version'] == os.environ['GRAYLOG_VERSION']
+
+      if plugin['name'] == 'Graylog Enterprise':
+        enterprise_integrations_plugin_loaded = True
+        assert plugin['version'] == os.environ['GRAYLOG_VERSION']
+
+    assert enterprise_plugin_loaded is True
+    assert integrations_plugin_loaded is True
+    assert enterprise_integrations_plugin_loaded is True

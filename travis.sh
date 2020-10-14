@@ -1,14 +1,17 @@
 #!/usr/bin/bash
 source $VIRTUAL_ENV/bin/activate
 set -x
+set -e
 
 retry()
 {
+  set +e
   local result=0
   local count=1
-  while [[ "${count}" -le 3 ]]; do
+  local retry_max=3
+  while [[ "${count}" -le "${retry_max}" ]]; do
     [[ "${result}" -ne 0 ]] && {
-      echo -e "\\n${ANSI_RED}The command \"${*}\" failed. Retrying, ${count} of 3.${ANSI_RESET}\\n" >&2
+      echo -e "\\n${ANSI_RED}The command \"${*}\" failed. Retrying, ${count} of ${retry_max}.${ANSI_RESET}\\n" >&2
     }
     #run the command in a way that doesn't disable setting `errexit`
     "${@}"
@@ -18,10 +21,10 @@ retry()
     sleep 1
   done
 
-  [[ "${count}" -gt 3 ]] && {
-    echo -e "\\n${ANSI_RED}The command \"${*}\" failed 3 times.${ANSI_RESET}\\n" >&2
+  [[ "${count}" -gt "${retry_max}" ]] && {
+    echo -e "\\n${ANSI_RED}The command \"${*}\" failed ${retry_max} times.${ANSI_RESET}\\n" >&2
   }
-
+  set -e
   return "${result}"
 }
 

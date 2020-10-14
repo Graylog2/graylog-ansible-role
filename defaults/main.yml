@@ -198,6 +198,11 @@ graylog_install_java:          True
 # Disable steps which break tests
 graylog_not_testing:           True
 
+# Plugins
+graylog_install_enterprise_plugins:               False
+graylog_install_integrations_plugins:             False
+graylog_install_enterprise_integrations_plugins:  False
+
 graylog_additional_config: {}
 
 required_vars:
