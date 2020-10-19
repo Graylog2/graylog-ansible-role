@@ -4,7 +4,7 @@ branches:
   only:
     - "master"
 
-dist: bionic
+dist: focal
 
 language: python
 python: 3.8

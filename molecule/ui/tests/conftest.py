@@ -19,6 +19,7 @@ def chromedriver():
         wait = WebDriverWait(driver, 10)
         url = 'http://localhost:9000'
         driver.get(url + "/gettingstarted")
+        print(driver.title)
 
         element = wait.until(expected_conditions.title_contains('Sign in'))
 
