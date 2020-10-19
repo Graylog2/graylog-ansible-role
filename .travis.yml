@@ -21,8 +21,8 @@ env:
 
 install:
   - |
-    export VAGRANT_VERSION=2.2.9
-    sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
+    export VAGRANT_VERSION=2.2.10
+    sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-daemon libvirt-daemon-system libvirt-dev qemu-kvm qemu-utils ruby-dev
     sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
     sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
     vagrant --version
