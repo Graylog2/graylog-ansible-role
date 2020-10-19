@@ -1,4 +1,3 @@
-import time
 import json
 import os
 
@@ -22,17 +21,6 @@ def test_is_graylog_installed(host):
 def test_service_graylog_running(host):
     print("Ensure graylog-server service is running...")
     assert host.service("graylog-server").is_running is True
-
-def test_service_graylog_started(host):
-    print("Waiting for Graylog to start up...")
-    end_time = time.time() + 90
-    server_up = 1
-
-    while server_up != 0 and time.time() < end_time:
-        time.sleep(2)
-        server_up = host.run_test("cat /var/log/graylog-server/server.log | grep 'Graylog server up and running.'").exit_status
-
-    assert server_up == 0
 
 def test_service_graylog_plugins_loaded(host):
     print("Checking if plugins loaded...")

@@ -6,8 +6,18 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 import time
 
-@pytest.fixture(scope="session")
-def chromedriver():
+@pytest.fixture(scope="module")
+def chromedriver(host):
+    print("\nWaiting for Graylog to start up...")
+    end_time = time.time() + 90
+    server_up = 1
+
+    while server_up != 0 and time.time() < end_time:
+        time.sleep(2)
+        server_up = host.run_test("cat /var/log/graylog-server/server.log | grep 'Graylog server up and running.'").exit_status
+
+    assert server_up == 0
+
     try:
         options = Options()
         options.headless = True
