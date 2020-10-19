@@ -20,7 +20,7 @@ def chromedriver():
         url = 'http://localhost:9000'
         driver.get(url + "/gettingstarted")
 
-        element = wait.until(expected_conditions.title_is('Graylog - Sign in'))
+        element = wait.until(expected_conditions.title_contains('Sign in'))
 
         #Login to Graylog
         uid_field = driver.find_element_by_name("username")
@@ -31,7 +31,7 @@ def chromedriver():
         password_field.send_keys("admin")
         password_field.send_keys(Keys.RETURN)
 
-        element = wait.until(expected_conditions.title_is('Graylog - Getting started'))
+        element = wait.until(expected_conditions.title_contains('Getting started'))
 
         #Run tests
         yield driver
