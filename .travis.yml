@@ -26,4 +26,5 @@ install:
 script:
 #- sudo vagrant up --provider=libvirt
 #- sudo vagrant ssh -c "echo 'hello world!'"
-- sudo -E su travis travis.sh
+- molecule --version
+#- sudo -E su travis travis.sh
