@@ -16,12 +16,11 @@ def chromedriver():
         options.add_argument("--disable-gpu");
 
         driver = webdriver.Chrome(options=options)
-        wait = WebDriverWait(driver, 10)
+
         url = 'http://localhost:9000'
         driver.get(url + "/gettingstarted")
-        print(driver.title)
 
-        element = wait.until(expected_conditions.title_contains('Sign in'))
+        WebDriverWait(driver, 30).until(expected_conditions.title_contains('Sign in'))
 
         #Login to Graylog
         uid_field = driver.find_element_by_name("username")
@@ -32,7 +31,7 @@ def chromedriver():
         password_field.send_keys("admin")
         password_field.send_keys(Keys.RETURN)
 
-        element = wait.until(expected_conditions.title_contains('Getting started'))
+        WebDriverWait(driver, 30).until(expected_conditions.title_contains('Getting started'))
 
         #Run tests
         yield driver

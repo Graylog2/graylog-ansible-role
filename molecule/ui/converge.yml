@@ -6,7 +6,7 @@
     graylog_install_elasticsearch: True
     graylog_install_mongodb:       True
     graylog_install_nginx:         True
-    graylog_install_java:          True
+    graylog_install_java:          False
     graylog_not_testing:           False
     graylog_version:               3.3
     graylog_mongodb_version:       4.2
@@ -22,7 +22,8 @@
     es_templates: False
     es_version_lock: False
     es_heap_size: "1g"
-    es_java_install: False
+    es_java_install: True
+    update_java: True
     oss_version: True
 
     es_config:
@@ -33,11 +34,6 @@
       network.host: "0.0.0.0"
       node.data: True
       node.master: True
-
-    #Java
-    java_distribution: adoptopenjdk
-    java_major_version: 8
-    adoptopenjdk_api_page: https://api.adoptopenjdk.net/v3/
 
     nginx_sites:
       graylog:
