@@ -28,11 +28,6 @@ retry()
   return "${result}"
 }
 
-echo "Checking for vagrant..."
-which vagrant
-RC=$?
-echo "RC: ${RC}"
-
 while sleep 9m; do echo "=====[ $SECONDS seconds still running ]====="; done &  #Bypass Travis CI's 10 minute timeout by printing to stdout every 9 minutes.
 molecule --debug create
 kill %1  #Kill background sleep loop
