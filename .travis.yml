@@ -32,5 +32,8 @@ install:
   - sudo gpasswd -a travis libvirt
 
 script:
-  - rm -rf /home/travis/.cache/molecule/graylog-ansible-role/default
-  - sudo -E su travis travis.sh
+  - |
+    cd /home/travis/.cache/molecule/graylog-ansible-role/default
+    vagrant global-status
+    vagrant up
+  #- sudo -E su travis travis.sh
