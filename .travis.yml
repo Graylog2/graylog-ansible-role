@@ -1,14 +1,13 @@
 ---
-
 branches:
   only:
     - "master"
-
 dist: focal
-
 language: python
 python: 3.8
-
+cache:
+  directories:
+  - /home/travis/.vagrant.d/boxes
 env:
   matrix:
     - MOLECULE_DISTRO: centos/7
@@ -29,7 +28,7 @@ install:
   - sudo vagrant plugin install vagrant-libvirt
   - pip3 install molecule==3.0.8 yamllint ansible-lint python-vagrant molecule-vagrant testinfra
   - sudo chown -R travis:travis /home/travis/.vagrant.d
-  - sudo -E gpasswd -a travis libvirt
+  - sudo gpasswd -a travis libvirt
 
 script:
   - sudo -E su travis travis.sh
