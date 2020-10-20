@@ -20,7 +20,7 @@ install:
 - sudo dpkg -i vagrant_2.2.10_x86_64.deb
 - vagrant --version
 - sudo vagrant plugin install vagrant-libvirt
-- pip3 install molecule yamllint ansible-lint python-vagrant molecule==3.0.8 molecule-vagrant testinfra
+- pip3 install yamllint ansible-lint python-vagrant molecule==3.0.8 molecule-vagrant testinfra
 - sudo chown -R travis:travis /home/travis/.vagrant.d
 
 script:
