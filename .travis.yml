@@ -28,5 +28,6 @@ install:
 - sudo vagrant plugin install vagrant-libvirt
 
 script:
-- sudo vagrant up --provider=libvirt
-- sudo vagrant ssh -c "echo 'hello world!'"
+#- sudo vagrant up --provider=libvirt
+#- sudo vagrant ssh -c "echo 'hello world!'"
+- sudo -E su travis travis.sh
