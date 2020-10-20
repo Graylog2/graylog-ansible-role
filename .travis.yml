@@ -1,68 +1,26 @@
 ---
-
-branches:
-  only:
-    - "master"
-
-dist: focal
-
+dist: bionic
 language: python
-python: 3.8
 
-env:
-  matrix:
-    - MOLECULE_DISTRO: centos/7
-    - MOLECULE_DISTRO: centos/8
-    - MOLECULE_DISTRO: debian/stretch64
-    - MOLECULE_DISTRO: debian/buster64
-    - MOLECULE_DISTRO: generic/ubuntu1604
-    - MOLECULE_DISTRO: generic/ubuntu1804
-    - MOLECULE_DISTRO: generic/ubuntu2004
+# Cache the big Vagrant boxes
+cache:
+  directories:
+  - /home/travis/.vagrant.d/boxes
 
 install:
-  - |
-    export VAGRANT_VERSION=2.2.10
-    sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-daemon libvirt-daemon-system libvirt-dev qemu-kvm qemu-utils ruby-dev
-    sudo wget -nv https://releases.hashicorp.com/vagrant/${VAGRANT_VERSION}/vagrant_${VAGRANT_VERSION}_x86_64.deb
-    sudo dpkg -i vagrant_${VAGRANT_VERSION}_x86_64.deb
-    vagrant --version
-  - sudo vagrant plugin install vagrant-libvirt
-  - pip3 install molecule yamllint ansible-lint python-vagrant molecule-vagrant testinfra
-  - sudo chown -R travis:travis /home/travis/.vagrant.d
-  - sudo -E gpasswd -a travis libvirt
-  - whoami
-  - id
+# Install libvrt & KVM (see https://github.com/alvistack/ansible-role-virtualbox/blob/master/.travis.yml)
+- sudo apt-get update && sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
+
+# Download Vagrant & Install Vagrant package
+- sudo wget -nv https://releases.hashicorp.com/vagrant/2.2.7/vagrant_2.2.10_x86_64.deb
+- sudo dpkg -i vagrant_2.2.10_x86_64.deb
+
+# Vagrant correctly installed?
+- vagrant --version
+
+# Install vagrant-libvirt Vagrant plugin
+- sudo vagrant plugin install vagrant-libvirt
 
 script:
-  #- sudo -E su travis travis.sh && true
-  - |
-    ls -l /var/run/libvirt/libvirt-sock
-    whoami
-    id
-    bash -l -c 'id'
-    # cat > Vagrantfile <<EOL
-    # Vagrant.configure("2") do |config|
-    #     config.vm.box = "generic/ubuntu1804"
-    #
-    #     config.vm.define 'ubuntu'
-    #
-    #     # Vagrant boot needs more time on AppVeyor (see https://help.appveyor.com/discussions/problems/1247-vagrant-not-working-inside-appveyor)
-    #     config.vm.boot_timeout = 1800
-    #
-    #     # Prevent SharedFoldersEnableSymlinksCreate errors
-    #     config.vm.synced_folder ".", "/vagrant", disabled: true
-    #
-    #     config.vm.provider :virtualbox do |vb|
-    #         vb.name = 'ubuntu'
-    #         vb.memory = 128
-    #         vb.cpus = 1
-    #         # Vagrant needs this config on AppVeyor to spin up correctly (see https://help.appveyor.com/discussions/problems/1247-vagrant-not-working-inside-appveyor)
-    #         vb.customize ["modifyvm", :id, "--nictype1", "Am79C973"]
-    #         vb.customize ['modifyvm', :id, '--cableconnected1', 'on']
-    #     end
-    # end
-    # EOL
-    # vagrant global-status
-    # vagrant up --provider=libvirt
-    # vagrant global-status
-    # vagrant destroy --provider=libvirt
+- sudo vagrant up --provider=libvirt
+- sudo vagrant ssh -c "echo 'hello world!'"
