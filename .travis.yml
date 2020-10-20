@@ -34,6 +34,7 @@ install:
 script:
   #- sudo -E su travis travis.sh && true
   - |
+    ls -l /var/run/libvirt/libvirt-sock
     cat > Vagrantfile <<EOL
     Vagrant.configure("2") do |config|
         config.vm.box = "generic/ubuntu1804"
