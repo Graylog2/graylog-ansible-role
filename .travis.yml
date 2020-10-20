@@ -29,7 +29,9 @@ install:
   - sudo vagrant plugin install vagrant-libvirt
   - pip3 install molecule yamllint ansible-lint python-vagrant molecule-vagrant testinfra
   - sudo chown -R travis:travis /home/travis/.vagrant.d
-  - sudo gpasswd -a travis libvirt
+  - sudo -E gpasswd -a travis libvirt
+  - whoami
+  - id
 
 script:
   #- sudo -E su travis travis.sh && true
@@ -37,6 +39,7 @@ script:
     ls -l /var/run/libvirt/libvirt-sock
     whoami
     id
+    bash -l -c 'id'
     # cat > Vagrantfile <<EOL
     # Vagrant.configure("2") do |config|
     #     config.vm.box = "generic/ubuntu1804"
