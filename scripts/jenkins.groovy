@@ -44,6 +44,7 @@ pipeline
           always
           {
             sh 'molecule destroy --scenario-name ui'
+            cleanWs()
           }
         }
       }

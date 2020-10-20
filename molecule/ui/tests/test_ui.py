@@ -68,7 +68,7 @@ def test_service_graylog_plugins_loaded(host):
     assert enterprise_integrations_plugin_loaded is True
 
 
-class TestGraylog():
+class TestUI():
     url = 'http://localhost:9000'
 
     def test_title(self, chromedriver):
@@ -93,7 +93,9 @@ class TestGraylog():
         chromedriver.find_element_by_css_selector(".form-group").click()
 
         #Click GELF UDP option
-        chromedriver.find_element_by_xpath('//div[text()="GELF UDP"]').click()
+        gelf_udp_option = WebDriverWait(chromedriver, 10).until(expected_conditions.presence_of_element_located((By.XPATH, '//div[text()="GELF UDP"]')))
+        gelf_udp_option.click()
+        #chromedriver.find_element_by_xpath('//div[text()="GELF UDP"]').click()
 
         #Click "Launch new Input" button
         chromedriver.find_element_by_xpath('//button[text()="Launch new input"]').click()
