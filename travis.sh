@@ -29,7 +29,7 @@ retry()
 }
 
 while sleep 9m; do echo "=====[ $SECONDS seconds still running ]====="; done &  #Bypass Travis CI's 10 minute timeout by printing to stdout every 9 minutes.
-molecule --debug create
+molecule create
 kill %1  #Kill background sleep loop
 
 retry molecule converge
