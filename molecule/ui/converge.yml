@@ -8,7 +8,8 @@
     graylog_install_nginx:         True
     graylog_install_java:          False
     graylog_not_testing:           False
-    graylog_version:               3.3
+    graylog_version:               "{{ lookup('env', 'GRAYLOG_VERSION') | regex_search('^\\d+\\.\\d+') }}"
+    graylog_full_version:          "'{{ lookup('env', 'GRAYLOG_VERSION') }}-{{ lookup('env', 'GRAYLOG_REVISION') }}'"
     graylog_mongodb_version:       4.2
     graylog_http_bind_address:     "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000"
     graylog_http_publish_uri:      "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000/"
@@ -59,9 +60,6 @@
     graylog_install_enterprise_integrations_plugins:  True
 
   tasks:
-    - set_fact:
-        graylog_full_version:  "'{{ lookup('env', 'GRAYLOG_VERSION_WITH_REVISION') }}'"
-
     - name: "Include graylog-ansible-role"
       include_role:
         name: "graylog-ansible-role"

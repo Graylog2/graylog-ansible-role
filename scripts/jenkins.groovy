@@ -12,7 +12,7 @@ pipeline
    parameters
    {
      string(name: 'GRAYLOG_VERSION', defaultValue: '', description: 'The Graylog version you want tested (3.3.6, 4.0.0, etc).')
-     string(name: 'GRAYLOG_REVISION', defaultValue: '1', description: 'The Graylog package revision.')
+     string(name: 'GRAYLOG_REVISION', defaultValue: '1', description: 'The Graylog package revision. (1, 2, 2.beta.2, etc.)')
    }
 
    environment
@@ -20,7 +20,6 @@ pipeline
      MOLECULE_DISTRO='generic/ubuntu2004'
      GRAYLOG_VERSION="${params.GRAYLOG_VERSION}"
      GRAYLOG_REVISION="${params.GRAYLOG_REVISION}"
-     GRAYLOG_VERSION_WITH_REVISION="${GRAYLOG_VERSION}-${GRAYLOG_REVISION}"
    }
 
    stages

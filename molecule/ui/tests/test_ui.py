@@ -53,15 +53,15 @@ def test_service_graylog_plugins_loaded(host):
     for plugin in plugins['plugins']:
       if plugin['name'] == 'Graylog Enterprise':
         enterprise_plugin_loaded = True
-        assert plugin['version'] == os.environ['GRAYLOG_VERSION']
+        assert os.environ['GRAYLOG_VERSION'] in plugin['version']
 
       if plugin['name'] == 'Integrations':
         integrations_plugin_loaded = True
-        assert plugin['version'] == os.environ['GRAYLOG_VERSION']
+        assert os.environ['GRAYLOG_VERSION'] in plugin['version']
 
       if plugin['name'] == 'Graylog Enterprise':
         enterprise_integrations_plugin_loaded = True
-        assert plugin['version'] == os.environ['GRAYLOG_VERSION']
+        assert os.environ['GRAYLOG_VERSION'] in plugin['version']
 
     assert enterprise_plugin_loaded is True
     assert integrations_plugin_loaded is True
