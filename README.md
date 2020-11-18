@@ -56,7 +56,7 @@ Here is an example of a playbook targeting Vagrant (Ubuntu Xenial):
     graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
   roles:
-    - role: "Graylog2.graylog-ansible-role"
+    - role: "graylog2.graylog-ansible-role"
       tags:
         - "graylog"
 ```
@@ -138,7 +138,7 @@ More detailed example
           }
 
   roles:
-    - role: "Graylog2.graylog-ansible-role"
+    - role: "graylog2.graylog-ansible-role"
       tags:
         - "graylog"
 ```
