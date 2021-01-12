@@ -19,8 +19,8 @@ systemLog:
 
 # network interfaces
 net:
-  port: 27017
-  bindIp: 127.0.0.1
+  port: {{ graylog_mongodb_bind_port }}
+  bindIp: {{ graylog_mongodb_bind_ip }}
 
 
 {% if ansible_distribution != "RedHat" %}

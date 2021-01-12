@@ -50,7 +50,7 @@
 
 - name: "SELinux port access should be granted for MongoDB"
   seport:
-    ports: 27017
+    ports: "{{graylog_mongodb_bind_port}}"
     proto: "tcp"
     setype: "mongod_port_t"
     state: "present"
@@ -60,7 +60,7 @@
 
 - name: "Wait for MongoDB to startup"
   wait_for:
-    host: "127.0.0.1"
-    port: 27017
+    host: "{{graylog_mongodb_bind_ip}}"
+    port: "{{graylog_mongodb_bind_port}}"
     delay: 5
     connect_timeout: 1
