@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 import time
+import chromedriver_binary  # Adds chromedriver binary to path
 
 @pytest.fixture(scope="session")
 def chromedriver():

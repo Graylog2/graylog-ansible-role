@@ -1,0 +1,12 @@
+molecule
+molecule[lint]
+yamllint
+ansible-lint
+python-vagrant
+molecule-vagrant
+molecule-docker
+testinfra
+pytest-testinfra
+selenium
+enrich
+chromedriver-binary-auto
