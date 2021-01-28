@@ -1,6 +1,6 @@
 pipeline
 {
-    agent none
+   agent none
 
    options
    {
@@ -20,6 +20,7 @@ pipeline
      MOLECULE_DISTRO='generic/ubuntu2004'
      GRAYLOG_VERSION="${params.GRAYLOG_VERSION}"
      GRAYLOG_REVISION="${params.GRAYLOG_REVISION}"
+     PIP_DISABLE_PIP_VERSION_CHECK=1
    }
 
    stages
@@ -32,7 +33,10 @@ pipeline
         }
         steps
         {
-          sh '''molecule destroy --scenario-name ui
+          sh '''python3 -m venv venv
+                pip3 install -r requirements.txt
+                source venv/bin/activate
+                molecule destroy --scenario-name ui
                 molecule create --scenario-name ui
                 molecule converge --scenario-name ui
                 molecule verify --scenario-name ui
