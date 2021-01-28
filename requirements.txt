@@ -11,3 +11,4 @@ python-vagrant==0.5.15
 pytest-testinfra==6.1.0
 selenium==3.141.0
 yamllint==1.25.0
+wheel

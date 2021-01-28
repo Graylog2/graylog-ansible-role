@@ -33,9 +33,10 @@ pipeline
         }
         steps
         {
-          sh '''python3 -m venv venv
-                pip3 install -r requirements.txt
+          sh '''#!/bin/bash
+                python3 -m venv venv
                 source venv/bin/activate
+                pip3 install -r requirements.txt
                 molecule destroy --scenario-name ui
                 molecule create --scenario-name ui
                 molecule converge --scenario-name ui
