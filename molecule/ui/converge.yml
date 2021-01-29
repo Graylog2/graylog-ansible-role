@@ -10,7 +10,9 @@
     graylog_not_testing:           False
     graylog_version:               "{{ lookup('env', 'GRAYLOG_VERSION') | regex_search('^\\d+\\.\\d+') }}"
     graylog_full_version:          "'{{ lookup('env', 'GRAYLOG_VERSION') }}-{{ lookup('env', 'GRAYLOG_REVISION') }}'"
-    graylog_mongodb_version:       4.2
+    graylog_mongodb_version:       4.4
+    graylog_mongodb_package_name:  mongodb-org
+    graylog_mongodb_service_name:  mongod
     graylog_http_bind_address:     "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000"
     graylog_http_publish_uri:      "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000/"
     graylog_http_external_uri:     "http://localhost:9000/"
