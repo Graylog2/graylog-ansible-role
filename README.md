@@ -85,6 +85,15 @@ graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
 
 Take a look into `defaults/main.yml` to get an overview of all configuration parameters.
 
+If you need to configure a graylog setting that we haven't set up, you can use `graylog_additional_config` to declare it:
+
+```yaml
+graylog_additional_config:
+  elasticsearch_discovery_default_user: my_username
+  elasticsearch_discovery_default_password: "{{ my_password }}"
+```
+
+
 More detailed example
 ---------------------
 

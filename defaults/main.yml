@@ -56,7 +56,7 @@ graylog_elasticsearch_disable_version_check:            True
 graylog_elasticsearch_http_enabled:                     False
 graylog_disable_index_optimization:                     True
 graylog_index_optimization_max_num_segments:            1
-graylog_elasticsearch_discovery_enabled:                True
+graylog_elasticsearch_discovery_enabled:                False
 graylog_elasticsearch_discovery_frequency:              "30s"
 graylog_elasticsearch_discovery_filter:                 ""
 graylog_elasticsearch_max_total_connections:            20
