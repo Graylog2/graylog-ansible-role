@@ -15,11 +15,7 @@ def test_service_elasticsearch_running(host):
 
 def test_service_mongodb_running(host):
     print("Ensure MongoDB is running...")
-    if host.system_info.distribution == 'ubuntu' and host.system_info.codename == 'focal':
-        mongodb_service_name = 'mongodb'
-    else:
-        mongodb_service_name = 'mongod'
-
+    mongodb_service_name = 'mongod'
     assert host.service(mongodb_service_name).is_running is True
 
 def test_is_graylog_installed(host):
