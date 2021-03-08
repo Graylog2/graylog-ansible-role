@@ -15,6 +15,7 @@ platforms:
     cpus: 1
     instance_raw_config_args:
       - "vm.network 'forwarded_port', guest: 80, host: 9000"
+      - "vm.network 'forwarded_port', guest: 5044, host: 5044, protocol: 'tcp'"
       - "vm.network 'forwarded_port', guest: 12201, host: 12201, protocol: 'udp'"
 provisioner:
   name: ansible
