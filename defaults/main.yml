@@ -187,7 +187,7 @@ graylog_web_thread_pool_size:        16
 # JVM
 graylog_gc_warning_threshold: "1s"
 graylog_server_heap_size:     "1500m"
-graylog_server_java_opts:     "-Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:-OmitStackTraceInFastThrow"
+graylog_server_java_opts:     "-Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow"
 graylog_server_args:          ""
 graylog_server_wrapper:       ""
 
