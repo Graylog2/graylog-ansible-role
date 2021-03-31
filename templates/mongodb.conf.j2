@@ -23,7 +23,7 @@ net:
   bindIp: {{ graylog_mongodb_bind_ip }}
 
 
-{% if ansible_distribution != "RedHat" %}
+{% if ansible_os_family != "RedHat" %}
 processManagement:
   fork: false
 {% endif %}
