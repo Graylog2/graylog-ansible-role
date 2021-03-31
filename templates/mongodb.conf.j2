@@ -23,9 +23,13 @@ net:
   bindIp: {{ graylog_mongodb_bind_ip }}
 
 
-{% if ansible_os_family != "RedHat" %}
 processManagement:
+{% if ansible_os_family != "RedHat" %}
   fork: false
+{% else %}
+  fork: true  # fork and run in background
+  pidFilePath: /var/run/mongodb/mongod.pid  # location of pidfile
+  timeZoneInfo: /usr/share/zoneinfo
 {% endif %}
 
 #security:
