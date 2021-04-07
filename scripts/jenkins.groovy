@@ -36,6 +36,7 @@ pipeline
           sh '''#!/bin/bash
                 python3 -m venv venv
                 source venv/bin/activate
+                python3 -m pip install -U pip
                 pip3 install -r requirements.txt
                 molecule destroy --scenario-name ui
                 molecule create --scenario-name ui
