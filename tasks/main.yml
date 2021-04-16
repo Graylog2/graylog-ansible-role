@@ -9,6 +9,7 @@
   fail: msg="Variable '{{ item }}' is not defined"
   when: item not in vars
   with_items: "{{ required_vars }}"
+  tags: configuration
 
 - name: "Check graylog_mongodb_version var"
   fail: msg="The 'graylog_mongodb_version' variable is not defined."
@@ -21,6 +22,7 @@
 
 - name: "Load OS-family specific vars"
   include_vars: "{{ ansible_os_family }}.yml"
+  tags: configuration
 
 - name: "Discover systemd capabilities"
   set_fact:
@@ -30,6 +32,7 @@
         (ansible_distribution in ['RedHat','CentOS'] and ansible_distribution_version is version('7', '>=')) or
         (ansible_distribution == 'Ubuntu' and ansible_distribution_version is version('15', '>='))
       }}
+  tags: configuration
 
 - include: "mongodb-{{ ansible_os_family }}.yml"
   when: graylog_install_mongodb

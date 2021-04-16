@@ -30,6 +30,7 @@
     group: "graylog"
     mode: 0644
   notify: "restart graylog-server"
+  tags: configuration
 
 - name: "Graylog server defaults should be configured"
   template:
@@ -39,6 +40,7 @@
     group: "graylog"
     mode: 0644
   notify: "restart graylog-server"
+  tags: configuration
 
 - name: "Graylog server should start after reboot"
   file:
