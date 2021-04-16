@@ -22,7 +22,7 @@
 - name: "Check deprecated variables: graylog_install_nginx"
   fail:
     msg: "Varible 'graylog_install_nginx' has been deprecated. Use the official Nginx role to install Nginx."
-  when: graylog_install_nginx is defined
+  when: graylog_install_nginx
 
 - name: "Load OS-family specific vars"
   include_vars: "{{ ansible_os_family }}.yml"

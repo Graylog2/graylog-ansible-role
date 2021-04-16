@@ -194,6 +194,7 @@ graylog_server_wrapper:       ""
 # Install Switches
 graylog_install_elasticsearch: True
 graylog_install_mongodb:       True
+graylog_install_nginx:         False    #Deprecated
 graylog_install_java:          True
 
 # Disable steps which break tests
