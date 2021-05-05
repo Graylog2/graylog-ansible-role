@@ -15,10 +15,15 @@
   fail: msg="The 'graylog_mongodb_version' variable is not defined."
   when: (graylog_install_mongodb) and (graylog_mongodb_version is not defined)
 
-- name: "Check deprecated variables"
+- name: "Check deprecated variables: graylog_server_version"
   fail:
-    msg: "Varible 'graylog_server_version' has been deprecated. Use 'graylog_full_version' instead."
+    msg: "Variable 'graylog_server_version' has been deprecated. Use 'graylog_full_version' instead."
   when: graylog_server_version is defined
+
+- name: "Check deprecated variables: graylog_install_nginx"
+  fail:
+    msg: "Varible 'graylog_install_nginx' has been deprecated. Use the official Nginx role to install Nginx."
+  when: graylog_install_nginx
 
 - name: "Load OS-family specific vars"
   include_vars: "{{ ansible_os_family }}.yml"

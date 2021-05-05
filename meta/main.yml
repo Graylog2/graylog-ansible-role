@@ -9,9 +9,6 @@ dependencies:
     version: master
     when: graylog_install_elasticsearch
 
-  - role: "jdauphant.nginx"
-    when: graylog_install_nginx
-
 galaxy_info:
   author: "Marius Sturm"
   company: "Graylog, Inc."
@@ -31,6 +28,7 @@ galaxy_info:
       versions:
         - "xenial"
         - "bionic"
+        - "focal"
   galaxy_tags:
     - "monitoring"
     - "system"

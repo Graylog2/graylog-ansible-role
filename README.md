@@ -12,21 +12,20 @@ Dependencies
 - **Only Ansible versions > 2.5.0 are supported.**
 - Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions, consider backports accordingly
 - [Elasticsearch][1]
-- [NGINX][2]
 - Tested on
   - Ubuntu 16.04
   - Ubuntu 18.04
+  - Ubuntu 20.04
   - Debian 9
   - Debian 10
   - Centos 7
   - Centos 8
 
+If you require Nginx to be installed, include the official [Nginx][2] role in your playbook.
+
 
 Usage
 ----------
-
-*Note: This role is for Graylog-3.X only! For older versions, use the graylog-2.X branch.*
-
 - You need at least 4GB of memory to run Graylog
 - Generate the password hash for the admin user:
   - `echo -n yourpassword | sha256sum     # Linux`
@@ -72,8 +71,8 @@ Variables
 
 ```yaml
 # Basic server settings
-graylog_version: 3.3     # Required
-graylog_full_version: "3.3.2-1" # Optional, if not provided, the latest revision of {{ graylog_version }} will be installed
+graylog_version: 4.0     # Required
+graylog_full_version: "4.0.6-1" # Optional, if not provided, the latest revision of {{ graylog_version }} will be installed
 graylog_is_master: "True"
 graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
 graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
@@ -119,32 +118,13 @@ More detailed example
       network.host: "127.0.0.1"
       node.data: True
       node.master: True
-    graylog_version: 3.3
+    graylog_version: 4.0
     graylog_install_java: False # Elasticsearch role already installed Java
     graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
     graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
     graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
     graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
-
-    nginx_sites:
-      graylog:
-        - "listen 80"
-        - "server_name graylog"
-        - |
-          location / {
-            proxy_pass http://localhost:9000/;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass_request_headers on;
-            proxy_connect_timeout 150;
-            proxy_send_timeout 100;
-            proxy_read_timeout 100;
-            proxy_buffers 4 32k;
-            client_max_body_size 8m;
-            client_body_buffer_size 128k;
-          }
 
   roles:
     - role: "graylog2.graylog-ansible-role"
@@ -169,7 +149,6 @@ Note: in this example vars are in a more appropriate place at `group_vars/group/
   vars:
     graylog_install_elasticsearch: False
     graylog_install_mongodb:       False
-    graylog_install_nginx:         False
 
   roles:
     - role: lean_delivery.java
@@ -179,11 +158,6 @@ Note: in this example vars are in a more appropriate place at `group_vars/group/
     - role: "elastic.elasticsearch"
       tags:
         - "elasticsearch"
-        - "graylog_servers"
-
-    - role: "jdauphant.nginx"
-      tags:
-        - "nginx"
         - "graylog_servers"
 
     - role: "graylog2.graylog-ansible-role"
@@ -302,7 +276,7 @@ Author: Marius Sturm (<marius@graylog.com>) and [contributors][4]
 License: Apache 2.0
 
 [1]: https://github.com/elastic/ansible-elasticsearch
-[2]: https://github.com/jdauphant/ansible-role-nginx
+[2]: https://github.com/nginxinc/ansible-role-nginx
 [3]: https://github.com/Graylog2/graylog-ansible-role/blob/master/meta/main.yml
 [4]: https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors
 [5]: https://pablodav.github.io/post/graylog/graylog_ansible

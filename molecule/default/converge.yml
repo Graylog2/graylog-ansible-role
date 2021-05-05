@@ -5,7 +5,6 @@
     #Graylog
     graylog_install_elasticsearch: True
     graylog_install_mongodb:       True
-    graylog_install_nginx:         False
     graylog_install_java:          False
     graylog_not_testing:           False
     graylog_version:               3.3

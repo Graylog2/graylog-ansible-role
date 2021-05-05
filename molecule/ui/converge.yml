@@ -5,7 +5,6 @@
     #Graylog
     graylog_install_elasticsearch: True
     graylog_install_mongodb:       True
-    graylog_install_nginx:         False
     graylog_install_java:          False
     graylog_not_testing:           False
     graylog_version:               "{{ lookup('env', 'GRAYLOG_VERSION') | regex_search('^\\d+\\.\\d+') }}"
@@ -37,24 +36,6 @@
       network.host: "0.0.0.0"
       node.data: True
       node.master: True
-
-    nginx_sites:
-      graylog:
-        - "listen 80"
-        - |
-          location / {
-            proxy_pass http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000/;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass_request_headers on;
-            proxy_connect_timeout 150;
-            proxy_send_timeout 100;
-            proxy_read_timeout 100;
-            proxy_buffers 4 32k;
-            client_max_body_size 8m;
-            client_body_buffer_size 128k;
-          }
 
     #Plugins
     graylog_install_enterprise_plugins:               True
