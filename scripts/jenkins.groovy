@@ -48,7 +48,10 @@ pipeline
         {
           always
           {
-            sh 'molecule destroy --scenario-name ui'
+            sh '''#!/bin/bash
+                  source venv/bin/activate
+                  molecule destroy --scenario-name ui
+               '''
             cleanWs()
           }
         }
