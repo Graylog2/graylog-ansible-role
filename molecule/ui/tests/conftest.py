@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 import time
 from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.utils import ChromeType
 
 @pytest.fixture(scope="session")
 def chromedriver():
@@ -15,10 +16,8 @@ def chromedriver():
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument("--disable-gpu")
-        options.add_argument('allow-elevated-browser')
-        options.binary_location = "/usr/bin/google-chrome"
 
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(), options=options)
 
         url = 'http://localhost:9000'
         driver.get(url + "/gettingstarted")
