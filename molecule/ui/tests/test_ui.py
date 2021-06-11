@@ -103,7 +103,7 @@ class TestUI():
         chromedriver.find_element_by_xpath("//select[@id='node-select']/option[2]").click()
 
         #Fill out input field
-        title_field = chromedriver.find_element_by_id("title")
+        title_field = chromedriver.find_element_by_id("org.graylog2.inputs.gelf.udp.GELFUDPInput-title")
         title_field.send_keys('Test UDP Input')
 
         #Save form
