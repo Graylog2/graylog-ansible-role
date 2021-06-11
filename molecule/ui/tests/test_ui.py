@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException
 
 def test_service_elasticsearch_running(host):
     print("\nEnsure Elasticsearch is running...")
@@ -103,7 +104,12 @@ class TestUI():
         chromedriver.find_element_by_xpath("//select[@id='node-select']/option[2]").click()
 
         #Fill out input field
-        title_field = chromedriver.find_element_by_id("org.graylog2.inputs.gelf.udp.GELFUDPInput-title")
+        try:
+            title_field = chromedriver.find_element_by_id("org.graylog2.inputs.gelf.udp.GELFUDPInput-title")
+        except (NoSuchElementException):
+            #Try the id that was used in <=4.0
+            title_field = chromedriver.find_element_by_id("title")
+
         title_field.send_keys('Test UDP Input')
 
         #Save form
