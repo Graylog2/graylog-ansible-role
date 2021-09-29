@@ -10,6 +10,8 @@ dependencies:
     when: graylog_install_elasticsearch
 
 galaxy_info:
+  role_name: graylog
+  namespace: graylog2
   author: "Marius Sturm"
   company: "Graylog, Inc."
   description: "Install and configure Graylog log management."
