@@ -249,8 +249,7 @@ To destroy the VM:
 
 To test against other distros, you can also set the MOLECULE_DISTRO environment variable to one of these:
 
-    export MOLECULE_DISTRO='centos/7'
-    export MOLECULE_DISTRO='centos/8'
+    export MOLECULE_DISTRO='geerlingguy/centos8'
     export MOLECULE_DISTRO='debian/jessie64'
     export MOLECULE_DISTRO='debian/stretch64'
     export MOLECULE_DISTRO='debian/buster64'
