@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Graylog2/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/Graylog2/graylog-ansible-role) [![Galaxy](https://img.shields.io/badge/galaxy-graylog--ansible--role-blue)](https://galaxy.ansible.com/graylog2/graylog-ansible-role) ![Ansible](https://img.shields.io/ansible/role/d/11230.svg) ![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F11230%2F&query=$.min_ansible_version) ![Ansible](https://img.shields.io/ansible/quality/11230)
+[![Build Status](https://travis-ci.org/Graylog2/graylog-ansible-role.svg?branch=master)](https://travis-ci.org/Graylog2/graylog-ansible-role) [![Galaxy](https://img.shields.io/badge/galaxy-graylog--ansible--role-blue)](https://galaxy.ansible.com/Graylog2/graylog) ![Ansible](https://img.shields.io/ansible/role/d/11230.svg) ![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F11230%2F&query=$.min_ansible_version) ![Ansible](https://img.shields.io/ansible/quality/11230)
 
 Description
 -----------
@@ -61,8 +61,8 @@ Here is an example of a playbook targeting Vagrant (Ubuntu Xenial):
 ```
 
 - Create a playbook file with that content, e.g. `your_playbook.yml`
-- Fetch this role `ansible-galaxy install -n -p ./roles Graylog2.graylog-ansible-role`
-- Install role's dependencies `ansible-galaxy install -r roles/Graylog2.graylog-ansible-role/requirements.yml -p ./roles`
+- Fetch this role `ansible-galaxy install -n -p ./roles graylog2.graylog`
+- Install role's dependencies `ansible-galaxy install -r roles/graylog2.graylog/requirements.yml -p ./roles`
 - Apply the playbook to a Vagrant box `ansible-playbook your_playbook.yml -i "127.0.0.1:2222,"`
 - Login to Graylog by opening `http://127.0.0.1:9000` in your browser. Default username and password is `admin`
 
@@ -97,8 +97,8 @@ More detailed example
 ---------------------
 
 - Set up `roles_path = ./roles` in `ansible.cfg` (`[defaults]` block)
-- Install role `ansible-galaxy install Graylog2.graylog-ansible-role`
-- Install role's dependencies `ansible-galaxy install -r roles/Graylog2.graylog-ansible-role/requirements.yml`
+- Install role `ansible-galaxy install graylog2.graylog`
+- Install role's dependencies `ansible-galaxy install -r roles/graylog2.graylog/requirements.yml`
 - Set up playbook (see example below):
 
 ```yaml
