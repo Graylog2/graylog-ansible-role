@@ -187,7 +187,7 @@ Note that this is ONLY required if you want to run the test harness. You don't n
 
 #### Install Notes
 
-Setting up Molecule requires installing a number tools for the VM enviroment. The following are notes from a successful install on Ubuntu 20.04.
+Setting up Molecule requires installing a number tools for the VM environment. The following are notes from a successful install on Ubuntu 20.04.
 
 Install Virtualenv, Molecule, and testinfra
 
@@ -233,6 +233,8 @@ Test that Molecule works
 To spin up a test VM:
 
     export MOLECULE_DISTRO='generic/ubuntu1804'
+    export GRAYLOG_VERSION=4.2.0
+    export GRAYLOG_REVISION=3
     molecule create
 
 To run the Ansible playbook:

@@ -7,13 +7,14 @@
     graylog_install_mongodb:       True
     graylog_install_java:          False
     graylog_not_testing:           False
-    graylog_version:               3.3
+    graylog_version:               "{{ lookup('env', 'GRAYLOG_VERSION') | regex_search('^\\d+\\.\\d+') }}"
+    graylog_full_version:          "'{{ lookup('env', 'GRAYLOG_VERSION') }}-{{ lookup('env', 'GRAYLOG_REVISION') }}'"
     graylog_mongodb_version:       4.4
     graylog_mongodb_package_name:  mongodb-org
     graylog_mongodb_service_name:  mongod
     graylog_http_bind_address:     "{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000"
     graylog_http_publish_uri:      "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000/"
-    graylog_http_external_uri:     "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000/"
+    graylog_http_external_uri:     "http://localhost:9000/"
 
     #Elasticsearch
     es_major_version: "6.x"
@@ -36,43 +37,17 @@
       node.data: True
       node.master: True
 
-    #Java
-    java_distribution: adoptopenjdk
-    java_major_version: 8
-    adoptopenjdk_api_page: https://api.adoptopenjdk.net/v3/
-
-    nginx_sites:
-      graylog:
-        - "listen 80"
-        - "server_name graylog"
-        - |
-          location / {
-            proxy_pass http://localhost:9000/;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass_request_headers on;
-            proxy_connect_timeout 150;
-            proxy_send_timeout 100;
-            proxy_read_timeout 100;
-            proxy_buffers 4 32k;
-            client_max_body_size 8m;
-            client_body_buffer_size 128k;
-          }
+    #Plugins
+    graylog_install_enterprise_plugins:               True
+    graylog_install_integrations_plugins:             True
+    graylog_install_enterprise_integrations_plugins:  True
 
   tasks:
-    - name: "Update apt cache"
-      apt:
-        update_cache: True
-      when: ansible_os_family == "Debian"
-    - name: Install gnupg
-      apt:
-        name: gnupg2
-        state: latest
-      when: ansible_os_family == "Debian"
     - name: "Include graylog-ansible-role"
       include_role:
         name: "graylog-ansible-role"
+
     - debug:
         msg: "Graylog is up at {{ graylog_http_external_uri }}"
+
   become: yes

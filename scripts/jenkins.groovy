@@ -38,10 +38,10 @@ pipeline
                 source venv/bin/activate
                 python3 -m pip install -U pip
                 pip3 install -r requirements.txt
-                molecule destroy --scenario-name ui
-                molecule create --scenario-name ui
-                molecule converge --scenario-name ui
-                molecule verify --scenario-name ui
+                molecule destroy
+                molecule create
+                molecule converge
+                molecule verify
              '''
         }
         post
@@ -50,7 +50,7 @@ pipeline
           {
             sh '''#!/bin/bash
                   source venv/bin/activate
-                  molecule destroy --scenario-name ui
+                  molecule destroy
                '''
             cleanWs()
           }

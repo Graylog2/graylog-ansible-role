@@ -1,4 +1,3 @@
-
 ---
 dependency:
   name: galaxy
@@ -8,26 +7,19 @@ dependency:
 driver:
   name: vagrant
   provider:
-    name: libvirt
+    name: virtualbox
 platforms:
   - name: instance
-    box: ${MOLECULE_DISTRO:-generic/ubuntu1804}
+    box: ${MOLECULE_DISTRO:-generic/ubuntu2004}
     memory: 4096
     cpus: 1
-    interfaces:
-      - auto_config: true
-        network_name: private_network
-        type: dhcp
-    provider_raw_config_args:
-      - 'nic_model_type = "virtio"'
-      - 'disk_bus = "virtio"'
-      - 'volume_cache = "none"'
-      - 'storage :file, bus: "virtio", cache: "none"'
-providers:
-  - name: libvirt
-    type: libvirt
-    driver: kvm
+    instance_raw_config_args:
+      - "vm.network 'forwarded_port', guest: 9000, host: 9000"
+      - "vm.network 'forwarded_port', guest: 5044, host: 5044, protocol: 'tcp'"
+      - "vm.network 'forwarded_port', guest: 12201, host: 12201, protocol: 'udp'"
 provisioner:
   name: ansible
 verifier:
  name: testinfra
+ options:
+   s: true
