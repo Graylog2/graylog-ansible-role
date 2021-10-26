@@ -7,6 +7,21 @@
 - Ansible (> 2.5.0)
 
 
+## Dependencies
+
+Graylog requires Java, [Elasticsearch][1], and MongoDB. See the official [Graylog documentation][8] for the correct versions of each of these dependencies.
+
+If you need Nginx installed, you can include the official [Nginx][2] role in your playbook.
+
+
+> **NOTE**
+> For Elasticsearch, be sure to set `es_version` to 7.10 or lower. Graylog does not support Elasticsearch 7.11 and up!
+
+
+
+## Example Playbook
+
+
 
 ## Role Variables
 
@@ -152,24 +167,6 @@ These settings will be added to the end of the `server.conf` file.
 | graylog_mongodb_data_path |  |
 | graylog_mongodb_bind_port | |
 | graylog_mongodb_bind_ip | |
-
-
-## Dependencies
-
-Graylog requires Java, [Elasticsearch][1], and MongoDB. See the official [Graylog documentation][8] for the correct versions of each of these dependencies.
-
-If you need Nginx installed, you can include the official [Nginx][2] role in your playbook.
-
-
-> **NOTE**
-> For Elasticsearch, be sure to set `es_version` to 7.10 or lower. Graylog does not support Elasticsearch 7.11 and up!
-
-
-
-
-## Example Playbook
-
-
 
 
 
