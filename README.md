@@ -1,280 +1,187 @@
 [![Galaxy](https://img.shields.io/badge/galaxy-graylog--ansible--role-blue)](https://galaxy.ansible.com/Graylog2/graylog) ![Ansible](https://img.shields.io/ansible/role/d/56392.svg) ![Ansible](https://img.shields.io/badge/dynamic/json.svg?label=min_ansible_version&url=https%3A%2F%2Fgalaxy.ansible.com%2Fapi%2Fv1%2Froles%2F56392%2F&query=$.min_ansible_version) ![Ansible](https://img.shields.io/ansible/quality/56392)
 
-Description
------------
+# Graylog Ansible Role
 
-An Ansible role which installs and configures [Graylog](https://docs.graylog.org) for log management.
+## Requirements
 
-
-Dependencies
-------------
-
-- **Only Ansible versions > 2.5.0 are supported.**
-- Java 8 - Ubuntu Xenial and up support OpenJDK 8 by default. For other distributions, consider backports accordingly
-- [Elasticsearch][1]
-- Tested on
-  - Ubuntu 16.04
-  - Ubuntu 18.04
-  - Ubuntu 20.04
-  - Debian 9
-  - Debian 10
-  - Centos 7
-  - Centos 8
-
-If you require Nginx to be installed, include the official [Nginx][2] role in your playbook.
+- Ansible (> 2.5.0)
 
 
-Usage
-----------
-- You need at least 4GB of memory to run Graylog
-- Generate the password hash for the admin user:
-  - `echo -n yourpassword | sha256sum     # Linux`
-  - `echo -n yourpassword | shasum -a 256 # Mac`
 
-Here is an example of a playbook targeting Vagrant (Ubuntu Xenial):
+## Role Variables
 
-```yaml
-- hosts: "all"
-  remote_user: "ubuntu"
-  become: True
-  vars:
-    es_enable_xpack: False
-    es_instance_name: "graylog"
-    es_heap_size: "1g"
-    es_config:
-      node.name: "graylog"
-      cluster.name: "graylog"
-      http.port: 9200
-      transport.tcp.port: 9300
-      network.host: "127.0.0.1"
-    graylog_version: 3.3
-    graylog_install_java: False # Elasticsearch role already installed Java
-    graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
-    graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
-    graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
-    graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
-    graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
-  roles:
-    - role: "graylog2.graylog-ansible-role"
-      tags:
-        - "graylog"
-```
+### Server.conf Variables
 
-- Create a playbook file with that content, e.g. `your_playbook.yml`
-- Fetch this role `ansible-galaxy install -n -p ./roles graylog2.graylog`
-- Install role's dependencies `ansible-galaxy install -r roles/graylog2.graylog/requirements.yml -p ./roles`
-- Apply the playbook to a Vagrant box `ansible-playbook your_playbook.yml -i "127.0.0.1:2222,"`
-- Login to Graylog by opening `http://127.0.0.1:9000` in your browser. Default username and password is `admin`
+These variables let you configure the properties in `server.conf`. See the [offical Graylog documentation][9] for details on these setings.
 
-Variables
---------
-
-```yaml
-# Basic server settings
-graylog_version: 4.0     # Required
-graylog_full_version: "4.0.6-1" # Optional, if not provided, the latest revision of {{ graylog_version }} will be installed
-graylog_is_master: "True"
-graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
-graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
-
-graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
-graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
-graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
-```
-
-Take a look into `defaults/main.yml` to get an overview of all configuration parameters.
-
-If you need to configure a graylog setting that we haven't set up, you can use `graylog_additional_config` to declare it:
-
-```yaml
-graylog_additional_config:
-  elasticsearch_discovery_default_user: my_username
-  elasticsearch_discovery_default_password: "{{ my_password }}"
-```
-
-
-More detailed example
----------------------
-
-- Set up `roles_path = ./roles` in `ansible.cfg` (`[defaults]` block)
-- Install role `ansible-galaxy install graylog2.graylog`
-- Install role's dependencies `ansible-galaxy install -r roles/graylog2.graylog/requirements.yml`
-- Set up playbook (see example below):
-
-```yaml
-- hosts: "server"
-  become: True
-  vars:
-    es_instance_name: "graylog"
-    es_scripts: False
-    es_templates: False
-    es_version_lock: False
-    es_heap_size: "1g"
-    es_config:
-      node.name: "graylog"
-      cluster.name: "graylog"
-      http.port: 9200
-      transport.tcp.port: 9300
-      network.host: "127.0.0.1"
-      node.data: True
-      node.master: True
-    graylog_version: 4.0
-    graylog_install_java: False # Elasticsearch role already installed Java
-    graylog_password_secret: "2jueVqZpwLLjaWxV" # generate with: pwgen -s 96 1
-    graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
-    graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
-    graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
-    graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
-
-  roles:
-    - role: "graylog2.graylog-ansible-role"
-      tags:
-        - "graylog"
-```
-
-- Run the playbook with `ansible-playbook -i inventory_file your_playbook.yml`
-- Login to Graylog by opening `http://<host IP>` in your browser, default username and password is `admin`
-
-Explicit playbook of roles
---------------------------
-
-It's good to be explicit, these are all the roles that you need to run for Graylog.
-
-Note: in this example vars are in a more appropriate place at `group_vars/group/vars`
-
-```yaml
-- name: "Apply roles for Graylog servers"
-  hosts: "graylog_servers"
-  become: True
-  vars:
-    graylog_install_elasticsearch: False
-    graylog_install_mongodb:       False
-
-  roles:
-    - role: lean_delivery.java
-      version: 7.1.0
-      when: graylog_install_java
-
-    - role: "elastic.elasticsearch"
-      tags:
-        - "elasticsearch"
-        - "graylog_servers"
-
-    - role: "graylog2.graylog-ansible-role"
-      tags:
-        - "graylog"
-        - "graylog_servers"
-```
-
-Conditional role dependencies
------------------------------
-
-Dependencies can be enabled/disabled with the `host_vars` `graylog_install_*`.
-Take look into [meta/main.yml][3] for more information. Keep in mind that you
-have to install all dependencies even when they are disabled to prevent errors.
-
-Tests
------
-
-If you'd like to run the Molecule tests, you'll need a few things installed:
-
-- [Vagrant](https://www.vagrantup.com/docs/installation)
-- [libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
-- [Molecule](https://molecule.readthedocs.io/en/latest/installation.html)
-- [testinfra](https://testinfra.readthedocs.io/en/latest/)
-
-Note that this is ONLY required if you want to run the test harness. You don't need any of this to run the playbook. This is a special setup that allows you to test the Ansible playbook against disposable VMs.
-
-#### Install Notes
-
-Setting up Molecule requires installing a number tools for the VM environment. The following are notes from a successful install on Ubuntu 20.04.
-
-Install Virtualenv, Molecule, and testinfra
-
-    sudo apt-get update
-    sudo apt-get install -y python3-pip libssl-dev python3-virtualenv
-    virtualenv venv
-    source venv/bin/activate
-    python3 -m pip install "molecule[lint]"
-    pip3 install testinfra
-
-Install Vagrant and libvirt
-
-    sudo apt-get install -y bridge-utils dnsmasq-base ebtables libvirt-bin libvirt-dev qemu-kvm qemu-utils ruby-dev
-    sudo wget -nv https://releases.hashicorp.com/vagrant/2.2.9/vagrant_2.2.9_x86_64.deb
-    sudo dpkg -i vagrant_2.2.9_x86_64.deb
-    vagrant --version
-    sudo apt-get install ruby-libvirt qemu libvirt-daemon-system libvirt-clients ebtables
-    sudo apt-get install libxslt-dev libxml2-dev libvirt-dev zlib1g-dev
-    vagrant plugin install vagrant-libvirt
-    vagrant plugin list
-    pip3 install python-vagrant molecule-vagrant
-
-Test that Vagrant works
-
-    vagrant init generic/ubuntu1804
-    vagrant up --provider=libvirt
-    vagrant ssh
-    vagrant halt
-
-Test that Molecule works
-
-    git clone https://github.com/Graylog2/graylog-ansible-role.git
-    cd graylog-ansible-role
-    molecule create
-    molecule converge
-    molecule login
-    systemctl status graylog-server
-    exit
-    molecule destroy
-
-#### Commands
-
-To spin up a test VM:
-
-    export MOLECULE_DISTRO='generic/ubuntu1804'
-    export GRAYLOG_VERSION=4.2.0
-    export GRAYLOG_REVISION=3
-    molecule create
-
-To run the Ansible playbook:
-
-    molecule converge
-
-To login to the VM:
-
-    molecule login
-
-To destroy the VM:
-
-    molecule destroy
-
-To test against other distros, you can also set the MOLECULE_DISTRO environment variable to one of these:
-
-    export MOLECULE_DISTRO='geerlingguy/centos8'
-    export MOLECULE_DISTRO='debian/jessie64'
-    export MOLECULE_DISTRO='debian/stretch64'
-    export MOLECULE_DISTRO='debian/buster64'
-    export MOLECULE_DISTRO='generic/ubuntu1604'
-    export MOLECULE_DISTRO='generic/ubuntu1804'
-    export MOLECULE_DISTRO='generic/ubuntu2004'
+| Variable Name | Default Value |
+|---|---|
+| graylog_is_master | True |
+| graylog_node_id_file | /etc/graylog/server/node-id |
+| graylog_password_secret |   |
+| root_username  | admin  |
+| graylog_root_password_sha2 |  |
+| graylog_root_email | |
+| graylog_root_timezone | UTC |
+| graylog_bin_dir | /usr/share/graylog-server/bin |
+| graylog_data_dir | /var/lib/graylog-server |
+| graylog_plugin_dir | /usr/share/graylog-server/plugin |
+| graylog_http_bind_address | 0.0.0.0:9000 |
+| graylog_http_publish_uri | http://0.0.0.0:9000/ |
+| graylog_http_external_uri | http://0.0.0.0:9000/ |
+| graylog_http_enable_cors | True |
+| graylog_http_enable_gzip | True |
+| graylog_http_max_header_size | 8192 |
+| graylog_http_thread_pool_size | 16 |
+| graylog_http_enable_tls | False |
+| graylog_http_tls_cert_file | /path/to/graylog.crt |
+| graylog_http_tls_key_file | /path/to/graylog.key |
+| graylog_http_tls_key_password | |
+| graylog_trusted_proxies | |
+| graylog_elasticsearch_hosts | http://127.0.0.1:9200 |
+| graylog_elasticsearch_connect_timeout | 10s |
+| graylog_elasticsearch_socket_timeout | 60s |
+| graylog_elasticsearch_max_total_connections | 20 |
+| graylog_elasticsearch_max_total_connections_per_route | 2 |
+| graylog_elasticsearch_max_retries | 2 |
+| graylog_elasticsearch_discovery_enabled | False |
+| graylog_elasticsearch_discovery_frequency | 30s |
+| graylog_elasticsearch_compression_enabled | False |
+| graylog_rotation_strategy | count |
+| graylog_elasticsearch_max_docs_per_index | 20000000 |
+| graylog_elasticsearch_max_size_per_index | 1073741824 |
+| graylog_elasticsearch_max_time_per_index | 1d |
+| graylog_elasticsearch_disable_version_check | True |
+| graylog_no_retention | False |
+| graylog_elasticsearch_max_number_of_indices | 20 |
+| graylog_retention_strategy | delete |
+| graylog_elasticsearch_shards | 4 |
+| graylog_elasticsearch_replicas | 0 |
+| graylog_elasticsearch_index_prefix | graylog |
+| graylog_elasticsearch_template_name | graylog-internal |
+| graylog_allow_leading_wildcard_searches | False |
+| graylog_allow_highlighting | False |
+| graylog_elasticsearch_analyzer | standard |
+| graylog_elasticsearch_request_timeout | 1m |
+| graylog_elasticsearch_index_optimization_timeout | 1h |
+| graylog_elasticsearch_index_optimization_jobs | 20 |
+| graylog_index_ranges_cleanup_interval | 1h |
+| graylog_index_field_type_periodical_interval | 1h |
+| graylog_elasticsearch_output_batch_size | 500 |
+| graylog_elasticsearch_output_flush_interval | 1 |
+| graylog_output_fault_count_threshold | 5 |
+| graylog_output_fault_penalty_seconds | 30 |
+| graylog_processbuffer_processors | 5 |
+| graylog_outputbuffer_processors | 3 |
+| graylog_outputbuffer_processor_keep_alive_time | 5000 |
+| graylog_outputbuffer_processor_threads_core_pool_size | 3 |
+| graylog_outputbuffer_processor_threads_max_pool_size | 30 |
+| graylog_udp_recvbuffer_sizes | 1048576 |
+| graylog_processor_wait_strategy | blocking |
+| graylog_inputbuffer_ring_size | |
+| graylog_inputbuffer_processors | |
+| graylog_inputbuffer_wait_strategy | |
+| graylog_message_journal_enabled | |
+| graylog_message_journal_dir | |
+| graylog_message_journal_max_age | |
+| graylog_message_journal_max_size | |
+| graylog_message_journal_flush_age | |
+| graylog_message_journal_flush_interval | |
+| graylog_message_journal_segment_age | |
+| graylog_message_journal_segment_size | |
+| graylog_async_eventbus_processors | |
+| graylog_lb_recognition_period_seconds | |
+| graylog_lb_throttle_threshold_percentage | |
+| graylog_stream_processing_timeout | 2000 |
+| graylog_stream_processing_max_faults | |
+| graylog_alert_check_interval | |
+| graylog_output_module_timeout | 10000 |
+| graylog_stale_master_timeout | 2000 |
+| graylog_shutdown_timeout | 30000 |
+| graylog_mongodb_uri | |
+| graylog_mongodb_max_connections | |
+| graylog_mongodb_threads_allowed_to_block_multiplier | |
+| graylog_transport_email_enabled | |
+| graylog_transport_email_hostname | |
+| graylog_transport_email_port | |
+| graylog_transport_email_use_auth | |
+| graylog_transport_email_auth_username | |
+| graylog_transport_email_auth_password | |
+| graylog_transport_email_subject_prefix | |
+| graylog_transport_email_from_email | |
+| graylog_transport_email_use_tls | |
+| graylog_transport_email_use_ssl | |
+| graylog_transport_email_web_interface_url | |
+| graylog_http_connect_timeout | 5s |
+| graylog_http_read_timeout | 10s |
+| graylog_http_write_timeout | 10s |
+| graylog_http_proxy_uri | |
+| graylog_non_proxy_hosts | |
+| graylog_disable_index_optimization | |
+| graylog_index_optimization_max_num_segments | |
+| graylog_gc_warning_threshold | |
+| graylog_ldap_connection_timeout | 2000 |
+| graylog_disable_sigar | |
+| graylog_dashboard_widget_default_cache_time | |
+| graylog_proxied_requests_thread_pool_size | 32 |
 
 
-Further Reading
-----------------
+If you need to add a property to `server.conf` that is not listed above, you can add it via the `graylog_additonal_config` property.
 
-Great articles by Pablo Daniel Estigarribia Davyt on how to use this role:
+    graylog_additional_config:
+      example_config1: value1
+      example_config2: value2
 
-- [Install Graylog][5]
-- [Receive messages from Logstash][6]
-- [Monitor Graylog with NSCA][7]
+These settings will be added to the end of the `server.conf` file.
 
-License
--------
+
+### Environment Variables
+
+| Environment Variable | Ansible Variable | Default Value |
+|---|---|---|
+| JAVA | graylog_server_java | |
+| GRAYLOG_SERVER_JAVA_OPTS | graylog_server_java_opts |
+| GRAYLOG_SERVER_ARGS | graylog_server_args |
+| GRAYLOG_COMMAND_WRAPPER | graylog_server_wrapper |
+
+
+### MongoDB Variables
+
+| Variable Name | Default Value |
+|---|---|
+| graylog_mongodb_data_path |  |
+| graylog_mongodb_bind_port | |
+| graylog_mongodb_bind_ip | |
+
+
+## Dependencies
+
+Graylog requires Java, [Elasticsearch][1], and MongoDB. See the official [Graylog documentation][8] for the correct versions of each of these dependencies.
+
+If you need Nginx installed, you can include the official [Nginx][2] role in your playbook.
+
+
+> **NOTE**
+> For Elasticsearch, be sure to set `es_version` to 7.10 or lower. Graylog does not support Elasticsearch 7.11 and up!
+
+
+
+
+## Example Playbook
+
+
+
+
+
+
+
+## Author Information
 
 Author: Marius Sturm (<marius@graylog.com>) and [contributors][4]
 
-License: Apache 2.0
+## License
+
+Apache 2.0
 
 [1]: https://github.com/elastic/ansible-elasticsearch
 [2]: https://github.com/nginxinc/ansible-role-nginx
@@ -283,3 +190,5 @@ License: Apache 2.0
 [5]: https://pablodav.github.io/post/graylog/graylog_ansible
 [6]: https://pablodav.github.io/post/graylog/logstash_input
 [7]: https://pablodav.github.io/post/graylog/graylog_logstash_nagios_nsca
+[8]: https://docs.graylog.org/docs/installing
+[9]: https://docs.graylog.org/v1/docs/server-conf
