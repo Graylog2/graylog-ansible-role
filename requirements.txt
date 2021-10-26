@@ -4,7 +4,6 @@ ansible-lint==4.3.5
 enrich==1.2.6
 molecule==3.5.1
 molecule-docker==1.0.2
-molecule-podman==1.0.1
 molecule-vagrant==0.6
 python-vagrant==0.5.15
 pytest-testinfra==6.1.0
