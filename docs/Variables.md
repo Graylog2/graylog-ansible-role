@@ -190,4 +190,4 @@ These settings will be added to the end of the `server.conf` file.
 
 | Variable Name | Default Value |
 |---|---|
-| graylog_es_debian_pin_version | 7.10* |
+| graylog_es_debian_pin_version | 6.* |
