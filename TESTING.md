@@ -59,6 +59,10 @@ To run the Ansible playbook:
 
     molecule converge
 
+To run the smoke tests:
+
+    molecule verify
+
 To login to the VM:
 
     molecule login
