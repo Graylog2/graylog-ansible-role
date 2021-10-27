@@ -6,6 +6,11 @@
 
 - Ansible (> 2.5.0)
 
+To install the role, run:
+
+    ansible-galaxy install graylog2.graylog
+
+
 
 ## Dependencies
 
@@ -13,6 +18,9 @@ Graylog requires Java, [Elasticsearch][1], and MongoDB. See the official [Graylo
 
 If you need Nginx installed, you can include the official [Nginx][2] role in your playbook.
 
+To install dependencies, run:
+
+    ansible-galaxy install -r roles/graylog2.graylog/requirements.yml
 
 > **NOTE**
 > For Elasticsearch, be sure to set `es_version` to 7.10 or lower. Graylog does not support Elasticsearch 7.11 and up!
@@ -24,6 +32,19 @@ If you need Nginx installed, you can include the official [Nginx][2] role in you
 
 
 ## Role Variables
+
+
+## Main Variables
+
+| Variable Name | Default Value | Description |
+|---|---|---|
+| graylog_version | | Required. Should be in `X.Y` format (e.g, `4.2`) |
+| graylog_full_version | | Optional, if not provided, the latest revision of `graylog_version` will be installed. Should be in `X.Y.Z-rev` format (e.g, `4.2.0-3`) |
+| graylog_install_java | | Whether to install Java on the instance.|
+| graylog_install_elasticsearch | | Whether to install Elasticsearch on the instance. |
+| graylog_install_mongodb | | Whether to install MongoDB on the instance. |
+
+
 
 ### Server.conf Variables
 
@@ -93,59 +114,59 @@ These variables let you configure the properties in `server.conf`. See the [offi
 | graylog_outputbuffer_processor_threads_max_pool_size | 30 |
 | graylog_udp_recvbuffer_sizes | 1048576 |
 | graylog_processor_wait_strategy | blocking |
-| graylog_inputbuffer_ring_size | |
-| graylog_inputbuffer_processors | |
-| graylog_inputbuffer_wait_strategy | |
-| graylog_message_journal_enabled | |
-| graylog_message_journal_dir | |
-| graylog_message_journal_max_age | |
-| graylog_message_journal_max_size | |
-| graylog_message_journal_flush_age | |
-| graylog_message_journal_flush_interval | |
-| graylog_message_journal_segment_age | |
-| graylog_message_journal_segment_size | |
-| graylog_async_eventbus_processors | |
-| graylog_lb_recognition_period_seconds | |
-| graylog_lb_throttle_threshold_percentage | |
+| graylog_inputbuffer_ring_size | 65536 |
+| graylog_inputbuffer_processors | 2 |
+| graylog_inputbuffer_wait_strategy | blocking |
+| graylog_message_journal_enabled | True |
+| graylog_message_journal_dir | /var/lib/graylog-server/journal |
+| graylog_message_journal_max_age | 12h |
+| graylog_message_journal_max_size | 5gb |
+| graylog_message_journal_flush_age | 1m |
+| graylog_message_journal_flush_interval | 1000000 |
+| graylog_message_journal_segment_age | 1h |
+| graylog_message_journal_segment_size | 100mb |
+| graylog_async_eventbus_processors | 2 |
+| graylog_lb_recognition_period_seconds | 3 |
+| graylog_lb_throttle_threshold_percentage | 95 |
 | graylog_stream_processing_timeout | 2000 |
-| graylog_stream_processing_max_faults | |
-| graylog_alert_check_interval | |
+| graylog_stream_processing_max_faults | 3 |
+| graylog_alert_check_interval | 60 |
 | graylog_output_module_timeout | 10000 |
 | graylog_stale_master_timeout | 2000 |
 | graylog_shutdown_timeout | 30000 |
-| graylog_mongodb_uri | |
-| graylog_mongodb_max_connections | |
-| graylog_mongodb_threads_allowed_to_block_multiplier | |
-| graylog_transport_email_enabled | |
+| graylog_mongodb_uri | mongodb://127.0.0.1:27017/graylog |
+| graylog_mongodb_max_connections | 100 |
+| graylog_mongodb_threads_allowed_to_block_multiplier | 5 |
+| graylog_transport_email_enabled | False |
 | graylog_transport_email_hostname | |
-| graylog_transport_email_port | |
-| graylog_transport_email_use_auth | |
+| graylog_transport_email_port | 587 |
+| graylog_transport_email_use_auth | True |
 | graylog_transport_email_auth_username | |
 | graylog_transport_email_auth_password | |
-| graylog_transport_email_subject_prefix | |
+| graylog_transport_email_subject_prefix | [graylog] |
 | graylog_transport_email_from_email | |
-| graylog_transport_email_use_tls | |
-| graylog_transport_email_use_ssl | |
+| graylog_transport_email_use_tls | True |
+| graylog_transport_email_use_ssl | True |
 | graylog_transport_email_web_interface_url | |
 | graylog_http_connect_timeout | 5s |
 | graylog_http_read_timeout | 10s |
 | graylog_http_write_timeout | 10s |
 | graylog_http_proxy_uri | |
 | graylog_non_proxy_hosts | |
-| graylog_disable_index_optimization | |
-| graylog_index_optimization_max_num_segments | |
-| graylog_gc_warning_threshold | |
+| graylog_disable_index_optimization | True |
+| graylog_index_optimization_max_num_segments | 1 |
+| graylog_gc_warning_threshold | 1s |
 | graylog_ldap_connection_timeout | 2000 |
-| graylog_disable_sigar | |
-| graylog_dashboard_widget_default_cache_time | |
+| graylog_disable_sigar | False |
+| graylog_dashboard_widget_default_cache_time | 10s |
 | graylog_proxied_requests_thread_pool_size | 32 |
 
 
 If you need to add a property to `server.conf` that is not listed above, you can add it via the `graylog_additonal_config` property.
 
     graylog_additional_config:
-      example_config1: value1
-      example_config2: value2
+      elasticsearch_discovery_default_user: my_username
+      elasticsearch_discovery_default_password: "{{ my_password }}"
 
 These settings will be added to the end of the `server.conf` file.
 
