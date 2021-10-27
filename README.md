@@ -41,13 +41,13 @@ To install dependencies, run:
 | Variable Name | Default Value | Description |
 |---|---|---|
 | graylog_version | | **Required**. Should be in `X.Y` format (e.g, `4.2`) |
-| graylog_full_version | | Optional, if not provided, the latest revision of `graylog_version` will be installed. Should be in `X.Y.Z-rev` format (e.g, `4.2.0-3`) |
+| graylog_full_version | | Optional. If not provided, the latest revision of `graylog_version` will be installed. Should be in `X.Y.Z-rev` format (e.g, `4.2.0-3`) |
 | graylog_install_java | True | Whether to install Java on the instance.|
 | graylog_install_elasticsearch | True | Whether to install Elasticsearch on the instance. |
 | graylog_install_mongodb | True | Whether to install MongoDB on the instance. |
-| graylog_install_enterprise_plugins | False |
-| graylog_install_integrations_plugins | False |
-graylog_install_enterprise_integrations_plugins | False |
+| graylog_install_enterprise_plugins | False | Whether to install the [graylog-enterprise-plugins][11] package. |
+| graylog_install_integrations_plugins | False | Whether to install the [graylog-integrations-plugins][10] package. |
+| graylog_install_enterprise_integrations_plugins | False | Whether to install the [graylog-enterprise-integrations-plugins][10] package. |
 
 
 ### Java Variables
@@ -189,9 +189,9 @@ These settings will be added to the end of the `server.conf` file.
 ### Package Variables
 
 
-| Variable Name | Default Value | Description |
-|---|---|---|
-| graylog_manage_apt_repo | True | Whether to install the Graylog Repository package |
+| Variable Name | Default Value |
+|---|---|
+| graylog_manage_apt_repo | True |
 | graylog_mongodb_package_name | mongodb-org |
 | graylog_mongodb_service_name | mongod |
 | graylog_mongodb_ubuntu_repo | deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} multiverse |
@@ -219,7 +219,11 @@ These settings will be added to the end of the `server.conf` file.
 | graylog_mongodb_redhat_repo | https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ graylog_mongodb_version }}/x86_64/ |
 | graylog_mongodb_redhat_key | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
 
+### Misc Variables
 
+| Variable Name | Default Value |
+|---|---|
+| graylog_es_debian_pin_version | 7.10* |
 
 
 ## Author Information
@@ -239,3 +243,5 @@ Apache 2.0
 [7]: https://pablodav.github.io/post/graylog/graylog_logstash_nagios_nsca
 [8]: https://docs.graylog.org/docs/installing
 [9]: https://docs.graylog.org/v1/docs/server-conf
+[10]: https://docs.graylog.org/docs/integrations
+[11]: https://docs.graylog.org/docs/intro
