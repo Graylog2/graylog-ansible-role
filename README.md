@@ -17,7 +17,7 @@ To install the role, run:
 
 ## Dependencies
 
-Graylog requires Java, [Elasticsearch][1], and MongoDB. See the official [Graylog documentation][8] for the correct versions of each of these dependencies.
+Graylog requires Java, [Elasticsearch](https://github.com/elastic/ansible-elasticsearch), and MongoDB. See the official [Graylog documentation](https://docs.graylog.org/docs/installing) for the correct versions of each of these dependencies.
 
 Be certain you are running a supported version of Elasticsearch. You can configure what version of Elasticsearch Ansible will install with the `es_version` variable. Running Graylog against an unsupported version of Elasticsearch can break your instance!
 
@@ -28,8 +28,7 @@ Be certain you are running a supported version of Elasticsearch. You can configu
 | Elasticsearch | 5-6 | 6.8 - 7.10 |
 
 
-
-To install dependencies, run:
+We also need a couple other Ansible roles installed for [Java](https://github.com/lean-delivery/ansible-role-java) and [Elasticsearch](https://github.com/elastic/ansible-elasticsearch). To install those roles, run:
 
     ansible-galaxy install -r <GRAYLOG ROLE_DIRECTORY>/requirements.yml
 
@@ -110,7 +109,7 @@ To generate `root_password_sha2`:
 
 ### Server.conf Variables
 
-These variables let you configure the properties in `server.conf`. See the [offical Graylog documentation][9] for details on these setings.
+These variables let you configure the properties in `server.conf`. See the [offical Graylog documentation](https://docs.graylog.org/v1/docs/server-conf) for details on these setings.
 
 | Variable Name | Default Value |
 |---|---|
@@ -277,20 +276,8 @@ These settings will be added to the end of the `server.conf` file.
 
 ## Author Information
 
-Author: Marius Sturm (<marius@graylog.com>) and [contributors][4]
+Author: Marius Sturm (<marius@graylog.com>) and [contributors](https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors)
 
 ## License
 
 Apache 2.0
-
-[1]: https://github.com/elastic/ansible-elasticsearch
-[2]: https://github.com/nginxinc/ansible-role-nginx
-[3]: https://github.com/Graylog2/graylog-ansible-role/blob/master/meta/main.yml
-[4]: https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors
-[5]: https://pablodav.github.io/post/graylog/graylog_ansible
-[6]: https://pablodav.github.io/post/graylog/logstash_input
-[7]: https://pablodav.github.io/post/graylog/graylog_logstash_nagios_nsca
-[8]: https://docs.graylog.org/docs/installing
-[9]: https://docs.graylog.org/v1/docs/server-conf
-[10]: https://docs.graylog.org/docs/integrations
-[11]: https://docs.graylog.org/docs/intro
