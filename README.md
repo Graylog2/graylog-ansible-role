@@ -57,7 +57,6 @@ Here is an example playbook that uses this role. This is a single-instance confi
       http.port: 9200
       transport.tcp.port: 9300
       network.host: "127.0.0.1"
-      action.auto_create_index: False
     oss_version: True
 
     #Graylog vars

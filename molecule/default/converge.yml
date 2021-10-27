@@ -38,7 +38,6 @@
       node.master: True
       cluster.initial_master_nodes : []
       discovery.seed_hosts : []
-      action.auto_create_index: False
 
 
     #Plugins
