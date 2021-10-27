@@ -36,16 +36,30 @@ To install dependencies, run:
 ## Role Variables
 
 
-## Main Variables
+### Main Variables
 
 | Variable Name | Default Value | Description |
 |---|---|---|
-| graylog_version | | Required. Should be in `X.Y` format (e.g, `4.2`) |
+| graylog_version | | **Required**. Should be in `X.Y` format (e.g, `4.2`) |
 | graylog_full_version | | Optional, if not provided, the latest revision of `graylog_version` will be installed. Should be in `X.Y.Z-rev` format (e.g, `4.2.0-3`) |
-| graylog_install_java | | Whether to install Java on the instance.|
-| graylog_install_elasticsearch | | Whether to install Elasticsearch on the instance. |
-| graylog_install_mongodb | | Whether to install MongoDB on the instance. |
+| graylog_install_java | True | Whether to install Java on the instance.|
+| graylog_install_elasticsearch | True | Whether to install Elasticsearch on the instance. |
+| graylog_install_mongodb | True | Whether to install MongoDB on the instance. |
+| graylog_install_enterprise_plugins | False |
+| graylog_install_integrations_plugins | False |
+graylog_install_enterprise_integrations_plugins | False |
 
+
+### Java Variables
+
+| Ansible Variable | Default Value | Description |
+|---|---|---|
+| graylog_server_java | /usr/bin/java | Sets the `JAVA` environment variable on the instance.  |
+| graylog_server_heap_size | 1500m | Sets the Java heap size for Graylog. |
+| graylog_server_java_opts | -Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow {{graylog_server_java_opts_extra}} | Sets the `GRAYLOG_SERVER_JAVA_OPTS` environment variable on the instance. | {{graylog_server_java_opts_extra}} |
+| graylog_server_java_opts_extra | | Any Java arguments you want to append to the Graylog startup command can be set here.
+| graylog_server_args | | Sets the `GRAYLOG_SERVER_ARGS` environment variable on the instance. |
+| graylog_server_wrapper | | Sets the `GRAYLOG_COMMAND_WRAPPER` environment variable on the instance. |
 
 
 ### Server.conf Variables
@@ -172,25 +186,38 @@ If you need to add a property to `server.conf` that is not listed above, you can
 
 These settings will be added to the end of the `server.conf` file.
 
+### Package Variables
 
-### Environment Variables
 
-| Environment Variable | Ansible Variable | Default Value |
+| Variable Name | Default Value | Description |
 |---|---|---|
-| JAVA | graylog_server_java | |
-| GRAYLOG_SERVER_JAVA_OPTS | graylog_server_java_opts |
-| GRAYLOG_SERVER_ARGS | graylog_server_args |
-| GRAYLOG_COMMAND_WRAPPER | graylog_server_wrapper |
+| graylog_manage_apt_repo | True | Whether to install the Graylog Repository package |
+| graylog_mongodb_package_name | mongodb-org |
+| graylog_mongodb_service_name | mongod |
+| graylog_mongodb_ubuntu_repo | deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} multiverse |
+| graylog_mongodb_ubuntu_key | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
+| graylog_mongodb_debian_repo | deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} main |
+| graylog_mongodb_debian_key | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
+| graylog_mongodb_redhat_repo | https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ graylog_mongodb_version }}/x86_64/ |
+| graylog_mongodb_redhat_key | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
 
 
 ### MongoDB Variables
 
 | Variable Name | Default Value |
 |---|---|
+| graylog_mongodb_version | 4.4 |
 | graylog_mongodb_data_path |  |
-| graylog_mongodb_bind_port | |
-| graylog_mongodb_bind_ip | |
-
+| graylog_mongodb_bind_port | 27017 |
+| graylog_mongodb_bind_ip | 127.0.0.1 |
+| graylog_mongodb_package_name | mongodb-org |
+| graylog_mongodb_service_name | mongod |
+| graylog_mongodb_ubuntu_repo | deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} multiverse |
+| graylog_mongodb_ubuntu_key | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
+| graylog_mongodb_debian_repo | deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} main |
+| graylog_mongodb_debian_key | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
+| graylog_mongodb_redhat_repo | https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ graylog_mongodb_version }}/x86_64/ |
+| graylog_mongodb_redhat_key | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
 
 
 
