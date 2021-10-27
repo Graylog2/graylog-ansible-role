@@ -16,14 +16,16 @@ To install the role, run:
 
 Graylog requires Java, [Elasticsearch][1], and MongoDB. See the official [Graylog documentation][8] for the correct versions of each of these dependencies.
 
+> **NOTE**
+> For Elasticsearch, be sure to set `es_version` to 7.10 or lower. Graylog does not support Elasticsearch 7.11 and up!
+
 If you need Nginx installed, you can include the official [Nginx][2] role in your playbook.
 
 To install dependencies, run:
 
-    ansible-galaxy install -r roles/graylog2.graylog/requirements.yml
+    ansible-galaxy install -r <GRAYLOG ROLE_DIRECTORY>/requirements.yml
 
-> **NOTE**
-> For Elasticsearch, be sure to set `es_version` to 7.10 or lower. Graylog does not support Elasticsearch 7.11 and up!
+
 
 
 
