@@ -28,7 +28,7 @@ Be certain you are running a supported version of Elasticsearch. You can configu
 | Elasticsearch | 5-6 | 6.8 - 7.10 |
 
 
-We also need a couple other Ansible roles installed for [Java](https://github.com/lean-delivery/ansible-role-java) and [Elasticsearch](https://github.com/elastic/ansible-elasticsearch). To install those roles, run:
+We need some Ansible roles installed for [Java](https://github.com/lean-delivery/ansible-role-java) and [Elasticsearch](https://github.com/elastic/ansible-elasticsearch). To install them, run:
 
     ansible-galaxy install -r <GRAYLOG ROLE_DIRECTORY>/requirements.yml
 
