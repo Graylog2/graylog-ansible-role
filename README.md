@@ -46,6 +46,8 @@ Here is an example playbook that uses this role. This is a single-instance confi
   become: True
   vars:
     #Elasticsearch vars
+    es_major_version: "7.x"
+    es_version: 7.10.2
     es_enable_xpack: False
     es_instance_name: "graylog"
     es_heap_size: "1g"
@@ -55,6 +57,7 @@ Here is an example playbook that uses this role. This is a single-instance confi
       http.port: 9200
       transport.tcp.port: 9300
       network.host: "127.0.0.1"
+      action.auto_create_index: False
     oss_version: True
 
     #Graylog vars
@@ -65,7 +68,7 @@ Here is an example playbook that uses this role. This is a single-instance confi
     graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
     graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
-    
+
   roles:
     - role: "graylog2.graylog"
       tags:
