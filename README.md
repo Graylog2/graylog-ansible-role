@@ -6,6 +6,8 @@
 
 - Ansible (> 2.5.0)
 - At least 4gb of memory on the target instance.
+- Linux
+  - Currently tested against Ubuntu 20.04 and Centos 8
 
 To install the role, run:
 
@@ -17,10 +19,15 @@ To install the role, run:
 
 Graylog requires Java, [Elasticsearch][1], and MongoDB. See the official [Graylog documentation][8] for the correct versions of each of these dependencies.
 
-> **NOTE**
-> For Elasticsearch, be sure to set `es_version` to 7.10 or lower. Graylog does not support Elasticsearch 7.11 and up!
+Be certain you are running a supported version of Elasticsearch. You can configure what version of Elasticsearch Ansible will install with the `es_version` variable. Running Graylog against an unsupported version of Elasticsearch can break your instance!
 
-If you need Nginx installed, you can include the official [Nginx][2] role in your playbook.
+**Elasticsearch Compatibility Matrix**
+
+| Graylog version   | 3.x | 4.x |
+|:--------------|:-------------:|:-------------:|
+| Elasticsearch | 5-6 | 6.8 - 7.10 |
+
+
 
 To install dependencies, run:
 
