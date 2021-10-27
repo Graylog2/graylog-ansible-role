@@ -17,7 +17,7 @@ To install the role, run:
 
 ## Dependencies
 
-Graylog requires Java, [Elasticsearch](https://github.com/elastic/ansible-elasticsearch), and MongoDB. See the official [Graylog documentation](https://docs.graylog.org/docs/installing) for the correct versions of each of these dependencies.
+Graylog requires Java, [Elasticsearch](https://github.com/elastic/ansible-elasticsearch), and MongoDB. See the official [Graylog documentation](https://docs.graylog.org/docs/installing) for more details.
 
 Be certain you are running a supported version of Elasticsearch. You can configure what version of Elasticsearch Ansible will install with the `es_version` variable. Running Graylog against an unsupported version of Elasticsearch can break your instance!
 
