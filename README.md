@@ -38,7 +38,7 @@ We also need a couple other Ansible roles installed for [Java](https://github.co
 
 ## Example Playbook
 
-Here are a few examples for using this role. This first playbook is a single-instance configuration. It installs Java, MongoDB, Elasticsearch, and Graylog onto the same server.
+Here is an example playbook that uses this role. This is a single-instance configuration. It installs Java, MongoDB, Elasticsearch, and Graylog onto the same server.
 
 ```yaml
 - hosts: "all"
