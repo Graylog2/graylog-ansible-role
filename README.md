@@ -26,14 +26,14 @@ See the official [Graylog documentation](https://docs.graylog.org/docs/installin
 
 Be certain you are running a supported version of Elasticsearch. You can configure what version of Elasticsearch Ansible will install with the `es_version` variable. Running Graylog against an unsupported version of Elasticsearch can break your instance!
 
-**Elasticsearch Compatibility Matrix**
+**Compatibility Matrix**
 
 | Graylog version   | 3.x | 4.x |
 |:--------------|:-------------:|:-------------:|
 | Elasticsearch | 5-6 | 6.8 - 7.10 |
 
 
-You will need to these Ansible role dependencies: 
+You will need to these Ansible role dependencies:
   - [Java](https://github.com/lean-delivery/ansible-role-java)
   - [Elasticsearch](https://github.com/elastic/ansible-elasticsearch).
 
