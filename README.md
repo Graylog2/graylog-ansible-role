@@ -80,7 +80,7 @@ To generate `root_password_sha2`:
 
 ## Role Variables
 
-A list of all available role variables is documented [here](docs/Variables.md)
+A list of all available role variables is documented [here](docs/Variables.md).
 
 ## Testing
 
