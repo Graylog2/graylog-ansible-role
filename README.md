@@ -5,6 +5,7 @@
 ## Requirements
 
 - Ansible (> 2.5.0)
+- At least 4gb of memory on the target instance.
 
 To install the role, run:
 
@@ -31,6 +32,44 @@ To install dependencies, run:
 
 ## Example Playbook
 
+Here are a few examples for using this role. This first playbook is a single-instance configuration. It installs Java, MongoDB, Elasticsearch, and Graylog onto the same server.
+
+```yaml
+- hosts: "all"
+  remote_user: "ubuntu"
+  become: True
+  vars:
+    es_enable_xpack: False
+    es_instance_name: "graylog"
+    es_heap_size: "1g"
+    es_config:
+      node.name: "graylog"
+      cluster.name: "graylog"
+      http.port: 9200
+      transport.tcp.port: 9300
+      network.host: "127.0.0.1"
+    graylog_version: 3.3
+    graylog_install_java: False # Elasticsearch role already installed Java
+    graylog_password_secret: "" # Insert your own here. Generate with: pwgen -s 96 1
+    graylog_root_password_sha2: "" # Insert your own root_password_sha2 here.
+    graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
+    graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+    graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+  roles:
+    - role: "graylog2.graylog"
+      tags:
+        - "graylog"
+```
+
+Remember to generate a unique `password_secret` and `root_password_sha2` for your instance.
+
+To generate `password_secret`:
+
+    pwgen -s 96 1
+
+To generate `root_password_sha2`:
+
+      echo -n "Enter Password: " && head -1 </dev/stdin | tr -d '\n' | sha256sum | cut -d" " -f1
 
 
 ## Role Variables
@@ -200,6 +239,9 @@ These settings will be added to the end of the `server.conf` file.
 | graylog_mongodb_debian_key | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
 | graylog_mongodb_redhat_repo | https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ graylog_mongodb_version }}/x86_64/ |
 | graylog_mongodb_redhat_key | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
+| graylog_apt_deb_url | https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.deb |
+| graylog_yum_rpm_url | https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm |
+
 
 
 ### MongoDB Variables
