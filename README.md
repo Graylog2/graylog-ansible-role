@@ -48,7 +48,7 @@ Here are a few examples for using this role. This first playbook is a single-ins
       http.port: 9200
       transport.tcp.port: 9300
       network.host: "127.0.0.1"
-    graylog_version: 3.3
+    graylog_version: 4.2
     graylog_install_java: False # Elasticsearch role already installed Java
     graylog_password_secret: "" # Insert your own here. Generate with: pwgen -s 96 1
     graylog_root_password_sha2: "" # Insert your own root_password_sha2 here.
