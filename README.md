@@ -45,6 +45,7 @@ Here is an example playbook that uses this role. This is a single-instance confi
   remote_user: "ubuntu"
   become: True
   vars:
+    #Elasticsearch vars
     es_enable_xpack: False
     es_instance_name: "graylog"
     es_heap_size: "1g"
@@ -54,6 +55,9 @@ Here is an example playbook that uses this role. This is a single-instance confi
       http.port: 9200
       transport.tcp.port: 9300
       network.host: "127.0.0.1"
+    oss_version: True
+
+    #Graylog vars
     graylog_version: 4.2
     graylog_install_java: False # Elasticsearch role already installed Java
     graylog_password_secret: "" # Insert your own here. Generate with: pwgen -s 96 1
@@ -61,6 +65,7 @@ Here is an example playbook that uses this role. This is a single-instance confi
     graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
     graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+    
   roles:
     - role: "graylog2.graylog"
       tags:
