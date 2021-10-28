@@ -152,6 +152,7 @@ These settings will be added to the end of the `server.conf` file.
 
 ## Package Variables
 
+These settings allow you to customise where MongoDB and Graylog are installed from. You shouldn't need these, but they are there in case you do.
 
 | Variable Name | Default Value |
 |---|---|
@@ -177,14 +178,6 @@ These settings will be added to the end of the `server.conf` file.
 | `graylog_mongodb_data_path` |  |
 | `graylog_mongodb_bind_port` | 27017 |
 | `graylog_mongodb_bind_ip` | 127.0.0.1 |
-| `graylog_mongodb_package_name` | mongodb-org |
-| `graylog_mongodb_service_name` | mongod |
-| `graylog_mongodb_ubuntu_repo` | deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} multiverse |
-| `graylog_mongodb_ubuntu_key` | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
-| `graylog_mongodb_debian_repo` | deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} main |
-| `graylog_mongodb_debian_key` | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
-| `graylog_mongodb_redhat_repo` | https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ graylog_mongodb_version }}/x86_64/ |
-| `graylog_mongodb_redhat_key` | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
 
 ## Misc Variables
 
