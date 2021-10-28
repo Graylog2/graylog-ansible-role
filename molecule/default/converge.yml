@@ -17,8 +17,8 @@
     graylog_http_external_uri:     "http://localhost:9000/"
 
     #Elasticsearch
-    es_major_version: "6.x"
-    es_version: 6.8.10
+    es_major_version: "7.x"
+    es_version: 7.10.2
     es_instance_name: "graylog"
     es_scripts: False
     es_templates: False
@@ -36,6 +36,9 @@
       network.host: "0.0.0.0"
       node.data: True
       node.master: True
+      cluster.initial_master_nodes : []
+      discovery.seed_hosts : []
+
 
     #Plugins
     graylog_install_enterprise_plugins:               True
