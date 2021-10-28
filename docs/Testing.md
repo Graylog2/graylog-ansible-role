@@ -50,7 +50,7 @@ Test that Molecule works
 
 To spin up a test VM:
 
-    export MOLECULE_DISTRO='generic/ubuntu1804'
+    export MOLECULE_DISTRO='generic/ubuntu2004'
     export GRAYLOG_VERSION=4.2.0
     export GRAYLOG_REVISION=3
     molecule create
