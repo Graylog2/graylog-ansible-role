@@ -55,8 +55,8 @@ Here is an example playbook that uses this role. This is a single-instance confi
   become: True
   vars:
     #Elasticsearch vars
-    es_major_version: "7.x"
-    es_version: 7.10.2
+    es_major_version: "6.x"
+    es_version: "6.8.10"
     es_enable_xpack: False
     es_instance_name: "graylog"
     es_heap_size: "1g"
@@ -66,8 +66,6 @@ Here is an example playbook that uses this role. This is a single-instance confi
       http.port: 9200
       transport.tcp.port: 9300
       network.host: "127.0.0.1"
-      cluster.initial_master_nodes : []
-      discovery.seed_hosts : []
     oss_version: True
 
     #Graylog vars
