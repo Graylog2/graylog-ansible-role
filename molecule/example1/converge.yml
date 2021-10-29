@@ -1,0 +1,31 @@
+- hosts: "all"
+  remote_user: "ubuntu"
+  become: True
+  vars:
+    #Elasticsearch vars
+    es_major_version: "6.x"
+    es_version: "6.8.10"
+    es_enable_xpack: False
+    es_instance_name: "graylog"
+    es_heap_size: "1g"
+    es_config:
+      node.name: "graylog"
+      cluster.name: "graylog"
+      http.port: 9200
+      transport.tcp.port: 9300
+      network.host: "127.0.0.1"
+    oss_version: True
+
+    #Graylog vars
+    graylog_version: 4.2
+    graylog_install_java: False
+    graylog_password_secret: "2jueVqZpwLLjaWxV"
+    graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+    graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
+    graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+    graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+
+  roles:
+    - role: "graylog2.graylog"
+      tags:
+        - "graylog"
