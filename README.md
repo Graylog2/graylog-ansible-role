@@ -55,8 +55,8 @@ Here is an example playbook that uses this role. This is a single-instance confi
   become: True
   vars:
     #Elasticsearch vars
-    es_major_version: "6.x"
-    es_version: "6.8.10"
+    es_major_version: "7.x"
+    es_version: "7.10.2"
     es_enable_xpack: False
     es_instance_name: "graylog"
     es_heap_size: "1g"
@@ -66,11 +66,13 @@ Here is an example playbook that uses this role. This is a single-instance confi
       http.port: 9200
       transport.tcp.port: 9300
       network.host: "127.0.0.1"
+      discovery.seed_hosts: "localhost:9300"
+      cluster.initial_master_nodes: "graylog"
     oss_version: True
 
     #Graylog vars
     graylog_version: 4.2
-    graylog_install_java: False # Elasticsearch role already installed Java
+    graylog_install_java: True
     graylog_password_secret: "" # Insert your own here. Generate with: pwgen -s 96 1
     graylog_root_password_sha2: "" # Insert your own root_password_sha2 here.
     graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
