@@ -4,4 +4,4 @@
 
 - name: "elastic.elasticsearch"
   src: "https://github.com/elastic/ansible-elasticsearch.git"
-  version: master
+  version: main
