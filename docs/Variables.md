@@ -9,9 +9,9 @@
 | `graylog_install_java` | True | Whether to install Java on the instance.|
 | `graylog_install_elasticsearch` | True | Whether to install Elasticsearch on the instance. |
 | `graylog_install_mongodb` | True | Whether to install MongoDB on the instance. |
-| `graylog_install_enterprise_plugins` | False | Whether to install the [graylog-enterprise-plugins][11] package. |
-| `graylog_install_integrations_plugins` | False | Whether to install the [graylog-integrations-plugins][10] package. |
-| `graylog_install_enterprise_integrations_plugins` | False | Whether to install the [graylog-enterprise-integrations-plugins][10] package. |
+| `graylog_install_enterprise_plugins` | False | Whether to install the [graylog-enterprise-plugins](https://docs.graylog.org/docs/intro) package. |
+| `graylog_install_integrations_plugins` | False | Whether to install the [graylog-integrations-plugins](https://docs.graylog.org/docs/integrations) package. |
+| `graylog_install_enterprise_integrations_plugins` | False | Whether to install the [graylog-enterprise-integrations-plugins](https://docs.graylog.org/docs/intro) package. |
 
 
 ## Java Variables
