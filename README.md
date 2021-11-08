@@ -69,6 +69,7 @@ Here is an example playbook that uses this role. This is a single-instance confi
       discovery.seed_hosts: "localhost:9300"
       cluster.initial_master_nodes: "graylog"
     oss_version: True
+    es_action_auto_create_index: False
 
     #Graylog vars
     graylog_version: 4.2
