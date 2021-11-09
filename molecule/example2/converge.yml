@@ -26,7 +26,7 @@
       node.name: "{{ ansible_hostname }}"
       cluster.name: "graylog"
       http.port: 9200
-      transport.tcp.port: 9300
+      transport.port: 9300
       network.host: "0.0.0.0"
       discovery.seed_hosts: "elasticsearch01:9300, elasticsearch02:9300, elasticsearch03:9300"
       cluster.initial_master_nodes: "elasticsearch01, elasticsearch02, elasticsearch03"

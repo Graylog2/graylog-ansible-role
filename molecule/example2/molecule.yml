@@ -11,6 +11,8 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     networks:
       - name: "graylog"
+    published_ports:
+      - "0.0.0.0:9000:9000/tcp"
     network_mode: "graylog"
     privileged: true
     pre_build_image: true
@@ -23,6 +25,8 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     networks:
       - name: "graylog"
+    published_ports:
+      - "0.0.0.0:9001:9000/tcp"
     network_mode: "graylog"
     privileged: true
     pre_build_image: true
@@ -35,6 +39,8 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     networks:
       - name: "graylog"
+    published_ports:
+      - "0.0.0.0:9002:9000/tcp"
     network_mode: "graylog"
     privileged: true
     pre_build_image: true
