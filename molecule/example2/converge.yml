@@ -31,6 +31,7 @@
       discovery.seed_hosts: "elasticsearch01:9300, elasticsearch02:9300, elasticsearch03:9300"
       cluster.initial_master_nodes: "elasticsearch01, elasticsearch02, elasticsearch03"
     oss_version: True
+    es_action_auto_create_index: False
 
   roles:
     - role: "elastic.elasticsearch"
