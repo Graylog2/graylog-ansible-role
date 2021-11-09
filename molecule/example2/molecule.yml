@@ -1,0 +1,62 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: graylog01
+    image: geerlingguy/docker-ubuntu2004-ansible
+    command: '/sbin/init'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - graylog
+  - name: graylog02
+    image: geerlingguy/docker-ubuntu2004-ansible
+    command: '/sbin/init'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - graylog
+  - name: graylog03
+    image: geerlingguy/docker-ubuntu2004-ansible
+    command: '/sbin/init'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - graylog
+  - name: elasticsearch01
+    image: geerlingguy/docker-ubuntu2004-ansible
+    command: '/sbin/init'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - elasticsearch
+  - name: elasticsearch02
+    image: geerlingguy/docker-ubuntu2004-ansible
+    command: '/sbin/init'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - elasticsearch
+  - name: elasticsearch03
+    image: geerlingguy/docker-ubuntu2004-ansible
+    command: '/sbin/init'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: true
+    pre_build_image: true
+    groups:
+      - elasticsearch
+provisioner:
+  name: ansible
