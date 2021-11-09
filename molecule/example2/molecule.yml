@@ -9,33 +9,45 @@ platforms:
     command: '/sbin/init'
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    networks:
+      - name: "graylog"
+    network_mode: "graylog"
     privileged: true
     pre_build_image: true
     groups:
-      - graylog
+      - graylog_primary
   - name: graylog02
     image: geerlingguy/docker-ubuntu2004-ansible
     command: '/sbin/init'
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    networks:
+      - name: "graylog"
+    network_mode: "graylog"
     privileged: true
     pre_build_image: true
     groups:
-      - graylog
+      - graylog_secondary
   - name: graylog03
     image: geerlingguy/docker-ubuntu2004-ansible
     command: '/sbin/init'
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    networks:
+      - name: "graylog"
+    network_mode: "graylog"
     privileged: true
     pre_build_image: true
     groups:
-      - graylog
+      - graylog_secondary
   - name: elasticsearch01
     image: geerlingguy/docker-ubuntu2004-ansible
     command: '/sbin/init'
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    networks:
+      - name: "graylog"
+    network_mode: "graylog"
     privileged: true
     pre_build_image: true
     groups:
@@ -45,6 +57,9 @@ platforms:
     command: '/sbin/init'
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    networks:
+      - name: "graylog"
+    network_mode: "graylog"
     privileged: true
     pre_build_image: true
     groups:
@@ -54,6 +69,9 @@ platforms:
     command: '/sbin/init'
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    networks:
+      - name: "graylog"
+    network_mode: "graylog"
     privileged: true
     pre_build_image: true
     groups:
