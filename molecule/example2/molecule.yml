@@ -17,7 +17,7 @@ platforms:
     privileged: true
     pre_build_image: true
     groups:
-      - graylog_primary
+      - graylog
   - name: graylog02
     image: geerlingguy/docker-ubuntu2004-ansible
     command: '/sbin/init'
@@ -31,7 +31,7 @@ platforms:
     privileged: true
     pre_build_image: true
     groups:
-      - graylog_secondary
+      - graylog
   - name: graylog03
     image: geerlingguy/docker-ubuntu2004-ansible
     command: '/sbin/init'
@@ -45,7 +45,7 @@ platforms:
     privileged: true
     pre_build_image: true
     groups:
-      - graylog_secondary
+      - graylog
   - name: elasticsearch01
     image: geerlingguy/docker-ubuntu2004-ansible
     command: '/sbin/init'
