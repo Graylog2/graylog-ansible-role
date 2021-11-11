@@ -41,6 +41,8 @@
   vars:
     mongodb_version: "4.4"
     bind_ip: "0.0.0.0"
+    config_port: "27019"
+    config_repl_set_name: "rs0"
   roles:
     - community.mongodb.mongodb_repository
     - community.mongodb.mongodb_install
@@ -53,14 +55,14 @@
         update_cache: yes
         name: "python3-pymongo"
         state: "latest"
-    - name: Ensure replicaset rs0 exists
+    - name: Configure replicaset
       community.mongodb.mongodb_replicaset:
-        login_host: graylog01
+        login_host: localhost:27019
         replica_set: rs0
         members:
-        - graylog01:27017
-        - graylog02:27017
-        - graylog02:27017
+        - graylog01:27019
+        - graylog02:27019
+        - graylog03:27019
 
 
 - hosts: "graylog"
