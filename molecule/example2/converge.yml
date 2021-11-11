@@ -36,13 +36,32 @@
   roles:
     - role: "elastic.elasticsearch"
 
+
 - hosts: "graylog"
   vars:
     mongodb_version: "4.4"
-    mongodb_net_bindip: "0.0.0.0"
-    mongodb_replication_replset: "rs0"
+    bind_ip: "0.0.0.0"
   roles:
-    - role: "undergreen.mongodb"
+    - community.mongodb.mongodb_repository
+    - community.mongodb.mongodb_install
+    - community.mongodb.mongodb_config
+
+- hosts: "graylog01"
+  tasks:
+    - name: "Install PyMongo"
+      apt:
+        update_cache: yes
+        name: "python3-pymongo"
+        state: "latest"
+    - name: Ensure replicaset rs0 exists
+      community.mongodb.mongodb_replicaset:
+        login_host: graylog01
+        replica_set: rs0
+        members:
+        - graylog01:27017
+        - graylog02:27017
+        - graylog02:27017
+
 
 - hosts: "graylog"
   vars:
