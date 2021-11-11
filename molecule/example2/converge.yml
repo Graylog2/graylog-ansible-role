@@ -78,7 +78,7 @@
     graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_elasticsearch_hosts: "http://elasticsearch01:9200,http://elasticsearch02:9200,http://elasticsearch03:9200"
-    graylog_mongodb_uri: "mongodb://graylog01:27017,graylog02:27017,graylog03:27017/graylog"
+    graylog_mongodb_uri: "mongodb://graylog01:27019,graylog02:27019,graylog03:27019/graylog"
 
   roles:
     - role: "graylog2.graylog"
