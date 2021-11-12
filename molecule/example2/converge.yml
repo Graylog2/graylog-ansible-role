@@ -41,12 +41,17 @@
   vars:
     mongodb_version: "4.4"
     bind_ip: "0.0.0.0"
-    config_port: "27019"
-    config_repl_set_name: "rs0"
+    repl_set_name: "rs0"
+    authorization: "disabled"
   roles:
     - community.mongodb.mongodb_repository
-    - community.mongodb.mongodb_install
-    - community.mongodb.mongodb_config
+    - community.mongodb.mongodb_mongod
+  tasks:
+    - name: "Start MongoDB"
+      service:
+        name: "mongod"
+        state: "started"
+        enabled: "yes"
 
 - hosts: "graylog01"
   tasks:
@@ -57,12 +62,13 @@
         state: "latest"
     - name: Configure replicaset
       community.mongodb.mongodb_replicaset:
-        login_host: localhost:27019
-        replica_set: rs0
+        login_host: "localhost"
+        replica_set: "rs0"
         members:
-        - graylog01:27019
-        - graylog02:27019
-        - graylog03:27019
+        - graylog01
+        - graylog02
+        - graylog03
+      register: repl
 
 
 - hosts: "graylog"
@@ -78,7 +84,7 @@
     graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_elasticsearch_hosts: "http://elasticsearch01:9200,http://elasticsearch02:9200,http://elasticsearch03:9200"
-    graylog_mongodb_uri: "mongodb://graylog01:27019,graylog02:27019,graylog03:27019/graylog"
+    graylog_mongodb_uri: "mongodb://graylog01:27017,graylog02:27017,graylog03:27017/graylog"
 
   roles:
     - role: "graylog2.graylog"
