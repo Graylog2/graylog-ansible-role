@@ -77,7 +77,6 @@
         - graylog01
         - graylog02
         - graylog03
-      register: repl
 
 
 - hosts: "graylog"

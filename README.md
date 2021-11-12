@@ -178,7 +178,6 @@ Again, this doesn't configure authentication in MongoDB. You may want that for a
         - graylog01
         - graylog02
         - graylog03
-      register: repl
 ```
 
 Finally, we install Graylog.
