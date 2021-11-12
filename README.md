@@ -205,7 +205,7 @@ Finally, we install Graylog.
 
 We set `graylog_install_elasticsearch: False` and `graylog_install_mongodb: False` so the Graylog role doesn't try to install Elasticsearch and MongoDB. Those flags are intended for single-instance installs.
 
-The full example can be seen [here](molecule/example2/converge.yml), and our [documentation](https://docs.graylog.org/v1/docs/multinode-setup) has more in-depth advice on configuring a multi-node Graylog setup.
+The full example can be seen [here](molecule/example2/converge.yml). Our [documentation](https://docs.graylog.org/v1/docs/multinode-setup) has more in-depth advice on configuring a multi-node Graylog setup.
 
 
 ## Role Variables
