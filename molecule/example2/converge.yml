@@ -1,0 +1,99 @@
+- hosts: "all"
+  tasks:
+    - name: "Fix missing dir"
+      file:
+        path: "/usr/share/man/man1"
+        state: "directory"
+    - name: "Install Java"
+      apt:
+        update_cache: yes
+        name: "openjdk-8-jre"
+        state: "latest"
+    - name: "Install gpg-agent"
+      apt:
+        update_cache: "yes"
+        name: "gpg-agent"
+        state: "latest"
+    - name: "Install ntp"
+      apt:
+        name: "ntp"
+        state: "latest"
+    - name: "Start ntp"
+      service:
+        name: "ntp"
+        state: "started"
+        enabled: "yes"
+
+- hosts: "elasticsearch"
+  vars:
+    es_major_version: "7.x"
+    es_version: "7.10.2"
+    es_enable_xpack: False
+    es_instance_name: "graylog"
+    es_heap_size: "1g"
+    es_config:
+      node.name: "{{ ansible_hostname }}"
+      cluster.name: "graylog"
+      http.port: 9200
+      transport.port: 9300
+      network.host: "0.0.0.0"
+      discovery.seed_hosts: "elasticsearch01:9300, elasticsearch02:9300, elasticsearch03:9300"
+      cluster.initial_master_nodes: "elasticsearch01, elasticsearch02, elasticsearch03"
+    oss_version: True
+    es_action_auto_create_index: False
+
+  roles:
+    - role: "elastic.elasticsearch"
+
+
+- hosts: "graylog"
+  vars:
+    mongodb_version: "4.4"
+    bind_ip: "0.0.0.0"
+    repl_set_name: "rs0"
+    authorization: "disabled"
+  roles:
+    - community.mongodb.mongodb_repository
+    - community.mongodb.mongodb_mongod
+  tasks:
+    - name: "Start MongoDB"
+      service:
+        name: "mongod"
+        state: "started"
+        enabled: "yes"
+
+- hosts: "graylog01"
+  tasks:
+    - name: "Install PyMongo"
+      apt:
+        update_cache: yes
+        name: "python3-pymongo"
+        state: "latest"
+    - name: Configure replicaset
+      community.mongodb.mongodb_replicaset:
+        login_host: "localhost"
+        replica_set: "rs0"
+        members:
+        - graylog01
+        - graylog02
+        - graylog03
+      register: repl
+
+
+- hosts: "graylog"
+  vars:
+    graylog_is_master: "{{ True if ansible_hostname == 'graylog01' else False }}"
+    graylog_version: 4.2
+    graylog_install_java: False
+    graylog_install_elasticsearch: False
+    graylog_install_mongodb: False
+    graylog_password_secret: "2jueVqZpwLLjaWxV"
+    graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
+    graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
+    graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+    graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+    graylog_elasticsearch_hosts: "http://elasticsearch01:9200,http://elasticsearch02:9200,http://elasticsearch03:9200"
+    graylog_mongodb_uri: "mongodb://graylog01:27017,graylog02:27017,graylog03:27017/graylog"
+
+  roles:
+    - role: "graylog2.graylog"
