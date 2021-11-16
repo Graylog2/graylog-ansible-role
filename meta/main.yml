@@ -6,7 +6,7 @@ dependencies:
     when: graylog_install_java
 
   - role: "elastic.elasticsearch"
-    version: master
+    version: main
     when: graylog_install_elasticsearch
 
 galaxy_info:
