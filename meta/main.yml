@@ -6,6 +6,7 @@ dependencies:
     when: graylog_install_java
 
   - role: "elastic.elasticsearch"
+    src: https://github.com/elastic/ansible-elasticsearch.git
     version: main
     when: graylog_install_elasticsearch
 
