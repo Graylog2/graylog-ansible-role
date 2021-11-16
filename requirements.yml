@@ -4,4 +4,5 @@
 
 - name: "elastic.elasticsearch"
   src: "https://github.com/elastic/ansible-elasticsearch.git"
+  scm: git
   version: main

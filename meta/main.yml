@@ -8,6 +8,7 @@ dependencies:
   - role: "elastic.elasticsearch"
     src: https://github.com/elastic/ansible-elasticsearch.git
     version: main
+    scm: git
     when: graylog_install_elasticsearch
 
 galaxy_info:
