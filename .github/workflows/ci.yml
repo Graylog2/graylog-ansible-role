@@ -41,7 +41,6 @@ jobs:
           - ubuntu2004
           - debian10
           - debian11
-          - fedora34
 
     steps:
       - name: Check out the codebase.
