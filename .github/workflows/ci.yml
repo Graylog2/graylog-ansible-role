@@ -35,8 +35,13 @@ jobs:
     strategy:
       matrix:
         distro:
+          - centos7
           - centos8
+          - ubuntu1804
           - ubuntu2004
+          - debian10
+          - debian11
+          - fedora34
 
     steps:
       - name: Check out the codebase.
