@@ -30,7 +30,7 @@ jobs:
           yamllint .
 
   molecule:
-    name: Molecule
+    name: Molecule Test
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
@@ -53,3 +53,12 @@ jobs:
           ANSIBLE_FORCE_COLOR: '1'
           GRAYLOG_VERSION: 4.2.1
           GRAYLOG_REVISION: 1
+
+  galaxy-install:
+    name: Ansible Galaxy Install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Ansible.
+        run: sudo apt-get install -y ansible
+      - name: Install Role
+        run: ansible-galaxy install graylog2.graylog
