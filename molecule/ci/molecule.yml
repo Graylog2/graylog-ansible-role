@@ -1,0 +1,22 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: graylog
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2004}-ansible
+    command: '/sbin/init'
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    networks:
+      - name: "graylog"
+    network_mode: "graylog"
+    published_ports:
+      - "0.0.0.0:9000:9000/tcp"
+    privileged: true
+    pre_build_image: true
+provisioner:
+  name: ansible
+verifier:
+  name: testinfra

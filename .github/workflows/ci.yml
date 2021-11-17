@@ -28,3 +28,50 @@ jobs:
       - name: Lint code.
         run: |
           yamllint .
+
+  molecule:
+    name: Molecule Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - centos7
+          - centos8
+          - ubuntu1804
+          - ubuntu2004
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: 'graylog2.graylog-ansible-role'
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install -r requirements.txt
+
+      - name: Run Molecule tests.
+        run: molecule test --scenario-name=ci
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          GRAYLOG_VERSION: 4.2.1
+          GRAYLOG_REVISION: 1
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+
+  galaxy-install:
+    name: Ansible Galaxy Install
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: 'graylog2.graylog-ansible-role'
+      - name: Install Ansible.
+        run: sudo apt-get install -y ansible
+      - name: Install Role
+        run: ansible-galaxy install graylog2.graylog
