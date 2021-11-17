@@ -58,6 +58,10 @@ jobs:
     name: Ansible Galaxy Install
     runs-on: ubuntu-20.04
     steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: 'graylog2.graylog-ansible-role'
       - name: Install Ansible.
         run: sudo apt-get install -y ansible
       - name: Install Role
