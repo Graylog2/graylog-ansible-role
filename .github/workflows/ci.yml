@@ -56,7 +56,7 @@ jobs:
 
   galaxy-install:
     name: Ansible Galaxy Install
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v2
