@@ -5,19 +5,21 @@
       file:
         path: "/usr/share/man/man1"
         state: "directory"
-    - name: "Install Java"
+    - name: "Install packages (Ubuntu/Debian)"
       apt:
         update_cache: yes
-        name: "openjdk-8-jre"
+        pkg:
+          - "openjdk-8-jre"
+          - "gpg-agent"
+          - "curl"
         state: "latest"
-    - name: "Install gpg-agent"
-      apt:
-        name: "gpg-agent"
-        state: "latest"
-    - name: "Install curl"
-      apt:
-        name: "curl"
-        state: "latest"
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+    - name: Install packages (Centos/Redhat)
+      yum:
+        name:
+          - java-1.8.0-openjdk
+        state: latest
+      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - hosts: "all"
   vars:
