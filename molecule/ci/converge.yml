@@ -5,7 +5,7 @@
       file:
         path: "/usr/share/man/man1"
         state: "directory"
-    - name: "Install packages (Ubuntu/Debian)"
+    - name: "Install packages (Ubuntu)"
       apt:
         update_cache: yes
         pkg:
@@ -13,7 +13,16 @@
           - "gpg-agent"
           - "curl"
         state: "latest"
-      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+      when: ansible_distribution == 'Ubuntu'
+    - name: "Install packages (Debian)"
+      apt:
+        update_cache: yes
+        pkg:
+          - "openjdk-11-jre"
+          - "gpg-agent"
+          - "curl"
+        state: "latest"
+      when: ansible_distribution == 'Debian'
     - name: Install packages (Centos/Redhat)
       yum:
         name:
