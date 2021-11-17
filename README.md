@@ -6,8 +6,12 @@
 
 - Ansible (> 2.5.0)
 - At least 4gb of memory on the target instance.
-- Linux
-  - Currently tested against Ubuntu 20.04 and Centos 8
+  - Linux
+    - Currently tested against:
+        - Ubuntu 18.04
+        - Ubuntu 20.04
+        - Centos 7
+        - Centos 8
 
 To install the role, run:
 
