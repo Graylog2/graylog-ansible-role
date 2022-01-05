@@ -656,6 +656,17 @@ dashboard_widget_default_cache_time = {{ graylog_dashboard_widget_default_cache_
 # Should be http_thread_pool_size * average_cluster_size if you have a high number of concurrent users.
 proxied_requests_thread_pool_size = {{ graylog_proxied_requests_thread_pool_size }}
 
+# Automatically load content packs in "content_packs_dir" on the first start of Graylog.
+content_packs_loader_enabled = {{ graylog_content_packs_loader_enabled }}
+
+# The directory which contains content packs which should be loaded on the first start of Graylog.
+content_packs_dir = {{ graylog_content_packs_dir }}
+
+# A comma-separated list of content packs (files in "content_packs_dir") which should be applied on
+# the first start of Graylog.
+# Default: empty
+content_packs_auto_load = {{ graylog_content_packs_auto_load }}
+
 {% for key, value in graylog_additional_config.items() %}
 {{ key }} = {{ value }}
 {% endfor %}
