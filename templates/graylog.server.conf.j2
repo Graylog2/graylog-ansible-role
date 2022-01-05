@@ -665,7 +665,7 @@ content_packs_dir = {{ graylog_content_packs_dir }}
 # A comma-separated list of content packs (files in "content_packs_dir") which should be applied on
 # the first start of Graylog.
 # Default: empty
-content_packs_auto_load = {{ graylog_content_packs_auto_load }}
+content_packs_auto_install = {{ graylog_content_packs_auto_install }}
 
 {% for key, value in graylog_additional_config.items() %}
 {{ key }} = {{ value }}
