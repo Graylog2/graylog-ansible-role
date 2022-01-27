@@ -62,6 +62,6 @@
     graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
 
   roles:
-    - role: "graylog2.graylog"
+    - role: "graylog-ansible-role"
       tags:
         - "graylog"

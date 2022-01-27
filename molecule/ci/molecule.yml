@@ -18,5 +18,7 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
+  env:
+  ANSIBLE_ROLES_PATH: "/home/runner/work/graylog-ansible-role/graylog-ansible-role"
 verifier:
   name: testinfra
