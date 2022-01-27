@@ -120,7 +120,7 @@ graylog_elasticsearch_connect_timeout:                  "10s"
 # Content packs
 graylog_content_packs_loader_enabled: True
 graylog_content_packs_dir:            "/usr/share/graylog-server/contentpacks"
-graylog_content_packs_auto_load:      ""
+graylog_content_packs_auto_install:      ""
 
 # Buffer
 graylog_udp_recvbuffer_sizes:                          1048576
