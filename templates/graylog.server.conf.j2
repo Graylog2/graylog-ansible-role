@@ -607,7 +607,11 @@ http_write_timeout = {{ graylog_http_write_timeout }}
 # Examples:
 #   - http://proxy.example.com:8123
 #   - http://username:password@proxy.example.com:8123
-# http_proxy_uri = {{ graylog_http_proxy_uri }}
+{% if graylog_http_proxy_uri is defined and graylog_http_proxy_uri|length %}
+    http_non_proxy_hosts = {{ graylog_http_proxy_uri }}
+{% else %}
+   #http_non_proxy_hosts = {{ graylog_http_proxy_uri }}
+{% endif %}
 
 # A list of hosts that should be reached directly, bypassing the configured proxy server.
 # This is a list of patterns separated by ",". The patterns may start or end with a "*" for wildcards.
@@ -615,7 +619,11 @@ http_write_timeout = {{ graylog_http_write_timeout }}
 # Examples:
 #   - localhost,127.0.0.1
 #   - 10.0.*,*.example.com
-#http_non_proxy_hosts = {{ graylog_non_proxy_hosts }}
+{% if graylog_non_proxy_hosts is defined and graylog_non_proxy_hosts|length %}
+    http_non_proxy_hosts = {{ graylog_non_proxy_hosts }}
+{% else %}
+   #http_non_proxy_hosts = {{ graylog_non_proxy_hosts }}
+{% endif %}
 
 # Disable the optimization of Elasticsearch indices after index cycling. This may take some load from Elasticsearch
 # on heavily used systems with large indices, but it will decrease search performance. The default is to optimize
