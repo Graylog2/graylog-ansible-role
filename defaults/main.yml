@@ -187,7 +187,7 @@ graylog_web_thread_pool_size:        16
 # JVM
 graylog_gc_warning_threshold: "1s"
 graylog_server_heap_size:     "1500m"
-graylog_server_java:          "/usr/bin/java"
+graylog_server_java:          "/usr/bin/java" # For usage of the bundled openjdk version within graylog leave varviable blank
 graylog_server_java_opts_extra: ""
 graylog_server_java_opts:     "-Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow {{graylog_server_java_opts_extra}}"
 graylog_server_args:          ""
@@ -202,10 +202,18 @@ graylog_install_java:          True
 # Disable steps which break tests
 graylog_not_testing:           True
 
-# Plugins
+# Plugins for Graylog Versions <5.0
 graylog_install_enterprise_plugins:               False
 graylog_install_integrations_plugins:             False
 graylog_install_enterprise_integrations_plugins:  False
+
+# package version for Graylog Version >=5.0
+graylog_install_enterprise_package: False
+graylog_install_open_package:       True
+
+# Graylog Version to install
+graylog_version: 5.0
+graylog_full_version: ""
 
 graylog_additional_config: {}
 
