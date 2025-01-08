@@ -33,19 +33,19 @@
   yum:
     name: "graylog-enterprise-plugins{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: graylog_install_enterprise_plugins
+  when: (graylog_install_enterprise_plugins | bool == true and graylog_version is version('5.0', '<'))
   notify: restart graylog-server
 
 - name: "Installing graylog-integrations-plugins"
   yum:
     name: "graylog-integrations-plugins{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: graylog_install_integrations_plugins
+  when: (graylog_install_integrations_plugins | bool == true and graylog_version is version('5.0', '<'))
   notify: restart graylog-server
 
 - name: "Installing graylog-enterprise-integrations-plugins"
   yum:
     name: "graylog-enterprise-integrations-plugins{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: graylog_install_enterprise_integrations_plugins
+  when: (graylog_install_enterprise_integrations_plugins | bool == true and graylog_version is version('5.0', '<'))
   notify: restart graylog-server
