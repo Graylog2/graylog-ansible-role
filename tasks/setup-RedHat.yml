@@ -12,7 +12,7 @@
   yum:
     name: "graylog-server{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: (graylog_install_enterprise_package | bool == false and graylog_version is version('5.0', '<'))
+  when: graylog_version is version('5.0', '<')
   notify: "restart graylog-server"
 
 - name: "Graylog Open server package should be installed"
