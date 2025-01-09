@@ -54,6 +54,9 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install -r requirements.txt
 
+      - name: Install ansible 4.2.0 to work-around packaging issue (issue-2904)
+        run: pip3 install --force 'ansible==4.2.0'
+
       - name: Run Molecule tests.
         run: molecule test --scenario-name=ci
         env:
