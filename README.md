@@ -83,13 +83,15 @@ Here is an example playbook that uses this role. This is a single-instance confi
     es_action_auto_create_index: False
 
     #Graylog vars
-    graylog_version: 4.2
+    graylog_version: 5.2
     graylog_install_java: True
     graylog_password_secret: "" # Insert your own here. Generate with: pwgen -s 96 1
     graylog_root_password_sha2: "" # Insert your own root_password_sha2 here.
     graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
     graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+    graylog_install_open_package: True
+    graylog_install_enterprise_package: False
 
   roles:
     - role: "graylog2.graylog"
