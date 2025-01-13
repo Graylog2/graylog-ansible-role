@@ -230,7 +230,7 @@ We run smoke tests for Graylog using this role. Documentation on that can be fou
 
 ## Author Information
 
-Author: Marius Sturm (<marius@graylog.com>) and [contributors](https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors)
+Author: Graylog and [contributors](https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors)
 
 ## License
 
