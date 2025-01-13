@@ -5,7 +5,6 @@
 
 ## Requirements
 
-- Ansible (> 2.5.0)
 - Ansible (2.13.13)
 - Python 3.9
 - At least 4gb of memory on the target instance.
@@ -13,8 +12,10 @@
     - Currently tested against:
         - Ubuntu 18.04
         - Ubuntu 20.04
+        - Ubuntu 22.04
         - Centos 7
         - Centos 8
+        - Centos 9
 
 To install the role, run:
 
