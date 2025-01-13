@@ -6,6 +6,8 @@
 ## Requirements
 
 - Ansible (> 2.5.0)
+- Ansible (2.13.13)
+- Python 3.9
 - At least 4gb of memory on the target instance.
   - Linux
     - Currently tested against:
