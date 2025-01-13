@@ -9,9 +9,11 @@
 | `graylog_install_java` | True | Whether to install Java on the instance.|
 | `graylog_install_elasticsearch` | True | Whether to install Elasticsearch on the instance. |
 | `graylog_install_mongodb` | True | Whether to install MongoDB on the instance. |
-| `graylog_install_enterprise_plugins` | False | Whether to install the [graylog-enterprise-plugins](https://docs.graylog.org/docs/intro) package. |
-| `graylog_install_integrations_plugins` | False | Whether to install the [graylog-integrations-plugins](https://docs.graylog.org/docs/integrations) package. |
-| `graylog_install_enterprise_integrations_plugins` | False | Whether to install the [graylog-enterprise-integrations-plugins](https://docs.graylog.org/docs/intro) package. |
+| `graylog_install_enterprise_plugins` | False | Whether to install the [graylog-enterprise-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
+| `graylog_install_integrations_plugins` | False | Whether to install the [graylog-integrations-plugins](https://docs.graylog.org/docs/integrations) package for version <= 4.3. |
+| `graylog_install_enterprise_integrations_plugins` | False | Whether to install the [graylog-enterprise-integrations-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
+| `graylog_install_open_package` | False | Whether to install the [graylog-server](https://docs.graylog.org/docs/intro) package for version >= 5.0. |
+| `graylog_install_enterprise_package` | False | Whether to install the [graylog-enterprise](https://docs.graylog.org/docs/intro) package for version >= 5.0. |
 
 
 ## Java Variables

@@ -5,14 +5,17 @@
 
 ## Requirements
 
-- Ansible (> 2.5.0)
+- Ansible (2.13.13)
+- Python 3.9
 - At least 4gb of memory on the target instance.
   - Linux
     - Currently tested against:
         - Ubuntu 18.04
         - Ubuntu 20.04
+        - Ubuntu 22.04
         - Centos 7
         - Centos 8
+        - Centos 9
 
 To install the role, run:
 
@@ -33,10 +36,13 @@ Be certain you are running a supported version of Elasticsearch. You can configu
 
 **Compatibility Matrix**
 
-| Graylog version   | 3.x | 4.x |
-|:--------------|:-------------:|:-------------:|
-| Elasticsearch | 5-6 | 6.8 - 7.10 |
+| Graylog version   | 3.x |    4.x     | 5.x | 6.x |
+|:--------------|:-------------:|:----------:|:-------------:|:-------------:|
+| Elasticsearch | 5-6 | 6.8 - 7.10 | 6.8 - 7.10 | n/a |
+ | OpenSearch | |    1.x*    | 1.x - 2.x | 1.x - 2.x |
+*Graylog 4.3.x introduces support for OpenSearch.
 
+Refer to the [Software Interoperability Chart](https://go2docs.graylog.org/5-0/planning_your_deployment/planning_your_upgrade_to_opensearch.htm)
 
 You will need to these Ansible role dependencies:
   - [Java](https://github.com/lean-delivery/ansible-role-java)
@@ -77,13 +83,15 @@ Here is an example playbook that uses this role. This is a single-instance confi
     es_action_auto_create_index: False
 
     #Graylog vars
-    graylog_version: 4.2
+    graylog_version: 5.2
     graylog_install_java: True
     graylog_password_secret: "" # Insert your own here. Generate with: pwgen -s 96 1
     graylog_root_password_sha2: "" # Insert your own root_password_sha2 here.
     graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
     graylog_http_publish_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
     graylog_http_external_uri: "http://{{ ansible_default_ipv4.address }}:9000/"
+    graylog_install_open_package: True
+    graylog_install_enterprise_package: False
 
   roles:
     - role: "graylog2.graylog"
@@ -222,7 +230,7 @@ We run smoke tests for Graylog using this role. Documentation on that can be fou
 
 ## Author Information
 
-Author: Marius Sturm (<marius@graylog.com>) and [contributors](https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors)
+Author: Graylog and [contributors](https://github.com/Graylog2/graylog2-ansible-role/graphs/contributors)
 
 ## License
 

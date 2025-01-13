@@ -14,10 +14,10 @@ dependencies:
 galaxy_info:
   role_name: graylog
   namespace: graylog2
-  author: "Marius Sturm"
+  author: "Graylog"
   company: "Graylog, Inc."
   description: "Install and configure Graylog log management."
-  min_ansible_version: "2.5"
+  min_ansible_version: "2.13.13"
   license: "Apache 2"
   platforms:
     - name: "EL"

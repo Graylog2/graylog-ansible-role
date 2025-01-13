@@ -10,27 +10,42 @@
 
 - name: "Graylog server should be installed"
   yum:
-    name: "graylog-server{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
+    name: "graylog-server{% if graylog_full_version is not none and graylog_full_version | length > 1 %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  notify: restart graylog-server
+  when: graylog_version is version('5.0', '<')
+  notify: "restart graylog-server"
+
+- name: "Graylog Open server package should be installed"
+  yum:
+    name: "graylog-server{% if graylog_full_version is not none and graylog_full_version | length > 1 %}-{{ graylog_full_version }}{% endif %}"
+    state: "{{ graylog_package_state }}"
+  when: (graylog_install_open_package | bool == true and graylog_install_enterprise_package | bool == false and graylog_version is version('5.0', '>='))
+  notify: "restart graylog-server"
+
+- name: "Graylog Enterprise server package should be installed"
+  yum:
+    name: "graylog-enterprise{% if graylog_full_version is not none and graylog_full_version | length > 1 %}-{{ graylog_full_version }}{% endif %}"
+    state: "{{ graylog_package_state }}"
+  when: (graylog_install_open_package | bool == false and graylog_install_enterprise_package | bool == true and graylog_version is version('5.0', '>='))
+  notify: "restart graylog-server"
 
 - name: "Installing graylog-enterprise-plugins"
   yum:
-    name: "graylog-enterprise-plugins{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
+    name: "graylog-enterprise-plugins{% if graylog_full_version is not none and graylog_full_version | length > 1 %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: graylog_install_enterprise_plugins
+  when: (graylog_install_enterprise_plugins | bool == true and graylog_version is version('5.0', '<'))
   notify: restart graylog-server
 
 - name: "Installing graylog-integrations-plugins"
   yum:
-    name: "graylog-integrations-plugins{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
+    name: "graylog-integrations-plugins{% if graylog_full_version is not none and graylog_full_version | length > 1 %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: graylog_install_integrations_plugins
+  when: (graylog_install_integrations_plugins | bool == true and graylog_version is version('5.0', '<'))
   notify: restart graylog-server
 
 - name: "Installing graylog-enterprise-integrations-plugins"
   yum:
-    name: "graylog-enterprise-integrations-plugins{% if graylog_full_version is defined %}-{{ graylog_full_version }}{% endif %}"
+    name: "graylog-enterprise-integrations-plugins{% if graylog_full_version is not none and graylog_full_version | length > 1 %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: graylog_install_enterprise_integrations_plugins
+  when: (graylog_install_enterprise_integrations_plugins | bool == true and graylog_version is version('5.0', '<'))
   notify: restart graylog-server
