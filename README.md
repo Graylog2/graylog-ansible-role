@@ -36,10 +36,13 @@ Be certain you are running a supported version of Elasticsearch. You can configu
 
 **Compatibility Matrix**
 
-| Graylog version   | 3.x | 4.x |
-|:--------------|:-------------:|:-------------:|
-| Elasticsearch | 5-6 | 6.8 - 7.10 |
+| Graylog version   | 3.x |    4.x     | 5.x | 6.x |
+|:--------------|:-------------:|:----------:|:-------------:|:-------------:|
+| Elasticsearch | 5-6 | 6.8 - 7.10 | 6.8 - 7.10 | n/a |
+ | OpenSearch | |    1.x*    | 1.x - 2.x | 1.x - 2.x |
+*Graylog 4.3.x introduces support for OpenSearch.
 
+Refer to the [Software Interoperability Chart](https://go2docs.graylog.org/5-0/planning_your_deployment/planning_your_upgrade_to_opensearch.htm)
 
 You will need to these Ansible role dependencies:
   - [Java](https://github.com/lean-delivery/ansible-role-java)
