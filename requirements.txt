@@ -1,7 +1,7 @@
 ansible==6.7.0
 ansible-compat==24.5.1
 ansible-core==2.13.13
-ansible-lint==4.3.5
+ansible-lint==5.3.2
 enrich==1.2.6
 molecule==3.5.1
 molecule-docker==1.0.2
