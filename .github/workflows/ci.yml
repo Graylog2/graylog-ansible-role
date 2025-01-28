@@ -35,10 +35,11 @@ jobs:
     strategy:
       matrix:
         distro:
-          - centos7
-          - centos8
-          - ubuntu1804
-          - ubuntu2004
+          #- centos7
+          #- centos8
+          #- ubuntu1804
+          #- ubuntu2004
+          - ubuntu2204
 
     steps:
       - name: Check out the codebase.
@@ -59,7 +60,8 @@ jobs:
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          GRAYLOG_VERSION: 4.2.1
+          #GRAYLOG_VERSION: 4.2.1
+          GRAYLOG_VERSION: 5.2.12
           GRAYLOG_REVISION: 1
           MOLECULE_DISTRO: ${{ matrix.distro }}
 
