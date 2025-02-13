@@ -11,10 +11,6 @@
   with_items: "{{ required_vars }}"
   tags: configuration
 
-- name: "Check graylog_mongodb_version var"
-  fail: msg="The 'graylog_mongodb_version' variable is not defined."
-  when: (graylog_install_mongodb) and (graylog_mongodb_version is not defined)
-
 - name: "Check deprecated variables: graylog_server_version"
   fail:
     msg: "Variable 'graylog_server_version' has been deprecated. Use 'graylog_full_version' instead."
