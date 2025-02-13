@@ -2,8 +2,8 @@
 
 # Requirements
 graylog_java_ppa:                  "ppa:webupd8team/java"
-graylog_java_repo:                 "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
-graylog_java_src_repo:             "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
+graylog_java_repo:                 "deb https://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
+graylog_java_src_repo:             "deb-src https://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
 graylog_java_repo_keyserver:       "keyserver.ubuntu.com"
 graylog_java_repo_key:             "EEA14886"
 
