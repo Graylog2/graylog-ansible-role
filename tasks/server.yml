@@ -5,7 +5,7 @@
     path: "/etc/graylog/server"
     owner: "graylog"
     group: "graylog"
-    mode: 0750
+    mode: "0750"
 
 - name: "Make sure graylog-server directories exist"
   ansible.builtin.file:
@@ -28,7 +28,7 @@
     dest: "/etc/graylog/server/server.conf"
     owner: "graylog"
     group: "graylog"
-    mode: 0644
+    mode: "0644"
   notify: "restart graylog-server"
   tags: configuration
 
@@ -38,7 +38,7 @@
     dest: "{{ graylog_server_defaults_file_path }}"
     owner: "graylog"
     group: "graylog"
-    mode: 0644
+    mode: "0644"
   notify: "restart graylog-server"
   tags: configuration
 
