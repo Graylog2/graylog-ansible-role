@@ -1,5 +1,4 @@
 ---
-
 - name: "Repositories should be updated"
   ansible.builtin.dnf:
     name: "{{ graylog_yum_rpm_url }}"

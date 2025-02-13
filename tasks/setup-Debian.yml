@@ -1,5 +1,4 @@
 ---
-
 - name: "Graylog repository package should be downloaded"
   ansible.builtin.get_url:
     url: "{{ graylog_apt_deb_url }}"
