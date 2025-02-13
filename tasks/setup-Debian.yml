@@ -52,13 +52,6 @@
     - graylog_version is version('5.0', '>=')
   notify: "restart graylog-server"
 
-- name: "setup-Debian.yml | Set elasticsearch priority to {{ graylog_es_debian_pin_version }} apt_preferences"
-  template:
-    src: "apt_preferences.d/debian_elasticsearch.j2"
-    dest: "/etc/apt/preferences.d/elasticsearch"
-    owner: "root"
-    mode: 0644
-
 - name: "Installing graylog-enterprise-plugins"
   ansible.builtin.apt:
     name: "graylog-enterprise-plugins{% if graylog_full_version is not none and graylog_full_version | length > 1 %}={{ graylog_full_version }}{% endif %}"
