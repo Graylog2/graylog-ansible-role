@@ -1,6 +1,12 @@
 ---
+- name: "Directory /etc/graylog should be created with correct ownership and privileges"
+  ansible.builtin.file:
+    path: "/etc/graylog"
+    owner: "graylog"
+    group: "graylog"
+    mode: "0750"
 
-- name: "Directories should be created with correct ownership and privileges"
+- name: "Director /etc/graylog/server should be created with correct ownership and privileges"
   ansible.builtin.file:
     path: "/etc/graylog/server"
     owner: "graylog"
