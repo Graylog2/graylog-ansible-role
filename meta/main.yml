@@ -5,12 +5,6 @@ dependencies:
     version: 7.1.0
     when: graylog_install_java
 
-  - role: "elastic.elasticsearch"
-    src: https://github.com/elastic/ansible-elasticsearch.git
-    version: main
-    scm: git
-    when: graylog_install_elasticsearch
-
 galaxy_info:
   role_name: graylog
   namespace: Graylog2
