@@ -56,7 +56,7 @@ jobs:
         run: pip3 install -r requirements.txt
 
       - name: Install ansible dependencies.
-        run: ansible-galaxy role install lean_delivery.java,v7.1.0
+        run: ansible-galaxy role install lean_delivery.java,7.1.0
 
       - name: Run Molecule tests.
         run: molecule test --scenario-name=ci
