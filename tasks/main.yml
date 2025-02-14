@@ -39,9 +39,9 @@
       }}
   tags: configuration
 
-- include: "mongodb-{{ ansible_os_family }}.yml"
+- include_tasks: "mongodb-{{ ansible_os_family }}.yml"
   when: graylog_install_mongodb
 
-- include: "setup-{{ ansible_os_family }}.yml"
+- include_tasks: "setup-{{ ansible_os_family }}.yml"
 
-- include: "server.yml"
+- include_tasks: "server.yml"
