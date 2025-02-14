@@ -15,7 +15,8 @@ rules:
   commas:
     max-spaces-after: -1
     level: error
-  comments: disable
+  comments:
+    min-spaces-from-content: 1  # Ensure at least 1 space between `#` and content
   comments-indentation: disable
   document-start: disable
   empty-lines:
@@ -29,6 +30,9 @@ rules:
   new-line-at-end-of-file: disable
   new-lines:
     type: unix
+  octal-values:
+    forbid-implicit-octal: true  # Enforce explicit octal format
+    forbid-explicit-octal: true  # Prevent octal values altogether
   trailing-spaces: disable
   truthy: disable
 
