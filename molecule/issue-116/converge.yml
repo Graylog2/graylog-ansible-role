@@ -3,7 +3,7 @@
   become: True
   vars:
 
-    #Graylog vars
+    # Graylog vars
     graylog_version: 3.3
     graylog_install_java: False
     graylog_password_secret: "cmwpyPekzbDtIqvZXx25bjw6SiQMOA64F6aKQW168e0ukqsnWqbV72d5BZAcAHqob8oVchEk8YcOQk4t4sWYbabM2sWXNOlZ"

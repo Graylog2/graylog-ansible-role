@@ -3,7 +3,7 @@
   become: True
   vars:
 
-    #Graylog vars
+    # Graylog vars
     graylog_version: 4.2
     graylog_install_java: True
     graylog_password_secret: "2jueVqZpwLLjaWxV"

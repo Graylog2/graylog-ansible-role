@@ -33,7 +33,7 @@
 - hosts: "all"
   vars:
 
-    #Graylog vars
+    # Graylog vars
     graylog_version: 4.2
     graylog_install_java: False
     graylog_install_enterprise_plugins: True
