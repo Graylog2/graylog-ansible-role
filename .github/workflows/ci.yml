@@ -17,10 +17,10 @@ jobs:
         with:
           path: 'graylog2.graylog-ansible-role'
 
-      - name: Set up Python 3.9
+      - name: Set up Python 3.12
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: '3.12'
 
       - name: Install test dependencies.
         run: pip3 install yamllint
@@ -50,7 +50,7 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: '3.12'
 
       - name: Install test dependencies.
         run: pip3 install -r requirements.txt

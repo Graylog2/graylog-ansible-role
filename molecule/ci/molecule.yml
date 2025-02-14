@@ -1,11 +1,14 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: requirements.yml
+    ignore-errors: true
 driver:
   name: docker
 platforms:
   - name: graylog
-    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2004}-ansible
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-ubuntu2204}-ansible
     command: '/sbin/init'
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
