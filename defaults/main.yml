@@ -177,7 +177,7 @@ graylog_gc_warning_threshold: "1s"
 graylog_server_heap_size:     "1500m"
 graylog_server_java:          "/usr/bin/java" # For usage of the bundled openjdk version within graylog leave varviable blank
 graylog_server_java_opts_extra: ""
-graylog_server_java_opts:     "-Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow {{graylog_server_java_opts_extra}}"
+graylog_server_java_opts:     "-Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow {{ graylog_server_java_opts_extra }}"
 graylog_server_args:          ""
 graylog_server_wrapper:       ""
 
