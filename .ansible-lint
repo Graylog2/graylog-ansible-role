@@ -1,6 +1,7 @@
 exclude_paths:
   - ./venv/
-  - ../../.ansible/roles/
+  - .ansible/roles/graylog2.graylog/
+  - .ansible/roles/lean_delivery.java
 parseable: true
 quiet: true
 skip_list:

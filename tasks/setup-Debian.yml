@@ -1,18 +1,18 @@
 ---
-
 - name: "Graylog repository package should be downloaded"
-  get_url:
+  ansible.builtin.get_url:
     url: "{{ graylog_apt_deb_url }}"
     dest: "/tmp/graylog_{{ graylog_version }}_repository.deb"
+    mode: "0400"
   when: graylog_manage_apt_repo
 
 - name: "Package 'apt-transport-https' should be installed"
-  apt:
+  ansible.builtin.apt:
     name: "apt-transport-https"
     state: present
 
 - name: "Graylog repository package should be installed"
-  apt:
+  ansible.builtin.apt:
     deb: "/tmp/graylog_{{ graylog_version }}_repository.deb"
     state: present
     dpkg_options: "force-all"
@@ -20,55 +20,60 @@
   register: "install_repo"
 
 - name: "APT cache should be updated"
-  apt:
+  ansible.builtin.apt:
     update_cache: True
   when: install_repo.changed
 
 - name: "Graylog server package should be installed"
-  apt:
+  ansible.builtin.apt:
     name: "graylog-server{% if graylog_full_version is not none and graylog_full_version | length > 1 %}={{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
   when: graylog_version is version('5.0', '<')
   notify: "restart graylog-server"
 
 - name: "Graylog Open server package should be installed"
-  apt:
+  ansible.builtin.apt:
     name: "graylog-server{% if graylog_full_version is not none and graylog_full_version | length > 1 %}={{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: (graylog_install_open_package | bool == true and graylog_install_enterprise_package | bool == false and graylog_version is version('5.0', '>='))
+  when:
+    - graylog_install_open_package | bool
+    - not graylog_install_enterprise_package | bool
+    - graylog_version is version('5.0', '>=')
   notify: "restart graylog-server"
 
 - name: "Graylog Enterprise server package should be installed"
-  apt:
+  ansible.builtin.apt:
     name: "graylog-enterprise{% if graylog_full_version is not none and graylog_full_version | length > 1 %}={{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: (graylog_install_open_package | bool == false and graylog_install_enterprise_package | bool == true and graylog_version is version('5.0', '>='))
+  when:
+    - not graylog_install_open_package | bool
+    - graylog_install_enterprise_package | bool
+    - graylog_version is version('5.0', '>=')
   notify: "restart graylog-server"
 
-- name: "setup-Debian.yml | Set elasticsearch priority to {{ graylog_es_debian_pin_version }} apt_preferences"
-  template:
-    src: "apt_preferences.d/debian_elasticsearch.j2"
-    dest: "/etc/apt/preferences.d/elasticsearch"
-    owner: "root"
-    mode: 0644
-
 - name: "Installing graylog-enterprise-plugins"
-  apt:
+  ansible.builtin.apt:
     name: "graylog-enterprise-plugins{% if graylog_full_version is not none and graylog_full_version | length > 1 %}={{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: (graylog_install_enterprise_plugins | bool == true and graylog_version is version('5.0', '<'))
-  notify: restart graylog-server
+  when:
+    - graylog_install_enterprise_plugins | bool
+    - graylog_version is version('5.0', '<')
+  notify: "restart graylog-server"
 
 - name: "Installing graylog-integrations-plugins"
-  apt:
+  ansible.builtin.apt:
     name: "graylog-integrations-plugins{% if graylog_full_version is not none and graylog_full_version | length > 1 %}={{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: (graylog_install_integrations_plugins | bool == true and graylog_version is version('5.0', '<'))
-  notify: restart graylog-server
+  when:
+    - graylog_install_integrations_plugins | bool
+    - graylog_version is version('5.0', '<')
+  notify: "restart graylog-server"
 
 - name: "Installing graylog-enterprise-integrations-plugins"
-  apt:
+  ansible.builtin.apt:
     name: "graylog-enterprise-integrations-plugins{% if graylog_full_version is not none and graylog_full_version | length > 1 %}={{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
-  when: (graylog_install_enterprise_integrations_plugins | bool == true and graylog_version is version('5.0', '<'))
-  notify: restart graylog-server
+  when:
+    - graylog_install_enterprise_integrations_plugins | bool
+    - graylog_version is version('5.0', '<')
+  notify: "restart graylog-server"

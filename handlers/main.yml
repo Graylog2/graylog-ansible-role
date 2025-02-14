@@ -1,17 +1,16 @@
 ---
-
 - name: "reload systemd configuration"
-  systemd:
+  ansible.builtin.systemd:
     daemon_reload: yes
 
 - name: "restart graylog-server"
-  service:
+  ansible.builtin.service:
     name: "graylog-server"
     state: "restarted"
     enabled: "yes"
 
 - name: "restart mongod"
-  service:
+  ansible.builtin.service:
     name: "{{ graylog_mongodb_service_name }}"
     state: "restarted"
     enabled: "yes"

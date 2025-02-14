@@ -1,14 +1,20 @@
 ---
+- name: "Directory /etc/graylog should be created with correct ownership and privileges"
+  ansible.builtin.file:
+    path: "/etc/graylog"
+    owner: "graylog"
+    group: "graylog"
+    mode: "0750"
 
-- name: "Directory should be created with correct ownership and privileges"
-  file:
+- name: "Director /etc/graylog/server should be created with correct ownership and privileges"
+  ansible.builtin.file:
     path: "/etc/graylog/server"
     owner: "graylog"
     group: "graylog"
-    mode: 0750
+    mode: "0750"
 
 - name: "Make sure graylog-server directories exist"
-  file:
+  ansible.builtin.file:
     path: "{{ item }}"
     state: directory
     owner: "graylog"
@@ -23,34 +29,35 @@
     - "{{ graylog_content_packs_dir }}"
 
 - name: "Graylog server should be configured"
-  template:
+  ansible.builtin.template:
     src: "graylog.server.conf.j2"
     dest: "/etc/graylog/server/server.conf"
     owner: "graylog"
     group: "graylog"
-    mode: 0644
+    mode: "0644"
   notify: "restart graylog-server"
   tags: configuration
 
 - name: "Graylog server defaults should be configured"
-  template:
+  ansible.builtin.template:
     src: "graylog.server.default.j2"
     dest: "{{ graylog_server_defaults_file_path }}"
     owner: "graylog"
     group: "graylog"
-    mode: 0644
+    mode: "0644"
   notify: "restart graylog-server"
   tags: configuration
 
 - name: "Graylog server should start after reboot"
-  file:
+  ansible.builtin.file:
     path: "/etc/init/graylog-server.override"
     state: "absent"
 
-- meta: "flush_handlers"
+- name: "Flush handlers"
+  ansible.builtin.meta: "flush_handlers"
 
 - name: "Wait for Graylog server to startup"
-  uri:
+  ansible.builtin.uri:
     url: "{{ graylog_http_publish_uri }}"
     status_code: 200
     validate_certs: False

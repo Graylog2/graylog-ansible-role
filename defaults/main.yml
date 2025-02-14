@@ -2,8 +2,8 @@
 
 # Requirements
 graylog_java_ppa:                  "ppa:webupd8team/java"
-graylog_java_repo:                 "deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
-graylog_java_src_repo:             "deb-src http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
+graylog_java_repo:                 "deb https://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
+graylog_java_src_repo:             "deb-src https://ppa.launchpad.net/webupd8team/java/ubuntu xenial main"
 graylog_java_repo_keyserver:       "keyserver.ubuntu.com"
 graylog_java_repo_key:             "EEA14886"
 
@@ -12,7 +12,6 @@ graylog_apt_deb_url:               "https://packages.graylog2.org/repo/packages/
 graylog_manage_apt_repo:           True
 graylog_yum_rpm_url:               "https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm"
 graylog_manage_yum_repo:           True
-graylog_es_debian_pin_version:     "6.*"
 
 # General
 graylog_is_master:            True
@@ -133,20 +132,9 @@ graylog_outputbuffer_processor_threads_core_pool_size: 3
 graylog_outputbuffer_processor_threads_max_pool_size:  30
 
 # MongoDB
-graylog_mongodb_version:                             4.4
-graylog_mongodb_ubuntu_repo:                         "deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} multiverse"
-graylog_mongodb_ubuntu_key:                          "https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc"
-graylog_mongodb_debian_repo:                         "deb http://repo.mongodb.org/apt/debian {{ ansible_distribution_release }}/mongodb-org/{{ graylog_mongodb_version }} main"
-graylog_mongodb_debian_key:                          "https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc"
-graylog_mongodb_redhat_repo:                         "https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ graylog_mongodb_version }}/x86_64/"
-graylog_mongodb_redhat_key:                          "https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc"
 graylog_mongodb_uri:                                 "mongodb://127.0.0.1:27017/graylog"
 graylog_mongodb_max_connections:                     100
 graylog_mongodb_threads_allowed_to_block_multiplier: 5
-graylog_mongodb_package_name:                        mongodb-org
-graylog_mongodb_service_name:                        mongod
-graylog_mongodb_bind_ip:                             "127.0.0.1"
-graylog_mongodb_bind_port:                           "27017"
 
 # Drools
 graylog_rules_file: ""
@@ -189,15 +177,12 @@ graylog_gc_warning_threshold: "1s"
 graylog_server_heap_size:     "1500m"
 graylog_server_java:          "/usr/bin/java" # For usage of the bundled openjdk version within graylog leave varviable blank
 graylog_server_java_opts_extra: ""
-graylog_server_java_opts:     "-Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow {{graylog_server_java_opts_extra}}"
+graylog_server_java_opts:     "-Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow {{ graylog_server_java_opts_extra }}"
 graylog_server_args:          ""
 graylog_server_wrapper:       ""
 
 # Install Switches
-graylog_install_elasticsearch: True
-graylog_install_mongodb:       True
-graylog_install_nginx:         False    #Deprecated
-graylog_install_java:          True
+graylog_install_java:          False
 
 # Disable steps which break tests
 graylog_not_testing:           True

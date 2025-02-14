@@ -5,19 +5,13 @@ dependencies:
     version: 7.1.0
     when: graylog_install_java
 
-  - role: "elastic.elasticsearch"
-    src: https://github.com/elastic/ansible-elasticsearch.git
-    version: main
-    scm: git
-    when: graylog_install_elasticsearch
-
 galaxy_info:
   role_name: graylog
-  namespace: Graylog2
+  namespace: graylog2
   author: "Marius Sturm"
   company: "Graylog, Inc."
   description: "Install and configure Graylog log management."
-  min_ansible_version: "2.13.13"
+  min_ansible_version: "2.18.2"
   license: "Apache 2"
   platforms:
     - name: "EL"

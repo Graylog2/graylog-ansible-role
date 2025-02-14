@@ -17,10 +17,10 @@ jobs:
         with:
           path: 'graylog2.graylog-ansible-role'
 
-      - name: Set up Python 3.9
+      - name: Set up Python 3.12
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: '3.12'
 
       - name: Install test dependencies.
         run: pip3 install yamllint
@@ -35,11 +35,12 @@ jobs:
     strategy:
       matrix:
         distro:
-          #- centos7
-          #- centos8
-          #- ubuntu1804
-          #- ubuntu2004
-          - ubuntu2204
+#          - centos7
+#          - centos8
+#          - ubuntu1804
+#          - ubuntu2004
+#          - ubuntu2204
+          - ubuntu2404
 
     steps:
       - name: Check out the codebase.
@@ -50,17 +51,20 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v2
         with:
-          python-version: '3.9'
+          python-version: '3.12'
 
-      - name: Install test dependencies.
+      - name: Install python dependencies.
         run: pip3 install -r requirements.txt
+
+      - name: Install ansible dependencies.
+        run: ansible-galaxy role install lean_delivery.java,7.1.0
 
       - name: Run Molecule tests.
         run: molecule test --scenario-name=ci
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          #GRAYLOG_VERSION: 4.2.1
+#          GRAYLOG_VERSION: 4.2.1
           GRAYLOG_VERSION: 5.2.12
           GRAYLOG_REVISION: 1
           MOLECULE_DISTRO: ${{ matrix.distro }}
@@ -76,4 +80,4 @@ jobs:
       - name: Install Ansible.
         run: sudo apt-get install -y ansible
       - name: Install Role
-        run: ansible-galaxy install graylog2.graylog
+        run: ansible-galaxy role install graylog2.graylog
