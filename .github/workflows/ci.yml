@@ -55,6 +55,9 @@ jobs:
       - name: Install python dependencies.
         run: pip3 install -r requirements.txt
 
+      - name: Install ansible dependencies.
+        run: ansible-galaxy role install lean_delivery.java,7.1.0
+
       - name: Run Molecule tests.
         run: molecule test --scenario-name=ci
         env:
@@ -77,5 +80,3 @@ jobs:
         run: sudo apt-get install -y ansible
       - name: Install Role
         run: ansible-galaxy role install graylog2.graylog
-      - name: Install ansible dependencies.
-        run: ansible-galaxy role install lean_delivery.java,7.1.0
