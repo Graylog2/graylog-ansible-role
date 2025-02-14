@@ -9,7 +9,7 @@
       apt:
         update_cache: yes
         pkg:
-          - "openjdk-8-jre"
+          - "openjdk-17-jre"
           - "gpg-agent"
           - "curl"
         state: "latest"
@@ -18,7 +18,7 @@
       apt:
         update_cache: yes
         pkg:
-          - "openjdk-11-jre"
+          - "openjdk-17-jre"
           - "gpg-agent"
           - "curl"
         state: "latest"
@@ -26,7 +26,7 @@
     - name: Install packages (Centos/Redhat)
       yum:
         name:
-          - java-1.8.0-openjdk
+          - java-1.17.0-openjdk
         state: latest
       when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
@@ -34,11 +34,14 @@
   vars:
 
     # Graylog vars
-    graylog_version: 4.2
+    graylog_version: 6.1
     graylog_install_java: False
     graylog_install_enterprise_plugins: True
     graylog_install_integrations_plugins: True
     graylog_install_enterprise_integrations_plugins: True
+    graylog_install_open_package: False
+    graylog_install_enterprise_package: False
+    graylog_not_testing: False
     graylog_password_secret: "2jueVqZpwLLjaWxV"
     graylog_root_password_sha2: "8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918"
     graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
