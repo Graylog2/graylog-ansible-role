@@ -13,6 +13,7 @@
         - Ubuntu 18.04
         - Ubuntu 20.04
         - Ubuntu 22.04
+        - Ubuntu 24.04
         - Centos 7
         - Centos 8
         - Centos 9
@@ -27,12 +28,12 @@ To install the role, run:
 
 Graylog has the following dependencies:
   - Java
-  - [Elasticsearch](https://github.com/elastic/ansible-elasticsearch)
+  - OpenSearch
   - MongoDB
 
 See the official [Graylog documentation](https://docs.graylog.org/docs/installing) for more details on these requirements.
 
-Be certain you are running a supported version of Elasticsearch. You can configure what version of Elasticsearch Ansible will install with the `es_version` variable. Running Graylog against an unsupported version of Elasticsearch can break your instance!
+Be certain you are running a supported version of OpenSearch.
 
 **Compatibility Matrix**
 
@@ -46,9 +47,8 @@ Refer to the [Software Interoperability Chart](https://go2docs.graylog.org/5-0/p
 
 You will need to these Ansible role dependencies:
   - [Java](https://github.com/lean-delivery/ansible-role-java)
-  - [Elasticsearch](https://github.com/elastic/ansible-elasticsearch).
 
-To install them, run:
+To install it, run:
 
     ansible-galaxy install -r <GRAYLOG ROLE_DIRECTORY>/requirements.yml
 
@@ -61,29 +61,8 @@ To install them, run:
 Here is an example playbook that uses this role. This is a single-instance configuration. It installs Java, MongoDB, Elasticsearch, and Graylog onto the same server.
 
 ```yaml
-- hosts: "all"
-  remote_user: "ubuntu"
-  become: True
-  vars:
-    #Elasticsearch vars
-    es_major_version: "7.x"
-    es_version: "7.10.2"
-    es_enable_xpack: False
-    es_instance_name: "graylog"
-    es_heap_size: "1g"
-    es_config:
-      node.name: "graylog"
-      cluster.name: "graylog"
-      http.port: 9200
-      transport.tcp.port: 9300
-      network.host: "127.0.0.1"
-      discovery.seed_hosts: "localhost:9300"
-      cluster.initial_master_nodes: "graylog"
-    oss_version: True
-    es_action_auto_create_index: False
-
-    #Graylog vars
-    graylog_version: 5.2
+    # Graylog vars
+    graylog_version: 6.1
     graylog_install_java: True
     graylog_password_secret: "" # Insert your own here. Generate with: pwgen -s 96 1
     graylog_root_password_sha2: "" # Insert your own root_password_sha2 here.
@@ -114,48 +93,20 @@ To generate `root_password_sha2`:
 
 Here is an example that deploys a Graylog cluster, like the one mentioned on the [architecture page](https://docs.graylog.org/docs) of our documentation.
 
-In our Ansible hosts file, we have 3 instances for the Elasticsearch cluster and 3 instances for the Graylog cluster:
+In our Ansible hosts file, we have 3 instances for a Graylog cluster:
 
 ```
-[elasticsearch]
-elasticsearch01
-elasticsearch02
-elasticsearch03
-
 [graylog]
 graylog01
 graylog02
 graylog03
 ```
 
-First, we deploy the [Elasticsearch](https://github.com/elastic/ansible-elasticsearch) cluster. Note that this doesn't configure authentication or HTTPS. For a production instance, you would likely want that.
+First, deploy an [OpenSearch](https://opensearch.org/) cluster.
 
-```yaml
-- hosts: "elasticsearch"
-  vars:
-    es_major_version: "7.x"
-    es_version: "7.10.2"
-    es_enable_xpack: False
-    es_instance_name: "graylog"
-    es_heap_size: "1g"
-    es_config:
-      node.name: "{{ ansible_hostname }}"
-      cluster.name: "graylog"
-      http.port: 9200
-      transport.port: 9300
-      network.host: "0.0.0.0"
-      discovery.seed_hosts: "elasticsearch01:9300, elasticsearch02:9300, elasticsearch03:9300"
-      cluster.initial_master_nodes: "elasticsearch01, elasticsearch02, elasticsearch03"
-    oss_version: True
-    es_action_auto_create_index: False
+Next, deploy three MongoDB instances and configure them as a Replica Set. This can be done with the [MongoDB community collection](https://github.com/ansible-collections/community.mongodb).
 
-  roles:
-    - role: "elastic.elasticsearch"
-```
-
-Next, we'll deploy three MongoDB instances and configure them as a Replica Set. This is done with the [MongoDB community collection](https://github.com/ansible-collections/community.mongodb).
-
-These MongoDB instances will live on the Graylog servers, as they are not expected to consume much resources.
+These MongoDB instances can live on the Graylog servers, as they are not expected to consume much resources.
 
 Again, this doesn't configure authentication in MongoDB. You may want that for a production cluster.
 
@@ -193,16 +144,14 @@ Again, this doesn't configure authentication in MongoDB. You may want that for a
         - graylog03
 ```
 
-Finally, we install Graylog.
+Finally, install Graylog.
 
 ```yaml
 - hosts: "graylog"
   vars:
     graylog_is_master: "{{ True if ansible_hostname == 'graylog01' else False }}"
-    graylog_version: 4.2
+    graylog_version: 6.1
     graylog_install_java: False
-    graylog_install_elasticsearch: False
-    graylog_install_mongodb: False
     graylog_password_secret: "" # Insert your own here. Generate with: pwgen -s 96 1
     graylog_root_password_sha2: "" # Insert your own root_password_sha2 here.
     graylog_http_bind_address: "{{ ansible_default_ipv4.address }}:9000"
@@ -214,8 +163,6 @@ Finally, we install Graylog.
   roles:
     - role: "graylog2.graylog"
 ```
-
-We set `graylog_install_elasticsearch: False` and `graylog_install_mongodb: False` so the Graylog role doesn't try to install Elasticsearch and MongoDB. Those flags are intended for single-instance installs.
 
 The full example can be seen [here](molecule/example2/converge.yml). Our [documentation](https://docs.graylog.org/v1/docs/multinode-setup) has more in-depth advice on configuring a multi-node Graylog setup.
 
