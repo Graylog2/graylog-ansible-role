@@ -39,7 +39,8 @@ jobs:
 #          - centos8
 #          - ubuntu1804
 #          - ubuntu2004
-          - ubuntu2204
+#          - ubuntu2204
+          - ubuntu2404
 
     steps:
       - name: Check out the codebase.
