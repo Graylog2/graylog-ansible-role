@@ -1,6 +1,9 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: requirements.yml
+    ignore-errors: true
 driver:
   name: docker
 platforms:
