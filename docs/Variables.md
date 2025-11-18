@@ -167,8 +167,8 @@ These settings allow you to customise where MongoDB and Graylog are installed fr
 | `graylog_mongodb_debian_key` | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
 | `graylog_mongodb_redhat_repo` | https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/{{ graylog_mongodb_version }}/x86_64/ |
 | `graylog_mongodb_redhat_key` | https://www.mongodb.org/static/pgp/server-{{ graylog_mongodb_version }}.asc |
-| `graylog_apt_deb_url` | https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.deb |
-| `graylog_yum_rpm_url` | https://packages.graylog2.org/repo/packages/graylog-{{ graylog_version }}-repository_latest.rpm |
+| `graylog_apt_deb_url` | https://packages.graylog2.org/packages/graylog-{{ graylog_version }}-repository_latest.deb |
+| `graylog_yum_rpm_url` | https://packages.graylog2.org/packages/graylog-{{ graylog_version }}-repository_latest.rpm |
 
 
 
