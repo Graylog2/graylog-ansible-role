@@ -5,11 +5,11 @@ attrs==25.1.0
 black==25.1.0
 bracex==2.5.post1
 certifi==2025.1.31
-cffi==1.17.1
+cffi==2.0.0
 charset-normalizer==3.4.1
 click==8.1.8
 click-help-colors==0.9.4
-cryptography==44.0.1
+cryptography==46.0.5
 distro==1.9.0
 docker==7.1.0
 enrich==1.2.7
