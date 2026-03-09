@@ -19,8 +19,5 @@ platforms:
     cgroupns_mode: host
 provisioner:
   name: ansible
-  config_options:
-    defaults:
-      ALLOW_BROKEN_CONDITIONALS: true
 verifier:
   name: testinfra
