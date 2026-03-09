@@ -65,7 +65,7 @@ urllib3==2.6.3
 wcmatch==10.0
 webdriver-manager==4.0.2
 websocket-client==1.8.0
-wheel==0.45.1
+wheel==0.46.2
 wsproto==1.2.0
 yamllint==1.35.1
 zipp==3.21.0
