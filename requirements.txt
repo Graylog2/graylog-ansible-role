@@ -34,7 +34,7 @@ pathspec==1.0.4
 platformdirs==4.3.6
 pluggy==1.5.0
 pycparser==2.22
-Pygments==2.19.1
+Pygments==2.20.0
 PySocks==1.7.1
 pytest==8.3.4
 pytest-testinfra==10.1.1
