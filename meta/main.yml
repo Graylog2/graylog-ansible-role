@@ -7,7 +7,7 @@ dependencies:
 
 galaxy_info:
   role_name: graylog
-  namespace: Graylog2
+  namespace: graylog2
   author: "Marius Sturm"
   company: "Graylog, Inc."
   description: "Install and configure Graylog log management."
