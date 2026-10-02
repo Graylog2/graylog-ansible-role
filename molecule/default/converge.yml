@@ -2,8 +2,7 @@
 - name: Converge
   hosts: all
   vars:
-    #Graylog
-    graylog_install_elasticsearch: True
+    # Graylog
     graylog_install_mongodb:       True
     graylog_install_java:          False
     graylog_not_testing:           False
@@ -16,29 +15,7 @@
     graylog_http_publish_uri:      "http://{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}:9000/"
     graylog_http_external_uri:     "http://localhost:9000/"
 
-    #Elasticsearch
-    es_major_version: "6.x"
-    es_version: "6.8.10"
-    es_instance_name: "graylog"
-    es_scripts: False
-    es_templates: False
-    es_version_lock: False
-    es_heap_size: "1g"
-    es_java_install: True
-    update_java: True
-    oss_version: True
-
-    es_config:
-      node.name: "graylog"
-      cluster.name: "graylog"
-      http.port: 9200
-      transport.tcp.port: 9300
-      network.host: "0.0.0.0"
-      node.data: True
-      node.master: True
-
-
-    #Plugins
+    # Plugins
     graylog_install_enterprise_plugins:               True
     graylog_install_integrations_plugins:             True
     graylog_install_enterprise_integrations_plugins:  True

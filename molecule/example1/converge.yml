@@ -2,24 +2,8 @@
   remote_user: "ubuntu"
   become: True
   vars:
-    #Elasticsearch vars
-    es_major_version: "7.x"
-    es_version: "7.10.2"
-    es_enable_xpack: False
-    es_instance_name: "graylog"
-    es_heap_size: "1g"
-    es_config:
-      node.name: "graylog"
-      cluster.name: "graylog"
-      http.port: 9200
-      transport.tcp.port: 9300
-      network.host: "127.0.0.1"
-      discovery.seed_hosts: "localhost:9300"
-      cluster.initial_master_nodes: "graylog"
-    oss_version: True
-    es_action_auto_create_index: False
 
-    #Graylog vars
+    # Graylog vars
     graylog_version: 4.2
     graylog_install_java: True
     graylog_password_secret: "2jueVqZpwLLjaWxV"
