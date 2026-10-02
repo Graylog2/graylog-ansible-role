@@ -44,7 +44,7 @@ python-slugify==9.1.2
 python-vagrant==1.0.0
 PyYAML==6.0.2
 referencing==0.36.2
-requests==2.33.0
+requests==2.34.2
 resolvelib==1.2.1
 rich==13.9.4
 rpds-py==0.22.3
