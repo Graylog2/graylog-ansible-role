@@ -1,0 +1,18 @@
+---
+version: 2
+updates:
+  # Scheduled version updates only propose stable releases (pre-releases such
+  # as rc/beta are skipped unless the currently pinned version is one).
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
