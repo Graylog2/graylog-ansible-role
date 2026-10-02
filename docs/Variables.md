@@ -61,6 +61,7 @@ These variables let you configure the properties in `server.conf`. See the [offi
 | `graylog_elasticsearch_max_total_connections_per_route` | 2 |
 | `graylog_elasticsearch_max_retries` | 2 |
 | `graylog_elasticsearch_discovery_enabled` | False |
+| `graylog_elasticsearch_discovery_filter` | |
 | `graylog_elasticsearch_discovery_frequency` | 30s |
 | `graylog_elasticsearch_compression_enabled` | False |
 | `graylog_rotation_strategy` | count |
