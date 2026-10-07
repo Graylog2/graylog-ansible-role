@@ -74,4 +74,4 @@
     graylog_mongodb_uri: "mongodb://graylog01:27017,graylog02:27017,graylog03:27017/graylog"
 
   roles:
-    - role: "graylog2.graylog"
+    - role: "Graylog2.graylog"
