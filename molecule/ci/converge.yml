@@ -1,10 +1,19 @@
 ---
 - hosts: "all"
+  vars:
+    # archive.ubuntu.com is often slow from GitHub's runners
+    ubuntu_apt_mirror: "http://azure.archive.ubuntu.com/ubuntu"
   tasks:
     - name: "Fix missing dir"
       file:
         path: "/usr/share/man/man1"
         state: "directory"
+    - name: "Use a faster Ubuntu mirror"
+      replace:
+        path: "/etc/apt/sources.list.d/ubuntu.sources"
+        regexp: 'http://(archive|security)\.ubuntu\.com/ubuntu'
+        replace: "{{ ubuntu_apt_mirror }}"
+      when: ansible_distribution == 'Ubuntu'
     - name: "Install packages (Ubuntu)"
       apt:
         update_cache: yes
