@@ -5,6 +5,9 @@ on:
     branches: [master]
   pull_request:
 
+permissions:
+  contents: read
+
 defaults:
   run:
     working-directory: 'graylog2.graylog-ansible-role'
