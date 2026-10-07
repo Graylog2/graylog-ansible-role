@@ -1,4 +1,7 @@
 ---
+# Galaxy's legacy namespace is Graylog2, which fails the lowercase role
+# name check. Warn instead of failing.
+role_name_check: 1
 dependency:
   name: galaxy
   options:
