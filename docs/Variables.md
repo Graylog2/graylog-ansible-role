@@ -10,8 +10,8 @@
 | `graylog_install_enterprise_plugins` | False | Whether to install the [graylog-enterprise-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
 | `graylog_install_integrations_plugins` | False | Whether to install the [graylog-integrations-plugins](https://docs.graylog.org/docs/integrations) package for version <= 4.3. |
 | `graylog_install_enterprise_integrations_plugins` | False | Whether to install the [graylog-enterprise-integrations-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
-| `graylog_install_open_package` | False | Whether to install the [graylog-server](https://docs.graylog.org/docs/intro) package for version >= 5.0. |
-| `graylog_install_enterprise_package` | False | Whether to install the [graylog-enterprise](https://docs.graylog.org/docs/intro) package for version >= 5.0. |
+| `graylog_install_open_package` | True | Whether to install the [graylog-server](https://docs.graylog.org/docs/intro) package for version >= 5.0. Ignored when `graylog_install_enterprise_package` is True. |
+| `graylog_install_enterprise_package` | False | Whether to install the [graylog-enterprise](https://docs.graylog.org/docs/intro) package for version >= 5.0. Takes precedence over `graylog_install_open_package`. |
 
 
 ## Java Variables

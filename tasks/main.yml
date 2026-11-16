@@ -17,6 +17,15 @@
     msg: "Variable 'graylog_server_version' has been deprecated. Use 'graylog_full_version' instead."
   when: graylog_server_version is defined
 
+- name: "Check that a Graylog server package is selected"
+  ansible.builtin.assert:
+    that: graylog_install_open_package | bool or graylog_install_enterprise_package | bool
+    fail_msg: >-
+      No Graylog server package selected. For Graylog >= 5.0, set
+      graylog_install_open_package or graylog_install_enterprise_package to True.
+    quiet: true
+  when: graylog_version is version('5.0', '>=')
+
 - name: "Load OS-family specific vars"
   ansible.builtin.include_vars: "{{ ansible_os_family }}.yml"
   tags: configuration
