@@ -142,6 +142,7 @@ These variables let you configure the properties in `server.conf`. See the [offi
 | `graylog_dashboard_widget_default_cache_time` | 10s |
 | `graylog_proxied_requests_thread_pool_size` | 32 |
 
+To use Graylog Data Node instead of an external OpenSearch cluster (Graylog 5.2 and later), set `graylog_elasticsearch_hosts: ""`. With an empty value, Graylog starts in preflight mode and connects to Data Node. With the default `http://127.0.0.1:9200`, Graylog waits for an OpenSearch node on localhost and the web interface does not come up. Graylog 5.1 and earlier reject an empty value and fail to start, so keep `graylog_elasticsearch_hosts` set to your OpenSearch or Elasticsearch hosts on those versions.
 
 If you need to add a property to `server.conf` that is not listed above, you can add it via the `graylog_additonal_config` property.
 
