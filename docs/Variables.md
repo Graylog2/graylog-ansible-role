@@ -7,8 +7,6 @@
 | `graylog_version` | | **Required**. Should be in `X.Y` format (e.g, `4.2`) |
 | `graylog_full_version` | | Optional. If not provided, the latest revision of `graylog_version` will be installed. Should be in `X.Y.Z-rev` format (e.g, `4.2.0-3`) |
 | `graylog_install_java` | True | Whether to install Java on the instance.|
-| `graylog_install_elasticsearch` | True | Whether to install Elasticsearch on the instance. |
-| `graylog_install_mongodb` | True | Whether to install MongoDB on the instance. |
 | `graylog_install_enterprise_plugins` | False | Whether to install the [graylog-enterprise-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
 | `graylog_install_integrations_plugins` | False | Whether to install the [graylog-integrations-plugins](https://docs.graylog.org/docs/integrations) package for version <= 4.3. |
 | `graylog_install_enterprise_integrations_plugins` | False | Whether to install the [graylog-enterprise-integrations-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
