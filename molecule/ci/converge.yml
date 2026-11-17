@@ -34,7 +34,8 @@
   vars:
 
     # Graylog vars
-    graylog_version: 7.1
+    # Set by GRAYLOG_VERSION in .github/workflows/ci.yml; the default is for local runs.
+    graylog_version: "{{ lookup('env', 'GRAYLOG_VERSION') | default('7.2', true) }}"
     graylog_install_java: False
     graylog_install_enterprise_plugins: True
     graylog_install_integrations_plugins: True
