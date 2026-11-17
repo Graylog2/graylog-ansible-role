@@ -48,11 +48,6 @@
   notify: "restart graylog-server"
   tags: configuration
 
-- name: "Graylog server should start after reboot"
-  ansible.builtin.file:
-    path: "/etc/init/graylog-server.override"
-    state: "absent"
-
 - name: "Flush handlers"
   ansible.builtin.meta: "flush_handlers"
 
