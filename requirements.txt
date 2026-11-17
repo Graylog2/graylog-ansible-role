@@ -68,4 +68,4 @@ websocket-client==1.8.0
 wheel==0.46.2
 wsproto==1.2.0
 yamllint==1.38.0
-zipp==3.21.0
+zipp==4.1.2
