@@ -6,21 +6,19 @@
 |---|---|---|
 | `graylog_version` | | **Required**. Should be in `X.Y` format (e.g, `4.2`) |
 | `graylog_full_version` | | Optional. If not provided, the latest revision of `graylog_version` will be installed. Should be in `X.Y.Z-rev` format (e.g, `4.2.0-3`) |
-| `graylog_install_java` | True | Whether to install Java on the instance.|
-| `graylog_install_elasticsearch` | True | Whether to install Elasticsearch on the instance. |
-| `graylog_install_mongodb` | True | Whether to install MongoDB on the instance. |
+| `graylog_install_java` | False | Whether to install Java on the instance. Not needed for Graylog >= 5.0, which bundles its own JVM.|
 | `graylog_install_enterprise_plugins` | False | Whether to install the [graylog-enterprise-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
 | `graylog_install_integrations_plugins` | False | Whether to install the [graylog-integrations-plugins](https://docs.graylog.org/docs/integrations) package for version <= 4.3. |
 | `graylog_install_enterprise_integrations_plugins` | False | Whether to install the [graylog-enterprise-integrations-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
-| `graylog_install_open_package` | False | Whether to install the [graylog-server](https://docs.graylog.org/docs/intro) package for version >= 5.0. |
-| `graylog_install_enterprise_package` | False | Whether to install the [graylog-enterprise](https://docs.graylog.org/docs/intro) package for version >= 5.0. |
+| `graylog_install_open_package` | True | Whether to install the [graylog-server](https://docs.graylog.org/docs/intro) package for version >= 5.0. Ignored when `graylog_install_enterprise_package` is True. |
+| `graylog_install_enterprise_package` | False | Whether to install the [graylog-enterprise](https://docs.graylog.org/docs/intro) package for version >= 5.0. Takes precedence over `graylog_install_open_package`. |
 
 
 ## Java Variables
 
 | Ansible Variable | Default Value | Description |
 |---|---|---|
-| `graylog_server_java` | /usr/bin/java | Sets the `JAVA` environment variable on the instance.  |
+| `graylog_server_java` | | Sets the `JAVA` environment variable on the instance. When empty, Graylog uses its bundled JVM (Graylog >= 5.0), or `/usr/bin/java` if there is none. |
 | `graylog_server_heap_size` | 1500m | Sets the Java heap size for Graylog. |
 | `graylog_server_java_opts` | -Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow {{graylog_server_java_opts_extra}} | Sets the `GRAYLOG_SERVER_JAVA_OPTS` environment variable on the instance. | {{graylog_server_java_opts_extra}} |
 | `graylog_server_java_opts_extra` | | Any Java arguments you want to append to the Graylog startup command can be set here.
@@ -144,6 +142,7 @@ These variables let you configure the properties in `server.conf`. See the [offi
 | `graylog_dashboard_widget_default_cache_time` | 10s |
 | `graylog_proxied_requests_thread_pool_size` | 32 |
 
+To use Graylog Data Node instead of an external OpenSearch cluster (Graylog 5.2 and later), set `graylog_elasticsearch_hosts: ""`. With an empty value, Graylog starts in preflight mode and connects to Data Node. With the default `http://127.0.0.1:9200`, Graylog waits for an OpenSearch node on localhost and the web interface does not come up. Graylog 5.1 and earlier reject an empty value and fail to start, so keep `graylog_elasticsearch_hosts` set to your OpenSearch or Elasticsearch hosts on those versions.
 
 If you need to add a property to `server.conf` that is not listed above, you can add it via the `graylog_additonal_config` property.
 
