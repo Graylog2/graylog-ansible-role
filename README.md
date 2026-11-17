@@ -57,7 +57,7 @@ To install it, run:
 
 ## Example Playbook
 
-Here is an example playbook that uses this role. This is a single-instance configuration. It installs Java, MongoDB, Elasticsearch, and Graylog onto the same server.
+Here is an example playbook that uses this role. This is a single-instance configuration. The role installs and configures Graylog Server (and optionally Java); MongoDB and OpenSearch (or Graylog Data Node) must be installed separately. Since version 4.0.0 the role no longer installs MongoDB or Elasticsearch.
 
 ```yaml
     # Graylog vars

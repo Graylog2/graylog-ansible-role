@@ -29,7 +29,6 @@
     name: "graylog-enterprise{% if graylog_full_version is not none and graylog_full_version | length > 1 %}-{{ graylog_full_version }}{% endif %}"
     state: "{{ graylog_package_state }}"
   when:
-    - not graylog_install_open_package | bool
     - graylog_install_enterprise_package | bool
     - graylog_version is version('5.0', '>=')
   notify: "restart graylog-server"
