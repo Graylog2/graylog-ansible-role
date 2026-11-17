@@ -8,17 +8,28 @@
       file:
         path: "/usr/share/man/man1"
         state: "directory"
+    # Ubuntu >= 24.04 uses ubuntu.sources (deb822); older releases use sources.list.
+    - name: "Find the Ubuntu apt sources file"
+      stat:
+        path: "{{ item }}"
+      loop:
+        - "/etc/apt/sources.list.d/ubuntu.sources"
+        - "/etc/apt/sources.list"
+      register: ubuntu_apt_sources
+      when: ansible_distribution == 'Ubuntu'
     - name: "Use a faster Ubuntu mirror"
       replace:
-        path: "/etc/apt/sources.list.d/ubuntu.sources"
+        path: "{{ item.stat.path }}"
         regexp: 'http://(archive|security)\.ubuntu\.com/ubuntu'
         replace: "{{ ubuntu_apt_mirror }}"
+      loop: "{{ ubuntu_apt_sources.results | default([]) | selectattr('stat', 'defined') | selectattr('stat.exists') | list }}"
+      loop_control:
+        label: "{{ item.stat.path }}"
       when: ansible_distribution == 'Ubuntu'
     - name: "Install packages (Ubuntu)"
       apt:
         update_cache: yes
         pkg:
-          - "openjdk-21-jre"
           - "gpg-agent"
           - "curl"
         state: "latest"
@@ -27,17 +38,10 @@
       apt:
         update_cache: yes
         pkg:
-          - "openjdk-21-jre"
           - "gpg-agent"
           - "curl"
         state: "latest"
       when: ansible_distribution == 'Debian'
-    - name: Install packages (Centos/Redhat)
-      yum:
-        name:
-          - java-21-openjdk
-        state: latest
-      when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
 
 - hosts: "all"
   vars:
