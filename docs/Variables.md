@@ -6,7 +6,7 @@
 |---|---|---|
 | `graylog_version` | | **Required**. Should be in `X.Y` format (e.g, `4.2`) |
 | `graylog_full_version` | | Optional. If not provided, the latest revision of `graylog_version` will be installed. Should be in `X.Y.Z-rev` format (e.g, `4.2.0-3`) |
-| `graylog_install_java` | True | Whether to install Java on the instance.|
+| `graylog_install_java` | False | Whether to install Java on the instance. Not needed for Graylog >= 5.0, which bundles its own JVM.|
 | `graylog_install_enterprise_plugins` | False | Whether to install the [graylog-enterprise-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
 | `graylog_install_integrations_plugins` | False | Whether to install the [graylog-integrations-plugins](https://docs.graylog.org/docs/integrations) package for version <= 4.3. |
 | `graylog_install_enterprise_integrations_plugins` | False | Whether to install the [graylog-enterprise-integrations-plugins](https://docs.graylog.org/docs/intro) package for version <= 4.3. |
@@ -18,7 +18,7 @@
 
 | Ansible Variable | Default Value | Description |
 |---|---|---|
-| `graylog_server_java` | /usr/bin/java | Sets the `JAVA` environment variable on the instance.  |
+| `graylog_server_java` | | Sets the `JAVA` environment variable on the instance. When empty, Graylog uses its bundled JVM (Graylog >= 5.0), or `/usr/bin/java` if there is none. |
 | `graylog_server_heap_size` | 1500m | Sets the Java heap size for Graylog. |
 | `graylog_server_java_opts` | -Djava.net.preferIPv4Stack=true -Xms{{ graylog_server_heap_size }} -Xmx{{ graylog_server_heap_size }} -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow {{graylog_server_java_opts_extra}} | Sets the `GRAYLOG_SERVER_JAVA_OPTS` environment variable on the instance. | {{graylog_server_java_opts_extra}} |
 | `graylog_server_java_opts_extra` | | Any Java arguments you want to append to the Graylog startup command can be set here.
